@@ -5,7 +5,7 @@
 
     public class ShoppingCart
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         public string UserId { get; set; }
         public virtual TechAndToolsUser User { get; set; }

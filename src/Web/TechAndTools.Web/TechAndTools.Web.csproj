@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
+    <UserSecretsId>aspnet-TechAndTools.Web-74FEB192-A385-4D5F-8BFF-07F84F4CB743</UserSecretsId>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
   </PropertyGroup>
 
@@ -9,11 +10,13 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
   </ItemGroup>
 
 
   <ItemGroup>
     <ProjectReference Include="..\..\Data\TechAndTools.Data\TechAndTools.Data.csproj" />
+    <ProjectReference Include="..\..\Services\TechAndTools.Services\TechAndTools.Services.csproj" />
   </ItemGroup>
 
 </Project>

@@ -7,7 +7,7 @@
 
     public class TechAndToolsUser : IdentityUser, IAuditInfo, IDeletableEntity
     {
-        public int ShoppingCartId { get; set; }
+        public string ShoppingCartId { get; set; }
         public virtual ShoppingCart ShoppingCart { get; set; }
 
         public virtual ICollection<FavoriteProduct> FavoriteProducts { get; set; }
