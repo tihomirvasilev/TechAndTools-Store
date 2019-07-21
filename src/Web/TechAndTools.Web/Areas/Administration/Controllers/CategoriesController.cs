@@ -1,28 +1,26 @@
-﻿namespace TechAndTools.Web.Areas.Administrator.Controllers
-{
-    using Microsoft.AspNetCore.Mvc;
-    using System.Threading.Tasks;
-    using TechAndTools.Web.Areas.Administrator.ViewModels.Brands;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
+using TechAndTools.Web.InputModels.Administration.Categories;
 
-    public class BrandsController : AdministratorController
+namespace TechAndTools.Web.Areas.Administration.Controllers
+{
+    public class CategoriesController : AdministrationController
     {
-        [HttpGet]
         public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(BrandInputModel model)
+        public async Task<IActionResult> Create(CategoryInputModel model)
         {
             //TODO: Implement
-            return this.Redirect("All");
+            return this.Redirect("/");
         }
 
-        [HttpGet]
         public IActionResult Edit()
         {
-            return this.View();
+            return View();
         }
 
         [HttpPost]
@@ -32,17 +30,16 @@
             return this.Redirect("All");
         }
 
-        [HttpGet]
         public IActionResult All()
         {
+            //TODO: Implement
             return this.View();
         }
 
-        [HttpGet]
         public IActionResult Delete(int id)
         {
             //TODO: Implement
-            return this.Redirect("All");
+            return Redirect("All");
         }
     }
 }

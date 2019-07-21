@@ -11,6 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using TechAndTools.Data;
 using TechAndTools.Data.Models;
+using TechAndTools.Services;
+using TechAndTools.Services.Contracts;
 using TechAndTools.Services.EmailsSenders;
 
 namespace TechAndTools.Web
@@ -61,6 +63,8 @@ namespace TechAndTools.Web
             services.AddSingleton<IEmailSender, EmailSender>();
             services.Configure<AuthMessageSenderOptions>(options => options.SendGridKey = Configuration["DataGrid:ApiKey"]);
 
+            services.AddTransient<IBrandService, BrandService>();
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
@@ -90,12 +94,12 @@ namespace TechAndTools.Web
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
-                    name: "areaRoute",
-                    template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
-
-                routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
+
+                routes.MapRoute(
+                    name: "areaRoute",
+                    template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

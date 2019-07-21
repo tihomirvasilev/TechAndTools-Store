@@ -1,6 +1,4 @@
-using System;
-
-namespace TechAndTools.Web.Models
+namespace TechAndTools.Web.ViewModels
 {
     public class ErrorViewModel
     {

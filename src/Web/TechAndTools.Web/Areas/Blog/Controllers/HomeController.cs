@@ -1,8 +1,8 @@
-﻿namespace TechAndTools.Web.Areas.Blog.Controllers
-{
-    using Microsoft.AspNetCore.Mvc;
-    using TechAndTools.Web.Controllers;
+﻿using Microsoft.AspNetCore.Mvc;
+using TechAndTools.Web.Controllers;
 
+namespace TechAndTools.Web.Areas.Blog.Controllers
+{
     [Area("Blog")]
     public class HomeController : BaseController
     {

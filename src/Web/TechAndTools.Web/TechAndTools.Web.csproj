@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
@@ -15,14 +15,15 @@
 
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Data\TechAndTools.Data\TechAndTools.Data.csproj" />
-    <ProjectReference Include="..\..\Services\TechAndTools.Services\TechAndTools.Services.csproj" />
+    <Folder Include="Areas\Administration\Views\Categories\" />
+    <Folder Include="Views\Favorites\" />
   </ItemGroup>
 
 
   <ItemGroup>
-    <Folder Include="Areas\Administrator\Views\Categories\" />
-    <Folder Include="Areas\Blog\ViewModels\" />
+    <ProjectReference Include="..\..\Services\TechAndTools.Services\TechAndTools.Services.csproj" />
+    <ProjectReference Include="..\TechAndTools.Web.InputModels\TechAndTools.Web.InputModels.csproj" />
+    <ProjectReference Include="..\TechAndTools.Web.ViewModels\TechAndTools.Web.ViewModels.csproj" />
   </ItemGroup>
 
 </Project>

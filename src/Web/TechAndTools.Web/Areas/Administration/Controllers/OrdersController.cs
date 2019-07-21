@@ -1,8 +1,8 @@
-﻿namespace TechAndTools.Web.Areas.Administrator.Controllers
-{
-    using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
-    public class OrdersController : AdministratorController
+namespace TechAndTools.Web.Areas.Administration.Controllers
+{
+    public class OrdersController : AdministrationController
     {
         public IActionResult Details(int id)
         {
@@ -10,7 +10,7 @@
             return this.View();
         }
 
-        public IActionResult Pendings()
+        public IActionResult Pending()
         {
             //TODO: Implement
             return this.View();

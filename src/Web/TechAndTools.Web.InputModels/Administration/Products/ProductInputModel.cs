@@ -1,7 +1,7 @@
-﻿namespace TechAndTools.Web.Areas.Administrator.ViewModels.Models
-{
-    using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
+namespace TechAndTools.Web.InputModels.Administration.Products
+{
     public class ProductInputModel
     {
         public string Name { get; set; }

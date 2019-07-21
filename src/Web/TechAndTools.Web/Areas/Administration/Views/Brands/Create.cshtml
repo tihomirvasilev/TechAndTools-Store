@@ -1,0 +1,55 @@
+﻿@model BrandInputModel
+
+@{
+    ViewData["Title"] = "Create Brand";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="bg-primary text-white font-weight-bold text-center p-3 w-60 mx-auto rounded">@ViewData["Title"]</h1>
+<form method="post" class="form border-primary-4 rounded p-3 w-60 mx-auto mt-3" enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly"></div>
+    <div id="name-and-price-holder" class="d-flex">
+        <div class="form-group mx-auto w-75">
+            <div class="d-flex justify-content-center">
+                <label asp-for="Name" class="text-primary h5">Name</label>
+            </div>
+            <input type="text"
+                   class="form-control text-primary text-center"
+                   id="name"
+                   placeholder="Name..."
+                   asp-for="Name">
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+    </div>
+    <div id="name-and-price-holder" class="d-flex">
+        <div class="form-group mx-auto w-75">
+            <div class="d-flex justify-content-center">
+                <label asp-for="LogoUrl" class="text-primary h5">Logo Url</label>
+            </div>
+            <input type="text"
+                   class="form-control text-primary text-center"
+                   id="logoUrl"
+                   placeholder="Logo URL..."
+                   asp-for="LogoUrl">
+            <span asp-validation-for="LogoUrl" class="text-danger"></span>
+        </div>
+    </div>
+    <div id="name-and-price-holder" class="d-flex">
+        <div class="form-group mx-auto w-75">
+            <div class="d-flex justify-content-center">
+                <label asp-for="OfficialSite" class="text-primary h5">Name</label>
+            </div>
+            <input type="text"
+                   class="form-control text-primary text-center"
+                   id="officialSite"
+                   placeholder="Official Site..."
+                   asp-for="OfficialSite">
+            <span asp-validation-for="OfficialSite" class="text-danger"></span>
+        </div>
+    </div>
+    <hr class="hr-2 bg-primary mt-4">
+    <div class="d-flex justify-content-center mt-3">
+        <button class="btn btn-primary font-weight-bold">Create Brand</button>
+    </div>
+</form>
+

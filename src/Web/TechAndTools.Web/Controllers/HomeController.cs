@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using TechAndTools.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using TechAndTools.Web.Models;
+using System.Diagnostics;
 
 namespace TechAndTools.Web.Controllers
 {

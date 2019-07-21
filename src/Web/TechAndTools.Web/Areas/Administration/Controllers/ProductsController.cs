@@ -1,10 +1,10 @@
-﻿namespace TechAndTools.Web.Areas.Administrator.Controllers
-{
-    using Microsoft.AspNetCore.Mvc;
-    using System.Threading.Tasks;
-    using TechAndTools.Web.Areas.Administrator.ViewModels.Models;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using TechAndTools.Web.InputModels.Administration.Products;
 
-    public class ProductsController : AdministratorController
+namespace TechAndTools.Web.Areas.Administration.Controllers
+{
+    public class ProductsController : AdministrationController
     {
         [HttpGet]
         public IActionResult Create()
