@@ -46,7 +46,7 @@ namespace TechAndTools.Web
                 options.Password.RequireLowercase = false;
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireUppercase = false;
-                options.SignIn.RequireConfirmedEmail = true;
+                //options.SignIn.RequireConfirmedEmail = true;
             })
                 .AddDefaultTokenProviders()
                 .AddDefaultUI(UIFramework.Bootstrap4)
@@ -59,8 +59,7 @@ namespace TechAndTools.Web
             });
 
             services.AddSingleton<IEmailSender, EmailSender>();
-            services.Configure<AuthMessageSenderOptions>(options =>
-                    Configuration.GetSection("SendGridEmailSettings").Bind(options));
+            services.Configure<AuthMessageSenderOptions>(options => options.SendGridKey = Configuration["DataGrid:ApiKey"]);
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

@@ -8,11 +8,10 @@
 
         public string City { get; set; }
 
+        public string Quarter { get; set; }
+
         public string Address { get; set; }
 
         public int PostCode { get; set; }
-
-        public string UserId { get; set; }
-        public virtual TechAndToolsUser User { get; set; }
 }
 }

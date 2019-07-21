@@ -19,4 +19,10 @@
     <ProjectReference Include="..\..\Services\TechAndTools.Services\TechAndTools.Services.csproj" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <Folder Include="Areas\Administrator\Views\Categories\" />
+    <Folder Include="Areas\Blog\ViewModels\" />
+  </ItemGroup>
+
 </Project>
