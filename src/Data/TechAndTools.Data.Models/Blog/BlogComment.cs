@@ -1,8 +1,8 @@
-﻿namespace TechAndTools.Data.Models.Blog
-{
-    using System;
-    using TechAndTools.Data.Models.Contracts;
+﻿using System;
+using TechAndTools.Data.Models.Contracts;
 
+namespace TechAndTools.Data.Models.Blog
+{
     public class BlogComment : IAuditInfo
     {
         public string UserId { get; set; }

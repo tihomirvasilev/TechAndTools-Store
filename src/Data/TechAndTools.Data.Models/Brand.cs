@@ -1,7 +1,7 @@
-﻿namespace TechAndTools.Data.Models
-{
-    using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
+namespace TechAndTools.Data.Models
+{
     public class Brand
     {
         public int Id { get; set; }

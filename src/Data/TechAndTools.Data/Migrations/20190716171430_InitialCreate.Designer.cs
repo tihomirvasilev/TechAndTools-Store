@@ -250,7 +250,7 @@ namespace TechAndTools.Data.Migrations
                     b.ToTable("Descriptions");
                 });
 
-            modelBuilder.Entity("TechAndTools.Data.Models.DescriptionAttribute", b =>
+            modelBuilder.Entity("TechAndTools.Data.Models.DescriptionProperty", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -638,7 +638,7 @@ namespace TechAndTools.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("TechAndTools.Data.Models.DescriptionAttribute", b =>
+            modelBuilder.Entity("TechAndTools.Data.Models.DescriptionProperty", b =>
                 {
                     b.HasOne("TechAndTools.Data.Models.Description")
                         .WithMany("DescriptionAttributes")

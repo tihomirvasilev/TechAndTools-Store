@@ -1,8 +1,9 @@
-﻿namespace TechAndTools.Data.Models.Blog
+﻿using System;
+using System.Collections.Generic;
+using TechAndTools.Data.Models.Contracts;
+
+namespace TechAndTools.Data.Models.Blog
 {
-    using System;
-    using System.Collections.Generic;
-    using TechAndTools.Data.Models.Contracts;
     public class BlogPost : IAuditInfo
     {
         public int Id { get; set; }

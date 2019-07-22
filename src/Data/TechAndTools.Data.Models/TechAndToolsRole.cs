@@ -1,9 +1,9 @@
-﻿namespace TechAndTools.Data.Models
-{
-    using Microsoft.AspNetCore.Identity;
-    using System;
-    using TechAndTools.Data.Models.Contracts;
+﻿using System;
+using Microsoft.AspNetCore.Identity;
+using TechAndTools.Data.Models.Contracts;
 
+namespace TechAndTools.Data.Models
+{
     public class TechAndToolsRole : IdentityRole, IAuditInfo, IDeletableEntity
     {
         public DateTime CreatedOn { get; set; }

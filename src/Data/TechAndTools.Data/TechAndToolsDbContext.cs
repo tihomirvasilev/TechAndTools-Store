@@ -1,10 +1,10 @@
-﻿namespace TechAndTools.Data
-{
-    using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-    using Microsoft.EntityFrameworkCore;
-    using TechAndTools.Data.Models;
-    using TechAndTools.Data.Models.Blog;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using TechAndTools.Data.Models;
+using TechAndTools.Data.Models.Blog;
 
+namespace TechAndTools.Data
+{
     public class TechAndToolsDbContext : IdentityDbContext<TechAndToolsUser>
     {
         public DbSet<BlogComment> BlogComments { get; set; }
@@ -13,7 +13,7 @@
         public DbSet<Category> Categories { get; set; }
         public DbSet<DeliveryAddress> DeliveryAddresses { get; set; }
         public DbSet<Description> Descriptions { get; set; }
-        public DbSet<DescriptionAttribute> DescriptionAttributes { get; set; }
+        public DbSet<DescriptionProperty> DescriptionProperties { get; set; }
         public DbSet<FavoriteProduct> FavoriteProducts { get; set; }
         public DbSet<Image> Images { get; set; }
         public DbSet<Order> Orders { get; set; }

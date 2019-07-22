@@ -1,8 +1,12 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Threading.Tasks;
+using AutoMapper;
 using TechAndTools.Data;
 using TechAndTools.Data.Models;
-using TechAndTools.Services.Contracts;
 using TechAndTools.Services.Models.Brands;
+using TechAndTools.Services.Mapping;
 
 namespace TechAndTools.Services
 {
@@ -17,18 +21,27 @@ namespace TechAndTools.Services
 
         public async Task<bool> CreateAsync(BrandServiceModel model)
         {
-            var brand = new Brand
-            {
-                Name = model.Name,
-                LogoUrl = model.LogoUrl,
-                OfficialSite = model.OfficialSite
-            };
+            var brand = AutoMapper.Mapper.Map<Brand>(model);
 
             this.context.Brands.Add(brand);
 
             var result = await this.context.SaveChangesAsync();
 
             return result > 0;
+        }
+
+        public IQueryable<BrandServiceModel> GetAllBrands()
+        {
+            return this.context.Brands.To<BrandServiceModel>();
+        }
+
+        public async Task<BrandServiceModel> GetBrandById(int id)
+        {
+            var brand = await this.context.Brands.FirstOrDefaultAsync(x => x.Id == id);
+
+            var model = Mapper.Map<BrandServiceModel>(brand);
+
+            return model;
         }
     }
 }

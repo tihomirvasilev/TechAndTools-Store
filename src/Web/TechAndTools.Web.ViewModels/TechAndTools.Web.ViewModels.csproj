@@ -5,9 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Administration\" />
     <Folder Include="Blog\" />
     <Folder Include="Users\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Services\TechAndTools.Services.Mapping\TechAndTools.Services.Mapping.csproj" />
+    <ProjectReference Include="..\..\Services\TechAndTools.Services.Models\TechAndTools.Services.Models.csproj" />
   </ItemGroup>
 
 </Project>

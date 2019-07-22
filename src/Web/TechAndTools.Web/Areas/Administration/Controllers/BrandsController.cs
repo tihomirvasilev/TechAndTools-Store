@@ -1,8 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Collections;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 using System.Threading.Tasks;
-using TechAndTools.Services.Contracts;
+using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using TechAndTools.Services;
+using TechAndTools.Services.Mapping;
 using TechAndTools.Services.Models.Brands;
 using TechAndTools.Web.InputModels.Administration.Brands;
+using TechAndTools.Web.ViewModels.Administration.Brands;
 
 namespace TechAndTools.Web.Areas.Administration.Controllers
 {
@@ -15,7 +22,18 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
             this.brandService = brandService;
         }
 
-        [HttpGet]
+        public async Task<IActionResult> Index()
+        {
+            var brands = this.brandService.GetAllBrands();
+
+            var viewModels = brands.Select(x => new IndexBrandViewModel
+            {
+                Id = x.Id,
+                Name = x.Name
+            }).ToList();
+
+            return this.View(viewModels);
+        }
         public IActionResult Create()
         {
             return View();
@@ -24,19 +42,26 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(BrandInputModel brandInputModel)
         {
-            BrandServiceModel serviceModel = new BrandServiceModel
+            if (!ModelState.IsValid)
             {
-                LogoUrl = brandInputModel.LogoUrl,
-                Name = brandInputModel.Name,
-                OfficialSite = brandInputModel.OfficialSite
-            };
+                return Redirect("Index");
+            }
+
+            var serviceModel = AutoMapper.Mapper.Map<BrandServiceModel>(brandInputModel);
 
             await this.brandService.CreateAsync(serviceModel);
 
             return this.Redirect("/");
         }
 
-        [HttpGet]
+        public async Task<IActionResult> Details(int id)
+        {
+            var serviceModel = await this.brandService.GetBrandById(id);
+            var model = Mapper.Map<DetailsBrandViewModel>(serviceModel);
+            ;
+            return this.View(model);
+        }
+
         public IActionResult Edit()
         {
             return this.View();
@@ -47,12 +72,6 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
         {
             //TODO: Implement
             return this.Redirect("All");
-        }
-
-        [HttpGet]
-        public IActionResult All()
-        {
-            return this.View();
         }
 
         [HttpGet]

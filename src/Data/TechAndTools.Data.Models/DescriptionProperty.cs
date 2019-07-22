@@ -1,6 +1,6 @@
 ﻿namespace TechAndTools.Data.Models
 {
-    public class DescriptionAttribute
+    public class DescriptionProperty
     {
         public int Id { get; set; }
 

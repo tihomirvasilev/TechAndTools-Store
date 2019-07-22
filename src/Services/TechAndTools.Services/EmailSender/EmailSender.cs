@@ -1,11 +1,10 @@
-﻿using Microsoft.AspNetCore.DataProtection;
-using Microsoft.AspNetCore.Identity.UI.Services;
+﻿using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Extensions.Options;
 using SendGrid;
 using SendGrid.Helpers.Mail;
 using System.Threading.Tasks;
 
-namespace TechAndTools.Services.EmailsSenders
+namespace TechAndTools.Services.EmailSender
 {
     public class EmailSender : IEmailSender
     {

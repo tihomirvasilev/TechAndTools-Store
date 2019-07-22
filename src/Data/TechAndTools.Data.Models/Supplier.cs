@@ -1,9 +1,9 @@
-﻿namespace TechAndTools.Data.Models
-{
-    using System;
-    using System.Collections.Generic;
-    using TechAndTools.Data.Models.Contracts;
+﻿using System;
+using System.Collections.Generic;
+using TechAndTools.Data.Models.Contracts;
 
+namespace TechAndTools.Data.Models
+{
     public class Supplier : IDeletableEntity, IAuditInfo
     {
         public int Id { get; set; }

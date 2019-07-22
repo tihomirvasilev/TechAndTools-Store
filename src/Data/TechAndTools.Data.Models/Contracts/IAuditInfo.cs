@@ -1,7 +1,7 @@
-﻿namespace TechAndTools.Data.Models.Contracts
-{
-    using System;
+﻿using System;
 
+namespace TechAndTools.Data.Models.Contracts
+{
     public interface IAuditInfo
     {
         DateTime CreatedOn { get; set; }

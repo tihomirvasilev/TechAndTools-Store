@@ -1,11 +1,11 @@
-﻿namespace TechAndTools.Data.Models
-{
-    using Microsoft.AspNetCore.Identity;
-    using System;
-    using System.Collections.Generic;
-    using TechAndTools.Data.Models.Contracts;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
+using System.Collections.Generic;
+using TechAndTools.Data.Models.Contracts;
 
-    public class TechAndToolsUser : IdentityUser, IAuditInfo, IDeletableEntity
+namespace TechAndTools.Data.Models
+{
+    public class TechAndToolsUser : IdentityUser, IAuditInfo
     {
         public string ShoppingCartId { get; set; }
         public virtual ShoppingCart ShoppingCart { get; set; }
@@ -21,9 +21,5 @@
         public DateTime CreatedOn { get; set; }
 
         public DateTime? ModifiedOn { get; set; }
-
-        public bool IsDeleted { get; set; }
-
-        public DateTime? DeletedOn { get; set; }
     }
 }

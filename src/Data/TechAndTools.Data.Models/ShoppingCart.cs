@@ -1,8 +1,7 @@
-﻿namespace TechAndTools.Data.Models
-{
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.Collections.Generic;
 
+namespace TechAndTools.Data.Models
+{
     public class ShoppingCart
     {
         public string Id { get; set; }
