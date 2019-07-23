@@ -14,6 +14,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\TechAndTools.Data.Models\TechAndTools.Data.Models.csproj" />
     <ProjectReference Include="..\..\Data\TechAndTools.Data\TechAndTools.Data.csproj" />
+    <ProjectReference Include="..\..\Web\TechAndTools.Web.InputModels\TechAndTools.Web.InputModels.csproj" />
     <ProjectReference Include="..\TechAndTools.Services.Models\TechAndTools.Services.Models.csproj" />
   </ItemGroup>
 

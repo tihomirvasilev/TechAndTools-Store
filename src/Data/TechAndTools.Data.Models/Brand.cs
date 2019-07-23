@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Data;
+using TechAndTools.Services.Mapping;
 
 namespace TechAndTools.Data.Models
 {
@@ -12,6 +14,6 @@ namespace TechAndTools.Data.Models
 
         public string OfficialSite { get; set; }
 
-        public virtual ICollection<Product> Products { get; set; }
+        public virtual ICollection<Product> Products { get; set; } = new HashSet<Product>();
     }
 }

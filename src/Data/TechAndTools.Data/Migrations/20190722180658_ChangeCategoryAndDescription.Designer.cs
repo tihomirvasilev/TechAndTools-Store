@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TechAndTools.Data;
 
 namespace TechAndTools.Data.Migrations
 {
     [DbContext(typeof(TechAndToolsDbContext))]
-    partial class TechAndToolsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190722180658_ChangeCategoryAndDescription")]
+    partial class ChangeCategoryAndDescription
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -198,13 +200,13 @@ namespace TechAndTools.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("MainCategoryId");
-
                     b.Property<string>("Name");
+
+                    b.Property<int?>("ParentCategoryId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MainCategoryId");
+                    b.HasIndex("ParentCategoryId");
 
                     b.ToTable("Categories");
                 });
@@ -301,19 +303,6 @@ namespace TechAndTools.Data.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("Images");
-                });
-
-            modelBuilder.Entity("TechAndTools.Data.Models.MainCategory", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("MainCategories");
                 });
 
             modelBuilder.Entity("TechAndTools.Data.Models.Order", b =>
@@ -631,10 +620,9 @@ namespace TechAndTools.Data.Migrations
 
             modelBuilder.Entity("TechAndTools.Data.Models.Category", b =>
                 {
-                    b.HasOne("TechAndTools.Data.Models.MainCategory", "MainCategory")
-                        .WithMany("Categories")
-                        .HasForeignKey("MainCategoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                    b.HasOne("TechAndTools.Data.Models.Category", "ParentCategory")
+                        .WithMany()
+                        .HasForeignKey("ParentCategoryId");
                 });
 
             modelBuilder.Entity("TechAndTools.Data.Models.DeliveryAddress", b =>

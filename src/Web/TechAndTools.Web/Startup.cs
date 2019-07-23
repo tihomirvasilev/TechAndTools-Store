@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Reflection;
+using AutoMapper;
 using TechAndTools.Data;
 using TechAndTools.Data.Models;
 using TechAndTools.Services;
@@ -96,6 +97,8 @@ namespace TechAndTools.Web
             services.AddSingleton<IEmailSender, EmailSender>();
             services.Configure<AuthMessageSenderOptions>(options => options.SendGridKey = configuration["DataGrid:ApiKey"]);
 
+            services.AddAutoMapper(typeof(Startup));
+
             services.AddTransient<IBrandService, BrandService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
@@ -106,10 +109,10 @@ namespace TechAndTools.Web
         {
             AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly,
                 typeof(BrandServiceModel).GetTypeInfo().Assembly,
-                typeof(IndexBrandViewModel).GetTypeInfo().Assembly,
+                typeof(BrandIndexViewModel).GetTypeInfo().Assembly,
                 typeof(Brand).GetTypeInfo().Assembly,
                 typeof(BrandInputModel).GetTypeInfo().Assembly,
-                typeof(DetailsBrandViewModel).GetTypeInfo().Assembly);
+                typeof(BrandDetailsViewModel).GetTypeInfo().Assembly);
 
             // Seed data on application startup
             using (var serviceScope = app.ApplicationServices.CreateScope())

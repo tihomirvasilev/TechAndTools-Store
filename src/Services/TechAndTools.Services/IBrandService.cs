@@ -1,13 +1,13 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using TechAndTools.Services.Models.Brands;
+using TechAndTools.Data.Models;
 
 namespace TechAndTools.Services
 {
     public interface IBrandService
     {
-        Task<bool> CreateAsync(BrandServiceModel model);
-        IQueryable<BrandServiceModel> GetAllBrands();
-        Task<BrandServiceModel> GetBrandById(int id);
+        Task<Brand> CreateBrandAsync(string name, string logoUrl, string officialSite);
+        Task<IEnumerable<Brand>> GetAllBrands();
+        Brand GetBrandById(int brandId);
     }
 }

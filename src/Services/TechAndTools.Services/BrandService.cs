@@ -1,12 +1,9 @@
-﻿using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
 using TechAndTools.Data;
 using TechAndTools.Data.Models;
-using TechAndTools.Services.Models.Brands;
-using TechAndTools.Services.Mapping;
 
 namespace TechAndTools.Services
 {
@@ -19,29 +16,31 @@ namespace TechAndTools.Services
             this.context = context;
         }
 
-        public async Task<bool> CreateAsync(BrandServiceModel model)
+        public async Task<Brand> CreateBrandAsync(string name, string logoUrl, string officialSite)
         {
-            var brand = AutoMapper.Mapper.Map<Brand>(model);
+            
+            var brand = new Brand
+            {
+                Name = name,
+                LogoUrl = logoUrl,
+                OfficialSite = officialSite
+            };
 
-            this.context.Brands.Add(brand);
+            await this.context.Brands.AddAsync(brand);
 
-            var result = await this.context.SaveChangesAsync();
+            await this.context.SaveChangesAsync();
 
-            return result > 0;
+            return brand;
         }
 
-        public IQueryable<BrandServiceModel> GetAllBrands()
+        public async Task<IEnumerable<Brand>> GetAllBrands()
         {
-            return this.context.Brands.To<BrandServiceModel>();
+            return await this.context.Brands.ToListAsync();
         }
 
-        public async Task<BrandServiceModel> GetBrandById(int id)
+        public Brand GetBrandById(int brandId)
         {
-            var brand = await this.context.Brands.FirstOrDefaultAsync(x => x.Id == id);
-
-            var model = Mapper.Map<BrandServiceModel>(brand);
-
-            return model;
+            return this.context.Brands.FirstOrDefault(brand => brand.Id == brandId);
         }
     }
 }

@@ -1,7 +1,9 @@
-﻿namespace TechAndTools.Web.InputModels.Administration.Brands
+﻿namespace TechAndTools.Web.ViewModels.Administration.Brands
 {
-    public class BrandInputModel
+    public class BrandDetailsViewModel
     {
+        public int Id { get; set; }
+
         public string Name { get; set; }
 
         public string LogoUrl { get; set; }

@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 using TechAndTools.Services;
 using TechAndTools.Services.Mapping;
 using TechAndTools.Services.Models.Brands;
@@ -24,16 +22,11 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var brands = this.brandService.GetAllBrands();
-
-            var viewModels = brands.Select(x => new IndexBrandViewModel
-            {
-                Id = x.Id,
-                Name = x.Name
-            }).ToList();
+            List<BrandIndexViewModel> viewModels = await this.brandService.GetAllBrands().To<BrandIndexViewModel>().ToListAsync();
 
             return this.View(viewModels);
         }
+
         public IActionResult Create()
         {
             return View();
@@ -44,21 +37,19 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return Redirect("Index");
+                return this.Create();
             }
 
-            var serviceModel = AutoMapper.Mapper.Map<BrandServiceModel>(brandInputModel);
-
-            await this.brandService.CreateAsync(serviceModel);
+            await this.brandService.CreateBrandAsync(brandInputModel.Name, brandInputModel.LogoUrl, brandInputModel.LogoUrl);
 
             return this.Redirect("/");
         }
 
-        public async Task<IActionResult> Details(int id)
+        public IActionResult Details(int id)
         {
-            var serviceModel = await this.brandService.GetBrandById(id);
-            var model = Mapper.Map<DetailsBrandViewModel>(serviceModel);
-            ;
+            var serviceModel = this.brandService.GetBrandById(id);
+            var model = Mapper.Map<BrandDetailsViewModel>(serviceModel);
+
             return this.View(model);
         }
 
