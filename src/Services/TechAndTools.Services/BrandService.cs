@@ -33,9 +33,9 @@ namespace TechAndTools.Services
             return brand;
         }
 
-        public async Task<IEnumerable<Brand>> GetAllBrands()
+        public IQueryable<Brand> GetAllBrands()
         {
-            return await this.context.Brands.ToListAsync();
+            return this.context.Brands;
         }
 
         public Brand GetBrandById(int brandId)

@@ -9,6 +9,6 @@ namespace TechAndTools.Data.Models
         public int ProductId { get; set; }
         public virtual Product Product { get; set; }
 
-        public virtual ICollection<DescriptionProperty> DescriptionAttributes { get; set; }
+        public virtual ICollection<DescriptionProperty> DescriptionProperties { get; set; }
     }
 }

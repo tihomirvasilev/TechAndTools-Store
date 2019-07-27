@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using TechAndTools.Data;
@@ -42,7 +41,7 @@ namespace TechAndTools.Services.Tests
             await brandService.CreateBrandAsync("name1", "logo1", "officialSite1");
             await brandService.CreateBrandAsync("name2", "logo2", "officialSite2");
 
-            var brands = await brandService.GetAllBrands();
+            var brands = await brandService.GetAllBrands().ToListAsync();
 
             Assert.Equal(2, brands.Count());
             Assert.Equal("name1", brands.First().Name);

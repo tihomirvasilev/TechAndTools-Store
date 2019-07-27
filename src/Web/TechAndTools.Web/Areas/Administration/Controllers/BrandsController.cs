@@ -1,11 +1,8 @@
-﻿using System.Collections.Generic;
-using AutoMapper;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using TechAndTools.Services;
 using TechAndTools.Services.Mapping;
-using TechAndTools.Services.Models.Brands;
 using TechAndTools.Web.InputModels.Administration.Brands;
 using TechAndTools.Web.ViewModels.Administration.Brands;
 
@@ -14,15 +11,17 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
     public class BrandsController : AdministrationController
     {
         private readonly IBrandService brandService;
+        private readonly IMapper mapper;
 
-        public BrandsController(IBrandService brandService)
+        public BrandsController(IBrandService brandService, IMapper mapper)
         {
             this.brandService = brandService;
+            this.mapper = mapper;
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            List<BrandIndexViewModel> viewModels = await this.brandService.GetAllBrands().To<BrandIndexViewModel>().ToListAsync();
+            var viewModels = this.brandService.GetAllBrands().To<BrandIndexViewModel>();
 
             return this.View(viewModels);
         }
@@ -47,8 +46,7 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
 
         public IActionResult Details(int id)
         {
-            var serviceModel = this.brandService.GetBrandById(id);
-            var model = Mapper.Map<BrandDetailsViewModel>(serviceModel);
+            var model = Mapper.Map<BrandDetailsViewModel>(this.brandService.GetBrandById(id));
 
             return this.View(model);
         }
