@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -10,16 +9,16 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Reflection;
-using AutoMapper;
 using TechAndTools.Data;
 using TechAndTools.Data.Models;
 using TechAndTools.Services;
 using TechAndTools.Services.EmailSender;
 using TechAndTools.Services.Mapping;
-using TechAndTools.Services.Models.Brands;
 using TechAndTools.Web.InputModels.Administration.Brands;
+using TechAndTools.Web.InputModels.Administration.Categories;
 using TechAndTools.Web.ViewModels;
 using TechAndTools.Web.ViewModels.Administration.Brands;
+using TechAndTools.Web.ViewModels.Administration.MainCategories;
 
 namespace TechAndTools.Web
 {
@@ -36,70 +35,58 @@ namespace TechAndTools.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<CookiePolicyOptions>(options =>
+ {
+                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+                options.CheckConsentNeeded = context => true;
+     options.MinimumSameSitePolicy = SameSiteMode.None;
+ });
+
             services.AddDbContext<TechAndToolsDbContext>(options =>
                 options.UseSqlServer(
-                    configuration.GetConnectionString("DefaultConnection")).UseLazyLoadingProxies());
+                    this.configuration.GetConnectionString("DefaultConnection")));
 
-            services
-                .AddIdentity<TechAndToolsUser, TechAndToolsRole>(options =>
-                {
-                    options.Password.RequireDigit = false;
-                    options.Password.RequireLowercase = false;
-                    options.Password.RequireUppercase = false;
-                    options.Password.RequireNonAlphanumeric = false;
-                    options.Password.RequiredLength = 6;
-                })
-                .AddEntityFrameworkStores<TechAndToolsDbContext>()
-                //.AddUserStore<ApplicationUserStore>()
-                //.AddRoleStore<ApplicationRoleStore>()
+            services.AddIdentity<TechAndToolsUser, IdentityRole>(options =>
+            {
+                options.Password.RequireDigit = false;
+                options.Password.RequiredLength = 6;
+                options.Password.RequiredUniqueChars = 0;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+            })
                 .AddDefaultTokenProviders()
-                .AddDefaultUI(UIFramework.Bootstrap4);
+                .AddDefaultUI()
+                .AddEntityFrameworkStores<TechAndToolsDbContext>();
 
+            services.AddSession(options =>
+            {
+                options.Cookie.HttpOnly = true;
+                options.IdleTimeout = new TimeSpan(0, 4, 0, 0);
+            });
 
-            services
-                .AddMvc()
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
-                .AddRazorPagesOptions(options =>
-                {
-                    options.AllowAreas = true;
-                    options.Conventions.AuthorizeAreaFolder("Identity", "/Account/Manage");
-                    options.Conventions.AuthorizeAreaPage("Identity", "/Account/Logout");
-                });
-
-            services
-                .ConfigureApplicationCookie(options =>
-                {
-                    options.LoginPath = "/Identity/Account/Login";
-                    options.LogoutPath = "/Identity/Account/Logout";
-                    options.AccessDeniedPath = "/Identity/Account/AccessDenied";
-                });
-
-            services
-                .Configure<CookiePolicyOptions>(options =>
-                {
-                    // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-                    options.CheckConsentNeeded = context => true;
-                    options.MinimumSameSitePolicy = SameSiteMode.Lax;
-                    options.ConsentCookie.Name = ".AspNetCore.ConsentCookie";
-                });
-
-            services.AddSingleton(this.configuration);
-
-            //// Identity stores
-            //services.AddTransient<IUserStore<ApplicationUser>, ApplicationUserStore>();
-            //services.AddTransient<IRoleStore<ApplicationRole>, ApplicationRoleStore>();
-            
-            // Data repositories
-            //services.AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>));
-            //services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
-            //services.AddScoped<IDbQueryRunner, DbQueryRunner>();
-
-            services.AddSingleton<IEmailSender, EmailSender>();
-            services.Configure<AuthMessageSenderOptions>(options => options.SendGridKey = configuration["DataGrid:ApiKey"]);
-
-            services.AddAutoMapper(typeof(Startup));
+            //services.AddAutoMapper(cfg => {
+            //    cfg.AddProfile<ComputersProfile>();
+            //});
 
             services.AddTransient<IBrandService, BrandService>();
+            services.AddTransient<ICategoryService, CategoryService>();
+            services.AddTransient<ISupplierService, SupplierService>();
+            services.AddTransient<IDescriptionService, DescriptionService>();
+
+            services.AddSingleton<IEmailSender, EmailSender>();
+
+            //services.AddAuthentication().AddFacebook(facebookOptions =>
+            //{
+            //    facebookOptions.AppId = Configuration["Authentication:Facebook:AppId"];
+            //    facebookOptions.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
+            //});
+
+            //services.AddAuthentication().AddGoogle(googleOptions =>
+            //{
+            //    googleOptions.ClientId = Configuration["Authentication:Google:ClientId"];
+            //    googleOptions.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
+            //});
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
@@ -108,24 +95,29 @@ namespace TechAndTools.Web
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly,
-                typeof(BrandServiceModel).GetTypeInfo().Assembly,
                 typeof(BrandIndexViewModel).GetTypeInfo().Assembly,
                 typeof(Brand).GetTypeInfo().Assembly,
                 typeof(BrandInputModel).GetTypeInfo().Assembly,
-                typeof(BrandDetailsViewModel).GetTypeInfo().Assembly);
+                typeof(BrandDetailsViewModel).GetTypeInfo().Assembly,
+                typeof(MainCategory).GetTypeInfo().Assembly,
+                typeof(MainCategoryViewModel).GetTypeInfo().Assembly,
+                typeof(MainCategoryInputModel).GetTypeInfo().Assembly,
+                typeof(AddCategoryMainCategoryViewModel).GetTypeInfo().Assembly,
+                typeof(Category).GetTypeInfo().Assembly,
+                typeof(CategoryInputModel).GetTypeInfo().Assembly);
 
-            // Seed data on application startup
-            using (var serviceScope = app.ApplicationServices.CreateScope())
-            {
-                var dbContext = serviceScope.ServiceProvider.GetRequiredService<TechAndToolsDbContext>();
+            //// Seed data on application startup
+            //using (var serviceScope = app.ApplicationServices.CreateScope())
+            //{
+            //    var dbContext = serviceScope.ServiceProvider.GetRequiredService<TechAndToolsDbContext>();
 
-                if (env.IsDevelopment())
-                {
-                    dbContext.Database.Migrate();
-                }
+            //    if (env.IsDevelopment())
+            //    {
+            //        dbContext.Database.Migrate();
+            //    }
 
-                // new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
-            }
+            //    // new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
+            //}
 
             if (env.IsDevelopment())
             {
@@ -141,12 +133,20 @@ namespace TechAndTools.Web
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
+
+            app.UseSession();
+
             app.UseAuthentication();
 
             app.UseMvc(routes =>
             {
-                routes.MapRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
-                routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
+                routes.MapRoute(
+                    name: "areaRoute",
+                    template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

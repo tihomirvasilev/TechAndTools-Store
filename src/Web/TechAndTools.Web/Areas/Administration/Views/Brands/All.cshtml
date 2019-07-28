@@ -1,0 +1,47 @@
+﻿@model IEnumerable<TechAndTools.Web.ViewModels.Administration.Brands.BrandIndexViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="text-center">Brands</h1>
+
+<div class="container">
+    <p>
+        <a asp-action="Create">Add New Brand</a>
+    </p>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new {item.Id}) |
+                    @Html.ActionLink("Details", "Details", new {item.Id}) |
+                    @Html.ActionLink("Delete", "Delete", new {item.Id})
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
+
+

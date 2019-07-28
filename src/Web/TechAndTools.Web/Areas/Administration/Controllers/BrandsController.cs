@@ -11,32 +11,30 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
     public class BrandsController : AdministrationController
     {
         private readonly IBrandService brandService;
-        private readonly IMapper mapper;
 
-        public BrandsController(IBrandService brandService, IMapper mapper)
+        public BrandsController(IBrandService brandService)
         {
             this.brandService = brandService;
-            this.mapper = mapper;
         }
 
-        public IActionResult Index()
+        public IActionResult All()
         {
             var viewModels = this.brandService.GetAllBrands().To<BrandIndexViewModel>();
 
             return this.View(viewModels);
         }
 
-        public IActionResult Create()
+        public IActionResult Add()
         {
-            return View();
+            return this.View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(BrandInputModel brandInputModel)
+        public async Task<IActionResult> Add(BrandInputModel brandInputModel)
         {
-            if (!ModelState.IsValid)
+            if (!this.ModelState.IsValid)
             {
-                return this.Create();
+                return this.Add();
             }
 
             await this.brandService.CreateBrandAsync(brandInputModel.Name, brandInputModel.LogoUrl, brandInputModel.LogoUrl);

@@ -1,45 +1,46 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using TechAndTools.Services;
+using TechAndTools.Services.Mapping;
 using TechAndTools.Web.InputModels.Administration.Categories;
+using TechAndTools.Web.ViewModels.Administration.Categories;
+using TechAndTools.Web.ViewModels.Administration.MainCategories;
 
 namespace TechAndTools.Web.Areas.Administration.Controllers
 {
     public class CategoriesController : AdministrationController
     {
-        public IActionResult Create()
+        private readonly ICategoryService categoryService;
+
+        public CategoriesController(ICategoryService categoryService)
         {
-            return View();
+            this.categoryService = categoryService;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Create(CategoryInputModel model)
+        public IActionResult Add()
         {
-            //TODO: Implement
-            return this.Redirect("/");
-        }
+            this.ViewData["mainCategories"] = this.categoryService.GetAllMainCategories().To<AddCategoryMainCategoryViewModel>();
 
-        public IActionResult Edit()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Edit(int id)
-        {
-            //TODO: Implement
-            return this.Redirect("All");
-        }
-
-        public IActionResult All()
-        {
-            //TODO: Implement
             return this.View();
         }
 
-        public IActionResult Delete(int id)
+        [HttpPost]
+        public async Task<IActionResult> Add(CategoryInputModel inputModel)
         {
-            //TODO: Implement
-            return Redirect("All");
+            if (!this.ModelState.IsValid)
+            {
+                return this.View();
+            }
+            await this.categoryService.CreateCategoryAsync(inputModel.Name, inputModel.MainCategory);
+
+            return this.Redirect("All");
+        }
+
+        public async Task<IActionResult> All()
+        {
+            var categoriesViewModels = this.categoryService.GetAllCategories().To<CategoryViewModel>();
+
+            return this.View(categoriesViewModels);
         }
     }
 }

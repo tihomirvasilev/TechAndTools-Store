@@ -16,7 +16,6 @@
 
 
   <ItemGroup>
-    <Folder Include="Areas\Administration\Views\Categories\" />
     <Folder Include="Views\Favorites\" />
   </ItemGroup>
 
@@ -28,6 +27,13 @@
     <ProjectReference Include="..\..\Services\TechAndTools.Services\TechAndTools.Services.csproj" />
     <ProjectReference Include="..\TechAndTools.Web.InputModels\TechAndTools.Web.InputModels.csproj" />
     <ProjectReference Include="..\TechAndTools.Web.ViewModels\TechAndTools.Web.ViewModels.csproj" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Content Update="Areas\Blog\Views\_ViewStart.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

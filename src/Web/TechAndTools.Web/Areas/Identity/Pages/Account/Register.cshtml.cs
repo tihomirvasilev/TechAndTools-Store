@@ -1,14 +1,14 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Text.Encodings.Web;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text.Encodings.Web;
-using System.Threading.Tasks;
 using TechAndTools.Data.Models;
 
 namespace TechAndTools.Web.Areas.Identity.Pages.Account
@@ -16,10 +16,10 @@ namespace TechAndTools.Web.Areas.Identity.Pages.Account
     [AllowAnonymous]
     public class RegisterModel : PageModel
     {
-        private readonly SignInManager<TechAndToolsUser> signInManager;
-        private readonly UserManager<TechAndToolsUser> userManager;
-        private readonly ILogger<RegisterModel> logger;
-        private readonly IEmailSender emailSender;
+        private readonly SignInManager<TechAndToolsUser> _signInManager;
+        private readonly UserManager<TechAndToolsUser> _userManager;
+        private readonly ILogger<RegisterModel> _logger;
+        private readonly IEmailSender _emailSender;
 
         public RegisterModel(
             UserManager<TechAndToolsUser> userManager,
@@ -27,10 +27,10 @@ namespace TechAndTools.Web.Areas.Identity.Pages.Account
             ILogger<RegisterModel> logger,
             IEmailSender emailSender)
         {
-            this.userManager = userManager;
-            this.signInManager = signInManager;
-            this.logger = logger;
-            this.emailSender = emailSender;
+            _userManager = userManager;
+            _signInManager = signInManager;
+            _logger = logger;
+            _emailSender = emailSender;
         }
 
         [BindProperty]
@@ -40,6 +40,10 @@ namespace TechAndTools.Web.Areas.Identity.Pages.Account
 
         public class InputModel
         {
+            [Required]
+            [Display(Name = "Username")]
+            public string Username { get; set; }
+
             [Required]
             [EmailAddress]
             [Display(Name = "Email")]
@@ -67,34 +71,23 @@ namespace TechAndTools.Web.Areas.Identity.Pages.Account
             returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
-                var user = new TechAndToolsUser
-                {
-                    UserName = Input.Email,
-                    Email = Input.Email,
-                    ShoppingCart = new ShoppingCart(),
-                    FavoriteProducts = new HashSet<FavoriteProduct>(),
-                    CreatedOn = DateTime.UtcNow
-                };
-
-                var result = await userManager.CreateAsync(user, Input.Password);
-
+                var user = new TechAndToolsUser { UserName = Input.Username, Email = Input.Email };
+                var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
-                    logger.LogInformation("User created a new account with password.");
+                    _logger.LogInformation("User created a new account with password.");
 
-                    var code = await userManager.GenerateEmailConfirmationTokenAsync(user);
+                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     var callbackUrl = Url.Page(
                         "/Account/ConfirmEmail",
                         pageHandler: null,
-                        values: new { userId = user.Id, code },
+                        values: new { userId = user.Id, code = code },
                         protocol: Request.Scheme);
 
-                    await emailSender.SendEmailAsync(Input.Email, "Confirm your email",
+                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
-                    //TODO: make singInManager Useful
-
-                    //await _signInManager.SignInAsync(user, isPersistent: false);
+                    await _signInManager.SignInAsync(user, isPersistent: false);
                     return LocalRedirect(returnUrl);
                 }
                 foreach (var error in result.Errors)

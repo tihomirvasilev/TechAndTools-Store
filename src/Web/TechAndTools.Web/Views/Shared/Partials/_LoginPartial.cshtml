@@ -1,0 +1,13 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<TechAndToolsUser> SignInManager
+
+<div>
+    @if (!this.SignInManager.IsSignedIn(this.User))
+    {
+        <a asp-area="Identity" asp-page="/Account/Login" class="text-uppercase">Login</a> <a asp-area="Identity" asp-page="/Account/Register" class="text-uppercase">Register</a>
+    }
+    else
+    {
+        <a asp-area="Identity" asp-page="/Account/Manage/Index" class="text-uppercase">Settings</a>
+    }
+</div>
