@@ -10,8 +10,8 @@ using TechAndTools.Data;
 namespace TechAndTools.Data.Migrations
 {
     [DbContext(typeof(TechAndToolsDbContext))]
-    [Migration("20190723183720_AddMainCategoryEntityModel")]
-    partial class AddMainCategoryEntityModel
+    [Migration("20190727151812_UpdateUserEntity")]
+    partial class UpdateUserEntity
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -131,6 +131,31 @@ namespace TechAndTools.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("TechAndTools.Data.Models.Address", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("City");
+
+                    b.Property<string>("Country");
+
+                    b.Property<int>("PostCode");
+
+                    b.Property<string>("Quarter");
+
+                    b.Property<string>("Street");
+
+                    b.Property<string>("TechAndToolsUserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TechAndToolsUserId");
+
+                    b.ToTable("Addresses");
+                });
+
             modelBuilder.Entity("TechAndTools.Data.Models.Blog.BlogComment", b =>
                 {
                     b.Property<int>("BlogPostId");
@@ -211,31 +236,6 @@ namespace TechAndTools.Data.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("TechAndTools.Data.Models.DeliveryAddress", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Address");
-
-                    b.Property<string>("City");
-
-                    b.Property<string>("Country");
-
-                    b.Property<int>("PostCode");
-
-                    b.Property<string>("Quarter");
-
-                    b.Property<string>("TechAndToolsUserId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TechAndToolsUserId");
-
-                    b.ToTable("DeliveryAddresses");
-                });
-
             modelBuilder.Entity("TechAndTools.Data.Models.Description", b =>
                 {
                     b.Property<int>("Id")
@@ -258,7 +258,7 @@ namespace TechAndTools.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("DescriptionId");
+                    b.Property<int>("DescriptionId");
 
                     b.Property<string>("Name");
 
@@ -324,6 +324,8 @@ namespace TechAndTools.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("AddressId");
+
                     b.Property<int>("DeliveryAddressId");
 
                     b.Property<DateTime?>("DeliveryDate");
@@ -356,7 +358,7 @@ namespace TechAndTools.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DeliveryAddressId");
+                    b.HasIndex("AddressId");
 
                     b.HasIndex("SupplierId");
 
@@ -482,17 +484,9 @@ namespace TechAndTools.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("CreatedOn");
-
-                    b.Property<DateTime?>("DeletedOn");
-
                     b.Property<int>("EstimatedDeliveryTimeMax");
 
                     b.Property<int>("EstimatedDeliveryTimeMin");
-
-                    b.Property<bool>("IsDeleted");
-
-                    b.Property<DateTime?>("ModifiedOn");
 
                     b.Property<string>("Name");
 
@@ -521,6 +515,10 @@ namespace TechAndTools.Data.Migrations
                         .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed");
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<string>("LastName");
 
                     b.Property<bool>("LockoutEnabled");
 
@@ -611,6 +609,13 @@ namespace TechAndTools.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("TechAndTools.Data.Models.Address", b =>
+                {
+                    b.HasOne("TechAndTools.Data.Models.TechAndToolsUser")
+                        .WithMany("DeliveryAddresses")
+                        .HasForeignKey("TechAndToolsUserId");
+                });
+
             modelBuilder.Entity("TechAndTools.Data.Models.Blog.BlogComment", b =>
                 {
                     b.HasOne("TechAndTools.Data.Models.Blog.BlogPost", "BlogPost")
@@ -639,13 +644,6 @@ namespace TechAndTools.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("TechAndTools.Data.Models.DeliveryAddress", b =>
-                {
-                    b.HasOne("TechAndTools.Data.Models.TechAndToolsUser")
-                        .WithMany("DeliveryAddresses")
-                        .HasForeignKey("TechAndToolsUserId");
-                });
-
             modelBuilder.Entity("TechAndTools.Data.Models.Description", b =>
                 {
                     b.HasOne("TechAndTools.Data.Models.Product", "Product")
@@ -656,9 +654,10 @@ namespace TechAndTools.Data.Migrations
 
             modelBuilder.Entity("TechAndTools.Data.Models.DescriptionProperty", b =>
                 {
-                    b.HasOne("TechAndTools.Data.Models.Description")
-                        .WithMany("DescriptionAttributes")
-                        .HasForeignKey("DescriptionId");
+                    b.HasOne("TechAndTools.Data.Models.Description", "Description")
+                        .WithMany("DescriptionProperties")
+                        .HasForeignKey("DescriptionId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("TechAndTools.Data.Models.FavoriteProduct", b =>
@@ -687,10 +686,9 @@ namespace TechAndTools.Data.Migrations
 
             modelBuilder.Entity("TechAndTools.Data.Models.Order", b =>
                 {
-                    b.HasOne("TechAndTools.Data.Models.DeliveryAddress", "DeliveryAddress")
+                    b.HasOne("TechAndTools.Data.Models.Address", "Address")
                         .WithMany()
-                        .HasForeignKey("DeliveryAddressId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("AddressId");
 
                     b.HasOne("TechAndTools.Data.Models.Supplier")
                         .WithMany("Orders")

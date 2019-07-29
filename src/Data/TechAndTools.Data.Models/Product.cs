@@ -1,10 +1,9 @@
-﻿namespace TechAndTools.Data.Models
-{
-    using System;
-    using System.Collections.Generic;
-    using TechAndTools.Data.Models.Contracts;
+﻿using System;
+using System.Collections.Generic;
 
-    public class Product : IAuditInfo, IDeletableEntity
+namespace TechAndTools.Data.Models
+{
+    public class Product
     {
         public int Id { get; set; }
 

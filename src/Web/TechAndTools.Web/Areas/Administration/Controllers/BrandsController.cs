@@ -55,7 +55,7 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(int id)
+        public IActionResult Edit(int id)
         {
             //TODO: Implement
             return this.Redirect("All");

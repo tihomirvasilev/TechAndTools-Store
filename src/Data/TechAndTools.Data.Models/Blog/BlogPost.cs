@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using TechAndTools.Data.Models.Contracts;
 
 namespace TechAndTools.Data.Models.Blog
 {
-    public class BlogPost : IAuditInfo
+    public class BlogPost
     {
         public int Id { get; set; }
 

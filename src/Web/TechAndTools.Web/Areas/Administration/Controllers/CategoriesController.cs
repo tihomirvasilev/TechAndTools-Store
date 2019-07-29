@@ -36,7 +36,7 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
             return this.Redirect("All");
         }
 
-        public async Task<IActionResult> All()
+        public IActionResult All()
         {
             var categoriesViewModels = this.categoryService.GetAllCategories().To<CategoryViewModel>();
 

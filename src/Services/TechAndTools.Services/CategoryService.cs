@@ -16,18 +16,25 @@ namespace TechAndTools.Services
             this.context = context;
         }
 
-        public async Task<Category> CreateCategoryAsync(string name, int mainCategoryId)
+        public async Task<Category> CreateCategoryAsync(string name, string mainCategoryName)
         {
+            var mainCategory = this.GetMainCategoryByName(mainCategoryName);
+
             Category category = new Category
             {
                 Name = name,
-                MainCategoryId = mainCategoryId
+                MainCategoryId = mainCategory.Id
             };
 
             await this.context.Categories.AddAsync(category);
             await this.context.SaveChangesAsync();
 
             return category;
+        }
+
+        private MainCategory GetMainCategoryByName(string mainCategoryName)
+        {
+            return this.context.MainCategories.FirstOrDefault(x => x.Name == mainCategoryName);
         }
 
         public async Task<MainCategory> CreateMainCategoryAsync(string name)
@@ -55,14 +62,19 @@ namespace TechAndTools.Services
             return result > 0;
         }
 
-        public async Task<IEnumerable<MainCategory>> GetAllMainCategoriesAsync()
+        public IQueryable<MainCategory> GetAllMainCategories()
         {
-            return await this.context.MainCategories.ToListAsync();
+            return this.context.MainCategories;
         }
 
         public async Task<IEnumerable<Category>> GetAllCategoriesByMainCategoryIdAsync(int mainCategoryId)
         {
             return await this.context.Categories.Where(category => category.MainCategoryId == mainCategoryId).ToListAsync();
+        }
+
+        public IQueryable<Category> GetAllCategories()
+        {
+            return this.context.Categories;
         }
     }
 }

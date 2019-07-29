@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
+using TechAndTools.Services.Mapping;
+using TechAndTools.Web.ViewModels.Administration.Categories;
 
 namespace TechAndTools.Data.Models
 {
-    public class Category
+    public class Category : IMapTo<CategoryViewModel>
     {
         public int Id { get; set; }
 

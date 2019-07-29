@@ -1,6 +1,6 @@
 ﻿namespace TechAndTools.Data.Models
 {
-    public class DeliveryAddress
+    public class Address
     {
         public int Id { get; set; }
 
@@ -10,7 +10,7 @@
 
         public string Quarter { get; set; }
 
-        public string Address { get; set; }
+        public string Street { get; set; }
 
         public int PostCode { get; set; }
 }

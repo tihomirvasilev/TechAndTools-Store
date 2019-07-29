@@ -1,9 +1,9 @@
-﻿namespace TechAndTools.Data.Models
-{
-    using System;
-    using System.Collections.Generic;
-    using TechAndTools.Data.Models.Enums;
+﻿using System;
+using System.Collections.Generic;
+using TechAndTools.Data.Models.Enums;
 
+namespace TechAndTools.Data.Models
+{
     public class Order
     {
         public int Id { get; set; }
@@ -38,6 +38,6 @@
         public virtual ICollection<OrderProduct> OrderProducts { get; set; }
 
         public int DeliveryAddressId { get; set; }
-        public virtual DeliveryAddress DeliveryAddress { get; set; }
+        public virtual Address Address { get; set; }
     }
 }

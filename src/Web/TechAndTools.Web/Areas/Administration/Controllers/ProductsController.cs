@@ -13,13 +13,13 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(ProductInputModel model)
+        public IActionResult Create(ProductInputModel model)
         {
             //TODO: Implement
             return this.Redirect("All");
         }
 
-        public async Task<IActionResult> Edit(int id)
+        public IActionResult Edit(int id)
         {
             //TODO: Implement
             return this.Redirect("All");

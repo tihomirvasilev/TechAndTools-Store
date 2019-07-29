@@ -5,9 +5,8 @@
     ViewData["Title"] = "Add";
 }
 
-<h2>Add</h2>
+<h2>Add Category</h2>
 
-<h4>CategoryInputModel</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -23,10 +22,10 @@
                     <label asp-for="MainCategory" class="text-primary h5">Product Type</label>
                 </div>
                 <select class="form-control text-primary" id="type" asp-for="MainCategory">
-                    <option selected disabled>--- Select Product Type ---</option>
-                    @foreach (var type in (IEnumerable<AddCategoryMainCategoryViewModel>)this.ViewData["mainCategories"])
+                    <option selected disabled>--- Select Main Category ---</option>
+                    @foreach (var mainCategory in (IEnumerable<AddCategoryMainCategoryViewModel>)this.ViewData["mainCategories"])
                     {
-                        <option value="@type.Name">@type.Name</option>
+                        <option value="@mainCategory.Name">@mainCategory.Name</option>
                     }
                 </select>
                 <span asp-validation-for="MainCategory" class="text-danger"></span>
@@ -39,7 +38,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="All">Back to List</a>
 </div>
 
 @section Scripts {

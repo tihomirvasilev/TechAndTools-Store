@@ -11,7 +11,7 @@ namespace TechAndTools.Data
         public DbSet<BlogPost> BlogPosts { get; set; }
         public DbSet<Brand> Brands { get; set; }
         public DbSet<Category> Categories { get; set; }
-        public DbSet<DeliveryAddress> DeliveryAddresses { get; set; }
+        public DbSet<Address> Addresses { get; set; }
         public DbSet<Description> Descriptions { get; set; }
         public DbSet<DescriptionProperty> DescriptionProperties { get; set; }
         public DbSet<FavoriteProduct> FavoriteProducts { get; set; }

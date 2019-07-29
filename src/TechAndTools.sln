@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29009.5
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.757
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{7EE3AFF9-41C5-4C30-A4A8-EF5942479827}"
 EndProject
@@ -28,6 +28,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechAndTools.Services.Tests", "Tests\TechAndTools.Services.Tests\TechAndTools.Services.Tests.csproj", "{9E1C99D2-75EC-41EF-A63D-4BA7B540DD6B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechAndTools.Services.Models", "Services\TechAndTools.Services.Models\TechAndTools.Services.Models.csproj", "{688F74EF-A132-406D-A622-19089044E2A1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechAndTools.Web.Infrastructure", "Web\TechAndTools.Web.Infrastructure\TechAndTools.Web.Infrastructure.csproj", "{44B21A30-7063-4845-9054-B0757321503B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -71,6 +73,10 @@ Global
 		{688F74EF-A132-406D-A622-19089044E2A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{688F74EF-A132-406D-A622-19089044E2A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{688F74EF-A132-406D-A622-19089044E2A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44B21A30-7063-4845-9054-B0757321503B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44B21A30-7063-4845-9054-B0757321503B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44B21A30-7063-4845-9054-B0757321503B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44B21A30-7063-4845-9054-B0757321503B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -85,6 +91,7 @@ Global
 		{B94FB89C-0F80-49E9-A7B1-ADBE9E6D612D} = {06219D09-DAB9-4895-B2BD-5099DEC0A2E1}
 		{9E1C99D2-75EC-41EF-A63D-4BA7B540DD6B} = {CAB5A60B-A5E9-4F23-8D14-A4775D3372CA}
 		{688F74EF-A132-406D-A622-19089044E2A1} = {06219D09-DAB9-4895-B2BD-5099DEC0A2E1}
+		{44B21A30-7063-4845-9054-B0757321503B} = {7EE3AFF9-41C5-4C30-A4A8-EF5942479827}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {05359306-9795-468F-83D3-63055067661D}

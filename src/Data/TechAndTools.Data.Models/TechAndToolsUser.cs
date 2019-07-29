@@ -1,12 +1,15 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
-using TechAndTools.Data.Models.Contracts;
 
 namespace TechAndTools.Data.Models
 {
-    public class TechAndToolsUser : IdentityUser, IAuditInfo
+    public class TechAndToolsUser : IdentityUser
     {
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
+
         public string ShoppingCartId { get; set; }
         public virtual ShoppingCart ShoppingCart { get; set; }
 
@@ -16,7 +19,7 @@ namespace TechAndTools.Data.Models
 
         public virtual ICollection<Order> Orders { get; set; }
 
-        public virtual ICollection<DeliveryAddress> DeliveryAddresses { get; set; }
+        public virtual ICollection<Address> DeliveryAddresses { get; set; }
 
         public DateTime CreatedOn { get; set; }
 

@@ -53,8 +53,8 @@ namespace TechAndTools.Services.Tests
 
             ICategoryService categoryService = new CategoryService(dbContext);
 
-            Category first = await categoryService.CreateCategoryAsync("first", 1);
-            Category second = await categoryService.CreateCategoryAsync("second2", 1);
+            Category first = await categoryService.CreateCategoryAsync("first", "PC");
+            Category second = await categoryService.CreateCategoryAsync("second2", "PC");
 
             Assert.Equal(2, dbContext.Categories.Count());
             Assert.Equal(1, first.MainCategoryId);
@@ -93,7 +93,7 @@ namespace TechAndTools.Services.Tests
 
             ICategoryService categoryService = new CategoryService(dbContext);
 
-            IEnumerable<MainCategory> mainCategories = await categoryService.GetAllMainCategoriesAsync();
+            IEnumerable<MainCategory> mainCategories = categoryService.GetAllMainCategories();
 
             Assert.NotNull(mainCategories);
             Assert.Equal(2, mainCategories.Count());
