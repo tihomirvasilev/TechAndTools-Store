@@ -11,6 +11,7 @@ using System;
 using System.Reflection;
 using TechAndTools.Data;
 using TechAndTools.Data.Models;
+using TechAndTools.Data.Seeding;
 using TechAndTools.Services;
 using TechAndTools.Services.EmailSender;
 using TechAndTools.Services.Mapping;
@@ -106,18 +107,18 @@ namespace TechAndTools.Web
                 typeof(Category).GetTypeInfo().Assembly,
                 typeof(CategoryInputModel).GetTypeInfo().Assembly);
 
-            //// Seed data on application startup
-            //using (var serviceScope = app.ApplicationServices.CreateScope())
-            //{
-            //    var dbContext = serviceScope.ServiceProvider.GetRequiredService<TechAndToolsDbContext>();
+            // Seed data on application startup
+            using (var serviceScope = app.ApplicationServices.CreateScope())
+            {
+                var dbContext = serviceScope.ServiceProvider.GetRequiredService<TechAndToolsDbContext>();
 
-            //    if (env.IsDevelopment())
-            //    {
-            //        dbContext.Database.Migrate();
-            //    }
+                if (env.IsDevelopment())
+                {
+                    dbContext.Database.Migrate();
+                }
 
-            //    // new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
-            //}
+                new TechAndToolsDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
+            }
 
             if (env.IsDevelopment())
             {

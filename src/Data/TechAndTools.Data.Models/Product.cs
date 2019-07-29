@@ -19,7 +19,7 @@ namespace TechAndTools.Data.Models
 
         public virtual Description Description { get;set;}
 
-        public string DocumentationUrl { get; set; }
+        public string ManualUrl { get; set; }
 
         public int Warranty { get; set; }
 
@@ -30,10 +30,6 @@ namespace TechAndTools.Data.Models
         public int SalesCount { get; set; }
 
         public bool IsOutOfStock { get; set; }
-
-        public bool IsDeleted { get; set; }
-
-        public DateTime? DeletedOn { get; set; }
 
         public DateTime CreatedOn { get; set; }
 

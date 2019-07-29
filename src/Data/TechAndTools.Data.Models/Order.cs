@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using TechAndTools.Data.Models.Enums;
 
 namespace TechAndTools.Data.Models
 {
@@ -18,7 +17,7 @@ namespace TechAndTools.Data.Models
 
         public DateTime? DeliveryDate { get; set; }
 
-        public DateTime? DispatchDate { get; set; }
+        public DateTime? Date { get; set; }
 
         public decimal TotalPrice { get; set; }
 

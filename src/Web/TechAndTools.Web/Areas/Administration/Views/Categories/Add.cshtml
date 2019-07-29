@@ -18,9 +18,7 @@
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <div class="d-flex justify-content-center">
-                    <label asp-for="MainCategory" class="text-primary h5">Product Type</label>
-                </div>
+                <label asp-for="MainCategory" class="control-label">Main Category</label>
                 <select class="form-control text-primary" id="type" asp-for="MainCategory">
                     <option selected disabled>--- Select Main Category ---</option>
                     @foreach (var mainCategory in (IEnumerable<AddCategoryMainCategoryViewModel>)this.ViewData["mainCategories"])
@@ -31,7 +29,7 @@
                 <span asp-validation-for="MainCategory" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
     </div>

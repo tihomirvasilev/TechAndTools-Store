@@ -324,13 +324,13 @@ namespace TechAndTools.Data.Migrations
 
                     b.Property<int?>("AddressId");
 
+                    b.Property<DateTime?>("Date");
+
                     b.Property<int>("DeliveryAddressId");
 
                     b.Property<DateTime?>("DeliveryDate");
 
                     b.Property<decimal>("DeliveryPrice");
-
-                    b.Property<DateTime?>("DispatchDate");
 
                     b.Property<DateTime?>("EstimatedDeliveryDate");
 
@@ -338,15 +338,15 @@ namespace TechAndTools.Data.Migrations
 
                     b.Property<DateTime?>("OrderDate");
 
-                    b.Property<int>("PaymentStatus");
+                    b.Property<int?>("PaymentStatusId");
 
-                    b.Property<int>("PaymentType");
+                    b.Property<int?>("PaymentTypeId");
 
                     b.Property<string>("Recipient");
 
                     b.Property<string>("RecipientPhoneNumber");
 
-                    b.Property<int>("Status");
+                    b.Property<int?>("StatusId");
 
                     b.Property<int?>("SupplierId");
 
@@ -357,6 +357,12 @@ namespace TechAndTools.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AddressId");
+
+                    b.HasIndex("PaymentStatusId");
+
+                    b.HasIndex("PaymentTypeId");
+
+                    b.HasIndex("StatusId");
 
                     b.HasIndex("SupplierId");
 
@@ -380,6 +386,45 @@ namespace TechAndTools.Data.Migrations
                     b.ToTable("OrderProducts");
                 });
 
+            modelBuilder.Entity("TechAndTools.Data.Models.OrderStatus", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("OrderStatuses");
+                });
+
+            modelBuilder.Entity("TechAndTools.Data.Models.PaymentStatus", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PaymentStatuses");
+                });
+
+            modelBuilder.Entity("TechAndTools.Data.Models.PaymentType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PaymentTypes");
+                });
+
             modelBuilder.Entity("TechAndTools.Data.Models.Product", b =>
                 {
                     b.Property<int>("Id")
@@ -390,13 +435,9 @@ namespace TechAndTools.Data.Migrations
 
                     b.Property<DateTime>("CreatedOn");
 
-                    b.Property<DateTime?>("DeletedOn");
-
-                    b.Property<string>("DocumentationUrl");
-
-                    b.Property<bool>("IsDeleted");
-
                     b.Property<bool>("IsOutOfStock");
+
+                    b.Property<string>("ManualUrl");
 
                     b.Property<DateTime?>("ModifiedOn");
 
@@ -687,6 +728,18 @@ namespace TechAndTools.Data.Migrations
                     b.HasOne("TechAndTools.Data.Models.Address", "Address")
                         .WithMany()
                         .HasForeignKey("AddressId");
+
+                    b.HasOne("TechAndTools.Data.Models.PaymentStatus", "PaymentStatus")
+                        .WithMany()
+                        .HasForeignKey("PaymentStatusId");
+
+                    b.HasOne("TechAndTools.Data.Models.PaymentType", "PaymentType")
+                        .WithMany()
+                        .HasForeignKey("PaymentTypeId");
+
+                    b.HasOne("TechAndTools.Data.Models.OrderStatus", "Status")
+                        .WithMany()
+                        .HasForeignKey("StatusId");
 
                     b.HasOne("TechAndTools.Data.Models.Supplier")
                         .WithMany("Orders")

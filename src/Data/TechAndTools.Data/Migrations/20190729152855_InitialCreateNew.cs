@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TechAndTools.Data.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class InitialCreateNew : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -48,6 +48,45 @@ namespace TechAndTools.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_MainCategories", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OrderStatuses",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrderStatuses", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PaymentStatuses",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PaymentStatuses", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PaymentTypes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PaymentTypes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -139,6 +178,8 @@ namespace TechAndTools.Data.Migrations
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
+                    FirstName = table.Column<string>(nullable: true),
+                    LastName = table.Column<string>(nullable: true),
                     ShoppingCartId = table.Column<string>(nullable: true),
                     CreatedOn = table.Column<DateTime>(nullable: false),
                     ModifiedOn = table.Column<DateTime>(nullable: true)
@@ -163,14 +204,12 @@ namespace TechAndTools.Data.Migrations
                     Name = table.Column<string>(nullable: true),
                     ProductCategoryId = table.Column<int>(nullable: false),
                     BrandId = table.Column<int>(nullable: false),
-                    DocumentationUrl = table.Column<string>(nullable: true),
+                    ManualUrl = table.Column<string>(nullable: true),
                     Warranty = table.Column<int>(nullable: false),
                     Price = table.Column<decimal>(nullable: false),
                     QuantityInStock = table.Column<int>(nullable: false),
                     SalesCount = table.Column<int>(nullable: false),
                     IsOutOfStock = table.Column<bool>(nullable: false),
-                    IsDeleted = table.Column<bool>(nullable: false),
-                    DeletedOn = table.Column<DateTime>(nullable: true),
                     CreatedOn = table.Column<DateTime>(nullable: false),
                     ModifiedOn = table.Column<DateTime>(nullable: true)
                 },
@@ -399,10 +438,10 @@ namespace TechAndTools.Data.Migrations
                 name: "ShoppingCartProducts",
                 columns: table => new
                 {
-                    ProductId = table.Column<int>(nullable: false),
                     ShoppingCardId = table.Column<int>(nullable: false),
-                    Quantity = table.Column<int>(nullable: false),
-                    ShoppingCartId = table.Column<string>(nullable: true)
+                    ProductId = table.Column<int>(nullable: false),
+                    ShoppingCartId = table.Column<string>(nullable: true),
+                    Quantity = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -427,18 +466,18 @@ namespace TechAndTools.Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Status = table.Column<int>(nullable: false),
-                    PaymentStatus = table.Column<int>(nullable: false),
+                    StatusId = table.Column<int>(nullable: true),
+                    PaymentStatusId = table.Column<int>(nullable: true),
                     OrderDate = table.Column<DateTime>(nullable: true),
                     EstimatedDeliveryDate = table.Column<DateTime>(nullable: true),
                     DeliveryDate = table.Column<DateTime>(nullable: true),
-                    DispatchDate = table.Column<DateTime>(nullable: true),
+                    Date = table.Column<DateTime>(nullable: true),
                     TotalPrice = table.Column<decimal>(nullable: false),
                     DeliveryPrice = table.Column<decimal>(nullable: false),
                     Recipient = table.Column<string>(nullable: true),
                     RecipientPhoneNumber = table.Column<string>(nullable: true),
                     InvoiceNumber = table.Column<string>(nullable: true),
-                    PaymentType = table.Column<int>(nullable: false),
+                    PaymentTypeId = table.Column<int>(nullable: true),
                     UserId = table.Column<string>(nullable: true),
                     DeliveryAddressId = table.Column<int>(nullable: false),
                     AddressId = table.Column<int>(nullable: true),
@@ -451,6 +490,24 @@ namespace TechAndTools.Data.Migrations
                         name: "FK_Orders_Addresses_AddressId",
                         column: x => x.AddressId,
                         principalTable: "Addresses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Orders_PaymentStatuses_PaymentStatusId",
+                        column: x => x.PaymentStatusId,
+                        principalTable: "PaymentStatuses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Orders_PaymentTypes_PaymentTypeId",
+                        column: x => x.PaymentTypeId,
+                        principalTable: "PaymentTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Orders_OrderStatuses_StatusId",
+                        column: x => x.StatusId,
+                        principalTable: "OrderStatuses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -671,6 +728,21 @@ namespace TechAndTools.Data.Migrations
                 column: "AddressId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Orders_PaymentStatusId",
+                table: "Orders",
+                column: "PaymentStatusId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_PaymentTypeId",
+                table: "Orders",
+                column: "PaymentTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_StatusId",
+                table: "Orders",
+                column: "StatusId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Orders_SupplierId",
                 table: "Orders",
                 column: "SupplierId");
@@ -766,6 +838,15 @@ namespace TechAndTools.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Addresses");
+
+            migrationBuilder.DropTable(
+                name: "PaymentStatuses");
+
+            migrationBuilder.DropTable(
+                name: "PaymentTypes");
+
+            migrationBuilder.DropTable(
+                name: "OrderStatuses");
 
             migrationBuilder.DropTable(
                 name: "Suppliers");
