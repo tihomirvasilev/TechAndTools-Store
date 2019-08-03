@@ -27,7 +27,8 @@ namespace TechAndTools.Data.Seeding
                 new RolesSeeder(),
                 new PaymentStatusesSeeder(),
                 new PaymentTypesSeeder(),
-                new OrderStatusesSeeder()
+                new OrderStatusesSeeder(),
+                new SeedRootAdminUser()
             };
 
             foreach (var seeder in seeders)

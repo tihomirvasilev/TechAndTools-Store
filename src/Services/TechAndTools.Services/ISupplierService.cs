@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using TechAndTools.Data.Models;
 
@@ -8,8 +6,10 @@ namespace TechAndTools.Services
 {
     public interface ISupplierService
     {
-        Task<Supplier> CreateSupplierAsync();
-        Supplier GetSupplierById();
+        Task<Supplier> CreateSupplierAsync(string name,decimal priceToOffice, decimal priceToAddress, int minimumDeliveryTimeDays, int maximumDeliveryTimeDays);
 
+        Supplier GetSupplierById(int id);
+
+        IQueryable<Order> GetAllOrdersBySupplierId(int id);
     }
 }

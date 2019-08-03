@@ -1,11 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace TechAndTools.Data.Models
+﻿namespace TechAndTools.Web.InputModels.Administration.Suppliers
 {
-    public class Supplier
+    public class SupplierInputModel
     {
-        public int Id { get; set; }
-
         public string Name { get; set; }
 
         public decimal PriceToOffice { get; set; }
@@ -15,7 +11,5 @@ namespace TechAndTools.Data.Models
         public int MinimumDeliveryTimeDays { get; set; }
 
         public int MaximumDeliveryTimeDays { get; set; }
-
-        public virtual ICollection<Order> Orders { get; set; } = new HashSet<Order>();
     }
 }
