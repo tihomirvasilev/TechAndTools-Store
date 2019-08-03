@@ -20,15 +20,16 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
             return View();
         }
 
-        public Task<IActionResult> Create()
+        public IActionResult Create()
         {
-            return this.View();
+            return this.Redirect("/");
         }
 
         [HttpPost]
         public async Task<IActionResult> Create(SupplierInputModel inputModel)
         {
-            await this.supplierService.CreateSupplierAsync();
+            await this.supplierService.CreateSupplierAsync(inputModel.Name,inputModel.PriceToOffice, inputModel.PriceToAddress, inputModel.MinimumDeliveryTimeDays, inputModel.MaximumDeliveryTimeDays);
+
             return this.Redirect("All");
         }
     }
