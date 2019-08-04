@@ -37,7 +37,7 @@ namespace TechAndTools.Services.Models
         public string UserId { get; set; }
         public TechAndToolsUserServiceModel User { get; set; }
 
-        public ICollection<OrderServiceModel> OrderProducts { get; set; }
+        public ICollection<OrderProductServiceModel> OrderProducts { get; set; }
 
         public int DeliveryAddressId { get; set; }
         public AddressServiceModel Address { get; set; }

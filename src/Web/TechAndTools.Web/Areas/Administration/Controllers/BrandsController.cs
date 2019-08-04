@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using TechAndTools.Services;
 using TechAndTools.Services.Mapping;
@@ -18,17 +18,17 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
             this.brandService = brandService;
         }
 
-        public IActionResult Add()
+        public IActionResult Create()
         {
             return this.View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(BrandInputModel brandInputModel)
+        public async Task<IActionResult> Create(BrandInputModel brandInputModel)
         {
             if (!this.ModelState.IsValid)
             {
-                return this.Add();
+                return this.View();
             }
 
             await this.brandService.CreateAsync(brandInputModel.To<BrandServiceModel>());
@@ -36,9 +36,11 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
             return this.RedirectToAction("All", "Brands");
         }
 
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
-            BrandEditInputModel brandEditInputModel = this.brandService.GetBrandById(id).To<BrandEditInputModel>();
+            BrandServiceModel brandServiceModel = await this.brandService.GetBrandByIdAsync(id);
+
+            BrandEditInputModel brandEditInputModel = brandServiceModel.To<BrandEditInputModel>();
 
             return this.View(brandEditInputModel);
         }
@@ -53,9 +55,11 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
         
         public async Task<IActionResult> Delete(int id)
         {
-            BrandDeleteVIewModel brandDeleteVIewModel = this.brandService.GetBrandById(id).To<BrandDeleteVIewModel>();
+            BrandServiceModel brandServiceModel = await this.brandService.GetBrandByIdAsync(id);
 
-            return this.View(brandDeleteVIewModel);
+            BrandDeleteViewModel brandDeleteViewModel = brandServiceModel.To<BrandDeleteViewModel>();
+
+            return this.View(brandDeleteViewModel);
         }
 
         [HttpPost]
@@ -67,12 +71,11 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
             return this.RedirectToAction("All", "Brands");
         }
 
-        public IActionResult All()
+        public async Task<IActionResult> All()
         {
-            var viewModels = this.brandService.GetAllBrands().To<BrandIndexViewModel>().ToList();
+            var viewModels = await this.brandService.GetAllBrands().To<BrandIndexViewModel>().ToListAsync();
 
             return this.View(viewModels);
         }
-
     }
 }

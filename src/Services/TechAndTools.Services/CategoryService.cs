@@ -30,8 +30,13 @@ namespace TechAndTools.Services
 
         public async Task<CategoryServiceModel> EditCategoryAsync(CategoryServiceModel categoryServiceModel)
         {
-            var category = categoryServiceModel.To<Category>();
-            this.context.Update(category);
+            var category = this.context.Categories.Find(categoryServiceModel.Id);
+
+            category.Name = categoryServiceModel.Name;
+            category.MainCategoryId = categoryServiceModel.MainCategoryId;
+
+            this.context.Categories.Update(category);
+
             await this.context.SaveChangesAsync();
 
             return categoryServiceModel;
@@ -58,7 +63,7 @@ namespace TechAndTools.Services
             return this.context.Categories.FirstOrDefault(x => x.Id == id).To<CategoryServiceModel>();
         }
 
-        public IQueryable<CategoryServiceModel> GetAllCategoriesByMainCategoryIdAsync(int mainCategoryId)
+        public IQueryable<CategoryServiceModel> GetAllCategoriesByMainCategoryId(int mainCategoryId)
         {
             return this.context.Categories.Where(category => category.MainCategoryId == mainCategoryId).To<CategoryServiceModel>();
         }

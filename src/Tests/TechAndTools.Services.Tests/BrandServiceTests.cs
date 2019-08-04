@@ -1,81 +1,92 @@
-using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using TechAndTools.Data;
 using TechAndTools.Data.Models;
+using TechAndTools.Services.Mapping;
+using TechAndTools.Services.Models;
+using TechAndTools.Services.Tests.Common;
 using Xunit;
 
 namespace TechAndTools.Services.Tests
 {
     public class BrandServiceTests
     {
-        //[Fact]
-        //public async void CreateBrandAsyncShouldCreateBrand()
-        //{
-        //    var options = new DbContextOptionsBuilder<TechAndToolsDbContext>()
-        //        .UseInMemoryDatabase(databaseName: "Brands_CreateBrand")
-        //        .Options;
+        public BrandServiceTests()
+        {
+            MapperInitializer.InitializeMapper();
+        }
 
-        //    TechAndToolsDbContext dbContext = new TechAndToolsDbContext(options);
+        [Fact]
+        public async void CreateBrandAsyncShouldCreateBrand()
+        {
+            var options = new DbContextOptionsBuilder<TechAndToolsDbContext>()
+                .UseInMemoryDatabase(databaseName: "Brands_CreateBrand")
+                .Options;
 
-        //    BrandService brandService = new BrandService(dbContext);
+            TechAndToolsDbContext dbContext = new TechAndToolsDbContext(options);
 
-        //    await brandService.CreateAsync("name1", "logo1", "officialSite1");
-        //    await brandService.CreateAsync("name2", "logo2", "officialSite2");
+            BrandService brandService = new BrandService(dbContext);
 
-        //    int brandsCount = await dbContext.Brands.CountAsync();
+            await brandService.CreateAsync(new BrandServiceModel {Name = "name1", LogoUrl = "Logo1", OfficialSite = "Site1"});
 
-        //    Assert.Equal(2, brandsCount);
-        //}
+            await brandService.CreateAsync(new BrandServiceModel {Name = "name2", LogoUrl = "Logo2", OfficialSite = "Site2"});
 
-        //[Fact]
-        //public async void GetAllBrandsShouldReturnAllBrands()
-        //{
-        //    var options = new DbContextOptionsBuilder<TechAndToolsDbContext>()
-        //        .UseInMemoryDatabase(databaseName: "Brands_GetAllBrands")
-        //        .Options;
+            int brandsCount = await dbContext.Brands.CountAsync();
 
-        //    TechAndToolsDbContext dbContext = new TechAndToolsDbContext(options);
+            Assert.Equal(2, brandsCount);
+        }
 
-        //    BrandService brandService = new BrandService(dbContext);
+        [Fact]
+        public async void GetAllBrandsShouldReturnAllBrands()
+        {
+            var options = new DbContextOptionsBuilder<TechAndToolsDbContext>()
+                .UseInMemoryDatabase(databaseName: "Brands_GetAllBrands")
+                .Options;
 
-        //    await brandService.CreateAsync("name1", "logo1", "officialSite1");
-        //    await brandService.CreateAsync("name2", "logo2", "officialSite2");
+            TechAndToolsDbContext dbContext = new TechAndToolsDbContext(options);
 
-        //    var brands = await brandService.GetAllBrands().ToListAsync();
+            BrandService brandService = new BrandService(dbContext);
 
-        //    Assert.Equal(2, brands.Count());
-        //    Assert.Equal("name1", brands.First().Name);
-        //    Assert.Equal("name2", brands.Last().Name);
-        //}
+            await brandService.CreateAsync(new BrandServiceModel {Name = "name1", LogoUrl = "Logo1", OfficialSite = "Site1"});
+            await brandService.CreateAsync(new BrandServiceModel {Name = "name2", LogoUrl = "Logo2", OfficialSite = "Site2"});
 
-        //[Fact]
-        //public void GetBrandByIdShouldReturnBrandWithSameId()
-        //{
-        //    var options = new DbContextOptionsBuilder<TechAndToolsDbContext>()
-        //        .UseInMemoryDatabase(databaseName: "Brands_GetBrandById")
-        //        .Options;
+            var brands = await brandService.GetAllBrands().ToListAsync();
 
-            
-        //    TechAndToolsDbContext dbContext = new TechAndToolsDbContext(options);
+            Assert.Equal(2, brands.Count());
+            Assert.Equal("name1", brands.First().Name);
+            Assert.Equal("name2", brands.Last().Name);
+        }
 
-        //    BrandService brandService = new BrandService(dbContext);
+        [Fact]
+        public async void GetBrandByIdShouldReturnBrandWithSameId()
+        {
+            var options = new DbContextOptionsBuilder<TechAndToolsDbContext>()
+                .UseInMemoryDatabase(databaseName: "Brands_GetBrandById")
+                .Options;
 
-        //    Brand brandForDb = new Brand
-        //    {
-        //        Id = 20,
-        //        Name = "name1",
-        //        LogoUrl = "logo1",
-        //        OfficialSite = "officialSite1"
-        //    };
 
-        //    dbContext.Brands.Add(brandForDb);
-        //    dbContext.SaveChanges();
+            TechAndToolsDbContext dbContext = new TechAndToolsDbContext(options);
 
-        //    Brand brand = brandService.GetBrandById(20);
+            BrandService brandService = new BrandService(dbContext);
 
-        //    Assert.Equal(20, brand.Id);
-        //    Assert.NotNull(brand.Products);
-        //    Assert.NotNull(brand);
-        //}
+            Brand brandForDb = new Brand
+            {
+                Id = 20,
+                Name = "name1",
+                LogoUrl = "logo1",
+                OfficialSite = "officialSite1"
+            };
+
+            dbContext.Brands.Add(brandForDb);
+            dbContext.SaveChanges();
+
+            BrandServiceModel serviceModel = await brandService.GetBrandByIdAsync(20);
+
+            Brand brand = serviceModel.To<Brand>();
+
+            Assert.Equal(20, brand.Id);
+            Assert.NotNull(brand.Products);
+            Assert.NotNull(brand);
+        }
     }
 }

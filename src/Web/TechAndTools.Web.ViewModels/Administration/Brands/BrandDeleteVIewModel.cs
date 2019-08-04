@@ -6,7 +6,7 @@ using TechAndTools.Services.Models;
 
 namespace TechAndTools.Web.ViewModels.Administration.Brands
 {
-    public class BrandDeleteVIewModel : IMapFrom<BrandServiceModel>, IMapTo<BrandServiceModel>
+    public class BrandDeleteViewModel : IMapFrom<BrandServiceModel>, IMapTo<BrandServiceModel>
     {
         public int Id { get; set; }
 

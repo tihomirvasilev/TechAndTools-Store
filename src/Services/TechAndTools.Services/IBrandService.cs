@@ -14,6 +14,6 @@ namespace TechAndTools.Services
 
         IQueryable<BrandServiceModel> GetAllBrands();
 
-        BrandServiceModel GetBrandById(int brandId);
+        Task<BrandServiceModel> GetBrandByIdAsync(int id);
     }
 }

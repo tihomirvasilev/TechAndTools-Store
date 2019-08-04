@@ -13,5 +13,5 @@
         public string Street { get; set; }
 
         public int PostCode { get; set; }
-}
+    }
 }

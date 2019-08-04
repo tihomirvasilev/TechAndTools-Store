@@ -16,7 +16,7 @@ namespace TechAndTools.Services
 
         CategoryServiceModel GetCategoryById(int id);
 
-        IQueryable<CategoryServiceModel> GetAllCategoriesByMainCategoryIdAsync(int mainCategoryId);
+        IQueryable<CategoryServiceModel> GetAllCategoriesByMainCategoryId(int mainCategoryId);
 
         IQueryable<CategoryServiceModel> GetAllCategories();
     }

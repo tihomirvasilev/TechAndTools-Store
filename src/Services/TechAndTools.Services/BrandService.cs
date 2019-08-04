@@ -42,7 +42,7 @@ namespace TechAndTools.Services
 
         public async Task<bool> DeleteAsync(int id)
         {
-            Brand brand = this.context.Brands.Find(id);
+            Brand brand = await this.context.Brands.FindAsync(id);
 
             if (brand == null)
             {
@@ -50,6 +50,7 @@ namespace TechAndTools.Services
             }
 
             this.context.Brands.Remove(brand);
+
             int result = await this.context.SaveChangesAsync();
 
             return result > 0;
@@ -60,9 +61,11 @@ namespace TechAndTools.Services
             return this.context.Brands.To<BrandServiceModel>();
         }
 
-        public BrandServiceModel GetBrandById(int brandId)
+        public async Task<BrandServiceModel> GetBrandByIdAsync(int id)
         {
-            return this.context.Brands.FirstOrDefault(brand => brand.Id == brandId).To<BrandServiceModel>();
+            Brand brandFromDb = await this.context.Brands.FindAsync(id);
+
+            return brandFromDb.To<BrandServiceModel>();
         }
     }
 }

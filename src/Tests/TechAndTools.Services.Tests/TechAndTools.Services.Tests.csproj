@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
@@ -17,6 +17,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\TechAndTools.Data\TechAndTools.Data.csproj" />
     <ProjectReference Include="..\..\Services\TechAndTools.Services\TechAndTools.Services.csproj" />
+    <ProjectReference Include="..\..\Web\TechAndTools.Web.ViewModels\TechAndTools.Web.ViewModels.csproj" />
   </ItemGroup>
 
   <ItemGroup>

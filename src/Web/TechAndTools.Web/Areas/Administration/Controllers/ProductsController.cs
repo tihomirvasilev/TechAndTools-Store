@@ -39,7 +39,7 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Delete()
+        public async Task<IActionResult> Delete(int id)
         {
             //TODO: Implement
             return this.Redirect("All");
