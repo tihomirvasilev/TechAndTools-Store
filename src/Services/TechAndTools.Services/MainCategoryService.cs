@@ -17,13 +17,8 @@ namespace TechAndTools.Services
         {
             this.context = context;
         }
-
-        private MainCategory GetMainCategoryByName(string mainCategoryName)
-        {
-            return this.context.MainCategories.FirstOrDefault(x => x.Name == mainCategoryName);
-        }
-
-        public async Task<MainCategoryServiceModel> CreateMainCategoryAsync(MainCategoryServiceModel serviceModel)
+        
+        public async Task<MainCategoryServiceModel> CreateAsync(MainCategoryServiceModel serviceModel)
         {
             MainCategory mainCategory = serviceModel.To<MainCategory>();
 
@@ -33,25 +28,16 @@ namespace TechAndTools.Services
             return serviceModel;
         }
 
-        public async Task<bool> ChangeMainCategoryAsync(int categoryId, int newMainCategoryId)
+        public async Task<MainCategoryServiceModel> EditAsync(MainCategoryServiceModel mainCategoryServiceModel)
         {
-            Category category = this.context.Categories.Find(categoryId);
+            MainCategory mainCategoryFromDb = this.context.MainCategories.Find(mainCategoryServiceModel.Id);
 
-            category.MainCategoryId = newMainCategoryId;
+            mainCategoryFromDb.Name = mainCategoryServiceModel.Name;
 
-            this.context.Update(category);
-            int result = await this.context.SaveChangesAsync();
-
-            return result > 0;
-        }
-
-        public async Task<MainCategoryServiceModel> EditAsync(MainCategoryServiceModel categoryServiceModel)
-        {
-            var category = categoryServiceModel.To<MainCategory>();
-            this.context.Update(category);
+            this.context.MainCategories.Update(mainCategoryFromDb);
             await this.context.SaveChangesAsync();
 
-            return categoryServiceModel;
+            return mainCategoryFromDb.To<MainCategoryServiceModel>();
         }
 
         public async Task<bool> DeleteAsync(int id)

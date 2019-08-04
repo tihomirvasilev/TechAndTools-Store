@@ -31,7 +31,16 @@ namespace TechAndTools.Services
 
         public async Task<BrandServiceModel> EditAsync(BrandServiceModel serviceModel)
         {
-            Brand brand = serviceModel.To<Brand>();
+            Brand brand = this.context.Brands.Find(serviceModel.Id);
+
+            if (brand == null)
+            {
+                throw new ArgumentNullException(nameof(brand));
+            }
+
+            brand.Name = serviceModel.Name;
+            brand.LogoUrl = serviceModel.LogoUrl;
+            brand.OfficialSite = serviceModel.OfficialSite;
 
             this.context.Brands.Update(brand);
 

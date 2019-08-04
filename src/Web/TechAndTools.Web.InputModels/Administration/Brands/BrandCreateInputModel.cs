@@ -4,7 +4,7 @@ using TechAndTools.Services.Models;
 
 namespace TechAndTools.Web.InputModels.Administration.Brands
 {
-    public class BrandInputModel : IMapTo<BrandServiceModel>
+    public class BrandCreateInputModel : IMapTo<BrandServiceModel>
     {
         [Required]
         public string Name { get; set; }

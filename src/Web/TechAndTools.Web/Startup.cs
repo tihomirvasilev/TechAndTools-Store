@@ -96,7 +96,7 @@ namespace TechAndTools.Web
         {
             AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly,
                 typeof(BrandIndexViewModel).GetTypeInfo().Assembly,
-                typeof(BrandInputModel).GetTypeInfo().Assembly,
+                typeof(BrandCreateInputModel).GetTypeInfo().Assembly,
                 typeof(BrandServiceModel).GetTypeInfo().Assembly);
 
             // Seed data on application startup

@@ -106,47 +106,29 @@ namespace TechAndTools.Services.Tests
                 .UseInMemoryDatabase(databaseName: "GetAllCategoriesByMainCategoryIdAsyncShouldReturnAllCategoriesWithSameMainCategory")
                 .Options;
 
-            var dbContext = new TechAndToolsDbContext(options);
+            var context = new TechAndToolsDbContext(options);
 
-            var mainCategory = new MainCategory
-            {
-                Name = "PC1"
-            };
+            await SeedData(context);
 
-            var category1 = new Category
-            {
-                Name = "category1",
-                MainCategoryId = 1
-            };
+            ICategoryService categoryService = new CategoryService(context);
 
-            var category2 = new Category
-            {
-                Name = "category2",
-                MainCategoryId = 1
-            };
+            MainCategory mainCategoryFromDb = context.MainCategories.First();
 
-            await dbContext.MainCategories.AddAsync(mainCategory);
-            await dbContext.Categories.AddAsync(category1);
-            await dbContext.Categories.AddAsync(category2);
-            await dbContext.SaveChangesAsync();
-
-            ICategoryService categoryService = new CategoryService(dbContext);
-
-            IEnumerable<CategoryServiceModel> categories = categoryService.GetAllCategoriesByMainCategoryId(1);
+            IEnumerable<CategoryServiceModel> categories = categoryService.GetAllCategoriesByMainCategoryId(mainCategoryFromDb.Id);
 
             Assert.NotNull(categories);
             Assert.True(categories.Count() == 2);
-            Assert.Equal("PC1", categories.First().MainCategory.Name);
-            Assert.Equal("PC1", categories.Last().MainCategory.Name);
+            Assert.Equal(mainCategoryFromDb.Name, categories.First().MainCategory.Name);
+            Assert.Equal(mainCategoryFromDb.Id, categories.First().MainCategory.Id);
+            Assert.Equal(mainCategoryFromDb.Name, categories.Last().MainCategory.Name);
+            Assert.Equal(mainCategoryFromDb.Id, categories.Last().MainCategory.Id);
         }
 
         [Fact]
-        public async Task EditCategoryAsyncShouldEditCategory()
+        public async Task EditCategoryAsyncShouldEditCategoryById()
         {
-
-
             var options = new DbContextOptionsBuilder<TechAndToolsDbContext>()
-                .UseInMemoryDatabase(databaseName: "EditCategoryAsyncShouldEditCategory")
+                .UseInMemoryDatabase(databaseName: "EditCategoryAsyncShouldEditCategoryById")
                 .Options;
 
             var dbContext = new TechAndToolsDbContext(options);
@@ -155,19 +137,86 @@ namespace TechAndTools.Services.Tests
 
             ICategoryService categoryService = new CategoryService(dbContext);
 
-            CategoryServiceModel expectedData = dbContext.Categories.Find(1).To<CategoryServiceModel>();
+            Category expectedData = dbContext.Categories.First();
 
             expectedData.Name = "newName";
             expectedData.MainCategoryId = 2;
 
-            await categoryService.EditCategoryAsync(expectedData);
+            await categoryService.EditCategoryAsync(expectedData.To<CategoryServiceModel>());
 
-            var actualData = dbContext.Categories.Find(1);
+            var actualData = dbContext.Categories.First();
 
             Assert.True(expectedData.Name == actualData.Name);
             Assert.True(expectedData.MainCategoryId == actualData.MainCategoryId);
             Assert.NotNull(actualData.MainCategory);
             Assert.NotNull(actualData.Products);
+        }
+
+        [Fact]
+        public async Task DeleteAsyncShouldDeleteCategoryFromDatabase()
+        {
+            var options = new DbContextOptionsBuilder<TechAndToolsDbContext>()
+                .UseInMemoryDatabase(databaseName: "DeleteAsyncShouldDeleteCategoryFromDatabase")
+                .Options;
+
+            var context = new TechAndToolsDbContext(options);
+
+            await SeedData(context);
+
+            ICategoryService categoryService = new CategoryService(context);
+
+            Category categoryFromDb = context.Categories.First();
+
+            bool result = await categoryService.DeleteAsync(categoryFromDb.Id);
+
+            Assert.True(result);
+            Assert.True(context.Categories.Count() == 1);
+        }
+        
+        [Fact]
+        public async Task GetAllCategoriesShouldReturnAllCategoriesAsServiceModels()
+        {
+            var options = new DbContextOptionsBuilder<TechAndToolsDbContext>()
+                .UseInMemoryDatabase(databaseName: "GetAllCategoriesShouldReturnAllCategoriesAsServiceModels")
+                .Options;
+
+            var context = new TechAndToolsDbContext(options);
+
+            await SeedData(context);
+
+            ICategoryService categoryService = new CategoryService(context);
+
+            var categoryServiceModels = await categoryService.GetAllCategories().ToListAsync();
+
+            Assert.True(categoryServiceModels.Count == 2);
+            Assert.NotNull(categoryServiceModels.First());
+            Assert.NotNull(categoryServiceModels.Last());
+            Assert.IsType<CategoryServiceModel>(categoryServiceModels.First());
+            Assert.IsType<CategoryServiceModel>(categoryServiceModels.Last());
+        }
+
+        
+        [Fact]
+        public async Task GetCategoryByIdShouldReturnCategoryServiceModelById()
+        {
+            var options = new DbContextOptionsBuilder<TechAndToolsDbContext>()
+                .UseInMemoryDatabase(databaseName: "GetCategoryByIdShouldReturnCategoryServiceModelById")
+                .Options;
+
+            var context = new TechAndToolsDbContext(options);
+
+            await SeedData(context);
+
+            ICategoryService categoryService = new CategoryService(context);
+
+            Category category = context.Categories.First();
+
+            CategoryServiceModel serviceModel = categoryService.GetCategoryById(category.Id);
+
+            Assert.NotNull(serviceModel);
+            Assert.IsType<CategoryServiceModel>(serviceModel);
+            Assert.NotNull(serviceModel.MainCategory);
+            Assert.NotNull(serviceModel.Products);
         }
     }
 }

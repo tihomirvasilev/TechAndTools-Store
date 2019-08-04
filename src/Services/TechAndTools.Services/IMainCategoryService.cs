@@ -6,11 +6,14 @@ namespace TechAndTools.Services
 {
     public interface IMainCategoryService
     {
-        Task<MainCategoryServiceModel> CreateMainCategoryAsync(MainCategoryServiceModel serviceModel);
-        Task<bool> ChangeMainCategoryAsync(int categoryId, int newMainCategoryId);
+        Task<MainCategoryServiceModel> CreateAsync (MainCategoryServiceModel serviceModel);
+
         IQueryable<MainCategoryServiceModel> GetAllMainCategories();
+
         MainCategoryServiceModel GetMainCategoryById(int id);
-        Task<MainCategoryServiceModel> EditAsync(MainCategoryServiceModel categoryServiceModel);
+
+        Task<MainCategoryServiceModel> EditAsync(MainCategoryServiceModel mainCategoryServiceModel);
+
         Task<bool> DeleteAsync(int id);
     }
 }

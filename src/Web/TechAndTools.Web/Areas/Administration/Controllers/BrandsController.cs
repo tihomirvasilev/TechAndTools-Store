@@ -24,14 +24,14 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(BrandInputModel brandInputModel)
+        public async Task<IActionResult> Create(BrandCreateInputModel brandCreateInputModel)
         {
             if (!this.ModelState.IsValid)
             {
                 return this.View();
             }
 
-            await this.brandService.CreateAsync(brandInputModel.To<BrandServiceModel>());
+            await this.brandService.CreateAsync(brandCreateInputModel.To<BrandServiceModel>());
 
             return this.RedirectToAction("All", "Brands");
         }
