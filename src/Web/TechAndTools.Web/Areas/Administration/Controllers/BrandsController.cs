@@ -1,8 +1,9 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 using System.Threading.Tasks;
 using TechAndTools.Services;
 using TechAndTools.Services.Mapping;
+using TechAndTools.Services.Models;
 using TechAndTools.Web.InputModels.Administration.Brands;
 using TechAndTools.Web.ViewModels.Administration.Brands;
 
@@ -15,13 +16,6 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
         public BrandsController(IBrandService brandService)
         {
             this.brandService = brandService;
-        }
-
-        public IActionResult All()
-        {
-            var viewModels = this.brandService.GetAllBrands().To<BrandIndexViewModel>();
-
-            return this.View(viewModels);
         }
 
         public IActionResult Add()
@@ -37,35 +31,48 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
                 return this.Add();
             }
 
-            await this.brandService.CreateBrandAsync(brandInputModel.Name, brandInputModel.LogoUrl, brandInputModel.LogoUrl);
+            await this.brandService.CreateAsync(brandInputModel.To<BrandServiceModel>());
 
-            return this.Redirect("/");
+            return this.RedirectToAction("All", "Brands");
         }
 
-        public IActionResult Details(int id)
+        public IActionResult Edit(int id)
         {
-            var model = Mapper.Map<BrandDetailsViewModel>(this.brandService.GetBrandById(id));
+            BrandEditInputModel brandEditInputModel = this.brandService.GetBrandById(id).To<BrandEditInputModel>();
 
-            return this.View(model);
-        }
-
-        public IActionResult Edit()
-        {
-            return this.View();
+            return this.View(brandEditInputModel);
         }
 
         [HttpPost]
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(BrandEditInputModel brandEditInputModel)
         {
-            //TODO: Implement
-            return this.Redirect("All");
+            await this.brandService.EditAsync(brandEditInputModel.To<BrandServiceModel>());
+
+            return this.RedirectToAction("All", "Brands");
+        }
+        
+        public async Task<IActionResult> Delete(int id)
+        {
+            BrandDeleteVIewModel brandDeleteVIewModel = this.brandService.GetBrandById(id).To<BrandDeleteVIewModel>();
+
+            return this.View(brandDeleteVIewModel);
         }
 
-        [HttpGet]
-        public IActionResult Delete(int id)
+        [HttpPost]
+        [Route("/Administration/Brands/Delete/{id}")]
+        public async Task<IActionResult> DeleteConfirm(int id)
         {
-            //TODO: Implement
-            return this.Redirect("All");
+            await this.brandService.DeleteAsync(id);
+
+            return this.RedirectToAction("All", "Brands");
         }
+
+        public IActionResult All()
+        {
+            var viewModels = this.brandService.GetAllBrands().To<BrandIndexViewModel>().ToList();
+
+            return this.View(viewModels);
+        }
+
     }
 }

@@ -10,8 +10,8 @@ using TechAndTools.Data;
 namespace TechAndTools.Data.Migrations
 {
     [DbContext(typeof(TechAndToolsDbContext))]
-    [Migration("20190729152855_InitialCreateNew")]
-    partial class InitialCreateNew
+    [Migration("20190804100459_removeCascadeDeleteOnCategories")]
+    partial class RemoveCascadeDeleteOnCategories
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -236,41 +236,6 @@ namespace TechAndTools.Data.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("TechAndTools.Data.Models.Description", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("ProductId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId")
-                        .IsUnique();
-
-                    b.ToTable("Descriptions");
-                });
-
-            modelBuilder.Entity("TechAndTools.Data.Models.DescriptionProperty", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("DescriptionId");
-
-                    b.Property<string>("Name");
-
-                    b.Property<string>("Value");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DescriptionId");
-
-                    b.ToTable("DescriptionProperties");
-                });
-
             modelBuilder.Entity("TechAndTools.Data.Models.FavoriteProduct", b =>
                 {
                     b.Property<string>("UserId");
@@ -437,6 +402,8 @@ namespace TechAndTools.Data.Migrations
 
                     b.Property<DateTime>("CreatedOn");
 
+                    b.Property<string>("Description");
+
                     b.Property<bool>("IsOutOfStock");
 
                     b.Property<string>("ManualUrl");
@@ -525,9 +492,9 @@ namespace TechAndTools.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("EstimatedDeliveryTimeMax");
+                    b.Property<int>("MaximumDeliveryTimeDays");
 
-                    b.Property<int>("EstimatedDeliveryTimeMin");
+                    b.Property<int>("MinimumDeliveryTimeDays");
 
                     b.Property<string>("Name");
 
@@ -682,23 +649,7 @@ namespace TechAndTools.Data.Migrations
                     b.HasOne("TechAndTools.Data.Models.MainCategory", "MainCategory")
                         .WithMany("Categories")
                         .HasForeignKey("MainCategoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("TechAndTools.Data.Models.Description", b =>
-                {
-                    b.HasOne("TechAndTools.Data.Models.Product", "Product")
-                        .WithOne("Description")
-                        .HasForeignKey("TechAndTools.Data.Models.Description", "ProductId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("TechAndTools.Data.Models.DescriptionProperty", b =>
-                {
-                    b.HasOne("TechAndTools.Data.Models.Description", "Description")
-                        .WithMany("DescriptionProperties")
-                        .HasForeignKey("DescriptionId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("TechAndTools.Data.Models.FavoriteProduct", b =>

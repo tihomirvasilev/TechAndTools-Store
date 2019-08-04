@@ -2,16 +2,22 @@
 using System.Linq;
 using System.Threading.Tasks;
 using TechAndTools.Data.Models;
+using TechAndTools.Services.Models;
 
 namespace TechAndTools.Services
 {
     public interface ICategoryService
     {
-        Task<Category> CreateCategoryAsync(string name, string mainCategoryName);
-        Task<MainCategory> CreateMainCategoryAsync(string name);
-        Task<bool> ChangeMainCategoryAsync(int categoryId, int newMainCategoryId);
-        IQueryable<MainCategory> GetAllMainCategories();
-        Task<IEnumerable<Category>> GetAllCategoriesByMainCategoryIdAsync(int mainCategoryId);
-        IQueryable<Category> GetAllCategories();
+        Task<CategoryServiceModel> CreateCategoryAsync(CategoryServiceModel categoryServiceModel);
+
+        Task<CategoryServiceModel> EditCategoryAsync(CategoryServiceModel categoryServiceModel);
+
+        Task<bool> DeleteAsync(int id);
+
+        CategoryServiceModel GetCategoryById(int id);
+
+        IQueryable<CategoryServiceModel> GetAllCategoriesByMainCategoryIdAsync(int mainCategoryId);
+
+        IQueryable<CategoryServiceModel> GetAllCategories();
     }
 }

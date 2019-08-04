@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TechAndTools.Data.Migrations
 {
-    public partial class InitialCreateNew : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -110,8 +110,8 @@ namespace TechAndTools.Data.Migrations
                     Name = table.Column<string>(nullable: true),
                     PriceToOffice = table.Column<decimal>(nullable: false),
                     PriceToAddress = table.Column<decimal>(nullable: false),
-                    EstimatedDeliveryTimeMin = table.Column<int>(nullable: false),
-                    EstimatedDeliveryTimeMax = table.Column<int>(nullable: false)
+                    MinimumDeliveryTimeDays = table.Column<int>(nullable: false),
+                    MaximumDeliveryTimeDays = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -204,6 +204,7 @@ namespace TechAndTools.Data.Migrations
                     Name = table.Column<string>(nullable: true),
                     ProductCategoryId = table.Column<int>(nullable: false),
                     BrandId = table.Column<int>(nullable: false),
+                    Description = table.Column<string>(nullable: true),
                     ManualUrl = table.Column<string>(nullable: true),
                     Warranty = table.Column<int>(nullable: false),
                     Price = table.Column<decimal>(nullable: false),
@@ -361,25 +362,6 @@ namespace TechAndTools.Data.Migrations
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Descriptions",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    ProductId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Descriptions", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Descriptions_Products_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "Products",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -580,27 +562,6 @@ namespace TechAndTools.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "DescriptionProperties",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true),
-                    Value = table.Column<string>(nullable: true),
-                    DescriptionId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DescriptionProperties", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_DescriptionProperties_Descriptions_DescriptionId",
-                        column: x => x.DescriptionId,
-                        principalTable: "Descriptions",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "OrderProducts",
                 columns: table => new
                 {
@@ -690,17 +651,6 @@ namespace TechAndTools.Data.Migrations
                 name: "IX_Categories_MainCategoryId",
                 table: "Categories",
                 column: "MainCategoryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_DescriptionProperties_DescriptionId",
-                table: "DescriptionProperties",
-                column: "DescriptionId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Descriptions_ProductId",
-                table: "Descriptions",
-                column: "ProductId",
-                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_FavoriteProducts_ProductId",
@@ -804,9 +754,6 @@ namespace TechAndTools.Data.Migrations
                 name: "BlogComments");
 
             migrationBuilder.DropTable(
-                name: "DescriptionProperties");
-
-            migrationBuilder.DropTable(
                 name: "FavoriteProducts");
 
             migrationBuilder.DropTable(
@@ -823,9 +770,6 @@ namespace TechAndTools.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
-
-            migrationBuilder.DropTable(
-                name: "Descriptions");
 
             migrationBuilder.DropTable(
                 name: "BlogPosts");

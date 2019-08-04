@@ -1,15 +1,19 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using TechAndTools.Data.Models;
+using TechAndTools.Services.Models;
 
 namespace TechAndTools.Services
 {
     public interface ISupplierService
     {
-        Task<Supplier> CreateSupplierAsync(string name,decimal priceToOffice, decimal priceToAddress, int minimumDeliveryTimeDays, int maximumDeliveryTimeDays);
+        Task<SupplierServiceModel> CreateAsync(SupplierServiceModel supplierServiceModel);
 
-        Supplier GetSupplierById(int id);
+        Task<bool> EditAsync(SupplierServiceModel supplierServiceModel);
 
-        IQueryable<Order> GetAllOrdersBySupplierId(int id);
+        Task<bool> DeleteAsync(int id);
+
+        SupplierServiceModel GetSupplierById(int id);
+
+        IQueryable<SupplierServiceModel> GetAllSuppliers();
     }
 }

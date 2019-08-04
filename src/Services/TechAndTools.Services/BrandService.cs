@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
 using TechAndTools.Data;
 using TechAndTools.Data.Models;
+using TechAndTools.Services.Mapping;
+using TechAndTools.Services.Models;
 
 namespace TechAndTools.Services
 {
@@ -16,31 +17,52 @@ namespace TechAndTools.Services
             this.context = context;
         }
 
-        public async Task<Brand> CreateBrandAsync(string name, string logoUrl, string officialSite)
+        public async Task<BrandServiceModel> CreateAsync(BrandServiceModel serviceModel)
         {
-            
-            var brand = new Brand
-            {
-                Name = name,
-                LogoUrl = logoUrl,
-                OfficialSite = officialSite
-            };
+
+            Brand brand = serviceModel.To<Brand>();
 
             await this.context.Brands.AddAsync(brand);
 
             await this.context.SaveChangesAsync();
 
-            return brand;
+            return serviceModel;
         }
 
-        public IQueryable<Brand> GetAllBrands()
+        public async Task<BrandServiceModel> EditAsync(BrandServiceModel serviceModel)
         {
-            return this.context.Brands;
+            Brand brand = serviceModel.To<Brand>();
+
+            this.context.Brands.Update(brand);
+
+            await this.context.SaveChangesAsync();
+
+            return serviceModel;
         }
 
-        public Brand GetBrandById(int brandId)
+        public async Task<bool> DeleteAsync(int id)
         {
-            return this.context.Brands.FirstOrDefault(brand => brand.Id == brandId);
+            Brand brand = this.context.Brands.Find(id);
+
+            if (brand == null)
+            {
+                throw new ArgumentNullException(nameof(brand));
+            }
+
+            this.context.Brands.Remove(brand);
+            int result = await this.context.SaveChangesAsync();
+
+            return result > 0;
+        }
+
+        public IQueryable<BrandServiceModel> GetAllBrands()
+        {
+            return this.context.Brands.To<BrandServiceModel>();
+        }
+
+        public BrandServiceModel GetBrandById(int brandId)
+        {
+            return this.context.Brands.FirstOrDefault(brand => brand.Id == brandId).To<BrandServiceModel>();
         }
     }
 }

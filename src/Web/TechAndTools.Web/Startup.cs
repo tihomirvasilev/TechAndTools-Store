@@ -15,6 +15,7 @@ using TechAndTools.Data.Seeding;
 using TechAndTools.Services;
 using TechAndTools.Services.EmailSender;
 using TechAndTools.Services.Mapping;
+using TechAndTools.Services.Models;
 using TechAndTools.Web.InputModels.Administration.Brands;
 using TechAndTools.Web.InputModels.Administration.Categories;
 using TechAndTools.Web.ViewModels;
@@ -39,7 +40,7 @@ namespace TechAndTools.Web
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-                options.CheckConsentNeeded = context => true; 
+                options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
@@ -72,8 +73,8 @@ namespace TechAndTools.Web
 
             services.AddTransient<IBrandService, BrandService>();
             services.AddTransient<ICategoryService, CategoryService>();
+            services.AddTransient<IMainCategoryService, MainCategoryService>();
             services.AddTransient<ISupplierService, SupplierService>();
-            services.AddTransient<IDescriptionService, DescriptionService>();
 
             services.AddSingleton<IEmailSender, EmailSender>();
 
@@ -97,15 +98,8 @@ namespace TechAndTools.Web
         {
             AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly,
                 typeof(BrandIndexViewModel).GetTypeInfo().Assembly,
-                typeof(Brand).GetTypeInfo().Assembly,
                 typeof(BrandInputModel).GetTypeInfo().Assembly,
-                typeof(BrandDetailsViewModel).GetTypeInfo().Assembly,
-                typeof(MainCategory).GetTypeInfo().Assembly,
-                typeof(MainCategoryViewModel).GetTypeInfo().Assembly,
-                typeof(MainCategoryInputModel).GetTypeInfo().Assembly,
-                typeof(AddCategoryMainCategoryViewModel).GetTypeInfo().Assembly,
-                typeof(Category).GetTypeInfo().Assembly,
-                typeof(CategoryInputModel).GetTypeInfo().Assembly);
+                typeof(BrandServiceModel).GetTypeInfo().Assembly);
 
             // Seed data on application startup
             using (var serviceScope = app.ApplicationServices.CreateScope())

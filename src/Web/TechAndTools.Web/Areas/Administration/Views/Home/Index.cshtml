@@ -2,17 +2,28 @@
     ViewData["Title"] = "Admin Home";
 }
 
-<h1 class="text-center">Admin Area</h1>
-<div class="container-fluid">
-    <ul class="row">
+<div class="container">
+    <h1 class="text-center">Administration Panel</h1>
+    <ul class="nav navbar-nav">
         <li class="nav-link">
-            <a asp-area="Administration" asp-controller="Brands" asp-action="All"><h1>Brands</h1></a>
+            <a asp-area="Administration" asp-controller="Brands" asp-action="All">
+                <h1>Brands</h1>
+            </a>
         </li>
-        <li class="nav-item">
-            <a asp-area="Administration" asp-controller="MainCategories" asp-action="All"><h1>Main Categories</h1></a>
+        <li class="nav-link">
+            <a asp-area="Administration" asp-controller="MainCategories" asp-action="All">
+                <h1>Main Categories</h1>
+            </a>
         </li>
-        <li class="nav-item">
-            <a asp-area="Administration" asp-controller="Categories" asp-action="All"><h1>Categories</h1></a>
+        <li class="nav-link">
+            <a asp-area="Administration" asp-controller="Categories" asp-action="All">
+                <h1>Categories</h1>
+            </a>
+        </li>
+        <li class="nav-link">
+            <a asp-area="Administration" asp-controller="Suppliers" asp-action="All">
+                <h1>Suppliers</h1>
+            </a>
         </li>
     </ul>
 </div>

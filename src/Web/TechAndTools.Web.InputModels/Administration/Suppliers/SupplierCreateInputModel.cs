@@ -1,6 +1,9 @@
-﻿namespace TechAndTools.Web.InputModels.Administration.Suppliers
+﻿using TechAndTools.Services.Mapping;
+using TechAndTools.Services.Models;
+
+namespace TechAndTools.Web.InputModels.Administration.Suppliers
 {
-    public class SupplierInputModel
+    public class SupplierCreateInputModel : IMapTo<SupplierServiceModel>
     {
         public string Name { get; set; }
 

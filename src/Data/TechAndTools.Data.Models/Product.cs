@@ -17,7 +17,7 @@ namespace TechAndTools.Data.Models
 
         public virtual ICollection<Image> Images { get; set; }
 
-        public virtual Description Description { get;set;}
+        public string Description { get; set; }
 
         public string ManualUrl { get; set; }
 

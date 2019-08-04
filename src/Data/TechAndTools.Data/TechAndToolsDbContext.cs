@@ -12,8 +12,6 @@ namespace TechAndTools.Data
         public DbSet<Brand> Brands { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Address> Addresses { get; set; }
-        public DbSet<Description> Descriptions { get; set; }
-        public DbSet<DescriptionProperty> DescriptionProperties { get; set; }
         public DbSet<FavoriteProduct> FavoriteProducts { get; set; }
         public DbSet<Image> Images { get; set; }
         public DbSet<Order> Orders { get; set; }
@@ -34,6 +32,16 @@ namespace TechAndTools.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<MainCategory>()
+                .HasMany(x => x.Categories)
+                .WithOne(x => x.MainCategory)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Category>()
+                .HasOne(x => x.MainCategory)
+                .WithMany(x => x.Categories)
+                .OnDelete(DeleteBehavior.Restrict);
+
             builder.Entity<BlogComment>()
                 .HasKey(x => new { x.BlogPostId, x.UserId });
 

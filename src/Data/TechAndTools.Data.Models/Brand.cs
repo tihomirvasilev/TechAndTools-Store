@@ -1,11 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.Data;
-using TechAndTools.Services.Mapping;
-using TechAndTools.Web.ViewModels.Administration.Brands;
 
 namespace TechAndTools.Data.Models
 {
-    public class Brand : IMapTo<BrandIndexViewModel>, IMapTo<BrandDetailsViewModel>
+    public class Brand
     {
         public int Id { get; set; }
 

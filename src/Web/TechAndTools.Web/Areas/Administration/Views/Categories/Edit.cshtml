@@ -1,16 +1,15 @@
 ﻿@using TechAndTools.Web.ViewModels.Administration.MainCategories
-@model TechAndTools.Web.InputModels.Administration.Categories.CategoryInputModel
+@model TechAndTools.Web.InputModels.Administration.Categories.CategoryEditInputModel
 
 @{
-    ViewData["Title"] = "Add";
+    ViewData["Title"] = "Edit";
 }
 
-<h2>Add Category</h2>
-
+<h2>Edit Category</h2>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Add">
+        <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
@@ -18,18 +17,18 @@
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="MainCategory" class="control-label">Main Category</label>
-                <select class="form-control text-primary" id="type" asp-for="MainCategory">
+                <label asp-for="MainCategoryId" class="control-label">Main Category</label>
+                <select class="form-control text-primary" id="type" asp-for="MainCategoryId">
                     <option selected disabled>--- Select Main Category ---</option>
-                    @foreach (var mainCategory in (IEnumerable<AddCategoryMainCategoryViewModel>)this.ViewData["mainCategories"])
+                    @foreach (var mainCategory in (IEnumerable<CreateCategoryMainCategoryViewModel>)this.ViewData["mainCategories"])
                     {
-                        <option value="@mainCategory.Name">@mainCategory.Name</option>
+                        <option value="@mainCategory.Id">@mainCategory.Name</option>
                     }
                 </select>
-                <span asp-validation-for="MainCategory" class="text-danger"></span>
+                <span asp-validation-for="MainCategoryId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-default" />
             </div>
         </form>
     </div>

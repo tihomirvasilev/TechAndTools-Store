@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Services\TechAndTools.Services.Mapping\TechAndTools.Services.Mapping.csproj" />
-    <ProjectReference Include="..\..\Web\TechAndTools.Web.ViewModels\TechAndTools.Web.ViewModels.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -3,38 +3,73 @@ using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using TechAndTools.Services;
 using TechAndTools.Services.Mapping;
-using TechAndTools.Web.InputModels.Administration.Categories;
+using TechAndTools.Services.Models;
+using TechAndTools.Web.InputModels.Administration.MainCategories;
 using TechAndTools.Web.ViewModels.Administration.MainCategories;
 
 namespace TechAndTools.Web.Areas.Administration.Controllers
 {
     public class MainCategoriesController : AdministrationController
     {private readonly ICategoryService categoryService;
+        private readonly IMainCategoryService mainCategoryService;
 
-        public MainCategoriesController(ICategoryService categoryService)
+        public MainCategoriesController(ICategoryService categoryService, IMainCategoryService mainCategoryService)
         {
             this.categoryService = categoryService;
+            this.mainCategoryService = mainCategoryService;
         }
 
-        public IActionResult Add()
+        public IActionResult Create()
         {
             return this.View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(MainCategoryInputModel model)
+        public async Task<IActionResult> Create(MainCategoryInputModel model)
         {
-            await this.categoryService.CreateMainCategoryAsync(model.Name);
+            await this.mainCategoryService.CreateMainCategoryAsync(model.To<MainCategoryServiceModel>());
 
             return this.Redirect("All");
+        }
+
+        public async Task<IActionResult> Edit(int id)
+        {
+            MainCategoryEditInputModel mainCategoryEditInputModel = this.mainCategoryService.GetMainCategoryById(id).To<MainCategoryEditInputModel>();
+
+            return this.View(mainCategoryEditInputModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(MainCategoryEditInputModel mainCategoryEditInputModel)
+        {
+            await this.mainCategoryService.EditAsync(mainCategoryEditInputModel.To<MainCategoryServiceModel>());
+
+            return this.RedirectToAction("All", "MainCategories");
         }
 
         public async Task<IActionResult> All()
         {
             var mainCategoriesViewModels =
-                await this.categoryService.GetAllMainCategories().To<MainCategoryViewModel>().ToListAsync();
+                await this.mainCategoryService.GetAllMainCategories().To<MainCategoryViewModel>().ToListAsync();
 
             return this.View(mainCategoriesViewModels);
+        }
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            MainCategoryDeleteViewModel mainCategoryDeleteViewModel =
+                this.mainCategoryService.GetMainCategoryById(id).To<MainCategoryDeleteViewModel>();
+
+            return this.View(mainCategoryDeleteViewModel);
+        }
+
+        [HttpPost]
+        [Route("/Administration/MainCategories/Delete/{id}")]
+        public async Task<IActionResult> DeleteConfirm(int id)
+        {
+            await this.mainCategoryService.DeleteAsync(id);
+
+            return this.RedirectToAction("All", "MainCategories");
         }
     }
 }

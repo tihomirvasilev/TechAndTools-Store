@@ -2,6 +2,8 @@
 using System.Threading.Tasks;
 using TechAndTools.Data;
 using TechAndTools.Data.Models;
+using TechAndTools.Services.Mapping;
+using TechAndTools.Services.Models;
 
 namespace TechAndTools.Services
 {
@@ -14,32 +16,44 @@ namespace TechAndTools.Services
             this.context = context;
         }
 
-        public async Task<Supplier> CreateSupplierAsync(string name, decimal priceToOffice, decimal priceToAddress, int minimumDeliveryTimeDays,
-            int maximumDeliveryTimeDays)
+        public async Task<SupplierServiceModel> CreateAsync(SupplierServiceModel supplierServiceModel)
         {
-            var supplier = new Supplier
-            {
-                Name = name,
-                PriceToOffice = priceToOffice,
-                PriceToAddress = priceToAddress,
-                MinimumDeliveryTimeDays = minimumDeliveryTimeDays,
-                MaximumDeliveryTimeDays = maximumDeliveryTimeDays
-            };
+            Supplier supplier = supplierServiceModel.To<Supplier>();
 
             await this.context.Suppliers.AddAsync(supplier);
             await this.context.SaveChangesAsync();
 
-            return supplier;
+            return supplierServiceModel;
         }
 
-        public Supplier GetSupplierById(int id)
+        public async Task<bool> EditAsync(SupplierServiceModel supplierServiceModel)
         {
-            return this.context.Suppliers.FirstOrDefault(supp => supp.Id == id);
+            Supplier supplier = supplierServiceModel.To<Supplier>();
+
+            this.context.Suppliers.Update(supplier);
+            int result = await this.context.SaveChangesAsync();
+
+            return result > 0;
         }
 
-        public IQueryable<Order> GetAllOrdersBySupplierId(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
-            return this.context.Suppliers.Find(id).Orders.AsQueryable();
+            var supplier = this.context.Suppliers.Find(id);
+
+            this.context.Suppliers.Remove(supplier);
+            int result = await this.context.SaveChangesAsync();
+
+            return result > 0;
+        }
+
+        public SupplierServiceModel GetSupplierById(int id)
+        {
+            return this.context.Suppliers.Find(id).To<SupplierServiceModel>();
+        }
+
+        public IQueryable<SupplierServiceModel> GetAllSuppliers()
+        {
+            return this.context.Suppliers.To<SupplierServiceModel>();
         }
     }
 }
