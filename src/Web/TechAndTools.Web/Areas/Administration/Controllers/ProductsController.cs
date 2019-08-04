@@ -7,22 +7,47 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
     public class ProductsController : AdministrationController
     {
         [HttpGet]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
             return this.View();
         }
 
         [HttpPost]
-        public IActionResult Create(ProductInputModel model)
+        public async Task<IActionResult> Create(ProductInputModel model)
         {
             //TODO: Implement
             return this.Redirect("All");
         }
 
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
+        {
+            //TODO: Implement
+            return this.View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit()
         {
             //TODO: Implement
             return this.Redirect("All");
+        }
+
+        public async Task<IActionResult> Delete()
+        {
+            //TODO: Implement
+            return this.View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete()
+        {
+            //TODO: Implement
+            return this.Redirect("All");
+        }
+
+        public async Task<IActionResult> All()
+        {
+            return this.View();
         }
     }
 }

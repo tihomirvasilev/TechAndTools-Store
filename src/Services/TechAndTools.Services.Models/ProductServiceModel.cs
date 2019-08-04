@@ -1,21 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using TechAndTools.Data.Models;
+using TechAndTools.Services.Mapping;
 
-namespace TechAndTools.Data.Models
+namespace TechAndTools.Services.Models
 {
-    public class Product
+    public class ProductServiceModel : IMapFrom<Product>, IMapTo<Product>
     {
         public int Id { get; set; }
 
         public string Name { get; set; }
 
         public int ProductCategoryId { get; set; }
-        public virtual Category ProductCategory { get; set; }
+        public CategoryServiceModel ProductCategory { get; set; }
 
         public int BrandId { get; set; }
-        public virtual Brand Brand { get; set; }
+        public BrandServiceModel Brand { get; set; }
 
-        public virtual ICollection<Image> Images { get; set; } = new HashSet<Image>();
+        public ICollection<ImageServiceModel> Images { get; set; }
 
         public string Description { get; set; }
 
@@ -35,6 +37,6 @@ namespace TechAndTools.Data.Models
 
         public DateTime? ModifiedOn { get; set; }
 
-        public virtual ICollection<Review> Reviews { get; set; } = new HashSet<Review>();
+        public ICollection<ReviewServiceModel> Reviews { get; set; }
     }
 }

@@ -14,6 +14,6 @@ namespace TechAndTools.Services.Models
 
         public string OfficialSite { get; set; }
 
-        public ICollection<Product> Products { get; set; }
+        public ICollection<ProductServiceModel> Products { get; set; }
     }
 }

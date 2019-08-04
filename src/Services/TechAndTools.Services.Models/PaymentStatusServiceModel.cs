@@ -1,15 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 using TechAndTools.Data.Models;
 using TechAndTools.Services.Mapping;
 
 namespace TechAndTools.Services.Models
 {
-    public class MainCategoryServiceModel : IMapFrom<MainCategory>, IMapTo<MainCategory>
+    public class PaymentStatusServiceModel : IMapFrom<PaymentStatus>, IMapTo<PaymentStatus>
     {
         public int Id { get; set; }
 
         public string Name { get; set; }
-
-        public ICollection<CategoryServiceModel> Categories { get; set; }
     }
 }

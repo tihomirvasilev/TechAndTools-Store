@@ -10,9 +10,9 @@ namespace TechAndTools.Services.Models
 
         public string Name { get; set; }
 
-        public ICollection<Product> Products { get; set; }
+        public ICollection<ProductServiceModel> Products { get; set; }
 
         public int MainCategoryId  { get; set; }
-        public MainCategory MainCategory { get; set; }
+        public MainCategoryServiceModel MainCategory { get; set; }
     }
 }
