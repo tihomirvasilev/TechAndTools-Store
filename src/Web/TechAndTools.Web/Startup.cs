@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Reflection;
+using CloudinaryDotNet;
 using TechAndTools.Data;
 using TechAndTools.Data.Models;
 using TechAndTools.Data.Seeding;
@@ -59,22 +60,30 @@ namespace TechAndTools.Web
                 .AddDefaultUI()
                 .AddEntityFrameworkStores<TechAndToolsDbContext>();
 
+            Account cloudinaryCredentials = new Account(
+                this.configuration["Cloudinary:CloudName"],
+                this.configuration["Cloudinary:ApiKey"],
+                this.configuration["Cloudinary:ApiSecret"]);
+
+            Cloudinary cloudinaryUtility = new Cloudinary(cloudinaryCredentials);
+            
+            services.AddSingleton(cloudinaryUtility);
+
             services.AddSession(options =>
             {
                 options.Cookie.HttpOnly = true;
                 options.IdleTimeout = new TimeSpan(0, 4, 0, 0);
             });
 
-            //services.AddAutoMapper(cfg => {
-            //    cfg.AddProfile<ComputersProfile>();
-            //});
-
             services.AddTransient<IBrandService, BrandService>();
             services.AddTransient<ICategoryService, CategoryService>();
             services.AddTransient<IMainCategoryService, MainCategoryService>();
             services.AddTransient<ISupplierService, SupplierService>();
+            services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<IImageService, ImageService>();
 
             services.AddSingleton<IEmailSender, EmailSender>();
+            services.AddTransient<ICloudinaryService, CloudinaryService>();
 
             //services.AddAuthentication().AddFacebook(facebookOptions =>
             //{

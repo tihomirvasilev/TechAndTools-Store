@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TechAndTools.Data;
 
 namespace TechAndTools.Data.Migrations
 {
     [DbContext(typeof(TechAndToolsDbContext))]
-    partial class TechAndToolsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190805124437_ChangeImageEntity")]
+    partial class ChangeImageEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -665,11 +667,11 @@ namespace TechAndTools.Data.Migrations
 
             modelBuilder.Entity("TechAndTools.Data.Models.Image", b =>
                 {
-                    b.HasOne("TechAndTools.Data.Models.Blog.BlogPost", "BlogPost")
+                    b.HasOne("TechAndTools.Data.Models.Blog.BlogPost")
                         .WithMany("Images")
                         .HasForeignKey("BlogPostId");
 
-                    b.HasOne("TechAndTools.Data.Models.Product", "Product")
+                    b.HasOne("TechAndTools.Data.Models.Product")
                         .WithMany("Images")
                         .HasForeignKey("ProductId");
                 });

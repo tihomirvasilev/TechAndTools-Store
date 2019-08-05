@@ -27,7 +27,7 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(MainCategoryInputModel model)
         {
-            await this.mainCategoryService.CreateMainCategoryAsync(model.To<MainCategoryServiceModel>());
+            await this.mainCategoryService.CreateAsync(model.To<MainCategoryServiceModel>());
 
             return this.Redirect("All");
         }

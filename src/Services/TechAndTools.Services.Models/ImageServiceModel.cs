@@ -1,4 +1,5 @@
 ﻿using TechAndTools.Data.Models;
+using TechAndTools.Data.Models.Blog;
 using TechAndTools.Services.Mapping;
 
 namespace TechAndTools.Services.Models
@@ -8,5 +9,8 @@ namespace TechAndTools.Services.Models
         public int Id { get; set; }
 
         public string ImageUrl { get; set; }
+
+        public int? ProductId { get; set; }
+        public ProductServiceModel Product { get; set; }
     }
 }
