@@ -63,12 +63,22 @@ namespace TechAndTools.Services
 
         public IQueryable<ProductServiceModel> GetAllProducts()
         {
-            return this.context.Products.To<ProductServiceModel>();
+            return this.context.Products
+                .To<ProductServiceModel>();
+        }
+
+        public IQueryable<ProductServiceModel> GetProductsByCategoryId(int categoryId)
+        {
+            return this.context.Products
+                .Where(product => product.ProductCategoryId == categoryId)
+                .To<ProductServiceModel>();
         }
 
         public ProductServiceModel GetProductById(int id)
         {
-            return this.context.Products.Find(id).To<ProductServiceModel>();
+            return this.context.Products
+                .Find(id)
+                .To<ProductServiceModel>();
         }
     }
 }

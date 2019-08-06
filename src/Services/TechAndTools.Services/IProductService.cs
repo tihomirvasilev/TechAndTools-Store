@@ -14,6 +14,8 @@ namespace TechAndTools.Services
 
         IQueryable<ProductServiceModel> GetAllProducts();
 
+        IQueryable<ProductServiceModel> GetProductsByCategoryId(int categoryId);
+
         ProductServiceModel GetProductById(int id);
     }
 }

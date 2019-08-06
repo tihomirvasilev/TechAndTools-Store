@@ -32,6 +32,16 @@ namespace TechAndTools.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<Product>()
+                .HasMany(x => x.Images)
+                .WithOne(x => x.Product)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<BlogPost>()
+                .HasMany(x => x.Images)
+                .WithOne(x => x.BlogPost)
+                .OnDelete(DeleteBehavior.Cascade);
+
             builder.Entity<MainCategory>()
                 .HasMany(x => x.Categories)
                 .WithOne(x => x.MainCategory)

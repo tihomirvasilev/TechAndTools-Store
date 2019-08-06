@@ -1,8 +1,138 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@using System.ComponentModel
+@model IList<ProductIndexViewModel>
+
+@{
+    ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome, @this.User.Identity.Name</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+@await Component.InvokeAsync("CategoriesNavigation")
+
+@*<partial name="Partials/_NavigationPartial" />*@
+
+<!-- section -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <!-- MAIN -->
+            <div id="main" class="col-md-12">
+                <!-- store top filter -->
+                <div class="store-filter clearfix">
+                    <div class="pull-left">
+                        <div class="row-filter">
+                            <a href="#"><i class="fa fa-th-large"></i></a>
+                            <a href="#" class="active"><i class="fa fa-bars"></i></a>
+                        </div>
+                        <div class="sort-filter">
+                            <span class="text-uppercase">Sort By:</span>
+                            <select class="input">
+                                <option value="0">Position</option>
+                                <option value="0">Price</option>
+                                <option value="0">Rating</option>
+                            </select>
+                            <a href="#" class="main-btn icon-btn"><i class="fa fa-arrow-down"></i></a>
+                        </div>
+                    </div>
+                    <div class="pull-right">
+                        <div class="page-filter">
+                            <span class="text-uppercase">Show:</span>
+                            <select class="input">
+                                <option value="0">12</option>
+                                <option value="1">24</option>
+                                <option value="2">32</option>
+                            </select>
+                        </div>
+                        <ul class="store-pages">
+                            <li><span class="text-uppercase">Page:</span></li>
+                            <li class="active">1</li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#"><i class="fa fa-caret-right"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- /store top filter -->
+                <!-- STORE -->
+                <div id="store">
+                    <!-- row -->
+                    <div class="row">
+                        @for (var i = 0; i < Model.Count; i++)
+                        {
+                            <!-- Product Single -->
+                            <div class="col-md-3 col-sm-6 col-xs-6">
+                                <div class="product product-single">
+                                    <div class="product-thumb">
+                                        <img src="@Model[i].ImageUrl" style="width: auto; height: 100%; max-height: 150px;" alt="">
+                                    </div>
+                                    <div class="product-body">
+                                        <h3 class="product-price">$@Model[i].Price</h3>
+                                        <div class="product-rating">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star-o empty"></i>
+                                        </div>
+                                        <h2 class="product-name"><a href="#">@Model[i].Name</a></h2>
+                                        <div class="product-btns">
+                                            <button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
+                                            <button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /Product Single -->
+
+                            if (i % 2 == 1)
+                            {
+                                <div class="clearfix visible-sm visible-xs"></div>
+                            }
+                        }
+                    </div>
+                    <!-- /row -->
+                </div>
+                <!-- /STORE -->
+                <!-- store bottom filter -->
+                <div class="store-filter clearfix">
+                    <div class="pull-left">
+                        <div class="row-filter">
+                            <a href="#"><i class="fa fa-th-large"></i></a>
+                            <a href="#" class="active"><i class="fa fa-bars"></i></a>
+                        </div>
+                        <div class="sort-filter">
+                            <span class="text-uppercase">Sort By:</span>
+                            <select class="input">
+                                <option value="0">Position</option>
+                                <option value="0">Price</option>
+                                <option value="0">Rating</option>
+                            </select>
+                            <a href="#" class="main-btn icon-btn"><i class="fa fa-arrow-down"></i></a>
+                        </div>
+                    </div>
+                    <div class="pull-right">
+                        <div class="page-filter">
+                            <span class="text-uppercase">Show:</span>
+                            <select class="input">
+                                <option value="0">12</option>
+                                <option value="1">24</option>
+                                <option value="2">32</option>
+                            </select>
+                        </div>
+                        <ul class="store-pages">
+                            <li><span class="text-uppercase">Page:</span></li>
+                            <li class="active">1</li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#"><i class="fa fa-caret-right"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- /store bottom filter -->
+            </div>
+            <!-- /MAIN -->
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
 </div>
+<!-- /section -->

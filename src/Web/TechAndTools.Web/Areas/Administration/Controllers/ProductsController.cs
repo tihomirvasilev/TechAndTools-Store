@@ -68,9 +68,9 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
             this.ViewData["categories"] = this.categoryService.GetAllCategories().To<CategoryListViewModel>();
             this.ViewData["brands"] = this.brandService.GetAllBrands().To<BrandListViewModel>();
 
-            var serviceModel = this.productService.GetProductById(id).To<ProductEditInputModel>();
+            var productEditInput = this.productService.GetProductById(id).To<ProductEditInputModel>();
 
-            return this.View(serviceModel);
+            return this.View(productEditInput);
         }
 
         [HttpPost]

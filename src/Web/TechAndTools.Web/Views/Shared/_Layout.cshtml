@@ -20,15 +20,12 @@
     <link type="text/css" rel="stylesheet" href="~/css/style.css" />
 </head>
 <body>
-
     <div class="container-fluid">
         <partial name="Partials/_NavbarPartial" />
         <partial name="Partials/_CookieConsentPartial" />
         <div class="pb-3">
-            <div class="container">
                 @RenderBody()
-            </div>
-            <partial name="Partials/_FooterPartial" />
+                <partial name="Partials/_FooterPartial" />
         </div>
     </div>
 
