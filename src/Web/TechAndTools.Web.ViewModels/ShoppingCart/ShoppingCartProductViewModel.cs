@@ -5,7 +5,7 @@ using TechAndTools.Services.Models;
 
 namespace TechAndTools.Web.ViewModels.ShoppingCart
 {
-    public class ShoppingCartProductsViewModel : IMapFrom<ShoppingCartProductServiceModel>, IMapFrom<ProductServiceModel>, IHaveCustomMappings
+    public class ShoppingCartProductViewModel : IMapFrom<ShoppingCartProductServiceModel>, IMapFrom<ProductServiceModel>, IHaveCustomMappings
     {
         public int Id { get; set; }
 
@@ -20,7 +20,7 @@ namespace TechAndTools.Web.ViewModels.ShoppingCart
         public decimal TotalPrice { get; set; }
         public void CreateMappings(IProfileExpression configuration)
         {
-            configuration.CreateMap<ShoppingCartProductServiceModel, ShoppingCartProductsViewModel>()
+            configuration.CreateMap<ShoppingCartProductServiceModel, ShoppingCartProductViewModel>()
                 .ForMember(dest => dest.ImageUrl,
                     opts => opts.MapFrom(origin => origin.Product.Images.FirstOrDefault().ImageUrl ?? string.Empty))
                 .ForMember(dest => dest.Id, opts => opts.MapFrom(origin => origin.ProductId))

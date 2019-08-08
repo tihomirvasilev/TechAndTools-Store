@@ -22,18 +22,18 @@ namespace TechAndTools.Web.ViewComponents
             if (this.User.Identity.IsAuthenticated)
             {
                 var shoppingCartProductsServiceModels = this.shoppingCartService.GetAllShoppingCartProducts(this.User.Identity.Name).ToList();
-                var shoppingCartProductsViewModels = new List<ShoppingCartProductsViewModel>(); 
+                var shoppingCartProductsViewModels = new List<ShoppingCartProductViewModel>(); 
                 foreach (var serviceModel in shoppingCartProductsServiceModels)
                 {
-                    shoppingCartProductsViewModels.Add(serviceModel.To<ShoppingCartProductsViewModel>());
+                    shoppingCartProductsViewModels.Add(serviceModel.To<ShoppingCartProductViewModel>());
                 }
 
                 return this.View(shoppingCartProductsViewModels);
             }
 
-            var shoppingCartSession = SessionHelper.GetObjectFromJson<List<ShoppingCartProductsViewModel>>(HttpContext.Session, GlobalConstants.SessionShoppingCartKey) ??
-                                      new List<ShoppingCartProductsViewModel>();
-            ;
+            var shoppingCartSession = SessionHelper.GetObjectFromJson<List<ShoppingCartProductViewModel>>(HttpContext.Session, GlobalConstants.SessionShoppingCartKey) ??
+                                      new List<ShoppingCartProductViewModel>();
+            
             return this.View(shoppingCartSession);
         }
     }

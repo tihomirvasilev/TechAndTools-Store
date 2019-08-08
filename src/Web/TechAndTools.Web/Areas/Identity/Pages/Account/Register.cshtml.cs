@@ -110,7 +110,7 @@ namespace TechAndTools.Web.Areas.Identity.Pages.Account
                     await signInManager.SignInAsync(user, isPersistent: false);
 
                     
-                    var cart = SessionHelper.GetObjectFromJson<List<ShoppingCartProductsViewModel>>(HttpContext.Session, GlobalConstants.SessionShoppingCartKey);
+                    var cart = SessionHelper.GetObjectFromJson<List<ShoppingCartProductViewModel>>(HttpContext.Session, GlobalConstants.SessionShoppingCartKey);
 
                     if (cart != null)
                     {

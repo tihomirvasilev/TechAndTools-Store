@@ -1,4 +1,4 @@
-﻿@model List<TechAndTools.Web.ViewModels.ShoppingCart.ShoppingCartProductsViewModel>
+﻿@model List<TechAndTools.Web.ViewModels.ShoppingCart.ShoppingCartProductViewModel>
 
 <li class="header-cart dropdown default-dropdown">
     <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
@@ -26,7 +26,7 @@
                                  <img src="@product.ImageUrl" alt="">
                              </div>
                              <div class="product-body">
-                                 <h3 class="product-price">@product.Price <span class="qty">@product.Quantity</span></h3>
+                                 <h3 class="product-price">$@product.Price <span class="qty">x @product.Quantity</span></h3>
                                  <h2 class="product-name"><a href="#">@product.Name</a></h2>
                              </div>
                              <a asp-controller="ShoppingCart" asp-action="Delete" asp-route-id="@product.Id" class="cancel-btn"> <i class="fa fa-trash"></i></a>
@@ -35,7 +35,7 @@
                 }
             </div>
             <div class="shopping-cart-btns">
-                <button class="main-btn">View Cart</button>
+                <a class="main-btn" asp-controller="ShoppingCart" asp-action="Index">View Cart</a>
                 <button class="primary-btn">Checkout <i class="fa fa-arrow-circle-right"></i></button>
             </div>
         </div>
