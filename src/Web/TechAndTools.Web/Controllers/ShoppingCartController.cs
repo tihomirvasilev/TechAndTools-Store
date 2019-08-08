@@ -21,7 +21,7 @@ namespace TechAndTools.Web.Controllers
             this.productService = productService;
         }
 
-        public IActionResult Index()
+        public IActionResult MyCart()
         {
             
             if (this.User.Identity.IsAuthenticated)
