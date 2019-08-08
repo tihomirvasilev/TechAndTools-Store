@@ -4,8 +4,8 @@ using TechAndTools.Services;
 using TechAndTools.Services.Mapping;
 using TechAndTools.Services.Models;
 using TechAndTools.Web.InputModels.Administration.Categories;
-using TechAndTools.Web.ViewModels.Administration.Categories;
-using TechAndTools.Web.ViewModels.Administration.MainCategories;
+using TechAndTools.Web.ViewModels.Categories;
+using TechAndTools.Web.ViewModels.MainCategories;
 
 namespace TechAndTools.Web.Areas.Administration.Controllers
 {

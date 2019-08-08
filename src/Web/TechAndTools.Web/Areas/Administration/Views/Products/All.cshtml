@@ -1,63 +1,63 @@
-﻿@model IEnumerable<TechAndTools.Web.ViewModels.Administration.Products.ProductAllViewModel>
+﻿@model IEnumerable<TechAndTools.Web.ViewModels.Products.ProductAllViewModel>
 
 @{
     ViewData["Title"] = "All";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>All</h2>
+<div class="mx-auto pt-3">
+    <h1 class="jumbotron text-center text-black-50">Products</h1>
 
-<p>
-    <a asp-action="Create" class="btn primary-btn">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th>
-                Picture
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductCategoryName)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+    <a asp-action="Create" class="btn btn-primary">Create New</a>
+
+    <table class="table">
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Id)
-                </td>
-                <td>
-                    <img src="@item.Images.Last()?.ImageUrl" width="60" height="60">
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Price)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ProductCategoryName)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { item.Id })
-                    |
-                    @Html.ActionLink("Delete", "Delete", new { item.Id })
+                <th>
+                    @Html.DisplayNameFor(model => model.Id)
+                </th>
+                <th>
+                    Picture
+                </th>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Price
+                </th>
+                <th>
+                    Category
+                </th>
 
-                </td>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.Id
+                    </td>
+                    <td>
+                        <img src="@item.Images.FirstOrDefault()?.ImageUrl" width="60" height="60">
+                    </td>
+                    <td>
+                        @item.Name
+                    </td>
+                    <td>
+                        @item.Price
+                    </td>
+                    <td>
+                        @item.ProductCategoryName
+                    </td>
+                    <td>
+                        <a asp-area="Administration" asp-controller="Products" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Edit</a>
+                        <a asp-area="Administration" asp-controller="Products" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
 

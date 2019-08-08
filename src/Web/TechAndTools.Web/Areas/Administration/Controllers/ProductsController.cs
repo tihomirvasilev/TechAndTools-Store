@@ -6,9 +6,9 @@ using TechAndTools.Services;
 using TechAndTools.Services.Mapping;
 using TechAndTools.Services.Models;
 using TechAndTools.Web.InputModels.Administration.Products;
-using TechAndTools.Web.ViewModels.Administration.Brands;
-using TechAndTools.Web.ViewModels.Administration.Categories;
-using TechAndTools.Web.ViewModels.Administration.Products;
+using TechAndTools.Web.ViewModels.Brands;
+using TechAndTools.Web.ViewModels.Categories;
+using TechAndTools.Web.ViewModels.Products;
 
 namespace TechAndTools.Web.Areas.Administration.Controllers
 {

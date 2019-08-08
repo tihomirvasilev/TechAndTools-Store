@@ -8,11 +8,10 @@ namespace TechAndTools.Services.Models
 {
     public class ShoppingCartServiceModel : IMapFrom<ShoppingCart>, IMapTo<ShoppingCart>
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
 
-        public string UserId { get; set; }
-        public TechAndToolsUserServiceModel User { get; set; }
+        public virtual TechAndToolsUser User { get; set; }
 
-        public ICollection<ShoppingCartProductServiceModel> ShoppingCartProducts { get; set; }
+        public virtual ICollection<ShoppingCartProductServiceModel> ShoppingCartProducts { get; set; }
     }
 }

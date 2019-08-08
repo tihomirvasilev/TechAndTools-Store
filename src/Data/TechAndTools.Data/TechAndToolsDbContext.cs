@@ -32,6 +32,18 @@ namespace TechAndTools.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<BlogComment>()
+                .HasKey(x => new { x.BlogPostId, x.UserId });
+
+            builder.Entity<OrderProduct>()
+                .HasKey(x => new { x.OrderId, x.ProductId });
+
+            builder.Entity<FavoriteProduct>()
+                .HasKey(x => new { x.UserId, x.ProductId });
+
+            builder.Entity<ShoppingCartProduct>()
+                .HasKey(x => new { x.ShoppingCartId, x.ProductId });
+
             builder.Entity<Product>()
                 .HasMany(x => x.Images)
                 .WithOne(x => x.Product)
@@ -51,18 +63,6 @@ namespace TechAndTools.Data
                 .HasOne(x => x.MainCategory)
                 .WithMany(x => x.Categories)
                 .OnDelete(DeleteBehavior.Restrict);
-
-            builder.Entity<BlogComment>()
-                .HasKey(x => new { x.BlogPostId, x.UserId });
-
-            builder.Entity<OrderProduct>()
-                .HasKey(x => new { x.OrderId, x.ProductId });
-
-            builder.Entity<FavoriteProduct>()
-                .HasKey(x => new { x.UserId, x.ProductId });
-
-            builder.Entity<ShoppingCartProduct>()
-                .HasKey(x => new { x.ShoppingCardId, x.ProductId });
 
             builder.Entity<ShoppingCart>()
                 .HasOne(x => x.User)

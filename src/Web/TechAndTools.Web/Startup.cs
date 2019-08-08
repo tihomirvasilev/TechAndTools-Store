@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using CloudinaryDotNet;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -9,7 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Reflection;
-using CloudinaryDotNet;
+using SmartBreadcrumbs.Extensions;
 using TechAndTools.Data;
 using TechAndTools.Data.Models;
 using TechAndTools.Data.Seeding;
@@ -19,7 +20,7 @@ using TechAndTools.Services.Mapping;
 using TechAndTools.Services.Models;
 using TechAndTools.Web.InputModels.Administration.Brands;
 using TechAndTools.Web.ViewModels;
-using TechAndTools.Web.ViewModels.Administration.Brands;
+using TechAndTools.Web.ViewModels.Brands;
 
 namespace TechAndTools.Web
 {
@@ -81,10 +82,11 @@ namespace TechAndTools.Web
             services.AddTransient<ISupplierService, SupplierService>();
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<IImageService, ImageService>();
+            services.AddTransient<IShoppingCartsService, ShoppingCartsService>();
+            services.AddTransient<IUserService, UserService>();
 
             services.AddSingleton<IEmailSender, EmailSender>();
             services.AddTransient<ICloudinaryService, CloudinaryService>();
-
             //services.AddAuthentication().AddFacebook(facebookOptions =>
             //{
             //    facebookOptions.AppId = Configuration["Authentication:Facebook:AppId"];

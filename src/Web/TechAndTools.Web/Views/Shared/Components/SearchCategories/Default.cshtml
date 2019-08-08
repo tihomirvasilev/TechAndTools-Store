@@ -1,0 +1,23 @@
+﻿@model IEnumerable<TechAndTools.Web.ViewModels.Categories.CategoryComponentViewModel>
+
+@{
+    ViewData["Title"] = "Default";
+}
+
+
+<!-- Search -->
+<div class="header-search">
+    <form>
+        <input class="input search-input" type="text" placeholder="Enter your keyword">
+        <select class="input search-categories">
+            <option value="">All Categories</option>
+
+            @foreach (var category in Model)
+            {
+            <option value="@category.Id">@category.Name</option>
+             }
+        </select>
+        <button class="search-btn"><i class="fa fa-search"></i></button>
+    </form>
+</div>
+<!-- /Search -->

@@ -1,5 +1,4 @@
-﻿using System.Data;
-using TechAndTools.Data.Models.Blog;
+﻿using TechAndTools.Data.Models.Blog;
 
 namespace TechAndTools.Data.Models
 {

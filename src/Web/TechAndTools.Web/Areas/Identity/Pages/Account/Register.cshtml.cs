@@ -10,27 +10,36 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using TechAndTools.Data.Models;
+using TechAndTools.Services;
+using TechAndTools.Web.Commons;
+using TechAndTools.Web.ViewModels.ShoppingCart;
 
 namespace TechAndTools.Web.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
     public class RegisterModel : PageModel
     {
-        private readonly SignInManager<TechAndToolsUser> _signInManager;
-        private readonly UserManager<TechAndToolsUser> _userManager;
-        private readonly ILogger<RegisterModel> _logger;
-        private readonly IEmailSender _emailSender;
+        private readonly SignInManager<TechAndToolsUser> signInManager;
+        private readonly UserManager<TechAndToolsUser> userManager;
+        private readonly ILogger<RegisterModel> logger;
+        private readonly IEmailSender emailSender;
+        private readonly IUserService userService;
+        private readonly IShoppingCartsService shoppingCartService;
 
         public RegisterModel(
             UserManager<TechAndToolsUser> userManager,
             SignInManager<TechAndToolsUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            IUserService userService,
+            IShoppingCartsService shoppingCartService)
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
-            _logger = logger;
-            _emailSender = emailSender;
+            this.userManager = userManager;
+            this.signInManager = signInManager;
+            this.logger = logger;
+            this.emailSender = emailSender;
+            this.userService = userService;
+            this.shoppingCartService = shoppingCartService;
         }
 
         [BindProperty]
@@ -71,14 +80,21 @@ namespace TechAndTools.Web.Areas.Identity.Pages.Account
             returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
-                var user = new TechAndToolsUser { UserName = Input.Username, Email = Input.Email };
-                var resultCreate = await _userManager.CreateAsync(user, Input.Password);
+                var user = new TechAndToolsUser
+                {
+                    UserName = Input.Username,
+                    Email = Input.Email,
+                    ShoppingCart = new ShoppingCart(),
+                    CreatedOn = DateTime.UtcNow
+                };
+
+                var resultCreate = await userManager.CreateAsync(user, Input.Password);
 
                 if (resultCreate.Succeeded)
                 {
-                    _logger.LogInformation("User created a new account with password.");
+                    logger.LogInformation("User created a new account with password.");
 
-                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    var code = await userManager.GenerateEmailConfirmationTokenAsync(user);
 
                     var callbackUrl = Url.Page(
                         "/Account/ConfirmEmail",
@@ -86,12 +102,26 @@ namespace TechAndTools.Web.Areas.Identity.Pages.Account
                         values: new { userId = user.Id, code = code },
                         protocol: Request.Scheme);
 
-                    await _userManager.AddToRoleAsync(user, "User");
+                    await userManager.AddToRoleAsync(user, "User");
 
-                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
+                    await emailSender.SendEmailAsync(Input.Email, "Confirm your email",
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
-                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    await signInManager.SignInAsync(user, isPersistent: false);
+
+                    
+                    var cart = SessionHelper.GetObjectFromJson<List<ShoppingCartProductsViewModel>>(HttpContext.Session, GlobalConstants.SessionShoppingCartKey);
+
+                    if (cart != null)
+                    {
+                        foreach (var product in cart)
+                        {
+                            shoppingCartService.AddToShoppingCart(product.Id, Input.Email, product.Quantity);
+                        }
+
+                        HttpContext.Session.Remove(GlobalConstants.SessionShoppingCartKey);
+                    }
+
                     return LocalRedirect(returnUrl);
                 }
                 foreach (var error in resultCreate.Errors)

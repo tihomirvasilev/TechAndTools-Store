@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TechAndTools.Services;
 using TechAndTools.Services.Mapping;
-using TechAndTools.Web.ViewModels.Administration.MainCategories;
+using TechAndTools.Web.ViewModels.MainCategories;
 
 namespace TechAndTools.Web.ViewComponents
 {

@@ -19,8 +19,9 @@ namespace TechAndTools.Data.Seeding
             {
                 TechAndToolsUser admin = new TechAndToolsUser
                 {
-                    UserName = "Admin",
-                    Email = "admin@admin.com"
+                    UserName = "admin",
+                    Email = "admin@admin.com",
+                    ShoppingCart = new ShoppingCart()
                 };
 
                 var password = "asdasd";

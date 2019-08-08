@@ -12,6 +12,6 @@ namespace TechAndTools.Data.Models
 
         public string OfficialSite { get; set; }
 
-        public virtual ICollection<Product> Products { get; set; } = new HashSet<Product>();
+        public virtual ICollection<Product> Products { get; set; }
     }
 }

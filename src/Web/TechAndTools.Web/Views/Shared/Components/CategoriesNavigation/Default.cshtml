@@ -1,11 +1,8 @@
-﻿@model IEnumerable<TechAndTools.Web.ViewModels.Administration.MainCategories.MainCategoryComponentViewModel>
+﻿@model IEnumerable<TechAndTools.Web.ViewModels.MainCategories.MainCategoryComponentViewModel>
 
-<!-- NAVIGATION -->
 <div id="navigation">
-    <!-- container -->
     <div class="container">
         <div id="responsive-nav">
-            <!-- category nav -->
             <div class="category-nav show-on-click">
                 <span class="category-header">Categories <i class="fa fa-list"></i></span>
                 <ul class="category-list">
@@ -22,7 +19,7 @@
                                             </li>
                                             @foreach (var category in mainCategory.Categories)
                                             {
-                                                <li><a href="#">@category.Name</a></li>
+                                                <li><a href="/Home/Index/@category.Id">@category.Name</a></li>
                                             }
                                         </ul>
                                     </div>
@@ -30,41 +27,25 @@
                             </div>
                         </li>
                     }
-                    <li><a href="#">View All</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Index">View All</a></li>
                 </ul>
             </div>
-            <!-- /category nav -->
-            <!-- menu nav -->
             <div class="menu-nav">
                 <span class="menu-header">Menu <i class="fa fa-bars"></i></span>
                 <ul class="menu-list">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Shop</a></li>
-                    <li><a href="#">Sales</a></li>
-                    <li class="dropdown default-dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">Pages <i class="fa fa-caret-down"></i></a>
-                        <ul class="custom-menu">
-                            <li><a href="index.html">Home</a></li>
-                            <li><a href="products.html">Products</a></li>
-                            <li><a href="product-page.html">Product Details</a></li>
-                            <li><a href="checkout.html">Checkout</a></li>
-                        </ul>
-                    </li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Contacts</a></li>
+                    <li><a href="#">About Us</a></li>
+
+                    @if (this.User.IsInRole("Admin"))
+                    {
+                        <li>
+                            <a asp-area="Administration" asp-controller="Home" asp-action="Index"><i class="fa fa-cogs"></i> Administration Panel</a>
+                        </li>
+                    }
                 </ul>
             </div>
-            <!-- menu nav -->
         </div>
     </div>
-    <!-- /container -->
 </div>
-<!-- /NAVIGATION -->
-<!-- BREADCRUMB -->
-<div id="breadcrumb">
-    <div class="container">
-        <ul class="breadcrumb">
-            <li><a href="#">Home</a></li>
-            <li class="active">Blank</li>
-        </ul>
-    </div>
-</div>
-<!-- /BREADCRUMB -->

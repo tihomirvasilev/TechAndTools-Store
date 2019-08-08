@@ -12,12 +12,12 @@ namespace TechAndTools.Services.Models
         public string Name { get; set; }
 
         public int ProductCategoryId { get; set; }
-        public CategoryServiceModel ProductCategory { get; set; }
+        public virtual CategoryServiceModel ProductCategory { get; set; }
 
         public int BrandId { get; set; }
-        public BrandServiceModel Brand { get; set; }
+        public virtual BrandServiceModel Brand { get; set; }
 
-        public ICollection<ImageServiceModel> Images { get; set; }
+        public virtual ICollection<ImageServiceModel> Images { get; set; }
 
         public string Description { get; set; }
 
@@ -37,6 +37,6 @@ namespace TechAndTools.Services.Models
 
         public DateTime? ModifiedOn { get; set; }
 
-        public ICollection<ReviewServiceModel> Reviews { get; set; }
+        public virtual ICollection<ReviewServiceModel> Reviews { get; set; }
     }
 }

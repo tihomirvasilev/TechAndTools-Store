@@ -16,6 +16,6 @@ namespace TechAndTools.Data.Models
 
         public int MaximumDeliveryTimeDays { get; set; }
 
-        public virtual ICollection<Order> Orders { get; set; } = new HashSet<Order>();
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }

@@ -1,24 +1,25 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using TechAndTools.Services;
 using TechAndTools.Services.Mapping;
-using TechAndTools.Web.InputModels.Administration.Products;
 using TechAndTools.Web.ViewModels;
-using TechAndTools.Web.ViewModels.Administration.Products;
+using TechAndTools.Web.ViewModels.Products;
 
 namespace TechAndTools.Web.Controllers
 {
     public class HomeController : BaseController
     {
         private readonly IProductService productService;
+        private readonly ICategoryService categoryService;
 
-        public HomeController(IProductService productService)
+        public HomeController(IProductService productService,
+            ICategoryService categoryService)
         {
             this.productService = productService;
+            this.categoryService = categoryService;
         }
 
         public async Task<IActionResult> Index()
@@ -28,11 +29,11 @@ namespace TechAndTools.Web.Controllers
             return View(productIndexViewModels);
         }
 
-        [Route("/Home/Index/{id}")]
+        [Route("/Home/Index/{categoryId}")]
         public async Task<IActionResult> Index(int categoryId)
         {
             IList<ProductIndexViewModel> productIndexViewModels = this.productService.GetProductsByCategoryId(categoryId).To<ProductIndexViewModel>().ToList();
-
+            ViewData["category"] = this.categoryService.GetCategoryById(categoryId).Name;
             return View(productIndexViewModels);
         }
 

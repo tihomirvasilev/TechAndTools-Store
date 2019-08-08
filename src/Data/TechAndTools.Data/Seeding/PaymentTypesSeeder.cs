@@ -14,8 +14,6 @@ namespace TechAndTools.Data.Seeding
             if (!hasPaymentTypes)
             {
                 await SeedPaymentTypesAsync("CashОnDelivery", dbContext);
-                await SeedPaymentTypesAsync("PayPal", dbContext);
-                await SeedPaymentTypesAsync("EPay", dbContext);
 
                 await dbContext.SaveChangesAsync();
             }

@@ -8,14 +8,14 @@
     <div id="top-header">
         <div class="container">
             <div class="pull-left">
-                <span>Welcome to TechAndTools-Store!</span>
+                <span>Welcome to Tech&amp;Tools Online Store!</span>
             </div>
             <div class="pull-right">
                 <ul class="header-top-links">
-                    <li><a asp-area="Administration" asp-controller="Home" asp-action="Index">Administration Panel</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Store</a></li>
-                    <li><a asp-area="Blog" asp-controller="Home" asp-action="Index">Blog</a></li>
-                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Store</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Contacts</a></li>
+                    <li><a href="#">About Us</a></li>
                 </ul>
             </div>
         </div>
@@ -32,19 +32,6 @@
                     </a>
                 </div>
                 <!-- /Logo -->
-                <!-- Search -->
-                <div class="header-search">
-                    <form>
-                        <input class="input search-input" type="text" placeholder="Enter your keyword">
-                        <select class="input search-categories">
-                            <option value="0">All Categories</option>
-                            <option value="1">Category 01</option>
-                            <option value="1">Category 02</option>
-                        </select>
-                        <button class="search-btn"><i class="fa fa-search"></i></button>
-                    </form>
-                </div>
-                <!-- /Search -->
             </div>
             <div class="pull-right">
                 <ul class="header-btns">
@@ -52,7 +39,7 @@
                     <li class="header-account dropdown default-dropdown">
                         <div class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="true">
                             <div class="header-btns-icon">
-                                <i class="fa fa-user-o"></i>
+                                <i class="fa fa-user"></i>
                             </div>
                             <strong class="text-uppercase">My Account <i class="fa fa-caret-down"></i></strong>
                         </div>
@@ -60,8 +47,8 @@
                         <ul class="custom-menu">
                             @if (this.SignInManager.IsSignedIn(this.User))
                             {
-                                <li><a asp-area="Identity" asp-page="/Account/Manage/Index"><i class="fa fa-user-o"></i> My Account</a></li>
-                                <li><a href="#"><i class="fa fa-heart-o"></i> My Favorites</a></li>
+                                <li><a asp-area="Identity" asp-page="/Account/Manage/Index"><i class="fa fa-user"></i> My Account</a></li>
+                                <li><a href="#"><i class="fa fa-heart"></i> My Favorites</a></li>
                                 <li><a href="#"><i class="fa fa-exchange"></i> Compare</a></li>
                                 <li><a href="#"><i class="fa fa-check"></i> Checkout</a></li>
 
@@ -76,47 +63,7 @@
                     </li>
                     <!-- /Account -->
                     <!-- Cart -->
-                    <li class="header-cart dropdown default-dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                            <div class="header-btns-icon">
-                                <i class="fa fa-shopping-cart"></i>
-                                <span class="qty">3</span>
-                            </div>
-                            <strong class="text-uppercase">My Cart:</strong>
-                            <br>
-                            <span>35.20$</span>
-                        </a>
-                        <div class="custom-menu">
-                            <div id="shopping-cart">
-                                <div class="shopping-cart-list">
-                                    <div class="product product-widget">
-                                        <div class="product-thumb">
-                                            <img src="./img/thumb-product01.jpg" alt="">
-                                        </div>
-                                        <div class="product-body">
-                                            <h3 class="product-price">$32.50 <span class="qty">x3</span></h3>
-                                            <h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-                                        </div>
-                                        <button class="cancel-btn"><i class="fa fa-trash"></i></button>
-                                    </div>
-                                    <div class="product product-widget">
-                                        <div class="product-thumb">
-                                            <img src="./img/thumb-product01.jpg" alt="">
-                                        </div>
-                                        <div class="product-body">
-                                            <h3 class="product-price">$32.50 <span class="qty">x3</span></h3>
-                                            <h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-                                        </div>
-                                        <button class="cancel-btn"><i class="fa fa-trash"></i></button>
-                                    </div>
-                                </div>
-                                <div class="shopping-cart-btns">
-                                    <button class="main-btn">View Cart</button>
-                                    <button class="primary-btn">Checkout <i class="fa fa-arrow-circle-right"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
+                    @await Component.InvokeAsync("ShoppingCart")
                     <!-- /Cart -->
                     <!-- Mobile nav toggle-->
                     <li class="nav-toggle">

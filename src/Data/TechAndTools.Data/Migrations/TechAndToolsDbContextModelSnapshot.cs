@@ -287,10 +287,6 @@ namespace TechAndTools.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("AddressId");
-
-                    b.Property<DateTime?>("Date");
-
                     b.Property<int>("DeliveryAddressId");
 
                     b.Property<DateTime?>("DeliveryDate");
@@ -301,7 +297,7 @@ namespace TechAndTools.Data.Migrations
 
                     b.Property<string>("InvoiceNumber");
 
-                    b.Property<DateTime?>("OrderDate");
+                    b.Property<DateTime>("OrderDate");
 
                     b.Property<int?>("PaymentStatusId");
 
@@ -321,7 +317,7 @@ namespace TechAndTools.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AddressId");
+                    b.HasIndex("DeliveryAddressId");
 
                     b.HasIndex("PaymentStatusId");
 
@@ -341,6 +337,8 @@ namespace TechAndTools.Data.Migrations
                     b.Property<int>("OrderId");
 
                     b.Property<int>("ProductId");
+
+                    b.Property<decimal>("Price");
 
                     b.Property<int>("Quantity");
 
@@ -436,9 +434,7 @@ namespace TechAndTools.Data.Migrations
 
                     b.Property<string>("Comment");
 
-                    b.Property<string>("ProductId");
-
-                    b.Property<int?>("ProductId1");
+                    b.Property<int>("ProductId");
 
                     b.Property<double>("Rating");
 
@@ -446,7 +442,7 @@ namespace TechAndTools.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductId1");
+                    b.HasIndex("ProductId");
 
                     b.HasIndex("UserId");
 
@@ -455,10 +451,9 @@ namespace TechAndTools.Data.Migrations
 
             modelBuilder.Entity("TechAndTools.Data.Models.ShoppingCart", b =>
                 {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("UserId");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.HasKey("Id");
 
@@ -467,19 +462,15 @@ namespace TechAndTools.Data.Migrations
 
             modelBuilder.Entity("TechAndTools.Data.Models.ShoppingCartProduct", b =>
                 {
-                    b.Property<int>("ShoppingCardId");
+                    b.Property<int>("ShoppingCartId");
 
                     b.Property<int>("ProductId");
 
                     b.Property<int>("Quantity");
 
-                    b.Property<string>("ShoppingCartId");
-
-                    b.HasKey("ShoppingCardId", "ProductId");
+                    b.HasKey("ShoppingCartId", "ProductId");
 
                     b.HasIndex("ProductId");
-
-                    b.HasIndex("ShoppingCartId");
 
                     b.ToTable("ShoppingCartProducts");
                 });
@@ -546,7 +537,7 @@ namespace TechAndTools.Data.Migrations
 
                     b.Property<string>("SecurityStamp");
 
-                    b.Property<string>("ShoppingCartId");
+                    b.Property<int>("ShoppingCartId");
 
                     b.Property<bool>("TwoFactorEnabled");
 
@@ -564,8 +555,7 @@ namespace TechAndTools.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.HasIndex("ShoppingCartId")
-                        .IsUnique()
-                        .HasFilter("[ShoppingCartId] IS NOT NULL");
+                        .IsUnique();
 
                     b.ToTable("AspNetUsers");
                 });
@@ -618,7 +608,7 @@ namespace TechAndTools.Data.Migrations
             modelBuilder.Entity("TechAndTools.Data.Models.Address", b =>
                 {
                     b.HasOne("TechAndTools.Data.Models.TechAndToolsUser")
-                        .WithMany("DeliveryAddresses")
+                        .WithMany("Addresses")
                         .HasForeignKey("TechAndToolsUserId");
                 });
 
@@ -678,9 +668,10 @@ namespace TechAndTools.Data.Migrations
 
             modelBuilder.Entity("TechAndTools.Data.Models.Order", b =>
                 {
-                    b.HasOne("TechAndTools.Data.Models.Address", "Address")
+                    b.HasOne("TechAndTools.Data.Models.Address", "DeliveryAddress")
                         .WithMany()
-                        .HasForeignKey("AddressId");
+                        .HasForeignKey("DeliveryAddressId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("TechAndTools.Data.Models.PaymentStatus", "PaymentStatus")
                         .WithMany()
@@ -733,7 +724,8 @@ namespace TechAndTools.Data.Migrations
                 {
                     b.HasOne("TechAndTools.Data.Models.Product", "Product")
                         .WithMany("Reviews")
-                        .HasForeignKey("ProductId1");
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("TechAndTools.Data.Models.TechAndToolsUser", "User")
                         .WithMany("Reviews")
@@ -749,7 +741,8 @@ namespace TechAndTools.Data.Migrations
 
                     b.HasOne("TechAndTools.Data.Models.ShoppingCart", "ShoppingCart")
                         .WithMany("ShoppingCartProducts")
-                        .HasForeignKey("ShoppingCartId");
+                        .HasForeignKey("ShoppingCartId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("TechAndTools.Data.Models.TechAndToolsUser", b =>

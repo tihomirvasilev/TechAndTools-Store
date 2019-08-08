@@ -7,20 +7,17 @@ namespace TechAndTools.Services.Models
 {
     public class OrderServiceModel : IMapFrom<Order>, IMapTo<Order>
     {
-        
         public int Id { get; set; }
 
         public OrderStatusServiceModel Status { get; set; }
 
         public PaymentStatusServiceModel PaymentStatus { get; set; }
 
-        public DateTime? OrderDate { get; set; }
+        public DateTime OrderDate { get; set; }
 
         public DateTime? EstimatedDeliveryDate { get; set; }
 
         public DateTime? DeliveryDate { get; set; }
-
-        public DateTime? Date { get; set; }
 
         public decimal TotalPrice { get; set; }
 
@@ -33,13 +30,13 @@ namespace TechAndTools.Services.Models
         public string InvoiceNumber { get; set; }
 
         public PaymentTypeServiceModel PaymentType { get; set; }
+        
+        public int DeliveryAddressId { get; set; }
+        public virtual AddressServiceModel DeliveryAddress { get; set; }
 
         public string UserId { get; set; }
-        public TechAndToolsUserServiceModel User { get; set; }
+        public virtual TechAndToolsUser User { get; set; }
 
-        public ICollection<OrderProductServiceModel> OrderProducts { get; set; }
-
-        public int DeliveryAddressId { get; set; }
-        public AddressServiceModel Address { get; set; }
+        public virtual ICollection<OrderProductServiceModel> OrderProducts { get; set; }
     }
 }

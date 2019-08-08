@@ -10,7 +10,11 @@ namespace TechAndTools.Data.Models
 
         public string LastName { get; set; }
 
-        public string ShoppingCartId { get; set; }
+        public DateTime CreatedOn { get; set; }
+
+        public DateTime? ModifiedOn { get; set; }
+
+        public int ShoppingCartId { get; set; }
         public virtual ShoppingCart ShoppingCart { get; set; }
 
         public virtual ICollection<FavoriteProduct> FavoriteProducts { get; set; }
@@ -19,10 +23,6 @@ namespace TechAndTools.Data.Models
 
         public virtual ICollection<Order> Orders { get; set; }
 
-        public virtual ICollection<Address> DeliveryAddresses { get; set; }
-
-        public DateTime CreatedOn { get; set; }
-
-        public DateTime? ModifiedOn { get; set; }
+        public virtual ICollection<Address> Addresses { get; set; }
     }
 }

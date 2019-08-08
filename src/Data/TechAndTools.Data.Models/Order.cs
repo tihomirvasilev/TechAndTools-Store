@@ -11,13 +11,11 @@ namespace TechAndTools.Data.Models
 
         public PaymentStatus PaymentStatus { get; set; }
 
-        public DateTime? OrderDate { get; set; }
+        public DateTime OrderDate { get; set; }
 
         public DateTime? EstimatedDeliveryDate { get; set; }
 
         public DateTime? DeliveryDate { get; set; }
-
-        public DateTime? Date { get; set; }
 
         public decimal TotalPrice { get; set; }
 
@@ -30,13 +28,14 @@ namespace TechAndTools.Data.Models
         public string InvoiceNumber { get; set; }
 
         public PaymentType PaymentType { get; set; }
+        
+        public int DeliveryAddressId { get; set; }
+        public virtual Address DeliveryAddress { get; set; }
 
         public string UserId { get; set; }
         public virtual TechAndToolsUser User { get; set; }
 
         public virtual ICollection<OrderProduct> OrderProducts { get; set; }
 
-        public int DeliveryAddressId { get; set; }
-        public virtual Address Address { get; set; }
     }
 }

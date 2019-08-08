@@ -18,6 +18,6 @@ namespace TechAndTools.Services.Models
 
         public int MaximumDeliveryTimeDays { get; set; }
 
-        public ICollection<OrderServiceModel> Orders { get; set; }
+        public virtual ICollection<OrderServiceModel> Orders { get; set; }
     }
 }

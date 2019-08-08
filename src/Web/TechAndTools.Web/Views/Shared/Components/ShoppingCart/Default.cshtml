@@ -1,0 +1,43 @@
+﻿@model List<TechAndTools.Web.ViewModels.ShoppingCart.ShoppingCartProductsViewModel>
+
+<li class="header-cart dropdown default-dropdown">
+    <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+        <div class="header-btns-icon">
+            <i class="fa fa-shopping-cart"></i>
+            <span class="qty">@Model.Count()</span>
+        </div>
+        <strong class="text-uppercase">My Cart:</strong>
+        <br>
+        <span>$ @Model.Sum(x => x.Price).ToString("F2")</span>
+    </a>
+    <div class="custom-menu">
+        <div id="shopping-cart">
+            <div class="shopping-cart-list">
+                @if (Model.Count == 0)
+                {
+                    <h3 class="text-center">Cart is empty.</h3>
+                }
+                else
+                {
+                    foreach (var product in Model)
+                     {
+                         <div class="product product-widget">
+                             <div class="product-thumb">
+                                 <img src="@product.ImageUrl" alt="">
+                             </div>
+                             <div class="product-body">
+                                 <h3 class="product-price">@product.Price <span class="qty">@product.Quantity</span></h3>
+                                 <h2 class="product-name"><a href="#">@product.Name</a></h2>
+                             </div>
+                             <a asp-controller="ShoppingCart" asp-action="Delete" asp-route-id="@product.Id" class="cancel-btn"> <i class="fa fa-trash"></i></a>
+                         </div>
+                     }
+                }
+            </div>
+            <div class="shopping-cart-btns">
+                <button class="main-btn">View Cart</button>
+                <button class="primary-btn">Checkout <i class="fa fa-arrow-circle-right"></i></button>
+            </div>
+        </div>
+    </div>
+</li>
