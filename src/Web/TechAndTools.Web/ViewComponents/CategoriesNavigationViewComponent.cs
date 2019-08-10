@@ -19,8 +19,10 @@ namespace TechAndTools.Web.ViewComponents
 
         public IViewComponentResult Invoke()
         {
-            IEnumerable<MainCategoryComponentViewModel> mainCategoriesCategoryComponentViewModels =
-                this.mainCategoryService.GetAllMainCategories().To<MainCategoryComponentViewModel>().ToList();
+            IEnumerable<MainCategoryComponentViewModel> mainCategoriesCategoryComponentViewModels = this.mainCategoryService
+                .GetAllMainCategories()
+                .To<MainCategoryComponentViewModel>()
+                .ToList();
             
             return this.View(mainCategoriesCategoryComponentViewModels);
         }

@@ -19,7 +19,7 @@
                                             </li>
                                             @foreach (var category in mainCategory.Categories)
                                             {
-                                                <li><a href="/Home/Index/@category.Id">@category.Name</a></li>
+                                                <li><a asp-area="" asp-controller="Home" asp-action="Index" asp-route-categoryId="@category.Id">@category.Name</a></li>
                                             }
                                         </ul>
                                     </div>
@@ -27,13 +27,13 @@
                             </div>
                         </li>
                     }
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">View All</a></li>
+                    <li><a href="/">View All</a></li>
                 </ul>
             </div>
             <div class="menu-nav">
                 <span class="menu-header">Menu <i class="fa fa-bars"></i></span>
                 <ul class="menu-list">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li><a href="/">Home</a></li>
                     <li><a href="#">Blog</a></li>
                     <li><a href="#">Contacts</a></li>
                     <li><a href="#">About Us</a></li>

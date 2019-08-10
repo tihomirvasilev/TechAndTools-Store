@@ -53,6 +53,14 @@ namespace TechAndTools.Web.Areas.Identity.Pages.Account
             [Required]
             [Display(Name = "Username")]
             public string Username { get; set; }
+            
+            [Required]
+            [Display(Name = "First Name")]
+            public string FirstName { get; set; }
+            
+            [Required]
+            [Display(Name = "Last Name")]
+            public string LastName { get; set; }
 
             [Required]
             [EmailAddress]
@@ -85,6 +93,8 @@ namespace TechAndTools.Web.Areas.Identity.Pages.Account
                 {
                     UserName = Input.Username,
                     Email = Input.Email,
+                    FirstName = Input.FirstName,
+                    LastName = Input.LastName,
                     ShoppingCart = new ShoppingCart(),
                     CreatedOn = DateTime.UtcNow
                 };

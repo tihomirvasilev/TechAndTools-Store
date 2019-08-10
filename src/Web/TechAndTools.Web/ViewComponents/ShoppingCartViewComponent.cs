@@ -4,6 +4,7 @@ using System.Linq;
 using TechAndTools.Services;
 using TechAndTools.Services.Contracts;
 using TechAndTools.Services.Mapping;
+using TechAndTools.Services.Models;
 using TechAndTools.Web.Commons;
 using TechAndTools.Web.ViewModels.ShoppingCart;
 
@@ -22,12 +23,13 @@ namespace TechAndTools.Web.ViewComponents
         {
             if (this.User.Identity.IsAuthenticated)
             {
-                var shoppingCartProductsServiceModels = this.shoppingCartService.GetAllShoppingCartProducts(this.User.Identity.Name).ToList();
-                var shoppingCartProductsViewModels = new List<ShoppingCartProductViewModel>(); 
-                foreach (var serviceModel in shoppingCartProductsServiceModels)
-                {
-                    shoppingCartProductsViewModels.Add(serviceModel.To<ShoppingCartProductViewModel>());
-                }
+                List<ShoppingCartProductServiceModel> shoppingCartProductsServiceModels = this.shoppingCartService
+                    .GetAllShoppingCartProducts(this.User.Identity.Name)
+                    .ToList();
+
+                var shoppingCartProductsViewModels = shoppingCartProductsServiceModels
+                    .Select(x => x.To<ShoppingCartProductViewModel>())
+                    .ToList();
 
                 return this.View(shoppingCartProductsViewModels);
             }

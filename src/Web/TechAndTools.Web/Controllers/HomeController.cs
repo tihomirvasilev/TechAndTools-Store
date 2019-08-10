@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using TechAndTools.Services;
 using TechAndTools.Services.Contracts;
 using TechAndTools.Services.Mapping;
 using TechAndTools.Web.ViewModels;
@@ -23,18 +22,27 @@ namespace TechAndTools.Web.Controllers
             this.categoryService = categoryService;
         }
 
-        public async Task<IActionResult> Index()
+
+        public IActionResult Index()
         {
-            IList<ProductIndexViewModel> productIndexViewModels = this.productService.GetAllProducts().To<ProductIndexViewModel>().ToList();
+            IList<ProductIndexViewModel> productIndexViewModels = this.productService
+                .GetAllProducts()
+                .To<ProductIndexViewModel>()
+                .ToList();
 
             return View(productIndexViewModels);
         }
 
         [Route("/Home/Index/{categoryId}")]
-        public async Task<IActionResult> Index(int categoryId)
+        public IActionResult Index(int categoryId)
         {
-            IList<ProductIndexViewModel> productIndexViewModels = this.productService.GetProductsByCategoryId(categoryId).To<ProductIndexViewModel>().ToList();
+            IList<ProductIndexViewModel> productIndexViewModels = this.productService
+                .GetProductsByCategoryId(categoryId)
+                .To<ProductIndexViewModel>()
+                .ToList();
+
             ViewData["category"] = this.categoryService.GetCategoryById(categoryId).Name;
+
             return View(productIndexViewModels);
         }
 

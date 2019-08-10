@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
-using TechAndTools.Services;
 using TechAndTools.Services.Contracts;
 using TechAndTools.Services.Mapping;
 using TechAndTools.Services.Models;
@@ -74,7 +73,9 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
 
         public async Task<IActionResult> All()
         {
-            var viewModels = await this.brandService.GetAllBrands().To<BrandIndexViewModel>().ToListAsync();
+            var viewModels = await this.brandService.GetAllBrands()
+                .To<BrandIndexViewModel>()
+                .ToListAsync();
 
             return this.View(viewModels);
         }

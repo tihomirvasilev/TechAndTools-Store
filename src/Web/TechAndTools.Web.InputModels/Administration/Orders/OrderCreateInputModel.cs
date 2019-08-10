@@ -10,7 +10,14 @@ namespace TechAndTools.Web.InputModels.Administration.Orders
 {
     public class OrderCreateInputModel
     {
-        
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
+
+        public string PhoneNumber { get; set; }
+
+        public string Email { get; set; }
+
         public IEnumerable<AddressViewModel> AddressesViewModels { get; set; }
 
         public AddressCreateInputModel AddressCreateInputModel { get; set; }
@@ -23,9 +30,8 @@ namespace TechAndTools.Web.InputModels.Administration.Orders
 
         public int? DeliveryAddressId { get; set; }
 
-        public string FullName { get; set; }
 
-        public string PhoneNumber { get; set; }
+        public ShippingTo ShippingTo { get; set; }
 
         public IEnumerable<PaymentMethodViewModel> PaymentMethodViewModels { get; set; }
 

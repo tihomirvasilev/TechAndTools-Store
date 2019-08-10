@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
-using TechAndTools.Services;
 using TechAndTools.Services.Contracts;
 using TechAndTools.Services.Mapping;
+using TechAndTools.Services.Models;
 using TechAndTools.Web.Commons;
 using TechAndTools.Web.ViewModels.ShoppingCart;
 
@@ -27,17 +27,19 @@ namespace TechAndTools.Web.Controllers
             
             if (this.User.Identity.IsAuthenticated)
             {
-                var shoppingCartProductsServiceModels = this.shoppingCartService.GetAllShoppingCartProducts(this.User.Identity.Name).ToList();
-                var shoppingCartProductsViewModels = new List<ShoppingCartProductViewModel>(); 
-                foreach (var serviceModel in shoppingCartProductsServiceModels)
-                {
-                    shoppingCartProductsViewModels.Add(serviceModel.To<ShoppingCartProductViewModel>());
-                }
+                List<ShoppingCartProductServiceModel> shoppingCartProductsServiceModels = this.shoppingCartService
+                    .GetAllShoppingCartProducts(this.User.Identity.Name)
+                    .ToList();
+
+                List<ShoppingCartProductViewModel> shoppingCartProductsViewModels = shoppingCartProductsServiceModels
+                    .Select(x => x.To<ShoppingCartProductViewModel>())
+                    .ToList();
 
                 return this.View(shoppingCartProductsViewModels);
             }
 
-            var shoppingCartSession = SessionHelper.GetObjectFromJson<List<ShoppingCartProductViewModel>>(HttpContext.Session, GlobalConstants.SessionShoppingCartKey) ??
+            var shoppingCartSession = SessionHelper
+                                          .GetObjectFromJson<List<ShoppingCartProductViewModel>>(HttpContext.Session, GlobalConstants.SessionShoppingCartKey) ?? 
                                       new List<ShoppingCartProductViewModel>();
             
             return this.View(shoppingCartSession);
@@ -57,9 +59,12 @@ namespace TechAndTools.Web.Controllers
 
                 if (shoppingCartSession.All(x => x.Id != id))
                 {
-                    var shoppingCartProduct = this.productService.GetProductById(id).To<ShoppingCartProductViewModel>();
+                    var shoppingCartProduct = this.productService
+                        .GetProductById(id)
+                        .To<ShoppingCartProductViewModel>();
 
                     shoppingCartProduct.Quantity = GlobalConstants.DefaultProductQuantity;
+
                     shoppingCartProduct.TotalPrice = shoppingCartProduct.Quantity * shoppingCartProduct.Price;
 
                     shoppingCartSession.Add(shoppingCartProduct);

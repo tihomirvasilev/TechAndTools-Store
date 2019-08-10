@@ -7,7 +7,7 @@ using TechAndTools.Web.InputModels.Addresses;
 
 namespace TechAndTools.Web.Controllers
 {
-    public class AddressesController : Controller
+    public class AddressesController : BaseController
     {
         private readonly IAddressService addressService;
 

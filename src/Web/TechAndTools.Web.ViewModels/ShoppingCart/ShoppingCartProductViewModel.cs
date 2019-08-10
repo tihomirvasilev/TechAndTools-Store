@@ -23,7 +23,7 @@ namespace TechAndTools.Web.ViewModels.ShoppingCart
         {
             configuration.CreateMap<ShoppingCartProductServiceModel, ShoppingCartProductViewModel>()
                 .ForMember(dest => dest.ImageUrl,
-                    opts => opts.MapFrom(origin => origin.Product.Images.FirstOrDefault().ImageUrl ?? string.Empty))
+                    opts => opts.MapFrom(origin => origin.Product.Images.FirstOrDefault().ImageUrl))
                 .ForMember(dest => dest.Id, opts => opts.MapFrom(origin => origin.ProductId))
                 .ForMember(dest => dest.Name, opts => opts.MapFrom(origin => origin.Product.Name))
                 .ForMember(dest => dest.Price, opts => opts.MapFrom(origin => origin.Product.Price))

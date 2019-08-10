@@ -23,6 +23,7 @@ namespace TechAndTools.Services
         public async Task<AddressServiceModel> Create(AddressServiceModel addressServiceModel, string username)
         {
             var address = addressServiceModel.To<Address>();
+
             var user = this.userService.GetUserByUsername(username);
 
             user.Addresses.Add(address);

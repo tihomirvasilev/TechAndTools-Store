@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
-using TechAndTools.Services;
 using TechAndTools.Services.Contracts;
 using TechAndTools.Services.Mapping;
 using TechAndTools.Services.Models;
@@ -23,7 +24,9 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
 
         public IActionResult Create()
         {
-            this.ViewData["mainCategories"] = this.mainCategoryService.GetAllMainCategories().To<CreateCategoryMainCategoryViewModel>();
+            this.ViewData["mainCategories"] = this.mainCategoryService
+                .GetAllMainCategories()
+                .To<CreateCategoryMainCategoryViewModel>();
 
             return this.View();
         }
@@ -33,7 +36,9 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
         {
             if (!this.ModelState.IsValid)
             {
-                this.ViewData["mainCategories"] = this.mainCategoryService.GetAllMainCategories().To<CreateCategoryMainCategoryViewModel>();
+                this.ViewData["mainCategories"] = this.mainCategoryService
+                    .GetAllMainCategories()
+                    .To<CreateCategoryMainCategoryViewModel>();
 
                 return this.View();
             }
@@ -47,7 +52,9 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
         {
             //TODO: change view model
 
-            CategoryEditInputModel editInputModel = this.categoryService.GetCategoryById(id).To<CategoryEditInputModel>();
+            CategoryEditInputModel editInputModel = this.categoryService
+                .GetCategoryById(id)
+                .To<CategoryEditInputModel>();
 
             if(editInputModel == null)
             {
@@ -55,7 +62,9 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
                 return this.Redirect("/");
             }
 
-            this.ViewData["mainCategories"] = this.mainCategoryService.GetAllMainCategories().To<CreateCategoryMainCategoryViewModel>();
+            this.ViewData["mainCategories"] = this.mainCategoryService
+                .GetAllMainCategories()
+                .To<CreateCategoryMainCategoryViewModel>();
 
             return this.View(editInputModel);
         }
@@ -65,14 +74,17 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
         {
             await this.categoryService.EditCategoryAsync(editInputModel.To<CategoryServiceModel>());
 
-            this.ViewData["mainCategories"] = this.mainCategoryService.GetAllMainCategories().To<CreateCategoryMainCategoryViewModel>();
+            this.ViewData["mainCategories"] = this.mainCategoryService
+                .GetAllMainCategories()
+                .To<CreateCategoryMainCategoryViewModel>();
 
             return this.RedirectToAction("All", "Categories");
         }
 
         public async Task<IActionResult> Delete(int id)
         {
-            CategoryDeleteViewModel categoryDeleteViewModel = this.categoryService.GetCategoryById(id)
+            CategoryDeleteViewModel categoryDeleteViewModel = this.categoryService
+                .GetCategoryById(id)
                 .To<CategoryDeleteViewModel>();
 
             if (categoryDeleteViewModel == null)
@@ -95,7 +107,10 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
 
         public IActionResult All()
         {
-            var categoriesViewModels = this.categoryService.GetAllCategories().To<CategoryViewModel>();
+            List<CategoryViewModel> categoriesViewModels = this.categoryService
+                .GetAllCategories()
+                .To<CategoryViewModel>()
+                .ToList();
 
             return this.View(categoriesViewModels);
         }

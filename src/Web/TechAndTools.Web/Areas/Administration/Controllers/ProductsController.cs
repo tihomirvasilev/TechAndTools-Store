@@ -1,8 +1,6 @@
-﻿using System.Linq;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
-using TechAndTools.Services;
 using TechAndTools.Services.Contracts;
 using TechAndTools.Services.Mapping;
 using TechAndTools.Services.Models;
@@ -22,10 +20,10 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
         private readonly IImageService imageService;
 
         public ProductsController(IProductService productService,
-            ICategoryService categoryService,
-            IBrandService brandService,
-            ICloudinaryService cloudinaryService,
-            IImageService imageService)
+                                  ICategoryService categoryService,
+                                  IBrandService brandService,
+                                  ICloudinaryService cloudinaryService,
+                                  IImageService imageService)
         {
             this.productService = productService;
             this.categoryService = categoryService;
@@ -37,8 +35,13 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            this.ViewData["categories"] = this.categoryService.GetAllCategories().To<CategoryListViewModel>();
-            this.ViewData["brands"] = this.brandService.GetAllBrands().To<BrandListViewModel>();
+            this.ViewData["categories"] = this.categoryService
+                .GetAllCategories()
+                .To<CategoryListViewModel>();
+
+            this.ViewData["brands"] = this.brandService
+                .GetAllBrands()
+                .To<BrandListViewModel>();
 
             return this.View();
         }
@@ -53,8 +56,8 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
 
             ProductServiceModel productServiceModel = productCreateInputModel.To<ProductServiceModel>();
 
-            string pictureUrl =
-                await this.cloudinaryService.UploadPictureAsync(productCreateInputModel.ImageFormFile, productCreateInputModel.Name);
+            string pictureUrl = await this.cloudinaryService
+                .UploadPictureAsync(productCreateInputModel.ImageFormFile, productCreateInputModel.Name);
 
             ProductServiceModel productFromDb = await this.productService.CreateAsync(productServiceModel);
 
@@ -66,10 +69,17 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
 
         public async Task<IActionResult> Edit(int id)
         {
-            this.ViewData["categories"] = this.categoryService.GetAllCategories().To<CategoryListViewModel>();
-            this.ViewData["brands"] = this.brandService.GetAllBrands().To<BrandListViewModel>();
+            this.ViewData["categories"] = this.categoryService
+                .GetAllCategories()
+                .To<CategoryListViewModel>();
 
-            var productEditInput = this.productService.GetProductById(id).To<ProductEditInputModel>();
+            this.ViewData["brands"] = this.brandService
+                .GetAllBrands()
+                .To<BrandListViewModel>();
+
+            var productEditInput = this.productService
+                .GetProductById(id)
+                .To<ProductEditInputModel>();
 
             return this.View(productEditInput);
         }
@@ -86,12 +96,13 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
 
             if (productEditInputModel.ImageFormFile != null)
             {
-                string pictureUrl =
-                    await this.cloudinaryService.UploadPictureAsync(productEditInputModel.ImageFormFile, productEditInputModel.Name);
+                string pictureUrl = await this.cloudinaryService
+                    .UploadPictureAsync(productEditInputModel.ImageFormFile, productEditInputModel.Name);
 
                 ProductServiceModel productFromDb = await this.productService.EditAsync(productServiceModel);
 
                 await this.imageService.CreateAsync(pictureUrl, productFromDb.Id);
+
                 return this.RedirectToAction("All", "Products");
             }
             else
@@ -117,7 +128,10 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
 
         public async Task<IActionResult> All()
         {
-            var productViewModels = await this.productService.GetAllProducts().To<ProductAllViewModel>().ToListAsync();
+            var productViewModels = await this.productService
+                .GetAllProducts()
+                .To<ProductAllViewModel>()
+                .ToListAsync();
 
             return this.View(productViewModels);
         }

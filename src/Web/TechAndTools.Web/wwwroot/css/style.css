@@ -1524,9 +1524,12 @@ textarea.input {
 /*=========================================================
 	09 -> CHECKOUT PAGE
 ===========================================================*/
+.delivery-addresses {
+    margin-bottom: 30px;
+}
 
 .shipping-methods {
-  margin-bottom: 30px;
+    margin-bottom: 30px;
 }
 
 .add-address {

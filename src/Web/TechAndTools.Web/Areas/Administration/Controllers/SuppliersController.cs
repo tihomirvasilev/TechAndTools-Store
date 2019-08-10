@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
-using TechAndTools.Services;
 using TechAndTools.Services.Contracts;
 using TechAndTools.Services.Mapping;
 using TechAndTools.Services.Models;
@@ -21,7 +20,10 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
 
         public async Task<IActionResult> All()
         {
-            var suppliersViewModels = await this.supplierService.GetAllSuppliers().To<SupplierAllViewModel>().ToListAsync();
+            var suppliersViewModels = await this.supplierService
+                .GetAllSuppliers()
+                .To<SupplierAllViewModel>()
+                .ToListAsync();
 
             return this.View(suppliersViewModels);
         }
@@ -41,7 +43,9 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
 
         public async Task<IActionResult> Edit(int id)
         {
-            var supplierEditInputModel = this.supplierService.GetSupplierById(id).To<SupplierEditInputModel>();
+            var supplierEditInputModel = this.supplierService
+                .GetSupplierById(id)
+                .To<SupplierEditInputModel>();
 
             return this.View(supplierEditInputModel);
         }
@@ -56,7 +60,9 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
 
         public async Task<IActionResult> Delete(int id)
         {
-            var supplierDeleteViewModel = this.supplierService.GetSupplierById(id).To<SupplierDeleteViewModel>();
+            var supplierDeleteViewModel = this.supplierService
+                .GetSupplierById(id)
+                .To<SupplierDeleteViewModel>();
 
             return this.View(supplierDeleteViewModel);
         }

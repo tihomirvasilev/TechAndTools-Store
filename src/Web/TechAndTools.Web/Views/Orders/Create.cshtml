@@ -12,31 +12,68 @@
                         <h3 class="title">Billing Details</h3>
                     </div>
                     <div class="form-group">
-                        <input class="input" type="text" name="first-name" placeholder="First Name">
+                        <label asp-for="FirstName"></label>
+                        <input asp-for="FirstName" class="form-control" placeholder="First Name" />
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <input class="input" type="text" name="last-name" placeholder="Last Name">
+                        <label asp-for="LastName"></label>
+                        <input asp-for="LastName" class="form-control" placeholder="Last Name" />
+                        <span asp-validation-for="LastName" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <input class="input" type="email" name="email" placeholder="Email">
+                        <label asp-for="Email"></label>
+                        <input asp-for="Email" class="form-control" placeholder="Email" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <input class="input" type="tel" name="tel" placeholder="Telephone">
+                        <label asp-for="PhoneNumber"></label>
+                        <input asp-for="PhoneNumber" class="form-control" placeholder="Телефонен номер" />
+                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                     </div>
-
+                    <div class="shipping-methods">
+                        <div class="section-title">
+                            <h4 class="title">Supplier</h4>
+                        </div>
+                        @foreach (var supplier in Model.SuppliersViewModel)
+                        {
+                            <div class="form-group mb-0">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label>
+                                            <input asp-for="SupplierId" type="radio" value="@supplier.Id" checked />
+                                            <span class="font-weight-bold">@supplier.Name</span>
+                                        </label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        Address:$ @supplier.PriceToAddress / Office:$ @supplier.PriceToOffice
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        <span asp-validation-for="ShippingTo" class="text-danger"></span>
+                    </div>
                     <div class="shipping-methods">
                         <div class="section-title">
                             <h4 class="title">Shipping To</h4>
                         </div>
-                        <div class="input-checkbox">
-                            <input type="radio" name="shipping" id="shipping-1" checked>
-                            <label for="shipping-1">Address - $0.00</label>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input asp-for="ShippingTo" type="radio" id="Address" value="Address" checked>
+                                    <label for="Address"> Address</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <input asp-for="ShippingTo" type="radio" id="Office" value="Office">
+                                    <label for="Office"> Office</label>
+                                </div>
+                            </div>
                         </div>
-                        <div class="input-checkbox">
-                            <input type="radio" name="shipping" id="shipping-1" checked>
-                            <label for="shipping-1">Office - $0.00</label>
-                        </div>
+                        <span asp-validation-for="ShippingTo" class="text-danger"></span>
                     </div>
+
+                </div>
+                <div class="col-md-6">
 
                     <div class="payments-methods">
                         <div class="section-title">
@@ -50,24 +87,23 @@
                             </div>
                         }
                     </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="section-title">
-                        <h3 class="title">Delivery Address:</h3>
+                    <div class="delivery-addresses">
+                        <div class="section-title">
+                            <h3 class="title">Delivery Address:</h3>
+                        </div>
+                        <ul>
+                            @foreach (var address in Model.AddressesViewModels)
+                            {
+                                <li>
+                                    <label>
+                                        <input asp-for="DeliveryAddressId" type="radio" value="@address.Id" checked />
+                                        @address.Country @address.City, @address.Quarter, @address.Street, @address.PostCode
+                                    </label>
+                                    <hr />
+                                </li>
+                            }
+                        </ul>
                     </div>
-                    <ul>
-                        @foreach (var address in Model.AddressesViewModels)
-                        {
-                            <li>
-                                <label>
-                                    <input asp-for="DeliveryAddressId" type="radio" value="@address.Id" checked />
-                                    @address.Country @address.City, @address.Quarter,  @address.Street, @address.PostCode
-                                </label>
-                                <hr/>
-                            </li>
-                        }
-                    </ul>
-
                     <div class="text-right mt-1">
                         <a class="btn btn-sm primary-btn" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Add Address</a>
                     </div>
@@ -107,7 +143,7 @@
                     </div>
                 </div>
             </form>
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <div class="order-summary clearfix">
                     <div class="section-title">
                         <h3 class="title">Order Review</h3>
@@ -140,17 +176,7 @@
                         </tbody>
                         <tfoot>
                             <tr>
-                                <th class="empty" colspan="3"></th>
-                                <th>SUBTOTAL</th>
-                                <th colspan="2" class="sub-total">$@Model.ShoppingCartProductViewModels.Sum(p => p.Price)</th>
-                            </tr>
-                            <tr>
-                                <th class="empty" colspan="3"></th>
-                                <th>SHIPING</th>
-                                <td colspan="2">Free Shipping</td>
-                            </tr>
-                            <tr>
-                                <th class="empty" colspan="3"></th>
+                                <th class="empty" colspan="4"></th>
                                 <th>TOTAL</th>
                                 <th colspan="2" class="total">$@Model.ShoppingCartProductViewModels.Sum(p => p.Price)</th>
                             </tr>

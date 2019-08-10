@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using TechAndTools.Data.Models;
 using TechAndTools.Services.Contracts;
@@ -63,19 +64,34 @@ namespace TechAndTools.Web.Controllers
                 .GetAllPaymentMethods()
                 .To<PaymentMethodViewModel>().ToList();
 
-            var shoppingCartProductsViewModels =
-                shoppingCartProductsServiceModels.Select(x => x.To<ShoppingCartProductViewModel>());
+            List<ShoppingCartProductViewModel> shoppingCartProductsViewModels = shoppingCartProductsServiceModels
+                .Select(x => x.To<ShoppingCartProductViewModel>())
+                .ToList();
 
             var createOrderViewModel = new OrderCreateInputModel
             {
-                AddressesViewModels = addressesViewModel.ToList(),
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email,
                 PhoneNumber = user.PhoneNumber,
+                AddressesViewModels = addressesViewModel.ToList(),
                 SuppliersViewModel = supplierViewModels,
                 ShoppingCartProductViewModels = shoppingCartProductsViewModels,
                 PaymentMethodViewModels = paymentMethodViewModels
             };
-            ;
+
             return this.View(createOrderViewModel);
+        }
+
+        [HttpPost]
+        public IActionResult Create(OrderCreateInputModel model)
+        {
+            return this.RedirectToAction(nameof(Complete));
+        }
+
+        public async Task<IActionResult> Complete()
+        {
+            return this.View();
         }
     }
 }

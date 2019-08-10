@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
-using TechAndTools.Services;
 using TechAndTools.Services.Contracts;
 using TechAndTools.Services.Mapping;
 using TechAndTools.Services.Models;
@@ -11,7 +10,8 @@ using TechAndTools.Web.ViewModels.MainCategories;
 namespace TechAndTools.Web.Areas.Administration.Controllers
 {
     public class MainCategoriesController : AdministrationController
-    {private readonly ICategoryService categoryService;
+    {
+        private readonly ICategoryService categoryService;
         private readonly IMainCategoryService mainCategoryService;
 
         public MainCategoriesController(ICategoryService categoryService, IMainCategoryService mainCategoryService)
@@ -35,7 +35,9 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
 
         public async Task<IActionResult> Edit(int id)
         {
-            MainCategoryEditInputModel mainCategoryEditInputModel = this.mainCategoryService.GetMainCategoryById(id).To<MainCategoryEditInputModel>();
+            MainCategoryEditInputModel mainCategoryEditInputModel = this.mainCategoryService
+                .GetMainCategoryById(id)
+                .To<MainCategoryEditInputModel>();
 
             return this.View(mainCategoryEditInputModel);
         }
@@ -50,16 +52,19 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
 
         public async Task<IActionResult> All()
         {
-            var mainCategoriesViewModels =
-                await this.mainCategoryService.GetAllMainCategories().To<MainCategoryViewModel>().ToListAsync();
+            var mainCategoriesViewModels = await this.mainCategoryService
+                .GetAllMainCategories()
+                .To<MainCategoryViewModel>()
+                .ToListAsync();
 
             return this.View(mainCategoriesViewModels);
         }
 
         public async Task<IActionResult> Delete(int id)
         {
-            MainCategoryDeleteViewModel mainCategoryDeleteViewModel =
-                this.mainCategoryService.GetMainCategoryById(id).To<MainCategoryDeleteViewModel>();
+            MainCategoryDeleteViewModel mainCategoryDeleteViewModel = this.mainCategoryService
+                .GetMainCategoryById(id)
+                .To<MainCategoryDeleteViewModel>();
 
             return this.View(mainCategoryDeleteViewModel);
         }
