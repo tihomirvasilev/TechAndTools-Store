@@ -10,11 +10,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Reflection;
-using SmartBreadcrumbs.Extensions;
 using TechAndTools.Data;
 using TechAndTools.Data.Models;
 using TechAndTools.Data.Seeding;
 using TechAndTools.Services;
+using TechAndTools.Services.Contracts;
 using TechAndTools.Services.EmailSender;
 using TechAndTools.Services.Mapping;
 using TechAndTools.Services.Models;
@@ -67,7 +67,7 @@ namespace TechAndTools.Web
                 this.configuration["Cloudinary:ApiSecret"]);
 
             Cloudinary cloudinaryUtility = new Cloudinary(cloudinaryCredentials);
-            
+
             services.AddSingleton(cloudinaryUtility);
 
             services.AddSession(options =>
@@ -82,11 +82,14 @@ namespace TechAndTools.Web
             services.AddTransient<ISupplierService, SupplierService>();
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<IImageService, ImageService>();
-            services.AddTransient<IShoppingCartsService, ShoppingCartsService>();
+            services.AddTransient<IShoppingCartService, ShoppingCartService>();
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IAddressService, AddressService>();
+            services.AddTransient<IPaymentMethodService, PaymentMethodService>();
 
             services.AddSingleton<IEmailSender, EmailSender>();
             services.AddTransient<ICloudinaryService, CloudinaryService>();
+
             //services.AddAuthentication().AddFacebook(facebookOptions =>
             //{
             //    facebookOptions.AppId = Configuration["Authentication:Facebook:AppId"];

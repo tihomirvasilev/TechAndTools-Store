@@ -1,13 +1,12 @@
 ﻿using TechAndTools.Data.Models;
 using TechAndTools.Services.Mapping;
+using TechAndTools.Services.Models;
 
-namespace TechAndTools.Services.Models
+namespace TechAndTools.Web.ViewModels.Addresses
 {
-    public class AddressServiceModel : IMapFrom<Address>, IMapTo<Address>
+    public class AddressViewModel : IMapFrom<AddressServiceModel>, IMapFrom<Address>
     {
         public int Id { get; set; }
-
-        public string TechAndToolsUserId { get; set; }
 
         public string Country { get; set; }
 

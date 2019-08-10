@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using TechAndTools.Services;
+using TechAndTools.Services.Contracts;
 using TechAndTools.Services.Mapping;
 using TechAndTools.Web.Commons;
 using TechAndTools.Web.ViewModels.ShoppingCart;
@@ -10,11 +11,11 @@ namespace TechAndTools.Web.Controllers
 {
     public class ShoppingCartController : Controller
     {
-        private readonly IShoppingCartsService shoppingCartService;
+        private readonly IShoppingCartService shoppingCartService;
         private readonly IProductService productService;
 
 
-        public ShoppingCartController(IShoppingCartsService shoppingCartService,
+        public ShoppingCartController(IShoppingCartService shoppingCartService,
                                       IProductService productService)
         {
             this.shoppingCartService = shoppingCartService;
@@ -76,14 +77,14 @@ namespace TechAndTools.Web.Controllers
             {
                 this.shoppingCartService.DeleteProductFromShoppingCart(id, this.User.Identity.Name);
 
-                return this.RedirectToAction("Index", "ShoppingCart");
+                return this.RedirectToAction("MyCart", "ShoppingCart");
             }
 
             List<ShoppingCartProductViewModel> shoppingCartSession =
                 SessionHelper.GetObjectFromJson<List<ShoppingCartProductViewModel>>(HttpContext.Session, GlobalConstants.SessionShoppingCartKey);
             if (shoppingCartSession == null)
             {
-                return this.RedirectToAction("Index", "ShoppingCart");
+                return this.RedirectToAction("MyCart", "ShoppingCart");
             }
 
             if (shoppingCartSession.Any(x => x.Id == id))

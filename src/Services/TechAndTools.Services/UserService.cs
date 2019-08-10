@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using TechAndTools.Data;
 using TechAndTools.Data.Models;
+using TechAndTools.Services.Contracts;
 
 namespace TechAndTools.Services
 {

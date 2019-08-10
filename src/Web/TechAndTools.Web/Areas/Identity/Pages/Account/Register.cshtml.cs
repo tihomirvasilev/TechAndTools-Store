@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using TechAndTools.Data.Models;
 using TechAndTools.Services;
+using TechAndTools.Services.Contracts;
 using TechAndTools.Web.Commons;
 using TechAndTools.Web.ViewModels.ShoppingCart;
 
@@ -24,7 +25,7 @@ namespace TechAndTools.Web.Areas.Identity.Pages.Account
         private readonly ILogger<RegisterModel> logger;
         private readonly IEmailSender emailSender;
         private readonly IUserService userService;
-        private readonly IShoppingCartsService shoppingCartService;
+        private readonly IShoppingCartService shoppingCartService;
 
         public RegisterModel(
             UserManager<TechAndToolsUser> userManager,
@@ -32,7 +33,7 @@ namespace TechAndTools.Web.Areas.Identity.Pages.Account
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
             IUserService userService,
-            IShoppingCartsService shoppingCartService)
+            IShoppingCartService shoppingCartService)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;

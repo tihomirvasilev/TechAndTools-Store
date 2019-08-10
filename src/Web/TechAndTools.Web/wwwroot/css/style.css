@@ -1525,8 +1525,12 @@ textarea.input {
 	09 -> CHECKOUT PAGE
 ===========================================================*/
 
-.shiping-methods {
+.shipping-methods {
   margin-bottom: 30px;
+}
+
+.add-address {
+    margin-bottom: 30px;
 }
 
 /*-- shopping cart table --*/

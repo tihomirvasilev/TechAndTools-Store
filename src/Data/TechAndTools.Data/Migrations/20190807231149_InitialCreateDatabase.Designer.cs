@@ -377,7 +377,7 @@ namespace TechAndTools.Data.Migrations
                     b.ToTable("PaymentStatuses");
                 });
 
-            modelBuilder.Entity("TechAndTools.Data.Models.PaymentType", b =>
+            modelBuilder.Entity("TechAndTools.Data.Models.PaymentMethod", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -679,7 +679,7 @@ namespace TechAndTools.Data.Migrations
                         .WithMany()
                         .HasForeignKey("PaymentStatusId");
 
-                    b.HasOne("TechAndTools.Data.Models.PaymentType", "PaymentType")
+                    b.HasOne("TechAndTools.Data.Models.PaymentMethod", "PaymentMethod")
                         .WithMany()
                         .HasForeignKey("PaymentTypeId");
 

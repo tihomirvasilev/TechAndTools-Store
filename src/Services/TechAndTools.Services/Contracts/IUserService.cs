@@ -1,6 +1,6 @@
 ﻿using TechAndTools.Data.Models;
 
-namespace TechAndTools.Services
+namespace TechAndTools.Services.Contracts
 {
     public interface IUserService
     {

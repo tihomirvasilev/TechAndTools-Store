@@ -1,10 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
-using TechAndTools.Data.Models;
 using TechAndTools.Services.Models;
 
-namespace TechAndTools.Services
+namespace TechAndTools.Services.Contracts
 {
     public interface ICategoryService
     {

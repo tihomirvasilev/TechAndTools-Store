@@ -29,7 +29,7 @@ namespace TechAndTools.Services.Models
 
         public string InvoiceNumber { get; set; }
 
-        public PaymentTypeServiceModel PaymentType { get; set; }
+        public PaymentMethodServiceModel PaymentMethod { get; set; }
         
         public int DeliveryAddressId { get; set; }
         public virtual AddressServiceModel DeliveryAddress { get; set; }

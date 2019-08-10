@@ -6,7 +6,7 @@ using TechAndTools.Services.Mapping;
 
 namespace TechAndTools.Services.Models
 {
-    public class PaymentTypeServiceModel : IMapFrom<PaymentType>, IMapTo<PaymentType>
+    public class PaymentMethodServiceModel : IMapFrom<PaymentMethod>, IMapTo<PaymentMethod>
     {
         public int Id { get; set; }
 

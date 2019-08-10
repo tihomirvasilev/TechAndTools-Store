@@ -4,6 +4,8 @@
     {
         public int Id { get; set; }
 
+        public string TechAndToolsUserId { get; set; }
+
         public string Country { get; set; }
 
         public string City { get; set; }

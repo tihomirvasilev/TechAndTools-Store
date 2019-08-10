@@ -3,6 +3,7 @@ using CloudinaryDotNet.Actions;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using System.Threading.Tasks;
+using TechAndTools.Services.Contracts;
 
 namespace TechAndTools.Services
 {

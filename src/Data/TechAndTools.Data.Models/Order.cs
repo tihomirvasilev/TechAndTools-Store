@@ -27,7 +27,7 @@ namespace TechAndTools.Data.Models
 
         public string InvoiceNumber { get; set; }
 
-        public PaymentType PaymentType { get; set; }
+        public PaymentMethod PaymentMethod { get; set; }
         
         public int DeliveryAddressId { get; set; }
         public virtual Address DeliveryAddress { get; set; }

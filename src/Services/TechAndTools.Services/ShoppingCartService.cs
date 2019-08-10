@@ -1,18 +1,19 @@
 ﻿using System.Linq;
 using TechAndTools.Data;
 using TechAndTools.Data.Models;
+using TechAndTools.Services.Contracts;
 using TechAndTools.Services.Mapping;
 using TechAndTools.Services.Models;
 
 namespace TechAndTools.Services
 {
-    public class ShoppingCartsService : IShoppingCartsService
+    public class ShoppingCartService : IShoppingCartService
     {
         private readonly TechAndToolsDbContext context;
         private readonly IProductService productService;
         private readonly IUserService userService;
 
-        public ShoppingCartsService(TechAndToolsDbContext context,
+        public ShoppingCartService(TechAndToolsDbContext context,
             IProductService productService,
             IUserService userService)
         {
@@ -76,6 +77,11 @@ namespace TechAndTools.Services
 
             this.context.ShoppingCartProducts.Remove(shoppingCart);
             this.context.SaveChanges();
+        }
+
+        public bool AnyProducts(string username)
+        {
+            return this.context.ShoppingCartProducts.Any(x => x.ShoppingCart.User.UserName == username);
         }
     }
 }

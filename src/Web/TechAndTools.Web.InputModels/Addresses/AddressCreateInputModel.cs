@@ -1,14 +1,13 @@
-﻿using TechAndTools.Data.Models;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 using TechAndTools.Services.Mapping;
+using TechAndTools.Services.Models;
 
-namespace TechAndTools.Services.Models
+namespace TechAndTools.Web.InputModels.Addresses
 {
-    public class AddressServiceModel : IMapFrom<Address>, IMapTo<Address>
+    public class AddressCreateInputModel : IMapTo<AddressServiceModel>
     {
-        public int Id { get; set; }
-
-        public string TechAndToolsUserId { get; set; }
-
         public string Country { get; set; }
 
         public string City { get; set; }

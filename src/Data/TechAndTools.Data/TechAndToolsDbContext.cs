@@ -18,7 +18,7 @@ namespace TechAndTools.Data
         public DbSet<OrderProduct> OrderProducts { get; set; }
         public DbSet<OrderStatus> OrderStatuses { get; set; }
         public DbSet<PaymentStatus> PaymentStatuses { get; set; }
-        public DbSet<PaymentType> PaymentTypes { get; set; }
+        public DbSet<PaymentMethod> PaymentMethods { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Review> Reviews { get; set; }
         public DbSet<ShoppingCart> ShoppingCarts { get; set; }

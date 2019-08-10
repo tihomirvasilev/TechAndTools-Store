@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using TechAndTools.Services.Models;
 
-namespace TechAndTools.Services
+namespace TechAndTools.Services.Contracts
 {
     public interface IMainCategoryService
     {

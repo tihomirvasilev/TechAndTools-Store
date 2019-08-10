@@ -18,6 +18,7 @@ namespace TechAndTools.Web.ViewModels.ShoppingCart
         public int Quantity { get; set; }
 
         public decimal TotalPrice { get; set; }
+
         public void CreateMappings(IProfileExpression configuration)
         {
             configuration.CreateMap<ShoppingCartProductServiceModel, ShoppingCartProductViewModel>()

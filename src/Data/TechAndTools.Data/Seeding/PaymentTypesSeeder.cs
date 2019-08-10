@@ -9,7 +9,7 @@ namespace TechAndTools.Data.Seeding
     {
         public async Task SeedAsync(TechAndToolsDbContext dbContext, IServiceProvider serviceProvider)
         {
-            bool hasPaymentTypes = await dbContext.PaymentTypes.AnyAsync();
+            bool hasPaymentTypes = await dbContext.PaymentMethods.AnyAsync();
 
             if (!hasPaymentTypes)
             {
@@ -21,9 +21,9 @@ namespace TechAndTools.Data.Seeding
 
         private static async Task SeedPaymentTypesAsync(string paymentTypeName, TechAndToolsDbContext dbContext)
         {
-            var paymentType = new PaymentType { Name = paymentTypeName };
+            var paymentType = new PaymentMethod { Name = paymentTypeName };
 
-            await dbContext.PaymentTypes.AddAsync(paymentType);
+            await dbContext.PaymentMethods.AddAsync(paymentType);
         }
     }
 }

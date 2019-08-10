@@ -1,6 +1,6 @@
 ﻿namespace TechAndTools.Data.Models
 {
-    public class PaymentType
+    public class PaymentMethod
     {
         public int Id { get; set; }
 
