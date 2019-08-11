@@ -84,8 +84,9 @@ namespace TechAndTools.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(OrderCreateInputModel model)
+        public IActionResult Create(OrderCreateInputModel orderCreateInputModel)
         {
+            ;
             return this.RedirectToAction(nameof(Complete));
         }
 

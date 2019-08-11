@@ -105,89 +105,54 @@
                         </ul>
                     </div>
                     <div class="text-right mt-1">
-                        <a class="btn btn-sm primary-btn" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Add Address</a>
+                        <a class="btn btn-sm primary-btn" asp-area="" asp-controller="Addresses" asp-action="Create">Add New Address</a>
                     </div>
                 </div>
-            </form>
-
-            <form method="post" asp-controller="Addresses" asp-action="Add">
                 <div class="col-md-6">
-                    <div class="add-address collapse" id="multiCollapseExample1">
+                    <div class="order-summary clearfix">
                         <div class="section-title">
-                            <h3 class="title">Add Address:</h3>
+                            <h3 class="title">Order Review</h3>
                         </div>
-                        <div class="form-group">
-                            <input asp-for="@Model.AddressCreateInputModel.Country" class="input" type="text" name="Country" placeholder="Country" />
-                            <span asp-validation-for="@Model.AddressCreateInputModel.Country" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <input asp-for="@Model.AddressCreateInputModel.City" class="input" type="text" name="City" placeholder="City" />
-                            <span asp-validation-for="@Model.AddressCreateInputModel.City" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <input asp-for="@Model.AddressCreateInputModel.Quarter" class="input" type="text" name="Quarter" placeholder="Quarter" />
-                            <span asp-validation-for="@Model.AddressCreateInputModel.Quarter" class="text-danger"></span>
-                        </div>
-                        <div asp-validation-summary="All" class="text-danger mt-3"></div>
-                        <div class="form-group">
-                            <input asp-for="@Model.AddressCreateInputModel.Street" class="input" type="text" name="Street" placeholder="Street" />
-                            <span asp-validation-for="@Model.AddressCreateInputModel.Street" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <input asp-for="@Model.AddressCreateInputModel.PostCode" class="input" type="number" name="PostCode" placeholder="Post Code" />
-                            <span asp-validation-for="@Model.AddressCreateInputModel.PostCode" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn primary-btn text-white">Confirm</button>
-                        </div>
+                        <table class="shopping-cart-table table">
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th></th>
+                                    <th class="text-center">Price</th>
+                                    <th class="text-center">Quantity</th>
+                                    <th class="text-center">Total</th>
+                                    <th class="text-right"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var product in Model.ShoppingCartProductViewModels)
+                                {
+                                    <tr>
+                                        <td class="thumb"><img src="@product.ImageUrl" alt=""></td>
+                                        <td class="details">
+                                            <a href="#">@product.Name</a>
+                                        </td>
+                                        <td class="price text-center"><strong>$@product.Price</strong><br></td>
+                                        <td class="qty text-center"><input class="input" type="number" value="1"></td>
+                                        <td class="total text-center"><strong class="primary-color">$@product.TotalPrice</strong></td>
+                                        <td class="text-right"><button class="main-btn icon-btn"><i class="fa fa-close"></i></button></td>
+                                    </tr>
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th class="empty" colspan="4"></th>
+                                    <th>TOTAL</th>
+                                    <th colspan="2" class="total">$@Model.ShoppingCartProductViewModels.Sum(p => p.Price)</th>
+                                </tr>
+                            </tfoot>
+                        </table>
                     </div>
+                </div>
+                <div class="pull-right">
+                    <button class="primary-btn">Place Order</button>
                 </div>
             </form>
-            <div class="col-md-6">
-                <div class="order-summary clearfix">
-                    <div class="section-title">
-                        <h3 class="title">Order Review</h3>
-                    </div>
-                    <table class="shopping-cart-table table">
-                        <thead>
-                            <tr>
-                                <th>Product</th>
-                                <th></th>
-                                <th class="text-center">Price</th>
-                                <th class="text-center">Quantity</th>
-                                <th class="text-center">Total</th>
-                                <th class="text-right"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var product in Model.ShoppingCartProductViewModels)
-                            {
-                                <tr>
-                                    <td class="thumb"><img src="@product.ImageUrl" alt=""></td>
-                                    <td class="details">
-                                        <a href="#">@product.Name</a>
-                                    </td>
-                                    <td class="price text-center"><strong>$@product.Price</strong><br></td>
-                                    <td class="qty text-center"><input class="input" type="number" value="1"></td>
-                                    <td class="total text-center"><strong class="primary-color">$@product.TotalPrice</strong></td>
-                                    <td class="text-right"><button class="main-btn icon-btn"><i class="fa fa-close"></i></button></td>
-                                </tr>
-                            }
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <th class="empty" colspan="4"></th>
-                                <th>TOTAL</th>
-                                <th colspan="2" class="total">$@Model.ShoppingCartProductViewModels.Sum(p => p.Price)</th>
-                            </tr>
-                        </tfoot>
-                    </table>
-                    <div class="pull-right">
-                        <button class="primary-btn">Place Order</button>
-                    </div>
-                </div>
-
-            </div>
         </div>
     </div>
 </div>

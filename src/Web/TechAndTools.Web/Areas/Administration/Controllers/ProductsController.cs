@@ -32,7 +32,6 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
             this.imageService = imageService;
         }
 
-        [HttpGet]
         public async Task<IActionResult> Create()
         {
             this.ViewData["categories"] = this.categoryService
@@ -107,7 +106,7 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
             }
             else
             {
-                ProductServiceModel productFromDb = await this.productService.EditAsync(productServiceModel);
+                await this.productService.EditAsync(productServiceModel);
 
                 return this.RedirectToAction("All", "Products");
 

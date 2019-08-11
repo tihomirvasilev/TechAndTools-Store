@@ -48,8 +48,8 @@
                             @if (this.SignInManager.IsSignedIn(this.User))
                             {
                                 <li><a asp-area="Identity" asp-page="/Account/Manage/Index"><i class="fa fa-user"></i> My Account</a></li>
-                                <li><a href="#"><i class="fa fa-heart"></i> My Favorites</a></li>
-                                <li><a href="#"><i class="fa fa-exchange"></i> Compare</a></li>
+                                <li><a href="#"><i class="fa fa-heart"></i> Favorites</a></li>
+                                <li><a asp-area="" asp-controller="Addresses" asp-action="MyAddresses"><i class="fa fa-exchange"></i> Addresses</a></li>
                                 <li><a href="#"><i class="fa fa-check"></i> Checkout</a></li>
 
                                 <li><a asp-area="Identity" asp-page="/Account/Logout"><i class="fa fa-unlock-alt"></i> Logout</a></li>

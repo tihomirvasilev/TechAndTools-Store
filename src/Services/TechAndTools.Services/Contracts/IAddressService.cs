@@ -8,6 +8,8 @@ namespace TechAndTools.Services.Contracts
     {
         Task<AddressServiceModel> Create(AddressServiceModel addressServiceModel, string username);
 
+        Task<bool> DeleteById(int id);
+
         IQueryable<AddressServiceModel> GetAllByUserId(string id);
     }
 }
