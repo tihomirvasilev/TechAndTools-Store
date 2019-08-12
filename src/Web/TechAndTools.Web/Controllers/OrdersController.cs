@@ -22,18 +22,21 @@ namespace TechAndTools.Web.Controllers
         private readonly ISupplierService supplierService;
         private readonly IAddressService addressService;
         private readonly IPaymentMethodService paymentMethodService;
+        private readonly IOrderService orderService;
 
         public OrdersController(IShoppingCartService shoppingCartService,
             IUserService userService,
             ISupplierService supplierService,
             IAddressService addressService,
-            IPaymentMethodService paymentMethodService)
+            IPaymentMethodService paymentMethodService,
+            IOrderService orderService)
         {
             this.shoppingCartService = shoppingCartService;
             this.userService = userService;
             this.supplierService = supplierService;
             this.addressService = addressService;
             this.paymentMethodService = paymentMethodService;
+            this.orderService = orderService;
         }
 
         public IActionResult Create()
@@ -86,11 +89,24 @@ namespace TechAndTools.Web.Controllers
         [HttpPost]
         public IActionResult Create(OrderCreateInputModel orderCreateInputModel)
         {
-            ;
-            return this.RedirectToAction(nameof(Complete));
+            if (!this.shoppingCartService.AnyProducts(this.User.Identity.Name))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction(nameof(Create));
+            }
+
+            decimal deliveryPrice = this.supplierService.GetDeliveryPrice(orderCreateInputModel.SupplierId, orderCreateInputModel.ShippingTo);
+
+            var order = this.orderService.Create(orderCreateInputModel.To<OrderServiceModel>(), this.User.Identity.Name, deliveryPrice);
+
+            return this.RedirectToAction(nameof(Confirm));
         }
 
-        public async Task<IActionResult> Complete()
+        public async Task<IActionResult> Confirm()
         {
             return this.View();
         }

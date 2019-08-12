@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
+using TechAndTools.Data.Models.Enums;
 using TechAndTools.Services.Models;
 
 namespace TechAndTools.Services.Contracts
@@ -15,5 +16,7 @@ namespace TechAndTools.Services.Contracts
         SupplierServiceModel GetSupplierById(int id);
 
         IQueryable<SupplierServiceModel> GetAllSuppliers();
+
+        decimal GetDeliveryPrice(int supplierId, ShippingTo shippingTo);
     }
 }

@@ -4,9 +4,9 @@
     ViewData["Title"] = "Create";
 }
 <div class="section">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
-            <form method="post" asp-controller="Orders" asp-action="Create">
+            <form id="checkout-form" class="clearfix" method="post" asp-controller="Orders" asp-action="Create">
                 <div class="col-md-6">
                     <div class="section-title">
                         <h3 class="title">Billing Details</h3>
@@ -51,8 +51,23 @@
                                 </div>
                             </div>
                         }
-                        <span asp-validation-for="ShippingTo" class="text-danger"></span>
                     </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="payments-methods">
+                        <div class="section-title">
+                            <h3 class="title">Payments Methods</h3>
+                        </div>
+                        @foreach (var method in Model.PaymentMethodViewModels)
+                        {
+                            <div class="input-checkbox">
+                                <input type="radio" name="payments" id="payments-1" checked>
+                                <label for="payments-1">@method.Name</label>
+                            </div>
+                        }
+                    </div>
+
                     <div class="shipping-methods">
                         <div class="section-title">
                             <h4 class="title">Shipping To</h4>
@@ -72,21 +87,6 @@
                         <span asp-validation-for="ShippingTo" class="text-danger"></span>
                     </div>
 
-                </div>
-                <div class="col-md-6">
-
-                    <div class="payments-methods">
-                        <div class="section-title">
-                            <h4 class="title">Payments Methods</h4>
-                        </div>
-                        @foreach (var method in Model.PaymentMethodViewModels)
-                        {
-                            <div class="input-checkbox">
-                                <input type="radio" name="payments" id="payments-1" checked>
-                                <label for="payments-1">@method.Name</label>
-                            </div>
-                        }
-                    </div>
                     <div class="delivery-addresses">
                         <div class="section-title">
                             <h3 class="title">Delivery Address:</h3>
@@ -104,53 +104,56 @@
                             }
                         </ul>
                     </div>
+
                     <div class="text-right mt-1">
-                        <a class="btn btn-sm primary-btn" asp-area="" asp-controller="Addresses" asp-action="Create">Add New Address</a>
+                        <a class="btn primary-btn" asp-area="" asp-controller="Addresses" asp-action="Create">Add New Address</a>
                     </div>
                 </div>
-                <div class="col-md-6">
+
+                <div class="col-md-12 mx-auto">
                     <div class="order-summary clearfix">
                         <div class="section-title">
                             <h3 class="title">Order Review</h3>
                         </div>
                         <table class="shopping-cart-table table">
                             <thead>
-                                <tr>
-                                    <th>Product</th>
-                                    <th></th>
-                                    <th class="text-center">Price</th>
-                                    <th class="text-center">Quantity</th>
-                                    <th class="text-center">Total</th>
-                                    <th class="text-right"></th>
-                                </tr>
+                            <tr>
+                                <th>Product</th>
+                                <th></th>
+                                <th class="text-center">Price</th>
+                                <th class="text-right"></th>
+                                <th class="text-center">Quantity</th>
+                                <th class="text-center">Total</th>
+                            </tr>
                             </thead>
                             <tbody>
-                                @foreach (var product in Model.ShoppingCartProductViewModels)
-                                {
-                                    <tr>
-                                        <td class="thumb"><img src="@product.ImageUrl" alt=""></td>
-                                        <td class="details">
-                                            <a href="#">@product.Name</a>
-                                        </td>
-                                        <td class="price text-center"><strong>$@product.Price</strong><br></td>
-                                        <td class="qty text-center"><input class="input" type="number" value="1"></td>
-                                        <td class="total text-center"><strong class="primary-color">$@product.TotalPrice</strong></td>
-                                        <td class="text-right"><button class="main-btn icon-btn"><i class="fa fa-close"></i></button></td>
-                                    </tr>
-                                }
+                            @foreach (var product in Model.ShoppingCartProductViewModels)
+                            {
+                                <tr>
+                                    <td class="thumb"><img src="@product.ImageUrl" alt=""></td>
+                                    <td class="details">
+                                        <a href="#">@product.Name</a>
+                                    </td>
+                                    <td class="price text-center"><strong>$@product.Price</strong><br></td>
+                                    <td></td>
+                                    <td class="qty text-center"><input class="input" type="number" value="1"></td>
+                                    <td class="total text-center"><strong class="primary-color">$@product.TotalPrice</strong></td>
+                                </tr>
+                            }
                             </tbody>
                             <tfoot>
-                                <tr>
-                                    <th class="empty" colspan="4"></th>
-                                    <th>TOTAL</th>
-                                    <th colspan="2" class="total">$@Model.ShoppingCartProductViewModels.Sum(p => p.Price)</th>
-                                </tr>
+                            <tr>
+                                <th class="empty" colspan="4"></th>
+                                <th>TOTAL</th>
+                                <th colspan="2" class="total">$@Model.ShoppingCartProductViewModels.Sum(p => p.Price)</th>
+                            </tr>
                             </tfoot>
                         </table>
                     </div>
                 </div>
+
                 <div class="pull-right">
-                    <button class="primary-btn">Place Order</button>
+                    <button class="btn primary-btn">Place Order</button>
                 </div>
             </form>
         </div>

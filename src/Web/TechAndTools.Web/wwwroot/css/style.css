@@ -1705,7 +1705,7 @@ textarea.input {
 /*=========================================================
 	12 -> RESPONSIVE
 ===========================================================*/
-.table th {
+/*.table th {
     text-align: center;
 }
 
@@ -1714,7 +1714,7 @@ textarea.input {
     width: 50%;
     margin: 0px auto;
     float: none;
-}
+}*/
 
 @media only screen and (max-width: 991px) {
   #home .home-wrap {

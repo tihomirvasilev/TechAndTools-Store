@@ -1,5 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using AutoMapper;
 using TechAndTools.Data.Models.Enums;
+using TechAndTools.Services.Mapping;
+using TechAndTools.Services.Models;
 using TechAndTools.Web.InputModels.Addresses;
 using TechAndTools.Web.ViewModels.Addresses;
 using TechAndTools.Web.ViewModels.PaymentMethods;
@@ -8,7 +12,7 @@ using TechAndTools.Web.ViewModels.Suppliers;
 
 namespace TechAndTools.Web.InputModels.Administration.Orders
 {
-    public class OrderCreateInputModel
+    public class OrderCreateInputModel : IMapTo<OrderServiceModel>, IHaveCustomMappings
     {
         public string FirstName { get; set; }
 
@@ -20,8 +24,6 @@ namespace TechAndTools.Web.InputModels.Administration.Orders
 
         public IEnumerable<AddressViewModel> AddressesViewModels { get; set; }
 
-        public AddressCreateInputModel AddressCreateInputModel { get; set; }
-
         public IEnumerable<SupplierViewModel> SuppliersViewModel { get; set; }
 
         public ShippingTo To { get; set; }
@@ -30,11 +32,18 @@ namespace TechAndTools.Web.InputModels.Administration.Orders
 
         public int? DeliveryAddressId { get; set; }
 
-
         public ShippingTo ShippingTo { get; set; }
 
         public IEnumerable<PaymentMethodViewModel> PaymentMethodViewModels { get; set; }
 
         public IEnumerable<ShoppingCartProductViewModel> ShoppingCartProductViewModels { get; set; }
+
+        public void CreateMappings(IProfileExpression configuration)
+        {
+            configuration.CreateMap<OrderCreateInputModel, OrderServiceModel>()
+                .ForMember(dest => dest.RecipientPhoneNumber, ops => ops.MapFrom(origin => origin.PhoneNumber))
+                .ForMember(dest => dest.Recipient,
+                    opts => opts.MapFrom(origin => origin.FirstName + " " + origin.LastName));
+        }
     }
 }

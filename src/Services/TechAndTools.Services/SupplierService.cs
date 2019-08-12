@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using TechAndTools.Data;
 using TechAndTools.Data.Models;
+using TechAndTools.Data.Models.Enums;
 using TechAndTools.Services.Contracts;
 using TechAndTools.Services.Mapping;
 using TechAndTools.Services.Models;
@@ -55,6 +56,18 @@ namespace TechAndTools.Services
         public IQueryable<SupplierServiceModel> GetAllSuppliers()
         {
             return this.context.Suppliers.To<SupplierServiceModel>();
+        }
+
+        public decimal GetDeliveryPrice(int supplierId, ShippingTo shippingTo)
+        {
+            var supplier = this.context.Suppliers.FirstOrDefault(x => x.Id == supplierId);
+
+            if (supplier == null)
+            {
+                return 0m;
+            }
+
+            return shippingTo == ShippingTo.Office ? supplier.PriceToOffice : supplier.PriceToAddress;
         }
     }
 }
