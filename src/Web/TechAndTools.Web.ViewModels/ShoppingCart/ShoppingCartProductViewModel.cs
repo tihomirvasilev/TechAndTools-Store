@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using System.Linq;
+using TechAndTools.Data.Models;
 using TechAndTools.Services.Mapping;
 using TechAndTools.Services.Models;
 

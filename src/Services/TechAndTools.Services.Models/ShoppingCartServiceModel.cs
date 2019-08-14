@@ -10,8 +10,8 @@ namespace TechAndTools.Services.Models
     {
         public int Id { get; set; }
 
-        public virtual TechAndToolsUser User { get; set; }
+        public TechAndToolsUser User { get; set; }
 
-        public virtual ICollection<ShoppingCartProductServiceModel> ShoppingCartProducts { get; set; }
+        public ICollection<ShoppingCartProductServiceModel> ShoppingCartProducts { get; set; }
     }
 }

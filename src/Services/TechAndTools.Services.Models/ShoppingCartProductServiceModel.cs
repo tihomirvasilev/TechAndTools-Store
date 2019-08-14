@@ -9,7 +9,7 @@ namespace TechAndTools.Services.Models
         public virtual ShoppingCartServiceModel ShoppingCart { get; set; }
 
         public int ProductId { get; set; }
-        public virtual ProductServiceModel Product { get; set; }
+        public ProductServiceModel Product { get; set; }
 
         public int Quantity { get; set; }
     }

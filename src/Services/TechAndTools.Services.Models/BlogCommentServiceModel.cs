@@ -9,10 +9,10 @@ namespace TechAndTools.Services.Models
     {
         
         public string UserId { get; set; }
-        public virtual TechAndToolsUser User { get; set; }
+        public TechAndToolsUser User { get; set; }
 
         public int BlogPostId { get; set; }
-        public virtual BlogPostServiceModel BlogPost { get; set; }
+        public BlogPostServiceModel BlogPost { get; set; }
 
         public string Comment { get; set; }
 

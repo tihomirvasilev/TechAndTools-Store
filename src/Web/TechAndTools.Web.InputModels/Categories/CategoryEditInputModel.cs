@@ -1,7 +1,7 @@
 ﻿using TechAndTools.Services.Mapping;
 using TechAndTools.Services.Models;
 
-namespace TechAndTools.Web.InputModels.Administration.Categories
+namespace TechAndTools.Web.InputModels.Categories
 {
     public class CategoryEditInputModel : IMapFrom<CategoryServiceModel>, IMapTo<CategoryServiceModel>
     {

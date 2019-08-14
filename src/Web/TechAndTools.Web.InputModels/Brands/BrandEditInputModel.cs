@@ -1,7 +1,7 @@
 ﻿using TechAndTools.Services.Mapping;
 using TechAndTools.Services.Models;
 
-namespace TechAndTools.Web.InputModels.Administration.Brands
+namespace TechAndTools.Web.InputModels.Brands
 {
     public class BrandEditInputModel : IMapFrom<BrandServiceModel>, IMapTo<BrandServiceModel>
     {

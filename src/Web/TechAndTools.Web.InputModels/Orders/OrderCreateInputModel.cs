@@ -1,16 +1,14 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using AutoMapper;
 using TechAndTools.Data.Models.Enums;
 using TechAndTools.Services.Mapping;
 using TechAndTools.Services.Models;
-using TechAndTools.Web.InputModels.Addresses;
 using TechAndTools.Web.ViewModels.Addresses;
 using TechAndTools.Web.ViewModels.PaymentMethods;
 using TechAndTools.Web.ViewModels.ShoppingCart;
 using TechAndTools.Web.ViewModels.Suppliers;
 
-namespace TechAndTools.Web.InputModels.Administration.Orders
+namespace TechAndTools.Web.InputModels.Orders
 {
     public class OrderCreateInputModel : IMapTo<OrderServiceModel>, IHaveCustomMappings
     {
@@ -22,17 +20,17 @@ namespace TechAndTools.Web.InputModels.Administration.Orders
 
         public string Email { get; set; }
 
+        public int SupplierId { get; set; }
+
+        public int DeliveryAddressId { get; set; }
+
+        public int PaymentMethodId { get; set; }
+
+        public ShippingTo ShippingTo { get; set; }
+
         public IEnumerable<AddressViewModel> AddressesViewModels { get; set; }
 
         public IEnumerable<SupplierViewModel> SuppliersViewModel { get; set; }
-
-        public ShippingTo To { get; set; }
-
-        public int SupplierId { get; set; }
-
-        public int? DeliveryAddressId { get; set; }
-
-        public ShippingTo ShippingTo { get; set; }
 
         public IEnumerable<PaymentMethodViewModel> PaymentMethodViewModels { get; set; }
 

@@ -11,5 +11,6 @@ namespace TechAndTools.Services.Contracts
 
         void DeleteProductFromShoppingCart(int id, string username);
         bool AnyProducts(string username);
+        bool DeleteAllProductFromShoppingCart(string username);
     }
 }

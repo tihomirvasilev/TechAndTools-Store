@@ -7,13 +7,9 @@ namespace TechAndTools.Data.Models
     {
         public int Id { get; set; }
 
-        public OrderStatus Status { get; set; }
-
-        public PaymentStatus PaymentStatus { get; set; }
-
         public DateTime OrderDate { get; set; }
 
-        public DateTime? EstimatedDeliveryDate { get; set; }
+        public DateTime EstimatedDeliveryDate { get; set; }
 
         public DateTime? DeliveryDate { get; set; }
 
@@ -27,10 +23,20 @@ namespace TechAndTools.Data.Models
 
         public string InvoiceNumber { get; set; }
 
-        public PaymentMethod PaymentMethod { get; set; }
-        
+        public int PaymentMethodId { get; set; }
+        public virtual PaymentMethod PaymentMethod { get; set; }
+
+        public int OrderStatusId { get; set; }
+        public virtual OrderStatus Status { get; set; }
+
+        public int PaymentStatusId { get; set; }
+        public virtual PaymentStatus PaymentStatus { get; set; }
+
         public int DeliveryAddressId { get; set; }
         public virtual Address DeliveryAddress { get; set; }
+
+        public int SupplierId { get; set; }
+        public virtual Supplier Supplier { get; set; }
 
         public string UserId { get; set; }
         public virtual TechAndToolsUser User { get; set; }

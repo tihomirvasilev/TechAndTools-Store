@@ -83,5 +83,22 @@ namespace TechAndTools.Services
         {
             return this.context.ShoppingCartProducts.Any(x => x.ShoppingCart.User.UserName == username);
         }
+
+        public bool DeleteAllProductFromShoppingCart(string username)
+        {
+            var user = this.userService.GetUserByUsername(username);
+
+            if (user == null)
+            {
+                return false;
+            }
+
+            var shoppingCartProducts = this.context.ShoppingCartProducts.Where(x => x.ShoppingCartId == user.ShoppingCartId);
+
+            this.context.ShoppingCartProducts.RemoveRange(shoppingCartProducts);
+            int result = this.context.SaveChanges();
+
+            return result > 0;
+        }
     }
 }

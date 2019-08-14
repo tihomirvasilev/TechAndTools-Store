@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using TechAndTools.Services.Contracts;
 using TechAndTools.Services.Mapping;
 using TechAndTools.Services.Models;
-using TechAndTools.Web.InputModels.Administration.Suppliers;
+using TechAndTools.Web.InputModels.Suppliers;
 using TechAndTools.Web.ViewModels.Suppliers;
 
 namespace TechAndTools.Web.Areas.Administration.Controllers

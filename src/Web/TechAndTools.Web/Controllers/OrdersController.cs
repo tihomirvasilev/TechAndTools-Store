@@ -7,7 +7,7 @@ using TechAndTools.Data.Models;
 using TechAndTools.Services.Contracts;
 using TechAndTools.Services.Mapping;
 using TechAndTools.Services.Models;
-using TechAndTools.Web.InputModels.Administration.Orders;
+using TechAndTools.Web.InputModels.Orders;
 using TechAndTools.Web.ViewModels.Addresses;
 using TechAndTools.Web.ViewModels.PaymentMethods;
 using TechAndTools.Web.ViewModels.ShoppingCart;
@@ -100,7 +100,7 @@ namespace TechAndTools.Web.Controllers
             }
 
             decimal deliveryPrice = this.supplierService.GetDeliveryPrice(orderCreateInputModel.SupplierId, orderCreateInputModel.ShippingTo);
-
+            ;
             var order = this.orderService.Create(orderCreateInputModel.To<OrderServiceModel>(), this.User.Identity.Name, deliveryPrice);
 
             return this.RedirectToAction(nameof(Confirm));

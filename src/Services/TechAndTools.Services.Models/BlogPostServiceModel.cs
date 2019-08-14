@@ -17,11 +17,11 @@ namespace TechAndTools.Services.Models
         public string Content { get; set; }
 
         public string AdministratorId { get; set; }
-        public virtual TechAndToolsUser Administrator { get; set; }
+        public TechAndToolsUser Administrator { get; set; }
 
-        public virtual ICollection<BlogCommentServiceModel> BlogComments { get; set; }
+        public ICollection<BlogCommentServiceModel> BlogComments { get; set; }
 
-        public virtual ICollection<ImageServiceModel> Images { get; set; }
+        public ICollection<ImageServiceModel> Images { get; set; }
 
         public bool AllowComments { get; set; }
 

@@ -11,7 +11,7 @@ namespace TechAndTools.Services.Models
         public string ImageUrl { get; set; }
 
         public int? ProductId { get; set; }
-        public virtual ProductServiceModel Product { get; set; }
+        public ProductServiceModel Product { get; set; }
 
         public int? BlogPostId { get; set; }
         public BlogPostServiceModel BlogPost { get; set; }

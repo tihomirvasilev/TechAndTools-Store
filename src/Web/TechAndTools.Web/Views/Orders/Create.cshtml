@@ -1,4 +1,4 @@
-﻿@model TechAndTools.Web.InputModels.Administration.Orders.OrderCreateInputModel
+﻿@model TechAndTools.Web.InputModels.Orders.OrderCreateInputModel
 
 @{
     ViewData["Title"] = "Create";
@@ -62,8 +62,8 @@
                         @foreach (var method in Model.PaymentMethodViewModels)
                         {
                             <div class="input-checkbox">
-                                <input type="radio" name="payments" id="payments-1" checked>
-                                <label for="payments-1">@method.Name</label>
+                                <input asp-for="PaymentMethodId" type="radio" value="@method.Id" checked>
+                                <label for="@method.Name">@method.Name</label>
                             </div>
                         }
                     </div>
