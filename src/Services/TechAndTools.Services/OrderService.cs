@@ -29,7 +29,9 @@ namespace TechAndTools.Services
 
         public OrderServiceModel Create(OrderServiceModel orderServiceModel, string username, decimal deliveryPrice)
         {
-            var shoppingCartProducts = this.shoppingCartService.GetAllShoppingCartProducts(username).ToList();
+            var shoppingCartProducts = this.shoppingCartService
+                .GetAllShoppingCartProducts(username)
+                .ToList();
 
             if (shoppingCartProducts.Count == 0)
             {
@@ -39,15 +41,6 @@ namespace TechAndTools.Services
             var user = this.userService.GetUserByUsername(username);
             var supplier = this.supplierService.GetSupplierById(orderServiceModel.SupplierId);
 
-            //Order order = new Order
-            //{
-            //    UserId = user.Id,
-            //    PaymentMethodId = orderServiceModel.PaymentMethodId,
-            //    SupplierId = orderServiceModel.SupplierId,
-            //    DeliveryAddressId = orderServiceModel.DeliveryAddressId,
-            //    OrderDate = DateTime.UtcNow,
-            //    DeliveryPrice = deliveryPrice
-            //};
             Order order = orderServiceModel.To<Order>();
 
             order.OrderProducts = shoppingCartProducts.Select(scp => new OrderProduct
@@ -66,9 +59,8 @@ namespace TechAndTools.Services
             order.EstimatedDeliveryDate = DateTime.UtcNow.AddDays(supplier.MaximumDeliveryTimeDays);
             order.Status = this.context.OrderStatuses.FirstOrDefault(x => x.Name == "Unprocessed");
             order.PaymentStatus = this.context.PaymentStatuses.FirstOrDefault(x => x.Name == "Unpaid");
-
             order.TotalPrice = order.OrderProducts.Sum(product => product.Price * product.Quantity);
-            ;
+            
             this.context.Orders.Add(order);
             this.context.SaveChanges();
 

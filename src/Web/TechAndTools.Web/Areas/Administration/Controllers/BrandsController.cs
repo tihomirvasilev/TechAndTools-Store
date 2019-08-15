@@ -55,17 +55,6 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
         
         public async Task<IActionResult> Delete(int id)
         {
-            BrandServiceModel brandServiceModel = await this.brandService.GetBrandByIdAsync(id);
-
-            BrandDeleteViewModel brandDeleteViewModel = brandServiceModel.To<BrandDeleteViewModel>();
-
-            return this.View(brandDeleteViewModel);
-        }
-
-        [HttpPost]
-        [Route("/Administration/Brands/Delete/{id}")]
-        public async Task<IActionResult> DeleteConfirm(int id)
-        {
             await this.brandService.DeleteAsync(id);
 
             return this.RedirectToAction("All", "Brands");

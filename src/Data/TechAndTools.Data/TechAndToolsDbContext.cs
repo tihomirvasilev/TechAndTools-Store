@@ -70,6 +70,14 @@ namespace TechAndTools.Data
                 .HasForeignKey<TechAndToolsUser>(x => x.ShoppingCartId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            builder.Entity<Brand>().HasMany(x => x.Products)
+                .WithOne(x => x.Brand)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Supplier>().HasMany(x => x.Orders)
+                .WithOne(x => x.Supplier)
+                .OnDelete(DeleteBehavior.Restrict);
+
             base.OnModelCreating(builder);
         }
     }

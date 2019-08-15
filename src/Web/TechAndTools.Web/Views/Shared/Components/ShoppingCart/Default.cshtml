@@ -12,32 +12,34 @@
     </a>
     <div class="custom-menu">
         <div id="shopping-cart">
+        @if (Model.Count == 0)
+        {
+            <h3 class="text-center">Your cart is empty.</h3>
+        }
+        else
+        {
             <div class="shopping-cart-list">
-                @if (Model.Count == 0)
+
+                @foreach (var product in Model)
                 {
-                    <h3 class="text-center">Cart is empty.</h3>
+                <div class="product product-widget">
+                    <div class="product-thumb">
+                        <img src="@product.ImageUrl" alt="">
+                    </div>
+                    <div class="product-body">
+                        <h3 class="product-price">$@product.Price <span class="qty">x @product.Quantity</span></h3>
+                        <h2 class="product-name"><a href="#">@product.Name</a></h2>
+                    </div>
+                    <a asp-controller="ShoppingCart" asp-action="Delete" asp-route-id="@product.Id" class="cancel-btn"> <i class="fa fa-trash"></i></a>
+                </div>
                 }
-                else
-                {
-                    foreach (var product in Model)
-                     {
-                         <div class="product product-widget">
-                             <div class="product-thumb">
-                                 <img src="@product.ImageUrl" alt="">
-                             </div>
-                             <div class="product-body">
-                                 <h3 class="product-price">$@product.Price <span class="qty">x @product.Quantity</span></h3>
-                                 <h2 class="product-name"><a href="#">@product.Name</a></h2>
-                             </div>
-                             <a asp-controller="ShoppingCart" asp-action="Delete" asp-route-id="@product.Id" class="cancel-btn"> <i class="fa fa-trash"></i></a>
-                         </div>
-                     }
-                }
+
             </div>
             <div class="shopping-cart-btns">
                 <a class="main-btn" asp-controller="ShoppingCart" asp-action="MyCart">View Cart</a>
                 <a class="primary-btn" asp-controller="Orders" asp-action="Create">Checkout <i class="fa fa-arrow-circle-right"></i></a>
             </div>
+        }
         </div>
     </div>
 </li>

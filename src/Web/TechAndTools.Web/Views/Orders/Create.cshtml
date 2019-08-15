@@ -55,6 +55,7 @@
                 </div>
 
                 <div class="col-md-6">
+
                     <div class="payments-methods">
                         <div class="section-title">
                             <h3 class="title">Payments Methods</h3>
@@ -96,10 +97,10 @@
                             {
                                 <li>
                                     <label>
-                                        <input asp-for="DeliveryAddressId" type="radio" value="@address.Id" checked />
+                                        <input asp-for="DeliveryAddressId" type="radio" value="@address.Id" checked/>
                                         @address.Country @address.City, @address.Quarter, @address.Street, @address.PostCode
                                     </label>
-                                    <hr />
+                                    <hr/>
                                 </li>
                             }
                         </ul>

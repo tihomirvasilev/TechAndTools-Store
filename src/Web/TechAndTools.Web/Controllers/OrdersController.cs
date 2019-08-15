@@ -100,7 +100,7 @@ namespace TechAndTools.Web.Controllers
             }
 
             decimal deliveryPrice = this.supplierService.GetDeliveryPrice(orderCreateInputModel.SupplierId, orderCreateInputModel.ShippingTo);
-            ;
+
             var order = this.orderService.Create(orderCreateInputModel.To<OrderServiceModel>(), this.User.Identity.Name, deliveryPrice);
 
             return this.RedirectToAction(nameof(Confirm));
