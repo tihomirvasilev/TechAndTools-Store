@@ -4,69 +4,78 @@
     ViewData["Title"] = "My Cart";
 }
 
-<div class="section">
-    <!-- container -->
+@section Styles
+{
+    <link rel="stylesheet" type="text/css" href="~/css/bootstrap.min.css">
+    <link href="~/plugins/fontawesome-free-5.0.1/css/fontawesome-all.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="~/css/cart_styles.css">
+    <link rel="stylesheet" type="text/css" href="~/css/cart_responsive.css">
+}
+
+<div class="cart_section">
     <div class="container">
-        <!-- row -->
         <div class="row">
-            <form id="checkout-form" class="clearfix">
-                <div class="col-md-12">
-                    <div class="order-summary clearfix">
-                        <div class="section-title">
-                            <h3 class="title">My Cart</h3>
+            <div class="col-lg-10 offset-lg-1">
+                <div class="cart_container">
+                    <div class="cart_title">Shopping Cart</div>
+                    <div class="cart_items">
+                        <ul class="cart_list">
+                            @foreach (var product in Model)
+                            {
+                                <li class="cart_item clearfix">
+                                    <div class="cart_item_image"><img src="@product.ImageUrl" alt=""></div>
+                                    <div class="cart_item_info d-flex flex-md-row flex-column justify-content-between">
+                                        <div class="cart_item_name cart_info_col">
+                                            <div class="cart_item_title">Name</div>
+                                            <div class="cart_item_text">@product.Name</div>
+                                        </div>
+                                        <div class="cart_item_quantity cart_info_col">
+                                            <div class="cart_item_title">Quantity</div>
+                                            <div class="cart_item_text">@product.Quantity</div>
+                                        </div>
+                                        <div class="cart_item_price cart_info_col">
+                                            <div class="cart_item_title">Price</div>
+                                            <div class="cart_item_text">@product.Price</div>
+                                        </div>
+                                        <div class="cart_item_total cart_info_col">
+                                            <div class="cart_item_title">Total</div>
+                                            <div class="cart_item_text">@product.TotalPrice</div>
+                                        </div>
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+
+                    <!-- Order Total -->
+                    <div class="order_total">
+                        <div class="order_total_content text-md-right">
+                            <div class="order_total_title">Order Total:</div>
+                            <div class="order_total_amount">$2000</div>
                         </div>
-                        @if (!Model.Any())
-                        {
-                            <div class="text-center">
-                                <h1>Your cart is empty.Please choose a products.</h1>
-                            </div>
-                        }
-                        else
-                        {
-                            <table class="shopping-cart-table table">
-                                <thead>
-                                    <tr>
-                                        <th>Product</th>
-                                        <th></th>
-                                        <th class="text-center">Price</th>
-                                        <th class="text-center">Quantity</th>
-                                        <th class="text-center">Total</th>
-                                        <th class="text-right"></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (var product in Model)
-                                    {
-                                        <tr>
-                                            <td class="thumb"><img src="@product.ImageUrl" alt=""></td>
-                                            <td class="details">
-                                                <a href="#">@product.Name</a>
-                                            </td>
-                                            <td class="price text-center"><strong>$@product.Price</strong><br><del class="font-weak"></del></td>
-                                            <td class="qty text-center"><input class="input" type="number" value="@product.Quantity"></td>
-                                            <td class="total text-center"><strong class="primary-color">$@product.TotalPrice</strong></td>
-                                            <td><a asp-controller="ShoppingCart" asp-action="Delete" asp-route-id="@product.Id" class="main-btn icon-btn"> <i class="fa fa-close"></i></a></td>
-                                        </tr>
-                                    }
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th class="empty" colspan="3"></th>
-                                        <th>TOTAL</th>
-                                        <th colspan="2" class="total">$@Model.Sum(x => x.Price)</th>
-                                    </tr>
-                                </tfoot>
-                            </table>
-                            <div class="pull-right">
-                                <a asp-controller="Orders" asp-action="Create" class="primary-btn">Place Order</a>
-                            </div>
-                        }
+                    </div>
+
+                    <div class="cart_buttons">
+                        <a class="button cart_button_clear" asp-controller="Home" asp-action="Index">Continue shopping</a>
+                        <button type="button" class="button cart_button_checkout">Order</button>
                     </div>
                 </div>
-            </form>
+            </div>
         </div>
-        <!-- /row -->
     </div>
-    <!-- /container -->
 </div>
-<!-- /section -->
+
+@section Scripts
+{
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/popper.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/plugins/greensock/TweenMax.min.js"></script>
+    <script src="~/plugins/greensock/TimelineMax.min.js"></script>
+    <script src="~/plugins/scrollmagic/ScrollMagic.min.js"></script>
+    <script src="~/plugins/greensock/animation.gsap.min.js"></script>
+    <script src="~/plugins/greensock/ScrollToPlugin.min.js"></script>
+    <script src="~/plugins/easing/easing.js"></script>
+    <script src="~/js/cart_custom.js"></script>
+}

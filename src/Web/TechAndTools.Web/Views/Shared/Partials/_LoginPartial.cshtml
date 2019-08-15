@@ -1,13 +1,68 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @inject SignInManager<TechAndToolsUser> SignInManager
+@inject UserManager<TechAndToolsUser> UserManager
 
-<div>
-    @if (!this.SignInManager.IsSignedIn(this.User))
-    {
-        <a asp-area="Identity" asp-page="/Account/Login" class="text-uppercase">Login</a> <a asp-area="Identity" asp-page="/Account/Register" class="text-uppercase">Register</a>
-    }
-    else
-    {
-        <a asp-area="Identity" asp-page="/Account/Manage/Index" class="text-uppercase">Settings</a>
-    }
-</div>
+
+<header class="header">
+
+    <!-- Top Bar -->
+
+    <div class="top_bar">
+        <div class="container">
+            <div class="row">
+                <div class="col d-flex flex-row">
+                    <div class="top_bar_contact_item"><div class="top_bar_icon"><img src="~/images/phone.png" alt=""></div>+359 333 333 333</div>
+                    <div class="top_bar_contact_item"><div class="top_bar_icon"><img src="~/images/mail.png" alt=""></div><a href="mailto:fastsales@gmail.com">TechAndToolsBg@gmail.com</a></div>
+                    <div class="top_bar_content ml-auto">
+                        <div class="top_bar_user">
+                            <div class="user_icon"><img src="~/images/user.svg" alt=""></div>
+                            @if (this.User.Identity.IsAuthenticated)
+                            {
+                                <div><a asp-area="Identity" asp-page="/Account/Manage/Index">Settings</a></div>
+                                <div><a asp-area="Identity" asp-page="/Account/Logout">Log out</a></div>
+                            }
+                            else
+                            {
+                                <div><a asp-area="Identity" asp-page="/Account/Register">Register</a></div>
+                                <div><a asp-area="Identity" asp-page="/Account/Login">Sign in</a></div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header Main -->
+
+    <div class="header_main">
+        <div class="container">
+            <div class="row">
+
+                <!-- Logo -->
+                <div class="col-lg-2 col-sm-3 col-3 order-1">
+                    <div class="logo_container">
+                        <div class="logo"><a href="#">T&amp;T-BG</a></div>
+                    </div>
+                </div>
+                @await Component.InvokeAsync("Search")
+
+                <!-- Wishlist -->
+                <div class="col-lg-4 col-9 order-lg-3 order-2 text-lg-left text-right">
+                    <div class="wishlist_cart d-flex flex-row align-items-center justify-content-end">
+                        <div class="wishlist d-flex flex-row align-items-center justify-content-end">
+                            <div class="wishlist_icon"><img src="~/images/heart.png" alt=""></div>
+                            <div class="wishlist_content">
+                                <div class="wishlist_text"><a href="#">Wishlist</a></div>
+                                <div class="wishlist_count">115</div>
+                            </div>
+                        </div>
+
+                        <!-- Cart -->
+                        @await Component.InvokeAsync("ShoppingCart")
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>

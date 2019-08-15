@@ -3,19 +3,14 @@
     Layout = "~/Views/Shared/Layouts/_Layout.cshtml";
 }
 
-<div class="container">
-    <div class="text-center">
-        <h3>My Account</h3>
-        <hr/>
+@RenderSection("Styles", false)
 
-        <partial name="_ManageNav"/>
-        @RenderBody()
+<body>
+<div>
+    <partial name="_ManageNav"/>
 
-        <hr/>
-
-    </div>
+    @RenderBody()
 </div>
+</body>
 
-@section Scripts {
-    @RenderSection("Scripts", required: false)
-}
+@RenderSection("Scripts", false)

@@ -1,67 +1,69 @@
-﻿<div id="navigation">
+﻿<nav class="main_nav">
     <div class="container">
-        <div id="responsive-nav">
-            <div class="menu-nav">
-                <span class="menu-header">Menu <i class="fa fa-bars"></i></span>
-                <ul class="menu-list">
-                    <li><a asp-area="Administration" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li class="dropdown default-dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">Brands <i class="fa fa-caret-down"></i></a>
-                        <ul class="custom-menu">
-                            <li>
-                                <a asp-area="Administration" asp-controller="Brands" asp-action="Create">Add New</a>
+        <div class="row">
+            <div class="col">
+                <div class="main_nav_content d-flex flex-row text-center">
+                    <div class="main_nav_menu ml-auto">
+                        <ul class="standard_dropdown main_nav_dropdown">
+                            <li class="hassubs">
+                                <a href="#">Products<i class="fas fa-chevron-down"></i></a>
+                                <ul>
+                                    <li>
+                                        <a asp-area="Administration" asp-controller="Products" asp-action="Create">Add New</a>
+                                    </li>
+                                    <li>
+                                        <a asp-area="Administration" asp-controller="Products" asp-action="All">View All</a>
+                                    </li>
+                                </ul>
                             </li>
-                            <li>
-                                <a asp-area="Administration" asp-controller="Brands" asp-action="All">View All</a>
+                            <li class="hassubs">
+                                <a href="#">Brands<i class="fas fa-chevron-down"></i></a>
+                                <ul>
+                                    <li>
+                                        <a asp-area="Administration" asp-controller="Brands" asp-action="Create">Add New</a>
+                                    </li>
+                                    <li>
+                                        <a asp-area="Administration" asp-controller="Brands" asp-action="All">View All</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="hassubs">
+                                <a href="#">MainCategories<i class="fas fa-chevron-down"></i></a>
+                                <ul>
+                                    <li>
+                                        <a asp-area="Administration" asp-controller="MainCategories" asp-action="Create">Add New</a>
+                                    </li>
+                                    <li>
+                                        <a asp-area="Administration" asp-controller="MainCategories" asp-action="All">View All</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="hassubs">
+                                <a href="#">MainCategories<i class="fas fa-chevron-down"></i></a>
+                                <ul>
+                                    <li>
+                                        <a asp-area="Administration" asp-controller="Categories" asp-action="Create">Add New</a>
+                                    </li>
+                                    <li>
+                                        <a asp-area="Administration" asp-controller="Categories" asp-action="All">View All</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="hassubs">
+                                <a href="#">Suppliers<i class="fas fa-chevron-down"></i></a>
+                                <ul>
+                                    <li>
+                                        <a asp-area="Administration" asp-controller="Suppliers" asp-action="Create">Add New</a>
+                                    </li>
+                                    <li>
+                                        <a asp-area="Administration" asp-controller="Suppliers" asp-action="All">View All</a>
+                                    </li>
+                                </ul>
                             </li>
                         </ul>
-                    </li>
-                    <li class="dropdown default-dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">Main Categories <i class="fa fa-caret-down"></i></a>
-                        <ul class="custom-menu">
-                            <li>
-                                <a asp-area="Administration" asp-controller="MainCategories" asp-action="Create">Add New</a>
-                            </li>
-                            <li>
-                                <a asp-area="Administration" asp-controller="MainCategories" asp-action="All">View All</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="dropdown default-dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">Categories <i class="fa fa-caret-down"></i></a>
-                        <ul class="custom-menu">
-                            <li>
-                                <a asp-area="Administration" asp-controller="Categories" asp-action="Create">Add New</a>
-                            </li>
-                            <li>
-                                <a asp-area="Administration" asp-controller="Categories" asp-action="All">View All</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="dropdown default-dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">Suppliers <i class="fa fa-caret-down"></i></a>
-                        <ul class="custom-menu">
-                            <li>
-                                <a asp-area="Administration" asp-controller="Suppliers" asp-action="Create">Add New</a>
-                            </li>
-                            <li>
-                                <a asp-area="Administration" asp-controller="Suppliers" asp-action="All">View All</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="dropdown default-dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">Products <i class="fa fa-caret-down"></i></a>
-                        <ul class="custom-menu">
-                            <li>
-                                <a asp-area="Administration" asp-controller="Products" asp-action="Create">Add New</a>
-                            </li>
-                            <li>
-                                <a asp-area="Administration" asp-controller="Products" asp-action="All">View All</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
+</nav>

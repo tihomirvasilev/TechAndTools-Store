@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Reflection;
+using Microsoft.AspNetCore.Identity.UI;
 using TechAndTools.Data;
 using TechAndTools.Data.Models;
 using TechAndTools.Data.Seeding;
@@ -58,7 +59,7 @@ namespace TechAndTools.Web
                 options.Password.RequireUppercase = false;
             })
                 .AddDefaultTokenProviders()
-                .AddDefaultUI()
+                .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<TechAndToolsDbContext>();
 
             Account cloudinaryCredentials = new Account(

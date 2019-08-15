@@ -5,12 +5,14 @@
     ViewData["ActivePage"] = ManageNavPages.Index;
 }
 
-<h4>@ViewData["Title"]</h4>
+<div class="d-flex justify-content-center">
+    <h3 class="jumbotron col-md-6 cat_menu_text" style="background: #0e8ce4;">@ViewData["Title"]</h3>
+</div>
+
 <partial name="_StatusMessage" for="StatusMessage" />
 <div class="row">
-    <div class="col-md-6">
-        <form id="profile-form" method="post">
-            <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="container d-flex justify-content-center">
+        <form id="change-password-form" class="col-md-6" method="post">
             <div class="form-group">
                 <label asp-for="Username"></label>
                 <input asp-for="Username" class="form-control" disabled />

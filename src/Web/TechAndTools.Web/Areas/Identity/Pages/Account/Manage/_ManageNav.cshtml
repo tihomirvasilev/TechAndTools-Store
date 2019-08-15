@@ -1,17 +1,16 @@
 ﻿@inject SignInManager<TechAndToolsUser> SignInManager
+
 @{
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
 }
 
-<div class="product-tab">
-    <ul class="tab-nav">
-        <li><a asp-area="Identity" asp-page="/Account/Manage/Index">Profile</a></li>
-        <li><a asp-area="Identity" asp-page="/Account/Manage/ChangePassword">Password</a></li>
-        @if (hasExternalLogins)
-        {
-            <li><a asp-area="Identity" asp-page="/Account/Manage/ExternalLogins">External logins</a></li>
-        }
-        <li><a asp-area="Identity" asp-page="/Account/Manage/TwoFactorAuthentication">Two-factor authentication</a></li>
-        <li><a asp-area="Identity" asp-page="/Account/Manage/PersonalData">Personal data</a></li>
-    </ul>
-</div>
+<ul class="nav justify-content-center">
+    <li class="nav-item"><a class="nav-link active" asp-area="Identity" asp-page="/Account/Manage/Index">Profile</a></li>
+    <li class="nav-item"><a class="nav-link" asp-area="Identity" asp-page="/Account/Manage/ChangePassword">Password</a></li>
+    @if (hasExternalLogins)
+    {
+        <li class="nav-item"><a class="nav-link" asp-area="Identity" asp-page="/Account/Manage/ExternalLogins">External logins</a></li>
+    }
+    <li class="nav-item"><a class="nav-link" asp-area="Identity" asp-page="/Account/Manage/PersonalData">Personal data</a></li>
+</ul>
+

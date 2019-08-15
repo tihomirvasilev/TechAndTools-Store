@@ -1,51 +1,24 @@
 ﻿@model IEnumerable<TechAndTools.Web.ViewModels.MainCategories.MainCategoryComponentViewModel>
 
-<div id="navigation">
-    <div class="container">
-        <div id="responsive-nav">
-            <div class="category-nav show-on-click">
-                <span class="category-header">Categories <i class="fa fa-list"></i></span>
-                <ul class="category-list">
-                    @foreach (var mainCategory in Model)
-                    {
-                        <li class="dropdown side-dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">@mainCategory.Name<i class="fa fa-angle-right"></i></a>
-                            <div class="custom-menu">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <ul class="list-links">
-                                            <li>
-                                                <h3 class="list-links-title">@mainCategory.Name</h3>
-                                            </li>
-                                            @foreach (var category in mainCategory.Categories)
-                                            {
-                                                <li><a asp-area="" asp-controller="Home" asp-action="Index" asp-route-categoryId="@category.Id">@category.Name</a></li>
-                                            }
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                    }
-                    <li><a href="/">View All</a></li>
-                </ul>
-            </div>
-            <div class="menu-nav">
-                <span class="menu-header">Menu <i class="fa fa-bars"></i></span>
-                <ul class="menu-list">
-                    <li><a href="/">Home</a></li>
-                    <li><a href="#">Blog</a></li>
-                    <li><a href="#">Contacts</a></li>
-                    <li><a href="#">About Us</a></li>
-
-                    @if (this.User.IsInRole("Admin"))
-                    {
-                        <li>
-                            <a asp-area="Administration" asp-controller="Home" asp-action="Index"><i class="fa fa-cogs"></i> Administration Panel</a>
-                        </li>
-                    }
-                </ul>
-            </div>
-        </div>
+<div class="cat_menu_container">
+    <div class="cat_menu_title d-flex flex-row align-items-center justify-content-start">
+        <div class="cat_burger"><span></span><span></span><span></span></div>
+        <div class="cat_menu_text">categories</div>
     </div>
+
+    <ul class="cat_menu">
+        @foreach (var mainCategory in Model)
+        {
+            <li class="hassubs">
+                <a href="">@mainCategory.Name<i class="fa fa-angle-right"></i></a>
+                <ul>
+                    @foreach (var category in mainCategory.Categories)
+                    {
+                        <li><a asp-area="" asp-controller="Home" asp-action="Index" asp-route-categoryId="@category.Id">@category.Name</a></li>
+                    }
+                </ul>
+            </li>
+        }
+        <li><a href="/">View All</a></li>
+    </ul>
 </div>
