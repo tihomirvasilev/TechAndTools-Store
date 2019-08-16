@@ -18,16 +18,6 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
             this.supplierService = supplierService;
         }
 
-        public async Task<IActionResult> All()
-        {
-            var suppliersViewModels = await this.supplierService
-                .GetAllSuppliers()
-                .To<SupplierAllViewModel>()
-                .ToListAsync();
-
-            return this.View(suppliersViewModels);
-        }
-
         public IActionResult Create()
         {
             return this.View();
@@ -58,22 +48,23 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
             return this.RedirectToAction("All", "Suppliers");
         }
 
-        public async Task<IActionResult> Delete(int id)
-        {
-            var supplierDeleteViewModel = this.supplierService
-                .GetSupplierById(id)
-                .To<SupplierDeleteViewModel>();
-
-            return this.View(supplierDeleteViewModel);
-        }
-
         [HttpPost]
-        [Route("/Administration/Suppliers/Delete/{id}")]
-        public async Task<IActionResult> DeleteConfirm(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             await this.supplierService.DeleteAsync(id);
 
             return this.RedirectToAction("All", "Suppliers");
         }
+
+        public async Task<IActionResult> All()
+        {
+            var suppliersViewModels = await this.supplierService
+                .GetAllSuppliers()
+                .To<SupplierAllViewModel>()
+                .ToListAsync();
+
+            return this.View(suppliersViewModels);
+        }
+
     }
 }

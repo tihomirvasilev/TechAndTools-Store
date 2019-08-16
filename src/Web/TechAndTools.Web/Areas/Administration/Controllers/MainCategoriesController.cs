@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using TechAndTools.Services.Contracts;
@@ -52,26 +53,16 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
 
         public async Task<IActionResult> All()
         {
-            var mainCategoriesViewModels = await this.mainCategoryService
+            List<MainCategoryViewModel> mainCategoriesViewModels = await this.mainCategoryService
                 .GetAllMainCategories()
                 .To<MainCategoryViewModel>()
                 .ToListAsync();
 
             return this.View(mainCategoriesViewModels);
         }
-
-        public async Task<IActionResult> Delete(int id)
-        {
-            MainCategoryDeleteViewModel mainCategoryDeleteViewModel = this.mainCategoryService
-                .GetMainCategoryById(id)
-                .To<MainCategoryDeleteViewModel>();
-
-            return this.View(mainCategoryDeleteViewModel);
-        }
-
+        
         [HttpPost]
-        [Route("/Administration/MainCategories/Delete/{id}")]
-        public async Task<IActionResult> DeleteConfirm(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             await this.mainCategoryService.DeleteAsync(id);
 

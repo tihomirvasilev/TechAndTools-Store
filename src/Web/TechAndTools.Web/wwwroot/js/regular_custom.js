@@ -1,3 +1,11 @@
+/// <reference path="blog_custom.js" />
+/// <reference path="blog_single_custom.js" />
+/// <reference path="cart_custom.js" />
+/// <reference path="contact_custom.js" />
+/// <reference path="custom.js" />
+/// <reference path="popper.js" />
+/// <reference path="product_custom.js" />
+/// <reference path="shop_custom.js" />
 /* JS Document */
 
 /******************************

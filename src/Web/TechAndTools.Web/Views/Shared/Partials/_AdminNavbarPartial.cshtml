@@ -1,10 +1,13 @@
-﻿<nav class="main_nav">
+﻿<nav class="main_nav d-flex flex-row">
     <div class="container">
         <div class="row">
             <div class="col">
-                <div class="main_nav_content d-flex flex-row text-center">
+                <div class="main_nav_content">
                     <div class="main_nav_menu ml-auto">
                         <ul class="standard_dropdown main_nav_dropdown">
+                            <li>
+                                <a asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            </li>
                             <li class="hassubs">
                                 <a href="#">Products<i class="fas fa-chevron-down"></i></a>
                                 <ul>

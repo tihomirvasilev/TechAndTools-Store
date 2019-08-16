@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using TechAndTools.Services.Contracts;
@@ -113,9 +114,14 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
             }
         }
 
-        public async Task<IActionResult> Delete()
+        public async Task<IActionResult> All()
         {
-            return this.View();
+            List<ProductAllViewModel> productViewModels = await this.productService
+                .GetAllProducts()
+                .To<ProductAllViewModel>()
+                .ToListAsync();
+
+            return this.View(productViewModels);
         }
 
         [HttpPost]
@@ -123,16 +129,6 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
         {
             await this.productService.DeleteAsync(id);
             return this.RedirectToAction("All", "Products");
-        }
-
-        public async Task<IActionResult> All()
-        {
-            var productViewModels = await this.productService
-                .GetAllProducts()
-                .To<ProductAllViewModel>()
-                .ToListAsync();
-
-            return this.View(productViewModels);
         }
     }
 }

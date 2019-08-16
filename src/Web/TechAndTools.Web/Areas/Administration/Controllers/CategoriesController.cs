@@ -50,8 +50,6 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
 
         public IActionResult Edit(int id)
         {
-            //TODO: change view model
-
             CategoryEditInputModel editInputModel = this.categoryService
                 .GetCategoryById(id)
                 .To<CategoryEditInputModel>();
@@ -80,31 +78,7 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
 
             return this.RedirectToAction("All", "Categories");
         }
-
-        public async Task<IActionResult> Delete(int id)
-        {
-            CategoryDeleteViewModel categoryDeleteViewModel = this.categoryService
-                .GetCategoryById(id)
-                .To<CategoryDeleteViewModel>();
-
-            if (categoryDeleteViewModel == null)
-            {
-                // TODO: Error Handling
-                return this.Redirect("All");
-            }
-
-            return this.View(categoryDeleteViewModel);
-        }
-
-        [HttpPost]
-        [Route("/Administration/Categories/Delete/{id}")]
-        public async Task<IActionResult> DeleteConfirm(int id)
-        {
-            await this.categoryService.DeleteAsync(id);
-
-            return this.RedirectToAction("All", "Categories");
-        }
-
+        
         public IActionResult All()
         {
             List<CategoryViewModel> categoriesViewModels = this.categoryService
@@ -113,6 +87,14 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
                 .ToList();
 
             return this.View(categoriesViewModels);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await this.categoryService.DeleteAsync(id);
+
+            return this.RedirectToAction("All", "Categories");
         }
     }
 }
