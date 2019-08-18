@@ -15,7 +15,7 @@ namespace TechAndTools.Data.Models
         public int BrandId { get; set; }
         public virtual Brand Brand { get; set; }
 
-        public virtual ICollection<Image> Images { get; set; } = new HashSet<Image>();
+        public virtual ICollection<Image> Images { get; set; }
 
         public string Description { get; set; }
 
@@ -35,6 +35,6 @@ namespace TechAndTools.Data.Models
 
         public DateTime? ModifiedOn { get; set; }
 
-        public virtual ICollection<Review> Reviews { get; set; } = new HashSet<Review>();
+        public virtual ICollection<Review> Reviews { get; set; }
     }
 }

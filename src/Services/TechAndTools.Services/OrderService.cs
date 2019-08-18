@@ -10,7 +10,7 @@ namespace TechAndTools.Services
 {
     public class OrderService : IOrderService
     {
-        
+
         private readonly IUserService userService;
         private readonly IShoppingCartService shoppingCartService;
         private readonly ISupplierService supplierService;
@@ -60,11 +60,21 @@ namespace TechAndTools.Services
             order.Status = this.context.OrderStatuses.FirstOrDefault(x => x.Name == "Unprocessed");
             order.PaymentStatus = this.context.PaymentStatuses.FirstOrDefault(x => x.Name == "Unpaid");
             order.TotalPrice = order.OrderProducts.Sum(product => product.Price * product.Quantity);
-            
+
             this.context.Orders.Add(order);
             this.context.SaveChanges();
 
             return order.To<OrderServiceModel>();
+        }
+
+        public IQueryable<OrderServiceModel> GetUnprocessedOrders()
+        {
+            return this.context.Orders.Where(x => x.Status.Name == "Unprocessed").To<OrderServiceModel>();
+        }
+
+        public IQueryable<OrderServiceModel> GetProcessedOrders()
+        {
+            return this.context.Orders.Where(x => x.Status.Name == "Processed").To<OrderServiceModel>();
         }
     }
 }

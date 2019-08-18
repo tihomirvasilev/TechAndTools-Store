@@ -11,7 +11,7 @@ namespace TechAndTools.Data.Models
 
         public DateTime EstimatedDeliveryDate { get; set; }
 
-        public DateTime? DeliveryDate { get; set; }
+        public DateTime? ShippingDate { get; set; }
 
         public decimal TotalPrice { get; set; }
 

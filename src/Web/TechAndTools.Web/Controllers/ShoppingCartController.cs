@@ -24,7 +24,7 @@ namespace TechAndTools.Web.Controllers
 
         public IActionResult MyCart()
         {
-            
+
             if (this.User.Identity.IsAuthenticated)
             {
                 List<ShoppingCartProductServiceModel> shoppingCartProductsServiceModels = this.shoppingCartService
@@ -39,21 +39,21 @@ namespace TechAndTools.Web.Controllers
             }
 
             var shoppingCartSession = SessionHelper
-                                          .GetObjectFromJson<List<ShoppingCartProductViewModel>>(HttpContext.Session, GlobalConstants.SessionShoppingCartKey) ?? 
+                                          .GetObjectFromJson<List<ShoppingCartProductViewModel>>(HttpContext.Session, GlobalConstants.SessionShoppingCartKey) ??
                                       new List<ShoppingCartProductViewModel>();
-            
+
             return this.View(shoppingCartSession);
         }
 
-        public IActionResult Add(int id)
+        public IActionResult Add(int id, int quantity)
         {
             if (this.User.Identity.IsAuthenticated)
             {
-                this.shoppingCartService.AddToShoppingCart(id, this.User.Identity.Name, 1);
+                this.shoppingCartService.AddToShoppingCart(id, this.User.Identity.Name, quantity);
             }
             else
             {
-                List<ShoppingCartProductViewModel> shoppingCartSession = 
+                List<ShoppingCartProductViewModel> shoppingCartSession =
                     SessionHelper.GetObjectFromJson<List<ShoppingCartProductViewModel>>(HttpContext.Session, GlobalConstants.SessionShoppingCartKey) ??
                                                                           new List<ShoppingCartProductViewModel>();
 

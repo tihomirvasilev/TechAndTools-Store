@@ -21,5 +21,27 @@ namespace TechAndTools.Services
         {
             return this.userManager.FindByNameAsync(username).GetAwaiter().GetResult();
         }
+
+        public void EditFirstName(TechAndToolsUser user, string firstName)
+        {
+            if (user == null)
+            {
+                return;
+            }
+
+            user.FirstName = firstName;
+            this.db.SaveChanges();
+        }
+
+        public void EditLastName(TechAndToolsUser user, string lastName)
+        {
+            if (user == null)
+            {
+                return;
+            }
+
+            user.LastName = lastName;
+            this.db.SaveChanges();
+        }
     }
 }

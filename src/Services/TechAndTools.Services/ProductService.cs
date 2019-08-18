@@ -78,8 +78,8 @@ namespace TechAndTools.Services
         public ProductServiceModel GetProductById(int id)
         {
             return this.context.Products
-                .Find(id)
-                .To<ProductServiceModel>();
+                .To<ProductServiceModel>()
+                .SingleOrDefault(x => x.Id == id);
         }
     }
 }
