@@ -4,9 +4,6 @@
 
 
 <header class="header">
-
-    <!-- Top Bar -->
-
     <div class="top_bar">
         <div class="container">
             <div class="row">
@@ -18,13 +15,13 @@
                             <div class="user_icon"><img src="~/images/user.svg" alt=""></div>
                             @if (this.User.Identity.IsAuthenticated)
                             {
-                                <div><a asp-area="Identity" asp-page="/Account/Manage/Index">Settings</a></div>
-                                <div><a asp-area="Identity" asp-page="/Account/Logout">Log out</a></div>
+                                <div><a asp-area="Identity" asp-page="/Account/Manage/Index"> Моя Акаунт</a></div>
+                                <div><a asp-area="Identity" asp-page="/Account/Logout"> Изход</a></div>
                             }
                             else
                             {
-                                <div><a asp-area="Identity" asp-page="/Account/Register">Register</a></div>
-                                <div><a asp-area="Identity" asp-page="/Account/Login">Sign in</a></div>
+                                <div><a asp-area="Identity" asp-page="/Account/Register"> Регистрация</a></div>
+                                <div><a asp-area="Identity" asp-page="/Account/Login"> Вход</a></div>
                             }
                         </div>
                     </div>
@@ -33,32 +30,21 @@
         </div>
     </div>
 
-    <!-- Header Main -->
-
     <div class="header_main">
         <div class="container">
             <div class="row">
-
-                <!-- Logo -->
                 <div class="col-lg-2 col-sm-3 col-3 order-1">
                     <div class="logo_container">
                         <div class="logo"><a href="#">T&amp;T-BG</a></div>
                     </div>
                 </div>
+
                 @await Component.InvokeAsync("Search")
 
-                <!-- Wishlist -->
                 <div class="col-lg-4 col-9 order-lg-3 order-2 text-lg-left text-right">
                     <div class="wishlist_cart d-flex flex-row align-items-center justify-content-end">
-                        <div class="wishlist d-flex flex-row align-items-center justify-content-end">
-                            <div class="wishlist_icon"><img src="~/images/heart.png" alt=""></div>
-                            <div class="wishlist_content">
-                                <div class="wishlist_text"><a href="#">Wishlist</a></div>
-                                <div class="wishlist_count">115</div>
-                            </div>
-                        </div>
+                        @await Component.InvokeAsync("Favorites")
 
-                        <!-- Cart -->
                         @await Component.InvokeAsync("ShoppingCart")
                     </div>
                 </div>

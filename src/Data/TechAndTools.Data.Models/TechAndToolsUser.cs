@@ -17,7 +17,7 @@ namespace TechAndTools.Data.Models
         public int ShoppingCartId { get; set; }
         public virtual ShoppingCart ShoppingCart { get; set; }
 
-        public virtual ICollection<FavoriteProduct> FavoriteProducts { get; set; }
+        public virtual ICollection<FavoriteProduct> FavoriteProducts { get; set; } = new HashSet<FavoriteProduct>();
 
         public virtual ICollection<Review> Reviews { get; set; }
 

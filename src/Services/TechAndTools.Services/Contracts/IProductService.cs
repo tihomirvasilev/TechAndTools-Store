@@ -17,5 +17,11 @@ namespace TechAndTools.Services.Contracts
         IQueryable<ProductServiceModel> GetProductsByCategoryId(int categoryId);
 
         ProductServiceModel GetProductById(int id);
+
+        Task<bool> AddToFavoritesAsync(int id, string username);
+
+        IQueryable<FavoriteProductsServiceModel> AllFavoriteProducts(string username);
+
+        Task<bool> RemoveFromFavorites(int id, string username);
     }
 }

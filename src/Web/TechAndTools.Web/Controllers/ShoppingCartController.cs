@@ -47,6 +47,8 @@ namespace TechAndTools.Web.Controllers
 
         public IActionResult Add(int id, int quantity)
         {
+            //TODO fix bug with 0 quantity from favorites
+
             if (this.User.Identity.IsAuthenticated)
             {
                 this.shoppingCartService.AddToShoppingCart(id, this.User.Identity.Name, quantity);

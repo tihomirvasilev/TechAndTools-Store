@@ -1,0 +1,54 @@
+﻿@model IList<TechAndTools.Web.ViewModels.Favorites.FavoriteProductViewModel>
+
+@{
+    ViewData["Title"] = "Моите Любими Продукти";
+}
+
+    <div class="container">
+        <h1 class="text-center">@ViewData["Title"]</h1>
+        @if (!Model.Any())
+        {
+            <h3 class="text-center mt-5">Все още нямате добавени продукти в Любими.</h3>
+        }
+        else
+        {
+            <table class="table table-hover">
+                <thead>
+                    <tr class="row">
+                        <th scope="col" class="col-2 d-flex justify-content-center">Продукт</th>
+                        <th scope="col" class="col-4 d-flex justify-content-center"></th>
+                        <th scope="col" class="col-1 d-flex justify-content-center">Цена</th>
+                        <th scope="col" class="col-5 d-flex justify-content-center"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var product in Model)
+                    {
+                        <tr class="row">
+                            <td class="col-2 d-flex justify-content-center">
+                                <a asp-area="" asp-controller="Products" asp-action="Details" asp-route-id="@product.ProductId">
+                                    <img src="@product.ProductImageUrl" width="50" height="50">
+                                </a>
+                            </td>
+                            <td class="col-4 d-flex justify-content-center">
+                                <a asp-area="" asp-controller="Products" asp-action="Details" asp-route-id="@product.ProductId">
+                                    @product.ProductName
+                                </a>
+                            </td>
+                            <td class="col-1 d-flex justify-content-center">
+                                @product.ProductPrice
+                            </td>
+                            <td class="col-md-5 d-flex justify-content-around">
+                                <div class="mr-2">
+                                    <a asp-controller="ShoppingCart" asp-action="Add" asp-route-id="@product.ProductId" class="btn btn-primary btn-sm"><i class="fas fa-shopping-cart"></i> Добави в количката</a>
+                                </div>
+                                <div>
+                                    <a asp-controller="Favorites" asp-action="RemoveFromFavorites" asp-route-id="@product.ProductId" class="btn btn-outline-danger btn-sm"><i class="fas fa-times-circle"></i> Премахни</a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>

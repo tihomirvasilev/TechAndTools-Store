@@ -8,12 +8,12 @@ namespace TechAndTools.Web.ViewModels.Orders
     {
         public int Id { get; set; }
 
-        public string PaymentStatus { get; set; }
+        public string PaymentStatusName { get; set; }
 
         public DateTime OrderDate { get; set; }
 
         public decimal TotalPrice { get; set; }
 
-        public string PaymentType { get; set; }
+        public string PaymentMethodName { get; set; }
     }
 }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TechAndTools.Data;
@@ -6,6 +8,7 @@ using TechAndTools.Data.Models;
 using TechAndTools.Services.Contracts;
 using TechAndTools.Services.Mapping;
 using TechAndTools.Services.Models;
+using TechAndTools.Web.ViewModels.Favorites;
 
 namespace TechAndTools.Services
 {
@@ -80,6 +83,58 @@ namespace TechAndTools.Services
             return this.context.Products
                 .To<ProductServiceModel>()
                 .SingleOrDefault(x => x.Id == id);
+        }
+
+        public async Task<bool> AddToFavoritesAsync(int id, string username)
+        {
+            var user = this.context.Users.Include(x => x.FavoriteProducts).FirstOrDefault(x => x.UserName == username);
+            ;
+            if (user == null || user.FavoriteProducts.Any(x => x.ProductId == id))
+            {
+                return false;
+            }
+
+            var isProductExist = this.context.Products.Any(x => x.Id == id);
+
+            if (!isProductExist)
+            {
+                return false;
+            }
+
+            var favoriteProduct = new FavoriteProduct
+            {
+                ProductId = id,
+                UserId = user.Id
+            };
+
+            await this.context.FavoriteProducts.AddAsync(favoriteProduct);
+            await this.context.SaveChangesAsync();
+
+            return true;
+        }
+
+        public IQueryable<FavoriteProductsServiceModel> AllFavoriteProducts(string username)
+        {
+            var favoriteProducts = this.context.FavoriteProducts
+                .Where(x => x.User.UserName == username)
+                .To<FavoriteProductsServiceModel>();
+            
+            return favoriteProducts;
+        }
+        public async Task<bool> RemoveFromFavorites(int id, string username)
+        {
+            var favoriteProduct = this.context.FavoriteProducts
+                .FirstOrDefault(x => x.User.UserName == username && x.ProductId == id);
+
+            if (favoriteProduct == null)
+            {
+                return false;
+            }
+
+            this.context.FavoriteProducts.Remove(favoriteProduct);
+            int result = await this.context.SaveChangesAsync();
+
+            return result > 0;
         }
     }
 }

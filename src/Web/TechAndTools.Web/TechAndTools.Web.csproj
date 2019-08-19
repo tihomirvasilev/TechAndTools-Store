@@ -16,11 +16,6 @@
 
 
   <ItemGroup>
-    <Folder Include="Views\Favorites\" />
-  </ItemGroup>
-
-
-  <ItemGroup>
     <ProjectReference Include="..\..\Data\TechAndTools.Data.Models\TechAndTools.Data.Models.csproj" />
     <ProjectReference Include="..\..\Data\TechAndTools.Data\TechAndTools.Data.csproj" />
     <ProjectReference Include="..\..\Services\TechAndTools.Services.Mapping\TechAndTools.Services.Mapping.csproj" />

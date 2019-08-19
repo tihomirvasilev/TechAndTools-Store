@@ -30,7 +30,7 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
                     .OrderByDescending(x => x.ShippingDate)
                     .ToList()
             };
-
+            ;
             return View(viewModel);
         }
     }

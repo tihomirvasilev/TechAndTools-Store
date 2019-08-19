@@ -10,10 +10,10 @@
         <div class="modal-heading mt-3">
             <div class="row d-flex justify-content-around">
                 <div class="col-sm-5 col-xs-5">
-                    <h4>Login</h4>
+                    <h4> Вход</h4>
                 </div>
                 <div class="col-sm-7 col-xs-7">
-                    <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl"><h4>Register</h4></a>
+                    <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl"><h4> Регистрация</h4></a>
                 </div>
             </div>
         </div>
@@ -21,18 +21,18 @@
             <form method="post">
                 <hr />
                 <div class="form-group">
-                    <input asp-for="Input.Username" class="form-control" placeholder="Username" />
+                    <input asp-for="Input.Username" class="form-control" placeholder="Потребителско име" />
                     <span asp-validation-for="Input.Username" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <span asp-validation-for="Input.Password" class="text-danger"></span>
-                    <input asp-for="Input.Password" class="form-control" placeholder="Password" />
+                    <input asp-for="Input.Password" class="form-control" placeholder="Парола" />
                     <div class="text-right">
-                        <a asp-page="./ForgotPassword" class="pr-2">Forgotten password?</a>
+                        <a asp-page="./ForgotPassword" class="pr-2"> Забравена парола?</a>
                     </div>
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-lg btn-primary">Sign in</button>
+                    <button type="submit" class="btn btn-lg btn-primary"> Влизане</button>
                 </div>
                 <div class="form-group">
                     <div class="checkbox">

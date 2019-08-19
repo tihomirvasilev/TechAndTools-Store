@@ -65,7 +65,7 @@
                                     <div class="product_price">$@product.Price</div>
                                     <div class="product_name"><div><a asp-area="" asp-controller="Products" asp-action="Details" asp-route-id="@product.Id" tabindex="0">@product.Name</a></div></div>
                                 </div>
-                                <div class="product_fav"><i class="fas fa-heart"></i></div>
+                                <a class="product_fav" asp-area="" asp-controller="Favorites" asp-action="AddToFavorites" asp-route-id="@product.Id"><i class="fas fa-heart"></i></a>
                                 @*<ul class="product_marks">
                                         <li class="product_mark product_discount">-25%</li>
                                         <li class="product_mark product_new">new</li>

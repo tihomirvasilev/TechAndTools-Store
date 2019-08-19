@@ -2,7 +2,6 @@
     <div class="container">
         <div class="row">
             <div class="col">
-
                 <div class="main_nav_content d-flex flex-row">
 
                     @await Component.InvokeAsync("CategoriesNavigation")
@@ -10,13 +9,13 @@
                     <div class="main_nav_menu ml-auto">
                         <div class="d-flex justify-content-between">
                             <ul class="standard_dropdown main_nav_dropdown">
-                                <li><a href="/">Home<i class="fas fa-chevron-down"></i></a></li>
-                                <li><a asp-area="Blog" asp-controller="Home" asp-action="Index">Blog<i class="fas fa-chevron-down"></i></a></li>
-                                <li><a asp-area="" asp-controller="Home" asp-action="Contacts">Contacts<i class="fas fa-chevron-down"></i></a></li>
+                                <li><a href="/"> Магазин<i class="fas fa-chevron-down"></i></a></li>
+                                <li><a asp-area="Blog" asp-controller="Home" asp-action="Index"> Блог<i class="fas fa-chevron-down"></i></a></li>
+                                <li><a asp-area="" asp-controller="Home" asp-action="Contacts"> Контакти<i class="fas fa-chevron-down"></i></a></li>
 
                                 @if (this.User.IsInRole("Admin"))
                                 {
-                                    <li><a asp-area="Administration" asp-controller="Home" asp-action="Index">Admin Panel<i class="fas fa-chevron-down"></i></a></li>
+                                    <li><a asp-area="Administration" asp-controller="Home" asp-action="Index">Администраторски Панел<i class="fas fa-chevron-down"></i></a></li>
                                 }
                             </ul>
                         </div>
