@@ -291,9 +291,7 @@ namespace TechAndTools.Data.Migrations
 
                     b.Property<decimal>("DeliveryPrice");
 
-                    b.Property<DateTime>("EstimatedDeliveryDate");
-
-                    b.Property<string>("InvoiceNumber");
+                    b.Property<DateTime>("ExpectedDeliveryDate");
 
                     b.Property<DateTime>("OrderDate");
 

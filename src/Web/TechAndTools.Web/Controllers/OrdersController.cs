@@ -1,14 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using TechAndTools.Data.Models;
 using TechAndTools.Services.Contracts;
 using TechAndTools.Services.Mapping;
 using TechAndTools.Services.Models;
 using TechAndTools.Web.InputModels.Orders;
 using TechAndTools.Web.ViewModels.Addresses;
+using TechAndTools.Web.ViewModels.Orders;
 using TechAndTools.Web.ViewModels.PaymentMethods;
 using TechAndTools.Web.ViewModels.ShoppingCart;
 using TechAndTools.Web.ViewModels.Suppliers;
@@ -65,13 +65,14 @@ namespace TechAndTools.Web.Controllers
 
             List<PaymentMethodViewModel> paymentMethodViewModels = this.paymentMethodService
                 .GetAllPaymentMethods()
-                .To<PaymentMethodViewModel>().ToList();
+                .To<PaymentMethodViewModel>()
+                .ToList();
 
             List<ShoppingCartProductViewModel> shoppingCartProductsViewModels = shoppingCartProductsServiceModels
                 .Select(x => x.To<ShoppingCartProductViewModel>())
                 .ToList();
 
-            var createOrderViewModel = new OrderCreateInputModel
+            var createOrderViewModel = new CreateOrderInputModel
             {
                 FirstName = user.FirstName,
                 LastName = user.LastName,
@@ -87,7 +88,7 @@ namespace TechAndTools.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(OrderCreateInputModel orderCreateInputModel)
+        public IActionResult Create(CreateOrderInputModel createOrderInputModel)
         {
             if (!this.shoppingCartService.AnyProducts(this.User.Identity.Name))
             {
@@ -99,14 +100,14 @@ namespace TechAndTools.Web.Controllers
                 return RedirectToAction(nameof(Create));
             }
 
-            decimal deliveryPrice = this.supplierService.GetDeliveryPrice(orderCreateInputModel.SupplierId, orderCreateInputModel.ShippingTo);
+            decimal deliveryPrice = this.supplierService.GetDeliveryPrice(createOrderInputModel.SupplierId, createOrderInputModel.ShippingTo);
 
-            var order = this.orderService.Create(orderCreateInputModel.To<OrderServiceModel>(), this.User.Identity.Name, deliveryPrice);
-
-            return this.RedirectToAction(nameof(Confirm));
+            var order = this.orderService.Create(createOrderInputModel.To<OrderServiceModel>(), this.User.Identity.Name, deliveryPrice);
+            ;
+            return this.RedirectToAction(nameof(Complete));
         }
 
-        public async Task<IActionResult> Confirm()
+        public IActionResult Complete(int id)
         {
             return this.View();
         }

@@ -7,6 +7,10 @@ namespace TechAndTools.Services.Contracts
     {
         OrderServiceModel Create(OrderServiceModel orderServiceModel, string username, decimal deliveryPrice);
 
+        OrderServiceModel GetOrderById(int orderId);
+
+        IQueryable<OrderServiceModel> GetAllOrdersByUserId(string userId);
+
         IQueryable<OrderServiceModel> GetUnprocessedOrders();
 
         IQueryable<OrderServiceModel> GetProcessedOrders();

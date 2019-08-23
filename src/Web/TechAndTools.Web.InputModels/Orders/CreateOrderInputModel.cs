@@ -10,7 +10,7 @@ using TechAndTools.Web.ViewModels.Suppliers;
 
 namespace TechAndTools.Web.InputModels.Orders
 {
-    public class OrderCreateInputModel : IMapTo<OrderServiceModel>, IHaveCustomMappings
+    public class CreateOrderInputModel : IMapTo<OrderServiceModel>, IHaveCustomMappings
     {
         public string FirstName { get; set; }
 
@@ -38,7 +38,7 @@ namespace TechAndTools.Web.InputModels.Orders
 
         public void CreateMappings(IProfileExpression configuration)
         {
-            configuration.CreateMap<OrderCreateInputModel, OrderServiceModel>()
+            configuration.CreateMap<CreateOrderInputModel, OrderServiceModel>()
                 .ForMember(dest => dest.RecipientPhoneNumber, ops => ops.MapFrom(origin => origin.PhoneNumber))
                 .ForMember(dest => dest.Recipient,
                     opts => opts.MapFrom(origin => origin.FirstName + " " + origin.LastName));

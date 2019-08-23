@@ -9,7 +9,7 @@ namespace TechAndTools.Data.Models
 
         public DateTime OrderDate { get; set; }
 
-        public DateTime EstimatedDeliveryDate { get; set; }
+        public DateTime ExpectedDeliveryDate { get; set; }
 
         public DateTime? ShippingDate { get; set; }
 
@@ -20,8 +20,6 @@ namespace TechAndTools.Data.Models
         public string Recipient { get; set; }
 
         public string RecipientPhoneNumber { get; set; }
-
-        public string InvoiceNumber { get; set; }
 
         public int PaymentMethodId { get; set; }
         public virtual PaymentMethod PaymentMethod { get; set; }

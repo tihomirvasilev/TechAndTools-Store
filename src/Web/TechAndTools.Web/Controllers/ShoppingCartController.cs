@@ -84,14 +84,14 @@ namespace TechAndTools.Web.Controllers
             {
                 this.shoppingCartService.DeleteProductFromShoppingCart(id, this.User.Identity.Name);
 
-                return this.RedirectToAction("MyCart", "ShoppingCart");
+                return this.RedirectToAction(nameof(MyCart));
             }
 
             List<ShoppingCartProductViewModel> shoppingCartSession =
                 SessionHelper.GetObjectFromJson<List<ShoppingCartProductViewModel>>(HttpContext.Session, GlobalConstants.SessionShoppingCartKey);
             if (shoppingCartSession == null)
             {
-                return this.RedirectToAction("MyCart", "ShoppingCart");
+                return this.RedirectToAction(nameof(MyCart));
             }
 
             if (shoppingCartSession.Any(x => x.Id == id))

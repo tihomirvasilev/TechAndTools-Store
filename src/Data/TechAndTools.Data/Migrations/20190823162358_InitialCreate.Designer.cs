@@ -10,8 +10,8 @@ using TechAndTools.Data;
 namespace TechAndTools.Data.Migrations
 {
     [DbContext(typeof(TechAndToolsDbContext))]
-    [Migration("20190814232446_RemoveCascadeDeleteForBrands")]
-    partial class RemoveCascadeDeleteForBrands
+    [Migration("20190823162358_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -291,13 +291,9 @@ namespace TechAndTools.Data.Migrations
 
                     b.Property<int>("DeliveryAddressId");
 
-                    b.Property<DateTime?>("DeliveryDate");
-
                     b.Property<decimal>("DeliveryPrice");
 
-                    b.Property<DateTime>("EstimatedDeliveryDate");
-
-                    b.Property<string>("InvoiceNumber");
+                    b.Property<DateTime>("ExpectedDeliveryDate");
 
                     b.Property<DateTime>("OrderDate");
 
@@ -310,6 +306,8 @@ namespace TechAndTools.Data.Migrations
                     b.Property<string>("Recipient");
 
                     b.Property<string>("RecipientPhoneNumber");
+
+                    b.Property<DateTime?>("ShippingDate");
 
                     b.Property<int>("SupplierId");
 

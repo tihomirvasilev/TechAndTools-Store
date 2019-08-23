@@ -17,9 +17,9 @@ namespace TechAndTools.Web.Controllers
         public IActionResult Details(int id)
         {
             var serviceModel = this.productService.GetProductById(id);
-            ;
+            
             ProductDetailsViewModel viewModel = this.productService.GetProductById(id).To<ProductDetailsViewModel>();
-            ;
+            
             return View(viewModel);
         }
     }

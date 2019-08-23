@@ -6,11 +6,12 @@
 @RenderSection("Styles", false)
 
 <body>
-<div class="container">
-    <partial name="_ManageNav"/>
-
-    @RenderBody()
-</div>
+    <div class="container">
+        <partial name="_ManageNav" />
+        <div class="container mt-3">
+            @RenderBody()
+        </div>
+    </div>
 </body>
 
 @RenderSection("Scripts", false)

@@ -8,18 +8,23 @@ namespace TechAndTools.Services
     public class UserService : IUserService
     {
         private readonly UserManager<TechAndToolsUser> userManager;
-        private readonly TechAndToolsDbContext db;
+        private readonly TechAndToolsDbContext context;
 
-        public UserService(TechAndToolsDbContext db,
+        public UserService(TechAndToolsDbContext context,
             UserManager<TechAndToolsUser> userManager)
         {
             this.userManager = userManager;
-            this.db = db;
+            this.context = context;
         }
 
         public TechAndToolsUser GetUserByUsername(string username)
         {
             return this.userManager.FindByNameAsync(username).GetAwaiter().GetResult();
+        }
+
+        public TechAndToolsUser GetUserById(string userId)
+        {
+            return this.userManager.FindByIdAsync(userId).GetAwaiter().GetResult();
         }
 
         public void EditFirstName(TechAndToolsUser user, string firstName)
@@ -30,7 +35,7 @@ namespace TechAndTools.Services
             }
 
             user.FirstName = firstName;
-            this.db.SaveChanges();
+            this.context.SaveChanges();
         }
 
         public void EditLastName(TechAndToolsUser user, string lastName)
@@ -41,7 +46,7 @@ namespace TechAndTools.Services
             }
 
             user.LastName = lastName;
-            this.db.SaveChanges();
+            this.context.SaveChanges();
         }
     }
 }

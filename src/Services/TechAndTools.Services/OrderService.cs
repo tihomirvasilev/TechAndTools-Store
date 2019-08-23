@@ -5,6 +5,7 @@ using TechAndTools.Data.Models;
 using TechAndTools.Services.Contracts;
 using TechAndTools.Services.Mapping;
 using TechAndTools.Services.Models;
+using TechAndTools.Web.ViewModels.Orders;
 
 namespace TechAndTools.Services
 {
@@ -43,20 +44,22 @@ namespace TechAndTools.Services
 
             Order order = orderServiceModel.To<Order>();
 
-            order.OrderProducts = shoppingCartProducts.Select(scp => new OrderProduct
-            {
-                Order = order,
-                ProductId = scp.ProductId,
-                Price = scp.Product.Price,
-                Quantity = scp.Quantity
-            }).ToList();
+            order.OrderProducts = shoppingCartProducts
+                .Select(scp => new OrderProduct
+                {
+                    Order = order,
+                    ProductId = scp.ProductId,
+                    Price = scp.Product.Price,
+                    Quantity = scp.Quantity
+                })
+                .ToList();
 
             this.shoppingCartService.DeleteAllProductFromShoppingCart(username);
 
             order.DeliveryPrice = deliveryPrice;
             order.OrderDate = DateTime.UtcNow;
             order.UserId = user.Id;
-            order.EstimatedDeliveryDate = DateTime.UtcNow.AddDays(supplier.MaximumDeliveryTimeDays);
+            order.ExpectedDeliveryDate = DateTime.UtcNow.AddDays(supplier.MaximumDeliveryTimeDays);
             order.Status = this.context.OrderStatuses.FirstOrDefault(x => x.Name == "Unprocessed");
             order.PaymentStatus = this.context.PaymentStatuses.FirstOrDefault(x => x.Name == "Unpaid");
             order.TotalPrice = order.OrderProducts.Sum(product => product.Price * product.Quantity);
@@ -67,14 +70,39 @@ namespace TechAndTools.Services
             return order.To<OrderServiceModel>();
         }
 
+        public OrderServiceModel GetOrderById(int orderId)
+        {
+            OrderServiceModel orderServiceModel = this.context.Orders
+                .To<OrderServiceModel>()
+                .SingleOrDefault(x => x.Id == orderId);
+
+            if (orderServiceModel == null)
+            {
+                throw new ArgumentNullException("The Order not found!");
+            }
+
+            return orderServiceModel;
+        }
+
+        public IQueryable<OrderServiceModel> GetAllOrdersByUserId(string userId)
+        {
+            return this.context.Orders
+                .Where(x => x.UserId == userId)
+                .To<OrderServiceModel>();
+        }
+
         public IQueryable<OrderServiceModel> GetUnprocessedOrders()
         {
-            return this.context.Orders.Where(x => x.Status.Name == "Unprocessed").To<OrderServiceModel>();
+            return this.context.Orders
+                .Where(x => x.Status.Name == "Unprocessed")
+                .To<OrderServiceModel>();
         }
 
         public IQueryable<OrderServiceModel> GetProcessedOrders()
         {
-            return this.context.Orders.Where(x => x.Status.Name == "Processed").To<OrderServiceModel>();
+            return this.context.Orders
+                .Where(x => x.Status.Name == "Processed")
+                .To<OrderServiceModel>();
         }
     }
 }

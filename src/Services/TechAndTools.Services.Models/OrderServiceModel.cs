@@ -11,7 +11,7 @@ namespace TechAndTools.Services.Models
 
         public DateTime OrderDate { get; set; }
 
-        public DateTime EstimatedDeliveryDate { get; set; }
+        public DateTime ExpectedDeliveryDate { get; set; }
 
         public DateTime? DeliveryDate { get; set; }
 
@@ -23,13 +23,11 @@ namespace TechAndTools.Services.Models
 
         public string RecipientPhoneNumber { get; set; }
 
-        public string InvoiceNumber { get; set; }
-
         public int PaymentMethodId { get; set; }
         public PaymentMethodServiceModel PaymentMethod { get; set; }
 
         public int OrderStatusId { get; set; }
-        public OrderStatusServiceModel Status { get; set; }
+        public OrderStatusServiceModel OrderStatus { get; set; }
 
         public int PaymentStatusId { get; set; }
         public PaymentStatusServiceModel PaymentStatus { get; set; }
