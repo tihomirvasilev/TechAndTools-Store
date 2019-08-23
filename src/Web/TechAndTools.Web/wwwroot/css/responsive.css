@@ -1,4 +1,4 @@
-@charset "utf-8";
+﻿@charset "utf-8";
 /* CSS Document */
 
 /******************************
@@ -80,6 +80,31 @@
 	{
 		padding-left: 25px;
 	}
+    .product_description
+    {
+        padding-left: 30px;
+    }
+    .image_list li
+    {
+        height: 130px;
+    }
+    .image_selected
+    {
+        height: 420px;
+    }
+    .product_quantity,
+    .product_color
+    {
+        width: 162px;
+    }
+    .product_price
+    {
+        margin-top: 60px;
+    }
+    .button_container
+    {
+        margin-top: 38px;
+    }
 	.newsletter_form
 	{
 		width: 456px;
@@ -201,6 +226,88 @@
 	{
 		width: calc((100% - 30px) / 2);
 	}
+    
+    .shop_sidebar
+    {
+        -webkit-transform: none;
+        -moz-transform: none;
+        -ms-transform: none;
+        -o-transform: none;
+        transform: none;
+    }
+    .shop_content
+    {
+        margin-top: 60px;
+    }
+    .product_item
+    {
+        width: 25%;
+    }
+    .product_description
+    {
+        padding-left: 0px;
+    }
+    .image_selected
+    {
+        width: 100%;
+        -webkit-transform: none;
+        -moz-transform: none;
+        -ms-transform: none;
+        -o-transform: none;
+        transform: none;
+    }
+    .image_list
+    {
+        display: -webkit-box;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        padding-top: 15px;
+    }
+    .image_list li
+    {
+        width: calc(33.33333333% - 10px);
+        height: 220px;
+        margin-bottom: 0px;
+    }
+    .image_list li:not(:last-child)
+    {
+        margin-right: 15px;
+    }
+    .product_description
+    {
+        padding-top: 80px;
+    }
+    .contact_info_item
+    {
+        width: 100%;
+        margin-bottom: 30px;
+    }
+    .contact_info_item:last-child
+    {
+        margin-bottom: 0px;
+    }
+    .cart_item_image
+    {
+        float: none;
+    }
+    .cart_item_info
+    {
+        float: none;
+        width: 100%;
+    }
+    .cart_item_name
+    {
+        margin-left: 31px;
+    }
+    .cart_item_text
+    {
+        margin-top: 17px;
+    }
 	.newsletter_title_container
 	{
 		width: 100%;
@@ -277,6 +384,73 @@
 	{
 		width: 100%;
 	}
+    .product_item
+    {
+        width: 33.33333333%;
+    }
+    .image_list li
+    {
+        height: 160px;
+    }
+    .banner_product_image
+    {
+        opacity: 0.5;
+        width: 60vw;
+        top: 50%;
+        -webkit-transform: translateY(-50%);
+        -moz-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+        -o-transform: translateY(-50%);
+        transform: translateY(-50%);
+    }
+    .banner_product_image img
+    {
+        width: 100%;
+    }
+    .cart_item
+    {
+        padding-bottom: 30px;
+    }
+    .cart_item_title
+    {
+        display: inline-block;
+    }
+    .cart_item_text
+    {
+        display: inline-block;
+        font-size: 14px;
+        margin-left: 15px;
+    }
+    .cart_item_price,
+    .cart_item_total
+    {
+        text-align: left;
+    }
+    .cart_item_name
+    {
+        margin-left: 0;
+    }
+    .cart_info_col
+    {
+        margin-bottom: 7px;
+    }
+    .cart_info_col:last-child
+    {
+        margin-bottom: 0;
+    }
+    .cart_buttons
+    {
+        text-align: left;
+    }
+    .input_field
+    {
+             margin-bottom: 30px;
+             width: 100%;
+    }
+    .input_field:last-child
+    {
+        margin-bottom: 0px;
+    }
 }
 
 /************
@@ -448,6 +622,125 @@
 	{
 		font-size: 16px;
 	}
+    .single_post_quote
+    {
+        padding-left: 40px;
+        padding-right: 40px;
+    }
+    .cart_button_clear
+    {
+        font-size: 13px;
+        line-height: 34px;
+        padding-left: 25px;
+        padding-right: 25px;
+        margin-right: 11px;
+    }
+    .cart_button_checkout
+    {
+        font-size: 13px;
+        line-height: 36px;
+        padding-left: 25px;
+        padding-right: 25px;
+    }
+    .contact_form_title
+     {
+         font-size: 24px;
+     }
+    .input_field
+    {
+        height: 40px;
+        line-height: 40px;
+        margin-bottom: 24px;
+    }
+    .input_field::-webkit-input-placeholder,
+    .text_field::-webkit-input-placeholder
+    {
+        font-size: 13px;
+    }
+    .input_field:-moz-placeholder,
+    .text_field:-moz-placeholder
+    {
+        font-size: 13px;
+    }
+    .input_field::-moz-placeholder,
+    .text_field::-moz-placeholder
+    {
+        font-size: 13px;
+    } 
+    .input_field:-ms-input-placeholder,
+    .text_field:-ms-input-placeholder
+    { 
+        font-size: 13px;
+    }
+    .input_field::input-placeholder,
+    .text_field::input-placeholder
+    {
+        font-size: 13px;
+    }
+    .contact_submit_button
+    {
+        font-size: 13px;
+        padding-left: 25px;
+        padding-right: 25px;
+    }
+    .google_map
+    {
+        height: 300px;
+    }
+    .shop_product_count, 
+    .shop_sorting
+    {
+        float: none;
+    }
+    .shop_sorting
+    {
+        margin-top: 7px;
+    }
+    .shop_page_nav
+    {
+        height: 40px;
+    }
+    .page_prev, .page_next
+    {
+        width: 30px;
+    }
+    .page_nav li
+    {
+        width: 30px;
+        height: 40px;
+    }
+    .single_product
+    {
+        padding-top: 80px;
+    }
+    .image_selected
+    {
+        height: calc(100vw - 30px);
+    }
+    .image_list li
+    {
+        height: calc((100vw - 30px) / 3 - 15px);
+    }
+    .product_name
+    {
+        font-size: 24px;
+    }
+    .product_quantity
+    {
+        float: none;
+    }
+    .product_color
+    {
+        float: none;
+        margin-top: 15px;
+    }
+    .cart_button
+    {
+        font-size: 13px;
+        line-height: 32px;
+        padding-left: 25px;
+        padding-right: 25px;
+    }
 	.newsletter_form
 	{
 		float: none;
@@ -566,7 +859,18 @@
 
 @media only screen and (max-width: 480px)
 {
-	
+    .single_post_title
+    {
+        font-size: 24px;
+    }
+    .single_post_text p
+    {
+        font-size: 14px;
+    }
+    .product_item
+    {
+        width: 50%;
+    }
 }
 
 /************
