@@ -1,15 +1,27 @@
 ﻿@model IEnumerable<TechAndTools.Web.ViewModels.Products.ProductAllViewModel>
 
 @{
-    ViewData["Title"] = "All";
+    ViewData["Title"] = "Products";
 }
 
-<div class="mx-auto pt-3">
-    <h1 class="jumbotron text-center text-black-50">Products</h1>
+@section Styles
+{
+    <style>
+        select {
+            color: black
+        }
+    </style>
 
-    <a asp-action="Create" class="btn btn-primary">Create New</a>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+}
 
-    <table class="table">
+<hr />
+<div class="container">
+    <div class="text-center text-primary" style="text-transform: uppercase">
+        <h3>products</h3>
+    </div>
+    <hr />
+    <table id="myTable" class="table table-bordered display">
         <thead>
             <tr>
                 <th>
@@ -27,7 +39,7 @@
                 <th>
                     Category
                 </th>
-
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -75,6 +87,14 @@
             }
         </tbody>
     </table>
-
 </div>
 
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        });
+    </script>
+
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+}

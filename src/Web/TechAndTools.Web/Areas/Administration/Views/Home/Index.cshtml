@@ -8,8 +8,8 @@
     <hr />
     <div class="row">
         <div class="col-xl-6">
-            <div class="container mobile-fondsize-11 shadow p-4 mb-4 bg-white">
-                <div class="mobile-fondsize-20 h3 text-center text-muted font-italic">Необработени поръчки</div>
+            <div class="container shadow p-4 mb-4 bg-white">
+                <div class="h3 text-center"> Необработени поръчки</div>
                 <table class="table table-hover">
                     <thead>
                     <tr class="row">
@@ -38,10 +38,10 @@
                             </td>
                             <td class="col-md-4 col d-flex justify-content-around">
                                 <div class="mr-2">
-                                    <a asp-area="Administration" asp-controller="Orders" asp-action="Details" asp-route-id="@order.Id" class="btn btn-info btn-sm"> Детайли</a>
+                                    <a asp-area="Administration" asp-controller="Orders" asp-action="Details" asp-route-id="@order.Id" class="btn btn-secondary btn-sm"> Детайли</a>
                                 </div>
                                 <div class="mr-2">
-                                    <a asp-area="Administration" asp-controller="Orders" asp-action="Process" asp-route-id="@order.Id" class="btn btn-warning btn-sm"> Обработи</a>
+                                    <a asp-area="Administration" asp-controller="Orders" asp-action="Process" asp-route-id="@order.Id" class="btn btn-success btn-sm"> Обработи</a>
                                 </div>
                             </td>
                         </tr>
@@ -50,13 +50,13 @@
                 </table>
                 @if (Model.UnprocessedОrdersViewModels.Count == 0)
                 {
-                    <div class="mobile-fondsize-11 h6 text-center font-italic">Нямате необработени поръчки!</div>
+                    <div class="h3 text-center"> Нямате необработени поръчки!</div>
                 }
             </div>
         </div>
         <div class="col-xl-6">
-            <div class="container mobile-fondsize-11 shadow p-4 mb-4 bg-white">
-                <div class="mobile-fondsize-20 h3 text-center text-muted font-italic">Обработени поръчки</div>
+            <div class="container shadow p-4 mb-4 bg-white">
+                <div class="h3 text-center wishlist_text"> Обработени поръчки</div>
                 <table class="table table-hover">
                     <thead>
                         <tr class="row">
@@ -85,10 +85,10 @@
                             </td>
                             <td class="col-md-4 d-flex justify-content-around">
                                 <div class="mr-2">
-                                    <a asp-area="Administration" asp-controller="Orders" asp-action="Details" asp-route-id="@order.Id" class="btn btn-info btn-sm">Детайли</a>
+                                    <a asp-area="Administration" asp-controller="Orders" asp-action="Details" asp-route-id="@order.Id" class="btn btn-info btn-sm"> Детайли</a>
                                 </div>
                                 <div class="mr-2">
-                                    <a asp-area="Administration" asp-controller="Orders" asp-action="Deliver" asp-route-id="@order.Id" class="btn btn-warning btn-sm">Доставена</a>
+                                    <a asp-area="Administration" asp-controller="Orders" asp-action="Deliver" asp-route-id="@order.Id" class="btn btn-warning btn-sm"> Доставена</a>
                                 </div>
                             </td>
                         </tr>
@@ -98,7 +98,7 @@
 
                 @if (Model.ProcessedОrdersViewModels.Count == 0)
                 {
-                    <div class="mobile-fondsize-11 h6 text-center font-italic">Нямате обработени поръчки!</div>
+                    <div class="h6 text-center"> Нямате обработени поръчки!</div>
                 }
             </div>
         </div>
