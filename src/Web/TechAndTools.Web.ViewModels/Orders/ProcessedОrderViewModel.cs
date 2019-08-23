@@ -12,8 +12,6 @@ namespace TechAndTools.Web.ViewModels.Orders
 
         public DateTime ShippingDate { get; set; }
 
-        public decimal TotalPrice { get; set; }
-
         public string PaymentMethodName { get; set; }
     }
 }

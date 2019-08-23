@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using TechAndTools.Data;
 using TechAndTools.Data.Models;
 using TechAndTools.Services.Contracts;
@@ -84,6 +85,28 @@ namespace TechAndTools.Services
             return orderServiceModel;
         }
 
+        public async Task<bool> DeliverOrder(int id)
+        {
+            var statusProcess = this.context.OrderStatuses.FirstOrDefault(x => x.Name == "Delivered");
+
+            var order = this.context.Orders.FirstOrDefault(x => x.Id == id && 
+                                                                (x.Status.Name == "Unprocessed" || x.Status.Name == "Processed"));
+            if (order == null)
+            {
+                return false;
+            }
+
+            order.OrderStatusId = statusProcess.Id;
+
+            //order.ExpectedDeliveryDate = DateTime.UtcNow.AddDays(order.Supplier.MaximumDeliveryTimeDays);
+
+            this.context.Orders.Update(order);
+
+            int result = await this.context.SaveChangesAsync();
+
+            return result > 0;
+        }
+
         public IQueryable<OrderServiceModel> GetAllOrdersByUserId(string userId)
         {
             return this.context.Orders
@@ -103,6 +126,27 @@ namespace TechAndTools.Services
             return this.context.Orders
                 .Where(x => x.Status.Name == "Processed")
                 .To<OrderServiceModel>();
+        }
+        public async Task<bool> ProcessOrder(int id)
+        {
+            var statusProcess = this.context.OrderStatuses.FirstOrDefault(x => x.Name == "Processed");
+
+            var order = this.context.Orders.FirstOrDefault(x => x.Id == id && 
+                                                           (x.Status.Name == "Unprocessed" || x.Status.Name == "Delivered"));
+            if (order == null)
+            {
+                return false;
+            }
+
+            order.OrderStatusId = statusProcess.Id;
+
+            //order.ExpectedDeliveryDate = DateTime.UtcNow.AddDays(order.Supplier.MaximumDeliveryTimeDays);
+
+            this.context.Orders.Update(order);
+
+            int result = await this.context.SaveChangesAsync();
+
+            return result > 0;
         }
     }
 }

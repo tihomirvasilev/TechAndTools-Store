@@ -324,7 +324,7 @@ $(document).ready(function()
 		// Handle product quantity input
 		if($('.product_quantity').length)
 		{
-			var input = $('#quantity');
+			var input = $('#quantity_input');
 			var incButton = $('#quantity_inc_button');
 			var decButton = $('#quantity_dec_button');
 
