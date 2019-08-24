@@ -23,7 +23,8 @@ namespace TechAndTools.Data
         public DbSet<ShoppingCartProduct> ShoppingCartProducts { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
         public DbSet<MainCategory> MainCategories { get; set; }
-
+        public DbSet<Contact> Contacts { get; set; }
+        
         public TechAndToolsDbContext(DbContextOptions<TechAndToolsDbContext> options)
             : base(options)
         { }

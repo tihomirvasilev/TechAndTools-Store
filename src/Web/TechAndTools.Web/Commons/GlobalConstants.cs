@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-
-namespace TechAndTools.Web.Commons
+﻿namespace TechAndTools.Web.Commons
 {
     public static class GlobalConstants
     {
+        //Areas
+        public const string AdministrationArea = "Administration";
+        public const string BlogArea = "Blog";
+
         //Roles
         public const string AdminRole = "Admin";
         public const string UserRole = "User";

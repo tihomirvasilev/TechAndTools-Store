@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using TechAndTools.Services.Contracts;
 using TechAndTools.Services.Mapping;
+using TechAndTools.Web.InputModels.Contacts;
 using TechAndTools.Web.ViewModels;
 using TechAndTools.Web.ViewModels.Products;
 
@@ -47,10 +48,6 @@ namespace TechAndTools.Web.Controllers
         }
 
         public IActionResult Privacy()
-        {
-            return View();
-        }
-        public IActionResult Contacts()
         {
             return View();
         }

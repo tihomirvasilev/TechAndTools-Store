@@ -89,6 +89,7 @@ namespace TechAndTools.Web
             services.AddTransient<IPaymentMethodService, PaymentMethodService>();
             services.AddTransient<IOrderService, OrderService>();
             services.AddTransient<IArticleService, ArticleService>();
+            services.AddTransient<IContactService, ContactService>();
 
             services.AddSingleton<IEmailSender, EmailSender>();
             services.AddTransient<ICloudinaryService, CloudinaryService>();
