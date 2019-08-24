@@ -13,7 +13,7 @@ namespace TechAndTools.Web.ViewModels.Products
 
         public decimal Price { get; set; }
 
-        public decimal Rating { get; set; }
+        public int Rating { get; set; }
 
         public string ImageUrl { get; set; }
 

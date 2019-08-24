@@ -60,7 +60,6 @@ namespace TechAndTools.Services
             order.DeliveryPrice = deliveryPrice;
             order.OrderDate = DateTime.UtcNow;
             order.UserId = user.Id;
-            order.ExpectedDeliveryDate = DateTime.UtcNow.AddDays(supplier.MaximumDeliveryTimeDays);
             order.Status = this.context.OrderStatuses.FirstOrDefault(x => x.Name == "Unprocessed");
             order.PaymentStatus = this.context.PaymentStatuses.FirstOrDefault(x => x.Name == "Unpaid");
             order.TotalPrice = order.OrderProducts.Sum(product => product.Price * product.Quantity);

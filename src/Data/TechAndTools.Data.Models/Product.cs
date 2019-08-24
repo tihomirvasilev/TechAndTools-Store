@@ -27,6 +27,8 @@ namespace TechAndTools.Data.Models
 
         public int QuantityInStock { get; set; }
 
+        public int Rating { get; set; }
+
         public int SalesCount { get; set; }
 
         public bool IsOutOfStock { get; set; }

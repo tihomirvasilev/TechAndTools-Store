@@ -5,7 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Blog\" />
+    <Compile Remove="Blog\**" />
+    <EmbeddedResource Remove="Blog\**" />
+    <None Remove="Blog\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Users\" />
   </ItemGroup>
 

@@ -1,14 +1,12 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using TechAndTools.Data.Models;
-using TechAndTools.Data.Models.Blog;
 
 namespace TechAndTools.Data
 {
     public class TechAndToolsDbContext : IdentityDbContext<TechAndToolsUser>
     {
-        public DbSet<BlogComment> BlogComments { get; set; }
-        public DbSet<BlogPost> BlogPosts { get; set; }
+        public DbSet<Article> Articles { get; set; }
         public DbSet<Brand> Brands { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Address> Addresses { get; set; }
@@ -28,13 +26,10 @@ namespace TechAndTools.Data
 
         public TechAndToolsDbContext(DbContextOptions<TechAndToolsDbContext> options)
             : base(options)
-        {}
+        { }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<BlogComment>()
-                .HasKey(x => new { x.BlogPostId, x.UserId });
-
             builder.Entity<OrderProduct>()
                 .HasKey(x => new { x.OrderId, x.ProductId });
 
@@ -49,9 +44,9 @@ namespace TechAndTools.Data
                 .WithOne(x => x.Product)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            builder.Entity<BlogPost>()
+            builder.Entity<Article>()
                 .HasMany(x => x.Images)
-                .WithOne(x => x.BlogPost)
+                .WithOne(x => x.Article)
                 .OnDelete(DeleteBehavior.Cascade);
 
             builder.Entity<MainCategory>()

@@ -1,6 +1,4 @@
-﻿using TechAndTools.Data.Models.Blog;
-
-namespace TechAndTools.Data.Models
+﻿namespace TechAndTools.Data.Models
 {
     public class Image
     {
@@ -11,7 +9,7 @@ namespace TechAndTools.Data.Models
         public int? ProductId { get; set; }
         public virtual Product Product { get; set; }
 
-        public int? BlogPostId { get; set; }
-        public BlogPost BlogPost { get; set; }
+        public int? ArticleId { get; set; }
+        public Article Article { get; set; }
     }
 }

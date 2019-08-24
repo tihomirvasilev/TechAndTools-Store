@@ -1,5 +1,4 @@
 ﻿using TechAndTools.Data.Models;
-using TechAndTools.Data.Models.Blog;
 using TechAndTools.Services.Mapping;
 
 namespace TechAndTools.Services.Models
@@ -13,7 +12,7 @@ namespace TechAndTools.Services.Models
         public int? ProductId { get; set; }
         public ProductServiceModel Product { get; set; }
 
-        public int? BlogPostId { get; set; }
-        public BlogPostServiceModel BlogPost { get; set; }
+        public int? ArticleId { get; set; }
+        public ArticleServiceModel Article { get; set; }
     }
 }

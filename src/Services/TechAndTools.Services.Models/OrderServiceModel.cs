@@ -32,8 +32,8 @@ namespace TechAndTools.Services.Models
         public int PaymentStatusId { get; set; }
         public PaymentStatusServiceModel PaymentStatus { get; set; }
 
-        public int DeliveryAddressId { get; set; }
-        public AddressServiceModel DeliveryAddress { get; set; }
+        public int AddressId { get; set; }
+        public AddressServiceModel Address { get; set; }
 
         public int SupplierId { get; set; }
         public SupplierServiceModel Supplier { get; set; }

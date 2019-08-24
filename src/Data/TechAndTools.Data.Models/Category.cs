@@ -8,7 +8,7 @@ namespace TechAndTools.Data.Models
 
         public string Name { get; set; }
 
-        public virtual ICollection<Product> Products { get; set; } = new HashSet<Product>();
+        public virtual ICollection<Product> Products { get; set; }
 
         public int MainCategoryId  { get; set; }
         public virtual MainCategory MainCategory { get; set; }

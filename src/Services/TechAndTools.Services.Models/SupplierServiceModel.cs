@@ -14,9 +14,7 @@ namespace TechAndTools.Services.Models
 
         public decimal PriceToAddress { get; set; }
 
-        public int MinimumDeliveryTimeDays { get; set; }
-
-        public int MaximumDeliveryTimeDays { get; set; }
+        public int DeliveryTimeInDays { get; set; }
 
         public ICollection<OrderServiceModel> Orders { get; set; }
     }

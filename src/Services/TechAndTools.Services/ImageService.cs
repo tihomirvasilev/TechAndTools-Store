@@ -2,8 +2,6 @@
 using TechAndTools.Data;
 using TechAndTools.Data.Models;
 using TechAndTools.Services.Contracts;
-using TechAndTools.Services.Mapping;
-using TechAndTools.Services.Models;
 
 namespace TechAndTools.Services
 {
@@ -16,12 +14,26 @@ namespace TechAndTools.Services
             this.context = context;
         }
 
-        public async Task<bool> CreateAsync(string imageUrl, int productId)
+        public async Task<bool> CreateWithProductAsync(string imageUrl, int productId)
         {
             Image image = new Image
             {
                 ImageUrl = imageUrl,
                 ProductId = productId
+            };
+
+            await this.context.Images.AddAsync(image);
+            int result = await this.context.SaveChangesAsync();
+
+            return result > 0;
+        }
+
+        public async Task<bool> CreateWithArticleAsync(string imageUrl, int articleId)
+        {
+            Image image = new Image
+            {
+                ImageUrl = imageUrl,
+                ArticleId = articleId
             };
 
             await this.context.Images.AddAsync(image);

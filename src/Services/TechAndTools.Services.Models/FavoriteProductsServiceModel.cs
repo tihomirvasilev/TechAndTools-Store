@@ -11,7 +11,7 @@ namespace TechAndTools.Services.Models
         public string Id { get; set; }
 
         public string UserId { get; set; }
-        public TechAndToolsUserServiceModel User { get; set; }
+        public TechAndToolsUser User { get; set; }
 
         public int ProductId { get; set; }
         public ProductServiceModel Product { get; set; }

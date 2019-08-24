@@ -12,9 +12,7 @@ namespace TechAndTools.Data.Models
 
         public decimal PriceToAddress { get; set; }
 
-        public int MinimumDeliveryTimeDays { get; set; }
-
-        public int MaximumDeliveryTimeDays { get; set; }
+        public int DeliveryTimeInDays { get; set; }
 
         public virtual ICollection<Order> Orders { get; set; }
     }

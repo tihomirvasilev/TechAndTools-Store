@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
+using System.Reflection.Metadata;
 
 namespace TechAndTools.Data.Models
 {
@@ -17,12 +18,14 @@ namespace TechAndTools.Data.Models
         public int ShoppingCartId { get; set; }
         public virtual ShoppingCart ShoppingCart { get; set; }
 
-        public virtual ICollection<FavoriteProduct> FavoriteProducts { get; set; } = new HashSet<FavoriteProduct>();
+        public virtual ICollection<FavoriteProduct> FavoriteProducts { get; set; }
 
         public virtual ICollection<Review> Reviews { get; set; }
 
         public virtual ICollection<Order> Orders { get; set; }
 
-        public virtual ICollection<Address> Addresses { get; set; } = new HashSet<Address>();
+        public virtual ICollection<Address> Addresses { get; set; }
+
+        public virtual ICollection<Article> Articles { get; set; }
     }
 }

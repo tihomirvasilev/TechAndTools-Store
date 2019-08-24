@@ -30,8 +30,8 @@ namespace TechAndTools.Data.Models
         public int PaymentStatusId { get; set; }
         public virtual PaymentStatus PaymentStatus { get; set; }
 
-        public int DeliveryAddressId { get; set; }
-        public virtual Address DeliveryAddress { get; set; }
+        public int AddressId { get; set; }
+        public virtual Address Address { get; set; }
 
         public int SupplierId { get; set; }
         public virtual Supplier Supplier { get; set; }

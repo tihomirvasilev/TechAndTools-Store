@@ -10,8 +10,8 @@ using TechAndTools.Data;
 namespace TechAndTools.Data.Migrations
 {
     [DbContext(typeof(TechAndToolsDbContext))]
-    [Migration("20190823162358_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20190824090220_RenameBlogPostToArticle")]
+    partial class RenameBlogPostToArticle
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -156,36 +156,13 @@ namespace TechAndTools.Data.Migrations
                     b.ToTable("Addresses");
                 });
 
-            modelBuilder.Entity("TechAndTools.Data.Models.Blog.BlogComment", b =>
-                {
-                    b.Property<int>("BlogPostId");
-
-                    b.Property<string>("UserId");
-
-                    b.Property<string>("Comment");
-
-                    b.Property<DateTime>("CreatedOn");
-
-                    b.Property<DateTime?>("ModifiedOn");
-
-                    b.Property<double>("Rating");
-
-                    b.HasKey("BlogPostId", "UserId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("BlogComments");
-                });
-
-            modelBuilder.Entity("TechAndTools.Data.Models.Blog.Article", b =>
+            modelBuilder.Entity("TechAndTools.Data.Models.Article", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("AdministratorId");
-
-                    b.Property<bool>("AllowComments");
+                    b.Property<string>("AuthorId");
 
                     b.Property<string>("Content");
 
@@ -193,13 +170,15 @@ namespace TechAndTools.Data.Migrations
 
                     b.Property<DateTime?>("ModifiedOn");
 
+                    b.Property<int>("TimesRead");
+
                     b.Property<string>("Title");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AdministratorId");
+                    b.HasIndex("AuthorId");
 
-                    b.ToTable("BlogPosts");
+                    b.ToTable("Articles");
                 });
 
             modelBuilder.Entity("TechAndTools.Data.Models.Brand", b =>
@@ -255,7 +234,7 @@ namespace TechAndTools.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("BlogPostId");
+                    b.Property<int?>("ArticleId");
 
                     b.Property<string>("ImageUrl");
 
@@ -263,7 +242,7 @@ namespace TechAndTools.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BlogPostId");
+                    b.HasIndex("ArticleId");
 
                     b.HasIndex("ProductId");
 
@@ -289,7 +268,7 @@ namespace TechAndTools.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("DeliveryAddressId");
+                    b.Property<int>("AddressId");
 
                     b.Property<decimal>("DeliveryPrice");
 
@@ -317,7 +296,7 @@ namespace TechAndTools.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DeliveryAddressId");
+                    b.HasIndex("AddressId");
 
                     b.HasIndex("OrderStatusId");
 
@@ -414,6 +393,8 @@ namespace TechAndTools.Data.Migrations
 
                     b.Property<int>("QuantityInStock");
 
+                    b.Property<int>("Rating");
+
                     b.Property<int>("SalesCount");
 
                     b.Property<int>("Warranty");
@@ -481,9 +462,7 @@ namespace TechAndTools.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("MaximumDeliveryTimeDays");
-
-                    b.Property<int>("MinimumDeliveryTimeDays");
+                    b.Property<int>("DeliveryTimeInDays");
 
                     b.Property<string>("Name");
 
@@ -612,24 +591,11 @@ namespace TechAndTools.Data.Migrations
                         .HasForeignKey("TechAndToolsUserId");
                 });
 
-            modelBuilder.Entity("TechAndTools.Data.Models.Blog.BlogComment", b =>
+            modelBuilder.Entity("TechAndTools.Data.Models.Article", b =>
                 {
-                    b.HasOne("TechAndTools.Data.Models.Blog.Article", "Article")
-                        .WithMany("BlogComments")
-                        .HasForeignKey("BlogPostId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("TechAndTools.Data.Models.TechAndToolsUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("TechAndTools.Data.Models.Blog.Article", b =>
-                {
-                    b.HasOne("TechAndTools.Data.Models.TechAndToolsUser", "Administrator")
-                        .WithMany()
-                        .HasForeignKey("AdministratorId");
+                    b.HasOne("TechAndTools.Data.Models.TechAndToolsUser", "Author")
+                        .WithMany("Articles")
+                        .HasForeignKey("AuthorId");
                 });
 
             modelBuilder.Entity("TechAndTools.Data.Models.Category", b =>
@@ -655,9 +621,9 @@ namespace TechAndTools.Data.Migrations
 
             modelBuilder.Entity("TechAndTools.Data.Models.Image", b =>
                 {
-                    b.HasOne("TechAndTools.Data.Models.Blog.Article", "Article")
+                    b.HasOne("TechAndTools.Data.Models.Article", "Article")
                         .WithMany("Images")
-                        .HasForeignKey("BlogPostId")
+                        .HasForeignKey("ArticleId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("TechAndTools.Data.Models.Product", "Product")
@@ -668,9 +634,9 @@ namespace TechAndTools.Data.Migrations
 
             modelBuilder.Entity("TechAndTools.Data.Models.Order", b =>
                 {
-                    b.HasOne("TechAndTools.Data.Models.Address", "DeliveryAddress")
+                    b.HasOne("TechAndTools.Data.Models.Address", "Address")
                         .WithMany()
-                        .HasForeignKey("DeliveryAddressId")
+                        .HasForeignKey("AddressId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("TechAndTools.Data.Models.OrderStatus", "Status")

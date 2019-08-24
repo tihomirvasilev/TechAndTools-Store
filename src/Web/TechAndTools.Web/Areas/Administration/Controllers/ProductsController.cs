@@ -61,7 +61,7 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
 
             ProductServiceModel productFromDb = await this.productService.CreateAsync(productServiceModel);
 
-            await this.imageService.CreateAsync(pictureUrl, productFromDb.Id);
+            await this.imageService.CreateWithProductAsync(pictureUrl, productFromDb.Id);
 
 
             return this.Redirect("All");
@@ -101,7 +101,7 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
 
                 ProductServiceModel productFromDb = await this.productService.EditAsync(productServiceModel);
 
-                await this.imageService.CreateAsync(pictureUrl, productFromDb.Id);
+                await this.imageService.CreateWithProductAsync(pictureUrl, productFromDb.Id);
 
                 return this.RedirectToAction("All", "Products");
             }

@@ -1,0 +1,49 @@
+﻿@model IEnumerable<TechAndTools.Web.ViewModels.Articles.AllArticleViewModel>
+
+@{
+    ViewData["Title"] = "All";
+}
+
+<div>
+    <div class="container">
+        <div class="row">
+            @foreach (var article in Model)
+            {
+                <div class="card col-md-12 mt-3 mb-3 mr-3 ml-3">
+                    <div class="card col-md-9 mt-3 mb-3 mr-3 ml-3">
+                        <img class="card-img" style="width: 360px; height: auto " src="@article.ImgUrl" alt="">
+                        <div class="card-body">
+                            <h4 class="card-title"> @article.Title</h4>
+                            <p class="card-text"> @string.Join("", article.Content.Take(75))...</p>
+                            <h5>Author: @article.Author.FirstName @article.Author.LastName</h5>
+                            <a asp-area="Blog"
+                               asp-controller="Articles"
+                               asp-action="Details"
+                               asp-route-articleId="@article.Id" class="btn btn-outline-primary">View more</a>
+                        </div>
+                        <div class="card-footer text-muted d-flex justify-content-around bg-transparent border-top-0">
+                            <div class="views">
+                                @article.CreatedOn.ToString("yyyy MMMM dd hh:mm:ss")
+                            </div>
+                            <div class="stats">
+                                <i class="far fa-eye"></i> @article.TimesRead
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-5">
+                        <a asp-area="Administration"
+                           asp-controller="Articles"
+                           asp-action="Delete"
+                           asp-route-articleId="@article.Id" class="btn btn-outline-danger">Delete</a>
+
+                        <a asp-area="Administration"
+                           asp-controller="Articles"
+                           asp-action="Edit"
+                           asp-route-articleId="@article.Id" class="btn btn-outline-warning">Edit</a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+

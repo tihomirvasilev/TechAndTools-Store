@@ -8,6 +8,6 @@ namespace TechAndTools.Data.Models
 
         public string Name { get; set; }
 
-        public virtual ICollection<Category> Categories { get; set; } = new HashSet<Category>();
+        public virtual ICollection<Category> Categories { get; set; }
     }
 }

@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 using TechAndTools.Data.Models;
-using TechAndTools.Data.Models.Blog;
 using TechAndTools.Services.Mapping;
 
 namespace TechAndTools.Services.Models
 {
-    public class BlogPostServiceModel : IMapFrom<BlogPost>, IMapTo<BlogPost>
+    public class ArticleServiceModel : IMapFrom<Article>, IMapTo<Article>
     {
         
         public int Id { get; set; }
@@ -16,14 +15,10 @@ namespace TechAndTools.Services.Models
 
         public string Content { get; set; }
 
-        public string AdministratorId { get; set; }
-        public TechAndToolsUser Administrator { get; set; }
-
-        public ICollection<BlogCommentServiceModel> BlogComments { get; set; }
+        public string AuthorId { get; set; }
+        public TechAndToolsUser Author { get; set; }
 
         public ICollection<ImageServiceModel> Images { get; set; }
-
-        public bool AllowComments { get; set; }
 
         public DateTime CreatedOn { get; set; }
 
