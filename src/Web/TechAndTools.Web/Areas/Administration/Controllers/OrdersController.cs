@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using TechAndTools.Services.Contracts;
 using TechAndTools.Services.Mapping;
@@ -24,33 +27,49 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
 
         public IActionResult Processed()
         {
+            IEnumerable<ProcessedОrderViewModel> viewModels = this.orderService
+                .GetProcessedOrders()
+                .To<ProcessedОrderViewModel>()
+                .ToList();
+
             //TODO: Implement
-            return this.View();
+            return this.View(viewModels);
         }
+
         public IActionResult Unprocessed()
         {
+            IEnumerable<UnprocessedОrderViewModel> viewModels = this.orderService
+                .GetUnprocessedOrders()
+                .To<UnprocessedОrderViewModel>()
+                .ToList();
+
             //TODO: Implement
-            return this.View();
+            return this.View(viewModels);
+        }
+        public IActionResult Delivered()
+        {
+            IEnumerable<DeliveredOrderViewModel> viewModels = this.orderService
+                .GetDeliveredOrders()
+                .To<DeliveredOrderViewModel>()
+                .ToList();
+
+            //TODO: Implement
+            return this.View(viewModels);
         }
 
         public async Task<IActionResult> Process(int id)
         {
-            await this.orderService.ProcessOrder(id);
+            await this.orderService.ProcessOrderAsync(id);
 
             return this.Redirect("/Administration/Home/Index");
         }
 
         public async Task<IActionResult> Deliver(int id)
         {
-            await this.orderService.DeliverOrder(id);
+            await this.orderService.DeliverOrderAsync(id);
 
             return this.Redirect("/Administration/Home/Index");
         }
 
-        public IActionResult Cancel(int id)
-        {
-            //TODO: Implement
-            return this.Redirect("All");
-        }
     }
 }

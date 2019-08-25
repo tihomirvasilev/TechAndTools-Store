@@ -10,14 +10,16 @@ namespace TechAndTools.Services.Contracts
 
         OrderServiceModel GetOrderById(int orderId);
 
-        Task<bool> ProcessOrder(int id);
+        Task<bool> ProcessOrderAsync(int id);
 
-        Task<bool> DeliverOrder(int id);
+        Task<bool> DeliverOrderAsync(int id);
 
         IQueryable<OrderServiceModel> GetAllOrdersByUserId(string userId);
 
         IQueryable<OrderServiceModel> GetUnprocessedOrders();
 
         IQueryable<OrderServiceModel> GetProcessedOrders();
+
+        IQueryable<OrderServiceModel> GetDeliveredOrders();
     }
 }

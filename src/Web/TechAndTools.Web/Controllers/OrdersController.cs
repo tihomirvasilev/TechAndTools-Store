@@ -72,7 +72,7 @@ namespace TechAndTools.Web.Controllers
                 .Select(x => x.To<ShoppingCartProductViewModel>())
                 .ToList();
 
-            var createOrderViewModel = new CreateOrderInputModel
+            CreateOrderInputModel createOrderViewModel = new CreateOrderInputModel
             {
                 FirstName = user.FirstName,
                 LastName = user.LastName,
@@ -117,7 +117,7 @@ namespace TechAndTools.Web.Controllers
         public IActionResult Details(int id)
         {
             DetailsOrderViewModel viewModel = this.orderService.GetOrderById(id).To<DetailsOrderViewModel>();
-            ;
+            
             return this.View(viewModel);
         }
     }

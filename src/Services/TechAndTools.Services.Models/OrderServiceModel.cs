@@ -10,8 +10,10 @@ namespace TechAndTools.Services.Models
         public int Id { get; set; }
 
         public DateTime OrderDate { get; set; }
-
+        
         public DateTime ExpectedDeliveryDate { get; set; }
+
+        public DateTime? ShippingDate { get; set; }
 
         public DateTime? DeliveryDate { get; set; }
 

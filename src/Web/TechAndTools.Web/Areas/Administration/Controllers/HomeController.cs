@@ -1,6 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Linq;
-using Microsoft.AspNetCore.Mvc;
 using TechAndTools.Services.Contracts;
 using TechAndTools.Services.Mapping;
 using TechAndTools.Web.ViewModels.Administration;
@@ -30,7 +29,7 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
                     .OrderByDescending(x => x.ShippingDate)
                     .ToList()
             };
-            ;
+            
             return View(viewModel);
         }
     }

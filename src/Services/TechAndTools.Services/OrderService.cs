@@ -68,7 +68,7 @@ namespace TechAndTools.Services
 
             this.context.Orders.Add(order);
             this.context.SaveChanges();
-            ;
+            
             return order.To<OrderServiceModel>();
         }
 
@@ -79,7 +79,7 @@ namespace TechAndTools.Services
                 .ThenInclude(x => x.Product.Images)
                 .To<OrderServiceModel>()
                 .SingleOrDefault(x => x.Id == orderId);
-            ; 
+            
             if (orderServiceModel == null)
             {
                 throw new ArgumentNullException("The Order not found!");
@@ -88,7 +88,7 @@ namespace TechAndTools.Services
             return orderServiceModel;
         }
 
-        public async Task<bool> DeliverOrder(int id)
+        public async Task<bool> DeliverOrderAsync(int id)
         {
             var statusProcess = this.context.OrderStatuses.FirstOrDefault(x => x.Name == "Delivered");
 
@@ -100,8 +100,7 @@ namespace TechAndTools.Services
             }
 
             order.OrderStatusId = statusProcess.Id;
-
-            //order.ExpectedDeliveryDate = DateTime.UtcNow.AddDays(order.Supplier.MaximumDeliveryTimeDays);
+            order.DeliveryDate = DateTime.UtcNow;
 
             this.context.Orders.Update(order);
 
@@ -123,14 +122,21 @@ namespace TechAndTools.Services
                 .Where(x => x.Status.Name == "Unprocessed")
                 .To<OrderServiceModel>();
         }
-
+        
         public IQueryable<OrderServiceModel> GetProcessedOrders()
         {
             return this.context.Orders
                 .Where(x => x.Status.Name == "Processed")
                 .To<OrderServiceModel>();
         }
-        public async Task<bool> ProcessOrder(int id)
+        public IQueryable<OrderServiceModel> GetDeliveredOrders()
+        {
+            return this.context.Orders
+                .Where(x => x.Status.Name == "Delivered")
+                .To<OrderServiceModel>();
+        }
+
+        public async Task<bool> ProcessOrderAsync(int id)
         {
             var statusProcess = this.context.OrderStatuses.FirstOrDefault(x => x.Name == "Processed");
 
@@ -142,8 +148,7 @@ namespace TechAndTools.Services
             }
 
             order.OrderStatusId = statusProcess.Id;
-
-            //order.ExpectedDeliveryDate = DateTime.UtcNow.AddDays(order.Supplier.MaximumDeliveryTimeDays);
+            order.ShippingDate = DateTime.UtcNow;
 
             this.context.Orders.Update(order);
 

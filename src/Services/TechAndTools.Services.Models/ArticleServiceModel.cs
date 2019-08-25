@@ -14,6 +14,7 @@ namespace TechAndTools.Services.Models
         public string Title { get; set; }
 
         public string Content { get; set; }
+        public int TimesRead { get; set; }
 
         public string AuthorId { get; set; }
         public TechAndToolsUser Author { get; set; }
