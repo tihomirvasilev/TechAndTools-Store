@@ -3,98 +3,92 @@
 @model TechAndTools.Web.InputModels.Products.ProductEditInputModel
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Промени Продукт";
 }
 
-<h2>Edit</h2>
+    <form class="rounded p-3 w-50 mx-auto mt-3" asp-controller="Products" asp-action="Edit" method="post" enctype="multipart/form-data">
+        <hr />
+        <div class="text-center text-primary" style="text-transform: uppercase">
+            <h3>@ViewData["Title"]</h3>
+        </div>
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="d-flex justify-content-between">
+            <div class="form-group col-md-12">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="d-flex justify-content-between">
 
-<h4>ProductEditInputModel</h4>
-<hr />
-<div class="row">
-    <div class="col-md-12">
-        <form class="rounded p-3 w-50 mx-auto mt-3" asp-controller="Products" asp-action="Edit" method="post" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="d-flex justify-content-between">
-                <div class="form-group col-md-6">
-                    <label asp-for="Name" class="control-label"></label>
-                    <input asp-for="Name" class="form-control" />
-                    <span asp-validation-for="Name" class="text-danger"></span>
-                </div>
-                <div class="form-group col-md-6">
-                    <label asp-for="ManualUrl" class="control-label"></label>
-                    <input asp-for="ManualUrl" class="form-control" />
-                    <span asp-validation-for="ManualUrl" class="text-danger"></span>
-                </div>
+            <div class="form-group col-md-4">
+                <label asp-for="DocumentationUrl" class="control-label"></label>
+                <input asp-for="DocumentationUrl" class="form-control" />
+                <span asp-validation-for="DocumentationUrl" class="text-danger"></span>
             </div>
-            <hr />
-            <div class="d-flex justify-content-between">
-                <div class="form-group col-md-6">
-                    <label asp-for="ProductCategoryId" class="control-label">Category</label>
-                    <select class="form-control text-primary" id="product-Category" asp-for="ProductCategoryId">
-                        <option selected disabled>--- Select Category ---</option>
-                        @foreach (var category in (IEnumerable<CategoryListViewModel>)this.ViewData["categories"])
-                        {
-                            <option value="@category.Id">@category.Name (@category.MainCategoryName)</option>
-                        }
-                    </select>
-                    <span asp-validation-for="ProductCategoryId" class="text-danger"></span>
-                </div>
-                <div class="form-group col-md-6">
-                    <label asp-for="BrandId" class="control-label">Brand</label>
-                    <select class="form-control text-primary" id="brand-Category" asp-for="BrandId">
-                        <option selected disabled>--- Select Brand ---</option>
-                        @foreach (var brand in (IEnumerable<BrandListViewModel>)this.ViewData["brands"])
-                        {
-                            <option value="@brand.Id">@brand.Name</option>
-                        }
-                    </select>
-                    <span asp-validation-for="BrandId" class="text-danger"></span>
-                </div>
+            <div class="form-group col-md-4">
+                <label asp-for="BrandId" class="control-label ml-2">Brand</label>
+                <select class="form-control" id="brand-Category" asp-for="BrandId">
+                    <option selected disabled>--- Select Brand ---</option>
+                    @foreach (var brand in (IEnumerable<BrandListViewModel>)this.ViewData["brands"])
+                    {
+                        <option value="@brand.Id">@brand.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="BrandId" class="text-danger"></span>
             </div>
-            <hr />
-            <div class="d-flex justify-content-between">
-                <div class="form-group col-md-4">
-                    <label asp-for="Price" class="control-label"></label>
-                    <input asp-for="Price" class="form-control" />
-                    <span asp-validation-for="Price" class="text-danger"></span>
-                </div>
-                <div class="form-group col-md-4">
-                    <label asp-for="Warranty" class="control-label"></label>
-                    <input asp-for="Warranty" class="form-control" />
-                    <span asp-validation-for="Warranty" class="text-danger"></span>
-                </div>
-                <div class="form-group col-md-4">
-                    <label asp-for="QuantityInStock" class="control-label"></label>
-                    <input asp-for="QuantityInStock" class="form-control" />
-                    <span asp-validation-for="QuantityInStock" class="text-danger"></span>
-                </div>
+            <div class="form-group col-md-4">
+                <label asp-for="Warranty" class="control-label"></label>
+                <input asp-for="Warranty" class="form-control" />
+                <span asp-validation-for="Warranty" class="text-danger"></span>
             </div>
-            <hr />
-            <div class="d-flex justify-content-between">
-                <div class="form-group col-md-6">
-                    <div class="form-group">
-                        <label asp-for="ImageFormFile" class="control-label"></label>
-                        <input asp-for="ImageFormFile" class="form-control" multiple />
-                        <span asp-validation-for="ImageFormFile" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="form-group col-md-6">
-                    <label asp-for="Description" class="control-label"></label>
-                    <textarea rows="10" asp-for="Description" class="form-control col=5"></textarea>
-                    <span asp-validation-for="Description" class="text-danger"></span>
-                </div>
+        </div>
+        <div class="d-flex justify-content-between">
+            <div class="form-group col-md-4">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
             </div>
-            <hr />
-            <div class="form-group text-center">
-                <button class="btn primary-btn font-weight-bold">Save changes</button>
-            </div>
-        </form>
-    </div>
-</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+            <div class="form-group col-md-4">
+                <label asp-for="ProductCategoryId" class="control-label ml-2">Category</label>
+                <select class="form-control" id="product-Category" asp-for="ProductCategoryId">
+                    <option selected disabled>--- Select Category ---</option>
+                    @foreach (var category in (IEnumerable<CategoryListViewModel>)this.ViewData["categories"])
+                    {
+                        <option value="@category.Id">@category.Name (@category.MainCategoryName)</option>
+                    }
+                </select>
+                <span asp-validation-for="ProductCategoryId" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-4">
+                <label asp-for="QuantityInStock" class="control-label"></label>
+                <input asp-for="QuantityInStock" class="form-control" />
+                <span asp-validation-for="QuantityInStock" class="text-danger"></span>
+            </div>
+        </div>
+        <hr />
+        <div class="d-flex justify-content-between">
+            <div class="form-group col-md-6">
+                <div class="form-group">
+                    <label asp-for="ImageFormFile" class="control-label"></label>
+                    <input asp-for="ImageFormFile" class="form-control-file" multiple />
+                    <span asp-validation-for="ImageFormFile" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label asp-for="Description" class="control-label"></label>
+                <textarea rows="5" asp-for="Description" class="form-control"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+        </div>
+        <hr />
+        <div class="form-group text-center">
+            <button class="btn btn-outline-primary btn-lg"> Запази</button>
+        </div>
+        <hr />
+    </form>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

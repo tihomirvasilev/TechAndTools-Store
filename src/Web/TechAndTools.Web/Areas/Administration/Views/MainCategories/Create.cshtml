@@ -1,30 +1,29 @@
 ﻿@model TechAndTools.Web.InputModels.MainCategories.MainCategoryInputModel
 
 @{
-    ViewData["Title"] = "AddMainCategory";
+    ViewData["Title"] = "Create Main Category";
 }
 
-<h1>Add MainCategory</h1>
-
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
+<div class="container">
+    <hr />
+    <div class="text-center text-primary" style="text-transform: uppercase">
+        <h3>@ViewData["Title"]</h3>
+    </div>
+    <hr />
+    <div class="d-flex justify-content-center">
+        <form class="rounded p-3 w-50 mx-auto mt-3" asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+            <hr />
+            <div class="form-group text-center">
+                <input type="submit" value="Create" class="btn btn-outline-primary btn-lg" />
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="All">Back to List</a>
 </div>
 
 @section Scripts {

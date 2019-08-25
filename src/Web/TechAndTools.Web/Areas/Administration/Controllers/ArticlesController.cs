@@ -68,13 +68,21 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
 
         public async Task<IActionResult> Edit(int articleId)
         {
+            EditArticleInputModel inputModel =
+                (await this.articleService.GetArticleByIdAsync(articleId)).To<EditArticleInputModel>();
 
-            return this.View();
+            return this.View(inputModel);
         }
 
+        [HttpPost]
         public async Task<IActionResult> Edit(EditArticleInputModel inputModel)
         {
-            return this.View();
+            if (!ModelState.IsValid)
+            {
+                return this.View(inputModel);
+            }
+
+            return this.RedirectToAction("All");
 
         }
     }

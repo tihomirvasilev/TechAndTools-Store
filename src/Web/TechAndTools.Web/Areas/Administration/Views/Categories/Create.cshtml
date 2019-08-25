@@ -2,24 +2,25 @@
 @model TechAndTools.Web.InputModels.Categories.CategoryCreateInputModel
 
 @{
-    ViewData["Title"] = "Add";
+    ViewData["Title"] = "Create Category";
 }
 
-<h2>Add Category</h2>
-
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
+<div class="container">
+    <hr />
+    <div class="text-center text-primary" style="text-transform: uppercase">
+        <h3>@ViewData["Title"]</h3>
+    </div>
+    <hr />
+    <div class="d-flex justify-content-around">
+        <form class="rounded p-3 w-50 mx-auto mt-3" asp-action="Create">
+            <div class="form-group ml-2">
+                <label asp-for="Name" class="control-label h6"></label>
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="MainCategoryId" class="control-label">Main Category</label>
-                <select class="form-control text-primary" id="type" asp-for="MainCategoryId">
+            <div class="form-group mr-2">
+                <label asp-for="MainCategoryId" class="control-label h6 ml-2">Main Category</label>
+                <select class="form-control" id="type" asp-for="MainCategoryId">
                     <option selected disabled>--- Select Main Category ---</option>
                     @foreach (var mainCategory in (IEnumerable<CreateCategoryMainCategoryViewModel>)this.ViewData["mainCategories"])
                     {
@@ -28,7 +29,7 @@
                 </select>
                 <span asp-validation-for="MainCategoryId" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group text-center">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>

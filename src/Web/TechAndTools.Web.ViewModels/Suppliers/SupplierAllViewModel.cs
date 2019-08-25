@@ -13,8 +13,6 @@ namespace TechAndTools.Web.ViewModels.Suppliers
 
         public decimal PriceToAddress { get; set; }
 
-        public int MinimumDeliveryTimeDays { get; set; }
-
-        public int MaximumDeliveryTimeDays { get; set; }
+        public int DeliveryTimeInDays { get; set; }
     }
 }

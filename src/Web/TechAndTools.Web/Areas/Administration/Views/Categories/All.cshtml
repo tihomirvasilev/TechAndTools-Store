@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<TechAndTools.Web.ViewModels.Categories.CategoryViewModel>
 
 @{
-    ViewData["Title"] = "All";
+    ViewData["Title"] = "Categories";
 }
 
 @section Styles
@@ -15,20 +15,20 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
 }
 
-<hr />  
-<div class="container col-6">
+<hr />
+<div class="container">
     <div class="text-center text-primary" style="text-transform: uppercase">
-        <h3>all brands</h3>
+        <h3>@ViewData["Title"]</h3>
     </div>
     <hr />
     <table id="myTable" class="table table-bordered display">
         <thead>
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.Id)
+                    Id
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Name)
+                    Name
                 </th>
                 <th></th>
             </tr>
@@ -38,14 +38,14 @@
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Id)
+                        @item.Id
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Name)
+                        @item.Name
                     </td>
                     <td>
-                        <a class="btn btn-sm btn-warning" asp-area="Administration" asp-controller="Categories" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                        <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#flipFlop">
+                        <a class="btn btn-outline-primary btn-sm" asp-area="Administration" asp-controller="Categories" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                        <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#flipFlop">
                             Delete
                         </button>
                         <div class="modal fade" id="flipFlop" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">

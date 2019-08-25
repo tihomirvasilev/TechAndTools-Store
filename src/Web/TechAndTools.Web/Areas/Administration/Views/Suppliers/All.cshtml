@@ -37,10 +37,7 @@
                     @Html.DisplayNameFor(model => model.PriceToAddress)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.MinimumDeliveryTimeDays)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.MaximumDeliveryTimeDays)
+                    @Html.DisplayNameFor(model => model.DeliveryTimeInDays)
                 </th>
                 <th></th>
             </tr>
@@ -62,14 +59,11 @@
                         @Html.DisplayFor(modelItem => item.PriceToAddress)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.MinimumDeliveryTimeDays)
+                        @Html.DisplayFor(modelItem => item.DeliveryTimeInDays)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.MaximumDeliveryTimeDays)
-                    </td>
-                    <td>
-                        <a class="btn btn-sm btn-warning" asp-area="Administration" asp-controller="Suppliers" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                        <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#flipFlop">
+                        <a class="btn btn-sm btn-outline-primary" asp-area="Administration" asp-controller="Suppliers" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                        <button type="button" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#flipFlop">
                             Delete
                         </button>
                         <div class="modal fade" id="flipFlop" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">

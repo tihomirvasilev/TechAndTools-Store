@@ -123,16 +123,16 @@ namespace TechAndTools.Web.Controllers
 
         public IActionResult My()
         {
-            string userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            string username = this.User.Identity.Name;
 
             var serviceModels = this.orderService
-                .GetAllOrdersByUserId(userId)
+                .GetAllOrdersByUserId(username)
                 .ToList();
 
             var viewModels = serviceModels
                 .Select(x => x.To<MyOrdersViewModel>())
                 .ToList();
-
+            ;
             return this.View(viewModels);
         }
     }

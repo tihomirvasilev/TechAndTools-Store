@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<TechAndTools.Web.ViewModels.Products.ProductAllViewModel>
 
 @{
-    ViewData["Title"] = "Products";
+    ViewData["Title"] = "Продукти";
 }
 
 @section Styles
@@ -18,7 +18,7 @@
 <hr />
 <div class="container">
     <div class="text-center text-primary" style="text-transform: uppercase">
-        <h3>products</h3>
+        <h3>@ViewData["Title"]</h3>
     </div>
     <hr />
     <table id="myTable" class="table table-bordered display">
@@ -62,8 +62,8 @@
                         @item.ProductCategoryName
                     </td>
                     <td>
-                        <a class="btn btn-sm btn-warning" asp-area="Administration" asp-controller="Products" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                        <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#flipFlop">
+                        <a class="btn btn-sm btn-outline-primary" asp-area="Administration" asp-controller="Products" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                        <button type="button" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#flipFlop">
                             Delete
                         </button>
                         <div class="modal fade" id="flipFlop" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">

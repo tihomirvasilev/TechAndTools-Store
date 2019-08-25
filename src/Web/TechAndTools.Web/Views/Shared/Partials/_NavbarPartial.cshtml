@@ -12,11 +12,6 @@
                                 <li><a href="/"> Магазин<i class="fas fa-chevron-down"></i></a></li>
                                 <li><a asp-area="Blog" asp-controller="Articles" asp-action="All"> Блог<i class="fas fa-chevron-down"></i></a></li>
                                 <li><a asp-area="" asp-controller="Contacts" asp-action="Contacts"> Контакти<i class="fas fa-chevron-down"></i></a></li>
-
-                                @if (this.User.IsInRole("Admin"))
-                                {
-                                    <li><a asp-area="Administration" asp-controller="Home" asp-action="Index"> Администраторски Панел<i class="fas fa-chevron-down"></i></a></li>
-                                }
                             </ul>
                         </div>
                     </div>

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using TechAndTools.Services.Models;
 
@@ -14,7 +15,7 @@ namespace TechAndTools.Services.Contracts
 
         Task<bool> DeliverOrderAsync(int id);
 
-        IQueryable<OrderServiceModel> GetAllOrdersByUserId(string userId);
+        IEnumerable<OrderServiceModel> GetAllOrdersByUserId(string username);
 
         IQueryable<OrderServiceModel> GetUnprocessedOrders();
 

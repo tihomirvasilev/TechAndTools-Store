@@ -1,11 +1,11 @@
 ﻿@model IList<TechAndTools.Web.ViewModels.Favorites.FavoriteProductViewModel>
 
 @{
-    ViewData["Title"] = "Моите Любими Продукти";
+    ViewData["Title"] = "Любими Продукти";
 }
 
     <div class="container">
-        <h1 class="text-center">@ViewData["Title"]</h1>
+        <h3 class="text-center mt-3">@ViewData["Title"]</h3>
         @if (!Model.Any())
         {
             <h3 class="text-center mt-5">Все още нямате добавени продукти в Любими.</h3>
@@ -36,14 +36,14 @@
                                 </a>
                             </td>
                             <td class="col-1 d-flex justify-content-center">
-                                @product.ProductPrice
+                                @product.ProductPrice лв.
                             </td>
                             <td class="col-md-5 d-flex justify-content-around">
                                 <div class="mr-2">
-                                    <a asp-controller="ShoppingCart" asp-action="Add" asp-route-id="@product.ProductId" class="btn btn-primary btn-sm"> Добави</a>
+                                    <a asp-controller="ShoppingCart" asp-action="Add" asp-route-id="@product.ProductId" class="btn btn-outline-primary btn-sm">Добави <i class="fas fa-shopping-cart"></i></a>
                                 </div>
                                 <div>
-                                    <a asp-controller="Favorites" asp-action="RemoveFromFavorites" asp-route-id="@product.ProductId" class="btn btn-outline-danger btn-sm"> Премахване</a>
+                                    <a asp-controller="Favorites" asp-action="RemoveFromFavorites" asp-route-id="@product.ProductId" class="btn btn-outline-danger btn-sm">Премахване <i class="fas fa-backspace"></i> </a>
                                 </div>
                             </td>
                         </tr>

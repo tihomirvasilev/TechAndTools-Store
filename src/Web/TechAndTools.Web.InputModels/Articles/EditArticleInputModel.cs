@@ -13,12 +13,15 @@ namespace TechAndTools.Web.InputModels.Articles
         [Required]
         [DataType(DataType.Text)]
         [StringLength(TitleMaxLength, MinimumLength = TitleMinLength)]
+        [Display(Name = "Заглавие")]
         public string Title { get; set; }
 
         [Required]
         [DataType(DataType.MultilineText)]
+        [Display(Name = "Съдържание")]
         public string Content { get; set; }
 
+        [Display(Name = "Снимка")]
         public IFormFile ImageFormFile { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -109,11 +110,16 @@ namespace TechAndTools.Services
             return result > 0;
         }
 
-        public IQueryable<OrderServiceModel> GetAllOrdersByUserId(string userId)
+        public IEnumerable<OrderServiceModel> GetAllOrdersByUserId(string username)
         {
-            return this.context.Orders
-                .Where(x => x.UserId == userId)
-                .To<OrderServiceModel>();
+            var ordersFromDb = this.context.Orders
+                .Where(x => x.User.UserName == username)
+                .Include(x => x.OrderStatus)
+                .Include(x => x.PaymentMethod)
+                .Include(x => x.PaymentStatus)
+                .ToList();
+            ;
+            return ordersFromDb.Select(x => x.To<OrderServiceModel>()).ToList();
         }
 
         public IQueryable<OrderServiceModel> GetUnprocessedOrders()

@@ -18,7 +18,7 @@ namespace TechAndTools.Web.InputModels.Products
 
         public string Description { get; set; }
 
-        public string ManualUrl { get; set; }
+        public string DocumentationUrl { get; set; }
 
         public int Warranty { get; set; }
 

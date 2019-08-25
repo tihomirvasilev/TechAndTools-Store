@@ -17,7 +17,7 @@ namespace TechAndTools.Web.Controllers
             this.productService = productService;
         }
 
-        public IActionResult AllFavorites()
+        public IActionResult My()
         {
             var favoriteProductsServiceModels = this.productService
                 .AllFavoriteProducts(this.User.Identity.Name)
@@ -34,14 +34,14 @@ namespace TechAndTools.Web.Controllers
         {
             await this.productService.AddToFavoritesAsync(id, this.User.Identity.Name);
             
-            return RedirectToAction(nameof(AllFavorites));
+            return RedirectToAction(nameof(My));
         }
 
         public async Task<IActionResult> RemoveFromFavorites(int id)
         {
             await this.productService.RemoveFromFavorites(id, this.User.Identity.Name);
 
-            return RedirectToAction(nameof(AllFavorites));
+            return RedirectToAction(nameof(My));
         }
     }
 }
