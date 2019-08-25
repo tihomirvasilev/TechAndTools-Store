@@ -27,7 +27,7 @@ namespace TechAndTools.Data.Models
         public virtual PaymentMethod PaymentMethod { get; set; }
 
         public int OrderStatusId { get; set; }
-        public virtual OrderStatus Status { get; set; }
+        public virtual OrderStatus OrderStatus { get; set; }
 
         public int PaymentStatusId { get; set; }
         public virtual PaymentStatus PaymentStatus { get; set; }

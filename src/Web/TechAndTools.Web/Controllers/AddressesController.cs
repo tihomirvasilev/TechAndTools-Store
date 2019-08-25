@@ -34,7 +34,7 @@ namespace TechAndTools.Web.Controllers
 
         public async Task<IActionResult> MyAddresses()
         {
-            string userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            string userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             var viewModels = await this.addressService.GetAllByUserId(userId).To<AddressViewModel>().ToListAsync();
 

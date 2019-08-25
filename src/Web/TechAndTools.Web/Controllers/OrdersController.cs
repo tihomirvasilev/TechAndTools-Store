@@ -103,7 +103,7 @@ namespace TechAndTools.Web.Controllers
             decimal deliveryPrice = this.supplierService.GetDeliveryPrice(createOrderInputModel.SupplierId, createOrderInputModel.ShippingTo);
 
             var order = this.orderService.Create(createOrderInputModel.To<OrderServiceModel>(), this.User.Identity.Name, deliveryPrice);
-            ;
+            
             return this.RedirectToAction(nameof(Complete), new {id = order.Id});
         }
 
@@ -119,6 +119,21 @@ namespace TechAndTools.Web.Controllers
             DetailsOrderViewModel viewModel = this.orderService.GetOrderById(id).To<DetailsOrderViewModel>();
             
             return this.View(viewModel);
+        }
+
+        public IActionResult My()
+        {
+            string userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            var serviceModels = this.orderService
+                .GetAllOrdersByUserId(userId)
+                .ToList();
+
+            var viewModels = serviceModels
+                .Select(x => x.To<MyOrdersViewModel>())
+                .ToList();
+
+            return this.View(viewModels);
         }
     }
 }

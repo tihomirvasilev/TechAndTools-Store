@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using AutoMapper;
 using TechAndTools.Services.Mapping;
 using TechAndTools.Services.Models;
 

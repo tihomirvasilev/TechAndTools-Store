@@ -61,7 +61,7 @@ namespace TechAndTools.Services
             order.DeliveryPrice = deliveryPrice;
             order.OrderDate = DateTime.UtcNow;
             order.UserId = user.Id;
-            order.Status = this.context.OrderStatuses.FirstOrDefault(x => x.Name == "Unprocessed");
+            order.OrderStatus = this.context.OrderStatuses.FirstOrDefault(x => x.Name == "Unprocessed");
             order.PaymentStatus = this.context.PaymentStatuses.FirstOrDefault(x => x.Name == "Unpaid");
             order.TotalPrice = order.OrderProducts.Sum(product => product.Price * product.Quantity);
             order.ExpectedDeliveryDate = DateTime.UtcNow.AddDays(supplier.DeliveryTimeInDays);
@@ -93,7 +93,7 @@ namespace TechAndTools.Services
             var statusProcess = this.context.OrderStatuses.FirstOrDefault(x => x.Name == "Delivered");
 
             var order = this.context.Orders.FirstOrDefault(x => x.Id == id && 
-                                                                (x.Status.Name == "Unprocessed" || x.Status.Name == "Processed"));
+                                                                (x.OrderStatus.Name == "Unprocessed" || x.OrderStatus.Name == "Processed"));
             if (order == null)
             {
                 return false;
@@ -119,20 +119,20 @@ namespace TechAndTools.Services
         public IQueryable<OrderServiceModel> GetUnprocessedOrders()
         {
             return this.context.Orders
-                .Where(x => x.Status.Name == "Unprocessed")
+                .Where(x => x.OrderStatus.Name == "Unprocessed")
                 .To<OrderServiceModel>();
         }
         
         public IQueryable<OrderServiceModel> GetProcessedOrders()
         {
             return this.context.Orders
-                .Where(x => x.Status.Name == "Processed")
+                .Where(x => x.OrderStatus.Name == "Processed")
                 .To<OrderServiceModel>();
         }
         public IQueryable<OrderServiceModel> GetDeliveredOrders()
         {
             return this.context.Orders
-                .Where(x => x.Status.Name == "Delivered")
+                .Where(x => x.OrderStatus.Name == "Delivered")
                 .To<OrderServiceModel>();
         }
 
@@ -141,7 +141,7 @@ namespace TechAndTools.Services
             var statusProcess = this.context.OrderStatuses.FirstOrDefault(x => x.Name == "Processed");
 
             var order = this.context.Orders.FirstOrDefault(x => x.Id == id && 
-                                                           (x.Status.Name == "Unprocessed" || x.Status.Name == "Delivered"));
+                                                           (x.OrderStatus.Name == "Unprocessed" || x.OrderStatus.Name == "Delivered"));
             if (order == null)
             {
                 return false;

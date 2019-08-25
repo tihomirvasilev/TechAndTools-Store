@@ -2,7 +2,6 @@
 @inject SignInManager<TechAndToolsUser> SignInManager
 @inject UserManager<TechAndToolsUser> UserManager
 
-
 <header class="header">
     <div class="top_bar">
         <div class="container">
@@ -10,13 +9,37 @@
                 <div class="col d-flex flex-row">
                     <div class="top_bar_contact_item"><div class="top_bar_icon"><img src="~/images/phone.png" alt=""></div>+359 333 333 333</div>
                     <div class="top_bar_contact_item"><div class="top_bar_icon"><img src="~/images/mail.png" alt=""></div><a href="mailto:TechAndToolsBg@gmail.com">TechAndToolsBg@gmail.com</a></div>
+                    @if (this.User.IsInRole("Admin"))
+                    {
+                        <div class="top_bar_contact_item">
+
+                            <div class="top_bar_icon"></div>
+                            <a asp-area="Administration" asp-controller="Home" asp-action="Index"><i class="fas fa-cogs"></i> Администраторски Панел</a>
+                        </div>
+                    }
                     <div class="top_bar_content ml-auto">
                         <div class="top_bar_user">
-                            <div class="user_icon"><img src="~/images/user.svg" alt=""></div>
+                            <div class="user_icon">
+                                <img src="~/images/user.svg" alt="">
+                            </div>
                             @if (this.User.Identity.IsAuthenticated)
                             {
-                                <div><a asp-area="Identity" asp-page="/Account/Manage/Index"> Моя Акаунт</a></div>
-                                <div><a asp-area="Identity" asp-page="/Account/Logout"> Изход</a></div>
+                                <div class="top_bar_menu">
+                                    <ul class="standard_dropdown top_bar_dropdown">
+                                        <li>
+                                            <a href="#"> Профил<i class="fas fa-chevron-down"></i></a>
+                                            <ul>
+                                                <li><a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index"> Настройки</a></li>
+                                                <li><a class="dropdown-item" asp-area="" asp-controller="Favorites" asp-action="AllFavorites"> Любими </a></li>
+                                                <li><a class="dropdown-item" asp-area="" asp-controller="Orders" asp-action="My"> Поръчки</a></li>
+                                                <li class="mb-4"><a class="dropdown-item" asp-area="Identity" asp-page="/Account/Logout"> Изход</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <a asp-area="Identity" asp-page="/Account/Logout"> Изход</a>
+                                </div>
                             }
                             else
                             {
