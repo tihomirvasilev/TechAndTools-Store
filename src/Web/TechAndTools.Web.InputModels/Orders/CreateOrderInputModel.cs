@@ -22,7 +22,7 @@ namespace TechAndTools.Web.InputModels.Orders
 
         public int SupplierId { get; set; }
 
-        public int DeliveryAddressId { get; set; }
+        public int AddressId { get; set; }
 
         public int PaymentMethodId { get; set; }
 

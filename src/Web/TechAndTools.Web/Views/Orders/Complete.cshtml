@@ -1,4 +1,4 @@
-﻿@model TechAndTools.Web.ViewModels.Orders.DetailsOrderViewModel
+﻿@model TechAndTools.Web.ViewModels.Orders.CompleteOrderViewModel
 
 @{
     ViewData["Title"] = "Complete";
@@ -17,7 +17,7 @@
             <a class="button cart_button_clear" href="/"> Продължи с пазаруването</a>
         </div>
         <div>
-            <a class="button cart_button_checkout" asp-controller="Orders" asp-action="Details" asp-route-id="1"> Детайли на поръчката</a>
+            <a class="button cart_button_checkout" asp-area="" asp-controller="Orders" asp-action="Details" asp-route-id="@Model.OrderId"> Детайли на поръчката</a>
         </div>
     </div>
 </div>

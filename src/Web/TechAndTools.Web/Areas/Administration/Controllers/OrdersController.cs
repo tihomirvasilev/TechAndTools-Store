@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using TechAndTools.Services.Contracts;
+using TechAndTools.Services.Mapping;
+using TechAndTools.Web.ViewModels.Orders;
 
 namespace TechAndTools.Web.Areas.Administration.Controllers
 {
@@ -15,8 +17,9 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
 
         public IActionResult Details(int id)
         {
-            //TODO: Implement
-            return this.View();
+            DetailsOrderViewModel viewModel = this.orderService.GetOrderById(id).To<DetailsOrderViewModel>();
+
+            return this.View(viewModel);
         }
 
         public IActionResult Processed()

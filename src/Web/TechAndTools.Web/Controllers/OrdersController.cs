@@ -104,12 +104,21 @@ namespace TechAndTools.Web.Controllers
 
             var order = this.orderService.Create(createOrderInputModel.To<OrderServiceModel>(), this.User.Identity.Name, deliveryPrice);
             ;
-            return this.RedirectToAction(nameof(Complete));
+            return this.RedirectToAction(nameof(Complete), new {id = order.Id});
         }
 
         public IActionResult Complete(int id)
         {
-            return this.View();
+            CompleteOrderViewModel viewModel = new CompleteOrderViewModel {OrderId = id};
+
+            return this.View(viewModel);
+        }
+
+        public IActionResult Details(int id)
+        {
+            DetailsOrderViewModel viewModel = this.orderService.GetOrderById(id).To<DetailsOrderViewModel>();
+            ;
+            return this.View(viewModel);
         }
     }
 }

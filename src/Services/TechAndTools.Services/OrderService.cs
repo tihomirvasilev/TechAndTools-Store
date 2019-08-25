@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using TechAndTools.Data;
 using TechAndTools.Data.Models;
 using TechAndTools.Services.Contracts;
@@ -63,19 +64,22 @@ namespace TechAndTools.Services
             order.Status = this.context.OrderStatuses.FirstOrDefault(x => x.Name == "Unprocessed");
             order.PaymentStatus = this.context.PaymentStatuses.FirstOrDefault(x => x.Name == "Unpaid");
             order.TotalPrice = order.OrderProducts.Sum(product => product.Price * product.Quantity);
+            order.ExpectedDeliveryDate = DateTime.UtcNow.AddDays(supplier.DeliveryTimeInDays);
 
             this.context.Orders.Add(order);
             this.context.SaveChanges();
-
+            ;
             return order.To<OrderServiceModel>();
         }
 
         public OrderServiceModel GetOrderById(int orderId)
         {
             OrderServiceModel orderServiceModel = this.context.Orders
+                .Include(x => x.OrderProducts)
+                .ThenInclude(x => x.Product.Images)
                 .To<OrderServiceModel>()
                 .SingleOrDefault(x => x.Id == orderId);
-
+            ; 
             if (orderServiceModel == null)
             {
                 throw new ArgumentNullException("The Order not found!");

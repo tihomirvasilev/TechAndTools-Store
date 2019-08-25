@@ -1,19 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using AutoMapper;
 using TechAndTools.Services.Mapping;
 using TechAndTools.Services.Models;
 
 namespace TechAndTools.Web.ViewModels.Orders
 {
-    public class DetailsOrderViewModel : IMapFrom<OrderServiceModel>, IHaveCustomMappings
+    public class DetailsOrderViewModel : IMapFrom<OrderServiceModel>
     {
-        public string Recipient { get; set; }
-        
-        public string RecipientPhoneNumber { get; set; }
-
-        public string DeliveryAddress { get; set; }
-
-        public string SupplierName { get; set; }
+        public int Id { get; set; }
 
         public string PaymentStatusName { get; set; }
 
@@ -21,20 +16,28 @@ namespace TechAndTools.Web.ViewModels.Orders
 
         public string PaymentMethodName { get; set; }
 
-        public IEnumerable<OrderProductViewModel> OrderProducts { get; set; }
+        public DateTime OrderDate { get; set; }
 
-        public void CreateMappings(IProfileExpression configuration)
-        {
-            configuration.CreateMap<OrderServiceModel, DetailsOrderViewModel>()
-                .ForMember(dest => dest.RecipientPhoneNumber, org => org.MapFrom(src => src.RecipientPhoneNumber))
-                .ForMember(dest => dest.DeliveryAddress,
-                    org => org.MapFrom(src =>
-                        src.Address.Country + " " + src.Address.City + " " +
-                        src.Address.Street))
-                .ForMember(dest => dest.SupplierName, org => org.MapFrom(src => src.Supplier.Name))
-                .ForMember(dest => dest.PaymentStatusName, org => org.MapFrom(src => src.PaymentStatus.Name))
-                .ForMember(dest => dest.OrderStatusName, org => org.MapFrom(src => src.OrderStatus.Name))
-                .ForMember(dest => dest.PaymentMethodName, org => org.MapFrom(src => src.PaymentMethod.Name));
-        }
+        public DateTime ExpectedDeliveryDate { get; set; }
+
+        public DateTime? DeliveryDate { get; set; }
+
+        public decimal TotalPrice { get; set; }
+
+        public string Recipient { get; set; }
+
+        public string RecipientPhoneNumber { get; set; }
+
+        public string AddressCountry { get; set; }
+
+        public string AddressCity { get; set; }
+
+        public string AddressStreet { get; set; }
+
+        public string AddressPostCode { get; set; }
+
+        public IList<OrderProductViewModel> OrderProducts { get; set; }
+
+        public decimal DeliveryPrice { get; set; }
     }
 }
