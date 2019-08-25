@@ -32,7 +32,6 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
                 .To<ProcessedОrderViewModel>()
                 .ToList();
 
-            //TODO: Implement
             return this.View(viewModels);
         }
 
@@ -43,7 +42,6 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
                 .To<UnprocessedОrderViewModel>()
                 .ToList();
 
-            //TODO: Implement
             return this.View(viewModels);
         }
         public IActionResult Delivered()
@@ -53,7 +51,6 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
                 .To<DeliveredOrderViewModel>()
                 .ToList();
 
-            //TODO: Implement
             return this.View(viewModels);
         }
 

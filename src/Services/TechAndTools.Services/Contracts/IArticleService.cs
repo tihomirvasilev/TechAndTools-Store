@@ -15,6 +15,8 @@ namespace TechAndTools.Services.Contracts
 
         Task<ArticleServiceModel> CreateArticleAsync(ArticleServiceModel articleServiceModel, string authorId);
 
+        Task<ArticleServiceModel> EditArticleAsync(ArticleServiceModel articleServiceModel);
+
         Task<ArticleServiceModel> GetArticleByIdAsync(int articleId);
 
         Task<bool> DeleteArticleByIdAsync(int articleId);

@@ -47,7 +47,7 @@ namespace TechAndTools.Services
             this.context.Products.Update(productFromDb);
             await this.context.SaveChangesAsync();
 
-            return productServiceModel;
+            return productFromDb.To<ProductServiceModel>();
         }
 
         public async Task<bool> DeleteAsync(int id)

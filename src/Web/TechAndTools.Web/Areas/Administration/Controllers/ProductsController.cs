@@ -105,13 +105,11 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
 
                 return this.RedirectToAction("All", "Products");
             }
-            else
-            {
-                await this.productService.EditAsync(productServiceModel);
 
-                return this.RedirectToAction("All", "Products");
+            await this.productService.EditAsync(productServiceModel);
 
-            }
+            return this.RedirectToAction("All", "Products");
+
         }
 
         public async Task<IActionResult> All()

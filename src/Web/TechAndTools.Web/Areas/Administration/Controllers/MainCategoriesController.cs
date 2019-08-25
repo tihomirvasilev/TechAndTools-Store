@@ -29,6 +29,11 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(MainCategoryInputModel model)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(model);
+            }
+
             await this.mainCategoryService.CreateAsync(model.To<MainCategoryServiceModel>());
 
             return this.Redirect("All");
@@ -46,6 +51,11 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(MainCategoryEditInputModel mainCategoryEditInputModel)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(mainCategoryEditInputModel);
+            }
+
             await this.mainCategoryService.EditAsync(mainCategoryEditInputModel.To<MainCategoryServiceModel>());
 
             return this.RedirectToAction("All", "MainCategories");

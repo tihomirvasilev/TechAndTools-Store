@@ -23,13 +23,14 @@ namespace TechAndTools.Web.ViewModels.Articles
 
         public DateTime CreatedOn { get; set; }
 
-        public string AuthorId { get; set; }
-        public TechAndToolsUser Author { get; set; }
+        public string Author { get; set; }
 
         public void CreateMappings(IProfileExpression configuration)
         {
             configuration.CreateMap<ArticleServiceModel, AllArticleViewModel>()
-                .ForMember(dest => dest.ImgUrl, opt => opt.MapFrom(src => src.Images.FirstOrDefault().ImageUrl));
+                .ForMember(dest => dest.ImgUrl, opt => opt.MapFrom(src => src.Images.FirstOrDefault().ImageUrl))
+                .ForMember(dest => dest.Author,
+                    opt => opt.MapFrom(src => src.Author.FirstName + " " + src.Author.LastName));
         }
     }
 }

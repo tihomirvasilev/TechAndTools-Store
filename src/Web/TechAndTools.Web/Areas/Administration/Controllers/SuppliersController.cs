@@ -43,6 +43,11 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(SupplierEditInputModel supplierEditInputModel)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(supplierEditInputModel);
+            }
+
             await this.supplierService.EditAsync(supplierEditInputModel.To<SupplierServiceModel>());
 
             return this.RedirectToAction("All", "Suppliers");

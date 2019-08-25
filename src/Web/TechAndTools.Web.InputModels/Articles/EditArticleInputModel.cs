@@ -5,11 +5,13 @@ using TechAndTools.Services.Models;
 
 namespace TechAndTools.Web.InputModels.Articles
 {
-    public class EditArticleInputModel : IMapFrom<ArticleServiceModel>
+    public class EditArticleInputModel : IMapTo<ArticleServiceModel>, IMapFrom<ArticleServiceModel>
     {
         private const int TitleMaxLength = 255;
         private const int TitleMinLength = 3;
 
+        public int Id { get; set; }
+        
         [Required]
         [DataType(DataType.Text)]
         [StringLength(TitleMaxLength, MinimumLength = TitleMinLength)]

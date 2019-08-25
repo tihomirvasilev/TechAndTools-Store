@@ -43,7 +43,7 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
             string pictureUrl = await this.cloudinaryService
                 .UploadPictureAsync(inputModel.ImageFormFile, inputModel.Title);
 
-            ArticleServiceModel productFromDb = await this.articleService.CreateArticleAsync(articleServiceModel,this.User.FindFirstValue(ClaimTypes.NameIdentifier));
+            ArticleServiceModel productFromDb = await this.articleService.CreateArticleAsync(articleServiceModel, this.User.FindFirstValue(ClaimTypes.NameIdentifier));
 
             await this.imageService.CreateWithArticleAsync(pictureUrl, productFromDb.Id);
 
@@ -55,22 +55,22 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
             var articles = this.articleService.GetAllArticles()
                 .To<AllArticleViewModel>()
                 .ToList();
-
+            ;
             return this.View(articles);
         }
-        
-        public async Task<IActionResult> Delete(int articleId)
+
+        public async Task<IActionResult> Delete(int id)
         {
-            await this.articleService.DeleteArticleByIdAsync(articleId);
+            await this.articleService.DeleteArticleByIdAsync(id);
 
             return this.RedirectToAction("All");
         }
 
-        public async Task<IActionResult> Edit(int articleId)
+        public async Task<IActionResult> Edit(int id)
         {
             EditArticleInputModel inputModel =
-                (await this.articleService.GetArticleByIdAsync(articleId)).To<EditArticleInputModel>();
-
+                (await this.articleService.GetArticleByIdAsync(id)).To<EditArticleInputModel>();
+            ;
             return this.View(inputModel);
         }
 
@@ -82,8 +82,24 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
                 return this.View(inputModel);
             }
 
-            return this.RedirectToAction("All");
+            ArticleServiceModel articleServiceModel = inputModel.To<ArticleServiceModel>();
 
+            ;
+            if (inputModel.ImageFormFile != null)
+            {
+                string pictureUrl = await this.cloudinaryService
+                    .UploadPictureAsync(inputModel.ImageFormFile, inputModel.Title);
+
+                ArticleServiceModel articleFromDb = await this.articleService.EditArticleAsync(articleServiceModel);
+
+                await this.imageService.CreateWithArticleAsync(pictureUrl, articleFromDb.Id);
+
+                return this.RedirectToAction("All", "Articles");
+            }
+
+            await this.articleService.EditArticleAsync(articleServiceModel);
+
+            return this.RedirectToAction("All", "Articles");
         }
     }
 }

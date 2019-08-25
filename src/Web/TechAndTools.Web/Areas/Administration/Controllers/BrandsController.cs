@@ -28,7 +28,7 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
         {
             if (!this.ModelState.IsValid)
             {
-                return this.View();
+                return this.View(brandCreateInputModel);
             }
 
             await this.brandService.CreateAsync(brandCreateInputModel.To<BrandServiceModel>());
@@ -48,6 +48,11 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(BrandEditInputModel brandEditInputModel)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(brandEditInputModel);
+            }
+
             await this.brandService.EditAsync(brandEditInputModel.To<BrandServiceModel>());
 
             return this.RedirectToAction("All", "Brands");

@@ -57,10 +57,24 @@ namespace TechAndTools.Services
             return article.To<ArticleServiceModel>();
         }
 
+        public async Task<ArticleServiceModel> EditArticleAsync(ArticleServiceModel articleServiceModel)
+        {
+            Article articleFromDb = this.context.Articles.Find(articleServiceModel.Id);
+            ;
+            //TODO: Validation
+            articleFromDb.Content = articleServiceModel.Content;
+            articleFromDb.Title = articleServiceModel.Title;
+
+            this.context.Articles.Update(articleFromDb);
+            await this.context.SaveChangesAsync();
+
+            return articleFromDb.To<ArticleServiceModel>();
+        }
+
         public async Task<ArticleServiceModel> GetArticleByIdAsync(int articleId)
         {
             Article articleFromDb = await this.context.Articles.SingleOrDefaultAsync(x => x.Id == articleId);
-
+            ;
             if (articleFromDb == null)
             {
                 throw new ArgumentNullException("articleId didnt exist");

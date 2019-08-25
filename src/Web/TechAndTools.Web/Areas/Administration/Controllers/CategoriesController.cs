@@ -70,11 +70,16 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(CategoryEditInputModel editInputModel)
         {
-            await this.categoryService.EditCategoryAsync(editInputModel.To<CategoryServiceModel>());
+            if (!this.ModelState.IsValid)
+            {
+                this.ViewData["mainCategories"] = this.mainCategoryService
+                    .GetAllMainCategories()
+                    .To<CreateCategoryMainCategoryViewModel>();
 
-            this.ViewData["mainCategories"] = this.mainCategoryService
-                .GetAllMainCategories()
-                .To<CreateCategoryMainCategoryViewModel>();
+                return this.View(editInputModel);
+            }
+
+            await this.categoryService.EditCategoryAsync(editInputModel.To<CategoryServiceModel>());
 
             return this.RedirectToAction("All", "Categories");
         }
