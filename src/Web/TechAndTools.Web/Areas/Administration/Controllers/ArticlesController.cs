@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -52,7 +53,7 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
 
         public IActionResult All()
         {
-            var articles = this.articleService.GetAllArticles()
+            IEnumerable<AllArticleViewModel> articles = this.articleService.GetAllArticles()
                 .To<AllArticleViewModel>()
                 .ToList();
             ;
@@ -69,8 +70,8 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             EditArticleInputModel inputModel =
-                (await this.articleService.GetArticleByIdAsync(id)).To<EditArticleInputModel>();
-            ;
+                (await this.articleService.GetArticleAsync(id)).To<EditArticleInputModel>();
+
             return this.View(inputModel);
         }
 
@@ -84,17 +85,13 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
 
             ArticleServiceModel articleServiceModel = inputModel.To<ArticleServiceModel>();
 
-            ;
             if (inputModel.ImageFormFile != null)
             {
-                string pictureUrl = await this.cloudinaryService
+                string imageUrl = await this.cloudinaryService
                     .UploadPictureAsync(inputModel.ImageFormFile, inputModel.Title);
 
-                ArticleServiceModel articleFromDb = await this.articleService.EditArticleAsync(articleServiceModel);
-
-                await this.imageService.CreateWithArticleAsync(pictureUrl, articleFromDb.Id);
-
-                return this.RedirectToAction("All", "Articles");
+                ImageServiceModel imageFromDb =
+                    await this.imageService.EditWithArticleAsync(imageUrl, articleServiceModel.Id);
             }
 
             await this.articleService.EditArticleAsync(articleServiceModel);

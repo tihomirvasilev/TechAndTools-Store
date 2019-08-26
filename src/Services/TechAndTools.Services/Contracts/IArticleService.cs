@@ -9,15 +9,11 @@ namespace TechAndTools.Services.Contracts
         
         IQueryable<ArticleServiceModel> GetAllArticles();
 
-        IQueryable<ArticleServiceModel> GetAllByUserIdAsync(string userId);
-
         IQueryable<ArticleServiceModel> GetLastThreeArticles(int articleId);
 
         Task<ArticleServiceModel> CreateArticleAsync(ArticleServiceModel articleServiceModel, string authorId);
 
         Task<ArticleServiceModel> EditArticleAsync(ArticleServiceModel articleServiceModel);
-
-        Task<ArticleServiceModel> GetArticleByIdAsync(int articleId);
 
         Task<bool> DeleteArticleByIdAsync(int articleId);
 

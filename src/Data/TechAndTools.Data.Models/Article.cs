@@ -16,7 +16,7 @@ namespace TechAndTools.Data.Models
         public string AuthorId { get; set; }
         public virtual TechAndToolsUser Author { get; set; }
 
-        public virtual ICollection<Image> Images { get; set; }
+        public virtual Image Image { get; set; }
 
         public DateTime CreatedOn { get; set; }
 

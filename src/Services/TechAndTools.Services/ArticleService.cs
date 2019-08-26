@@ -13,14 +13,10 @@ namespace TechAndTools.Services
     public class ArticleService : IArticleService
     {
         private readonly TechAndToolsDbContext context;
-        private readonly IUserService userService;
 
-        public ArticleService(TechAndToolsDbContext context,
-
-            IUserService userService)
+        public ArticleService(TechAndToolsDbContext context)
         {
             this.context = context;
-            this.userService = userService;
         }
 
         public IQueryable<ArticleServiceModel> GetAllArticles()
@@ -40,7 +36,7 @@ namespace TechAndTools.Services
             return this.context.Articles
                 .Where(x => x.Id != articleId)
                 .OrderByDescending(x => x.CreatedOn)
-                .Include(x => x.Images)
+                .Include(x => x.Image)
                 .Take(3)
                 .To<ArticleServiceModel>();
         }
@@ -71,18 +67,6 @@ namespace TechAndTools.Services
             return articleFromDb.To<ArticleServiceModel>();
         }
 
-        public async Task<ArticleServiceModel> GetArticleByIdAsync(int articleId)
-        {
-            Article articleFromDb = await this.context.Articles.SingleOrDefaultAsync(x => x.Id == articleId);
-            ;
-            if (articleFromDb == null)
-            {
-                throw new ArgumentNullException("articleId didnt exist");
-            }
-
-            return articleFromDb.To<ArticleServiceModel>();
-        }
-
         public async Task<bool> DeleteArticleByIdAsync(int articleId)
         {
             Article articleFromDb = await this.context.Articles.SingleOrDefaultAsync(x => x.Id == articleId);
@@ -100,7 +84,9 @@ namespace TechAndTools.Services
 
         public async Task<ArticleServiceModel> GetArticleAsync(int articleId)
         {
-            Article articleFromDb = this.context.Articles.Include(x => x.Images).SingleOrDefault(x => x.Id == articleId);
+            Article articleFromDb = this.context.Articles
+                .Include(x => x.Image)
+                .SingleOrDefault(x => x.Id == articleId);
 
             if (articleFromDb == null)
             {

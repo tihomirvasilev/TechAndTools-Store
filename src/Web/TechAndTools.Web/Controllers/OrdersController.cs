@@ -46,29 +46,29 @@ namespace TechAndTools.Web.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            List<AddressViewModel> addressesViewModel = this.addressService
+            TechAndToolsUser user = this.userService
+                .GetUserByUsername(this.User.Identity.Name);
+
+            IEnumerable<AddressViewModel> addressesViewModel = this.addressService
                 .GetAllByUserId(this.User.FindFirstValue(ClaimTypes.NameIdentifier))
                 .To<AddressViewModel>()
                 .ToList();
 
-            TechAndToolsUser user = this.userService
-                .GetUserByUsername(this.User.Identity.Name);
-
-            List<SupplierViewModel> supplierViewModels = this.supplierService
+            IEnumerable<SupplierViewModel> supplierViewModels = this.supplierService
                 .GetAllSuppliers()
                 .To<SupplierViewModel>()
                 .ToList();
 
-            List<ShoppingCartProductServiceModel> shoppingCartProductsServiceModels = this.shoppingCartService
+            IEnumerable<ShoppingCartProductServiceModel> shoppingCartProductsServiceModels = this.shoppingCartService
                 .GetAllShoppingCartProducts(this.User.Identity.Name)
                 .ToList();
 
-            List<PaymentMethodViewModel> paymentMethodViewModels = this.paymentMethodService
+            IEnumerable<PaymentMethodViewModel> paymentMethodViewModels = this.paymentMethodService
                 .GetAllPaymentMethods()
                 .To<PaymentMethodViewModel>()
                 .ToList();
 
-            List<ShoppingCartProductViewModel> shoppingCartProductsViewModels = shoppingCartProductsServiceModels
+            IEnumerable<ShoppingCartProductViewModel> shoppingCartProductsViewModels = shoppingCartProductsServiceModels
                 .Select(x => x.To<ShoppingCartProductViewModel>())
                 .ToList();
 
@@ -125,14 +125,14 @@ namespace TechAndTools.Web.Controllers
         {
             string username = this.User.Identity.Name;
 
-            var serviceModels = this.orderService
+            IEnumerable<OrderServiceModel> serviceModels = this.orderService
                 .GetAllOrdersByUserId(username)
                 .ToList();
 
-            var viewModels = serviceModels
+            IEnumerable<MyOrdersViewModel> viewModels = serviceModels
                 .Select(x => x.To<MyOrdersViewModel>())
                 .ToList();
-            ;
+
             return this.View(viewModels);
         }
     }

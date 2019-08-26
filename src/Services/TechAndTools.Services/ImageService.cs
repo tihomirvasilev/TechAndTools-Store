@@ -1,7 +1,11 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
 using TechAndTools.Data;
 using TechAndTools.Data.Models;
 using TechAndTools.Services.Contracts;
+using TechAndTools.Services.Mapping;
+using TechAndTools.Services.Models;
 
 namespace TechAndTools.Services
 {
@@ -40,6 +44,23 @@ namespace TechAndTools.Services
             int result = await this.context.SaveChangesAsync();
 
             return result > 0;
+        }
+
+        public async Task<ImageServiceModel> EditWithArticleAsync(string imageUrl, int articleId)
+        {
+            Image imageFromDb = this.context.Images.SingleOrDefault(x => x.ArticleId == articleId);
+
+            if (imageFromDb == null)
+            {
+                throw new ArgumentNullException("Image is null!");
+            }
+
+            imageFromDb.ImageUrl = imageUrl;
+
+            this.context.Images.Update(imageFromDb);
+            await this.context.SaveChangesAsync();
+
+            return imageFromDb.To<ImageServiceModel>();
         }
     }
 }

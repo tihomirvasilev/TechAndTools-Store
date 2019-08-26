@@ -19,7 +19,7 @@ namespace TechAndTools.Services.Models
         public string AuthorId { get; set; }
         public TechAndToolsUser Author { get; set; }
 
-        public ICollection<ImageServiceModel> Images { get; set; }
+        public ImageServiceModel Image { get; set; }
 
         public DateTime CreatedOn { get; set; }
 

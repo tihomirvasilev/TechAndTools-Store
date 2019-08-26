@@ -1,14 +1,13 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using TechAndTools.Data;
 using TechAndTools.Data.Models;
 using TechAndTools.Services.Contracts;
 using TechAndTools.Services.Mapping;
 using TechAndTools.Services.Models;
-using TechAndTools.Web.ViewModels.Orders;
 
 namespace TechAndTools.Services
 {
@@ -91,13 +90,20 @@ namespace TechAndTools.Services
 
         public async Task<bool> DeliverOrderAsync(int id)
         {
-            var statusProcess = this.context.OrderStatuses.FirstOrDefault(x => x.Name == "Delivered");
+            OrderStatus statusProcess = this.context.OrderStatuses
+                .FirstOrDefault(x => x.Name == "Delivered");
+            
+            if (statusProcess == null)
+            {
+                throw new ArgumentNullException("OrderStatus is null!");
+            }
 
-            var order = this.context.Orders.FirstOrDefault(x => x.Id == id && 
-                                                                (x.OrderStatus.Name == "Unprocessed" || x.OrderStatus.Name == "Processed"));
+            Order order = this.context.Orders
+                .FirstOrDefault(x => x.Id == id && (x.OrderStatus.Name == "Unprocessed" || x.OrderStatus.Name == "Processed"));
+
             if (order == null)
             {
-                return false;
+                throw new ArgumentNullException("The Order is null!");
             }
 
             order.OrderStatusId = statusProcess.Id;
@@ -112,13 +118,13 @@ namespace TechAndTools.Services
 
         public IEnumerable<OrderServiceModel> GetAllOrdersByUserId(string username)
         {
-            var ordersFromDb = this.context.Orders
+            IEnumerable<Order> ordersFromDb = this.context.Orders
                 .Where(x => x.User.UserName == username)
                 .Include(x => x.OrderStatus)
                 .Include(x => x.PaymentMethod)
                 .Include(x => x.PaymentStatus)
                 .ToList();
-            ;
+
             return ordersFromDb.Select(x => x.To<OrderServiceModel>()).ToList();
         }
 
@@ -144,13 +150,20 @@ namespace TechAndTools.Services
 
         public async Task<bool> ProcessOrderAsync(int id)
         {
-            var statusProcess = this.context.OrderStatuses.FirstOrDefault(x => x.Name == "Processed");
+            OrderStatus statusProcess = this.context.OrderStatuses
+                .FirstOrDefault(x => x.Name == "Processed");
+            
+            if (statusProcess == null)
+            {
+                throw new ArgumentNullException("OrderStatus is null!");
+            }
 
-            var order = this.context.Orders.FirstOrDefault(x => x.Id == id && 
-                                                           (x.OrderStatus.Name == "Unprocessed" || x.OrderStatus.Name == "Delivered"));
+            Order order = this.context.Orders.
+                FirstOrDefault(x => x.Id == id && (x.OrderStatus.Name == "Unprocessed" || x.OrderStatus.Name == "Delivered"));
+            
             if (order == null)
             {
-                return false;
+                throw new ArgumentNullException("The Order is null!");
             }
 
             order.OrderStatusId = statusProcess.Id;

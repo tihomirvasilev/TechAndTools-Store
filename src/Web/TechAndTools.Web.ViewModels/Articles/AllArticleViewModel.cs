@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using AutoMapper;
+using System;
 using System.Linq;
-using AutoMapper;
-using TechAndTools.Data.Models;
 using TechAndTools.Services.Mapping;
 using TechAndTools.Services.Models;
-using TechAndTools.Web.ViewModels.Images;
 
 namespace TechAndTools.Web.ViewModels.Articles
 {
@@ -28,7 +25,7 @@ namespace TechAndTools.Web.ViewModels.Articles
         public void CreateMappings(IProfileExpression configuration)
         {
             configuration.CreateMap<ArticleServiceModel, AllArticleViewModel>()
-                .ForMember(dest => dest.ImgUrl, opt => opt.MapFrom(src => src.Images.FirstOrDefault().ImageUrl))
+                .ForMember(dest => dest.ImgUrl, opt => opt.MapFrom(src => src.Image.ImageUrl))
                 .ForMember(dest => dest.Author,
                     opt => opt.MapFrom(src => src.Author.FirstName + " " + src.Author.LastName));
         }

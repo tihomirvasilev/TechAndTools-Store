@@ -46,7 +46,7 @@ namespace TechAndTools.Data
                 .OnDelete(DeleteBehavior.Cascade);
 
             builder.Entity<Article>()
-                .HasMany(x => x.Images)
+                .HasOne(x => x.Image)
                 .WithOne(x => x.Article)
                 .OnDelete(DeleteBehavior.Cascade);
 

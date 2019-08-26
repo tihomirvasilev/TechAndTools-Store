@@ -31,7 +31,8 @@ namespace TechAndTools.Services
 
         public async Task<MainCategoryServiceModel> EditAsync(MainCategoryServiceModel mainCategoryServiceModel)
         {
-            MainCategory mainCategoryFromDb = this.context.MainCategories.Find(mainCategoryServiceModel.Id);
+            MainCategory mainCategoryFromDb = this.context.MainCategories
+                .Find(mainCategoryServiceModel.Id);
 
             mainCategoryFromDb.Name = mainCategoryServiceModel.Name;
 
@@ -43,7 +44,8 @@ namespace TechAndTools.Services
 
         public async Task<bool> DeleteAsync(int id)
         {
-            MainCategory mainCategory = await this.context.MainCategories.SingleOrDefaultAsync(x => x.Id == id);
+            MainCategory mainCategory = await this.context.MainCategories
+                .SingleOrDefaultAsync(x => x.Id == id);
 
             if (mainCategory == null)
             {
@@ -59,12 +61,15 @@ namespace TechAndTools.Services
 
         public IQueryable<MainCategoryServiceModel> GetAllMainCategories()
         {
-            return this.context.MainCategories.To<MainCategoryServiceModel>();
+            return this.context.MainCategories
+                .To<MainCategoryServiceModel>();
         }
 
         public MainCategoryServiceModel GetMainCategoryById(int id)
         {
-            return this.context.MainCategories.FirstOrDefault(x => x.Id == id).To<MainCategoryServiceModel>();
+            return this.context.MainCategories
+                .FirstOrDefault(x => x.Id == id)
+                .To<MainCategoryServiceModel>();
         }
     }
 }

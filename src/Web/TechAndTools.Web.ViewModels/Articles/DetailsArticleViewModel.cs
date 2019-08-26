@@ -26,7 +26,7 @@ namespace TechAndTools.Web.ViewModels.Articles
         public void CreateMappings(IProfileExpression configuration)
         {
             configuration.CreateMap<ArticleServiceModel, DetailsArticleViewModel>()
-                .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(src => src.Images.FirstOrDefault().ImageUrl));
+                .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(src => src.Image.ImageUrl));
         }
     }
 }
