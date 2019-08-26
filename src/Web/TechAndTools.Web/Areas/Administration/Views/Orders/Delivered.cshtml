@@ -1,15 +1,18 @@
 ﻿@model IEnumerable<TechAndTools.Web.ViewModels.Orders.DeliveredOrderViewModel>
 
 @{
-    ViewData["Title"] = "Delivered";
+    ViewData["Title"] = "Доставени Поръчки";
 }
 
 <div class="container">
     <hr />
+    <div class="text-center text-primary" style="text-transform: uppercase">
+        <h3>@ViewData["Title"]</h3>
+    </div>
+    <hr />
     <div class="row">
         <div class="col-md-12">
             <div class="container shadow p-4 mb-4 bg-white">
-                <div class="h3 text-center"> Доставени поръчки:</div>
                 <table class="table table-hover">
                     <thead>
                         <tr class="row">
@@ -50,7 +53,7 @@
                 </table>
                 @if (!Model.Any())
                 {
-                    <div class="h3 text-center"> Нямате необработени поръчки!</div>
+                    <div class="h3 text-center text-primary"> Нямате необработени поръчки!</div>
                 }
             </div>
         </div>

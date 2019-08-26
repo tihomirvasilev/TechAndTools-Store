@@ -68,6 +68,7 @@ namespace TechAndTools.Services
         public MainCategoryServiceModel GetMainCategoryById(int id)
         {
             return this.context.MainCategories
+                .Include(x => x.Categories)
                 .FirstOrDefault(x => x.Id == id)
                 .To<MainCategoryServiceModel>();
         }

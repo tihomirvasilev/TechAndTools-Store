@@ -13,8 +13,8 @@ namespace TechAndTools.Data.Seeding
 
             if (!hasPaymentStatuses)
             {
-                await SeedPaymentStatusAsync("Unpaid", dbContext);
-                await SeedPaymentStatusAsync("Paid", dbContext);
+                await SeedPaymentStatusAsync("Неплатена", dbContext);
+                await SeedPaymentStatusAsync("Платена", dbContext);
             }
         }
 

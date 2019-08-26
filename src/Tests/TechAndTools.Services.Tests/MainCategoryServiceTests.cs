@@ -159,7 +159,7 @@ namespace TechAndTools.Services.Tests
             MainCategory expectedData = context.MainCategories.First();
 
             MainCategoryServiceModel actualData = mainCategoryService.GetMainCategoryById(expectedData.Id);
-
+            ;
             Assert.Equal(expectedData.Name, actualData.Name);
             Assert.Equal(expectedData.Id, actualData.Id);
             Assert.NotNull(actualData.Categories);

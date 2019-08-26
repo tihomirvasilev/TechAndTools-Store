@@ -13,9 +13,9 @@ namespace TechAndTools.Data.Seeding
 
             if (!hasOrderStatuses)
             {
-                await SeedOrderStatusAsync("Unprocessed", dbContext);
-                await SeedOrderStatusAsync("Processed", dbContext);
-                await SeedOrderStatusAsync("Delivered", dbContext);
+                await SeedOrderStatusAsync("Необработена", dbContext);
+                await SeedOrderStatusAsync("Обработена", dbContext);
+                await SeedOrderStatusAsync("Доставена", dbContext);
 
                 await dbContext.SaveChangesAsync();
             }

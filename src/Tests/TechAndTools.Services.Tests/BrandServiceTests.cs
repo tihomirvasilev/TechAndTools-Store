@@ -69,7 +69,7 @@ namespace TechAndTools.Services.Tests
         public async Task GetAllBrandsShouldReturnAllBrandsAsServiceModels()
         {
             var options = new DbContextOptionsBuilder<TechAndToolsDbContext>()
-                .UseInMemoryDatabase(databaseName: "GetAllBrandsShouldReturnAllBrands")
+                .UseInMemoryDatabase(databaseName: "GetAllBrandsShouldReturnAllBrandsAsServiceModels")
                 .Options;
 
             TechAndToolsDbContext dbContext = new TechAndToolsDbContext(options);
@@ -89,7 +89,7 @@ namespace TechAndTools.Services.Tests
         public async Task GetBrandByIdShouldReturnBrandServiceModelByBrandId()
         {
             var options = new DbContextOptionsBuilder<TechAndToolsDbContext>()
-                .UseInMemoryDatabase(databaseName: "GetBrandByIdShouldReturnBrandWithSameId")
+                .UseInMemoryDatabase(databaseName: "GetBrandByIdShouldReturnBrandServiceModelByBrandId")
                 .Options;
 
             TechAndToolsDbContext context = new TechAndToolsDbContext(options);

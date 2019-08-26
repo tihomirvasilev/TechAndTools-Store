@@ -26,7 +26,7 @@ namespace TechAndTools.Web.Controllers
 
         public IActionResult Index()
         {
-            IList<ProductIndexViewModel> productIndexViewModels = this.productService
+            IEnumerable<ProductIndexViewModel> productIndexViewModels = this.productService
                 .GetAllProducts()
                 .To<ProductIndexViewModel>()
                 .ToList();

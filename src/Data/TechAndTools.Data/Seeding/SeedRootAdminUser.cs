@@ -20,11 +20,13 @@ namespace TechAndTools.Data.Seeding
                 TechAndToolsUser admin = new TechAndToolsUser
                 {
                     UserName = "admin",
+                    FirstName = "Tihomir",
+                    LastName = "Vasilev",
                     Email = "admin@admin.com",
                     ShoppingCart = new ShoppingCart()
                 };
 
-                var password = "asdasd";
+                var password = "123456";
 
                 await userManager.CreateAsync(admin, password);
 

@@ -149,8 +149,6 @@ namespace TechAndTools.Services.Tests
 
             Assert.True(expectedData.Name == actualData.Name);
             Assert.True(expectedData.MainCategoryId == actualData.MainCategoryId);
-            Assert.NotNull(actualData.MainCategory);
-            Assert.NotNull(actualData.Products);
         }
 
         [Fact]

@@ -13,7 +13,7 @@ namespace TechAndTools.Data.Seeding
 
             if (!hasPaymentTypes)
             {
-                await SeedPaymentTypesAsync("CashОnDelivery", dbContext);
+                await SeedPaymentTypesAsync("Наложен платеж", dbContext);
 
                 await dbContext.SaveChangesAsync();
             }
