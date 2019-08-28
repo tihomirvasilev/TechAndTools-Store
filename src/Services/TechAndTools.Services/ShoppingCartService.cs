@@ -63,7 +63,7 @@ namespace TechAndTools.Services
             return this.context.ShoppingCartProducts.Where(x => x.ShoppingCartId == user.ShoppingCartId).To<ShoppingCartProductServiceModel>();
         }
 
-        public void DeleteProductFromShoppingCart(int id, string username)
+        public void RemoveProductFromShoppingCart(int id, string username)
         {
             var product = this.productService.GetProductById(id);
             var user = this.userService.GetUserByUsername(username);
@@ -84,7 +84,7 @@ namespace TechAndTools.Services
             return this.context.ShoppingCartProducts.Any(x => x.ShoppingCart.User.UserName == username);
         }
 
-        public bool DeleteAllProductFromShoppingCart(string username)
+        public bool RemoveAllProductFromShoppingCart(string username)
         {
             var user = this.userService.GetUserByUsername(username);
 

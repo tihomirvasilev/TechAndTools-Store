@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.ComponentModel.DataAnnotations;
 using TechAndTools.Services.Mapping;
 using TechAndTools.Services.Models;
 
@@ -8,14 +6,18 @@ namespace TechAndTools.Web.InputModels.Addresses
 {
     public class AddressCreateInputModel : IMapTo<AddressServiceModel>
     {
-        public string Country { get; set; }
-
+        [Display(Name = "Град")]
+        [Required(ErrorMessage = @"Полето ""{0}"" е задължително.")]
         public string City { get; set; }
 
-        public string Quarter { get; set; }
+        
+        [Display(Name = "Адрес")]
+        [Required(ErrorMessage = @"Полето ""{0}"" е задължително.")]
+        public string CityAddress { get; set; }
 
-        public string Street { get; set; }
-
+        
+        [Display(Name = "Пощенски код")]
+        [Required(ErrorMessage = @"Полето ""{0}"" е задължително.")]
         public int PostCode { get; set; }
     }
 }

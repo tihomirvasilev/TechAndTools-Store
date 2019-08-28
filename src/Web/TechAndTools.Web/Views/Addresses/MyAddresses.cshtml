@@ -7,7 +7,7 @@
 
 <div class="container">
     <div class="section-title">
-        <h4 class="title">My Addresses</h4>
+        <h4 class="title">Моите адреси</h4>
     </div>
     <table class="table table-hover text-center">
         <thead>
@@ -17,16 +17,10 @@
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => addressViewModel.Country)
-                    </td>
-                    <td>
                         @Html.DisplayFor(modelItem => addressViewModel.City)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => addressViewModel.Quarter)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => addressViewModel.Street)
+                        @Html.DisplayFor(modelItem => addressViewModel.CityAddress)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => addressViewModel.PostCode)
@@ -39,7 +33,7 @@
         </tbody>
     </table>
 
-    <a class="btn btn-sm primary-btn pull-right" asp-action="Create">Add New Address</a>
+    <a class="btn btn-sm primary-btn pull-right" asp-action="Create"> Добави адрес</a>
 </div>
 
 

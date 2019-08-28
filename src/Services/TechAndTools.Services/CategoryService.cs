@@ -31,7 +31,7 @@ namespace TechAndTools.Services
 
         public async Task<CategoryServiceModel> EditCategoryAsync(CategoryServiceModel categoryServiceModel)
         {
-            var category = this.context.Categories.Find(categoryServiceModel.Id);
+            var category = this.context.Categories.FirstOrDefault(x => x.Id == categoryServiceModel.Id);
 
             category.Name = categoryServiceModel.Name;
             category.MainCategoryId = categoryServiceModel.MainCategoryId;

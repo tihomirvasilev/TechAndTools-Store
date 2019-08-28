@@ -87,7 +87,7 @@ namespace TechAndTools.Web.Controllers
         {
             if (this.User.Identity.IsAuthenticated)
             {
-                this.shoppingCartService.DeleteProductFromShoppingCart(id, this.User.Identity.Name);
+                this.shoppingCartService.RemoveProductFromShoppingCart(id, this.User.Identity.Name);
 
                 return this.RedirectToAction(nameof(MyCart));
             }

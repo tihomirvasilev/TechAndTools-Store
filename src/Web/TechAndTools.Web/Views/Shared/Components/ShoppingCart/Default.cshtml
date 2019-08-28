@@ -7,7 +7,7 @@
                 <div class="cart_count"><span>@Model.Count</span></div>
             </div>
             <div class="cart_content">
-                <div class="cart_text"><a asp-area="" asp-controller="ShoppingCart" asp-action="MyCart">My Cart</a></div>
+                <div class="cart_text"><a asp-area="" asp-controller="ShoppingCart" asp-action="MyCart"> Количка</a></div>
                 <div class="cart_price">$@Model.Sum(x => x.Price * x.Quantity)</div>
             </div>
     </div>

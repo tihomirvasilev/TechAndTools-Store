@@ -9,8 +9,10 @@ namespace TechAndTools.Services.Contracts
 
         IQueryable<ShoppingCartProductServiceModel> GetAllShoppingCartProducts(string username);
 
-        void DeleteProductFromShoppingCart(int id, string username);
+        void RemoveProductFromShoppingCart(int id, string username);
+
         bool AnyProducts(string username);
-        bool DeleteAllProductFromShoppingCart(string username);
+
+        bool RemoveAllProductFromShoppingCart(string username);
     }
 }

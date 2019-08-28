@@ -71,7 +71,6 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
             return this.View(mainCategoriesViewModels);
         }
         
-        [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
             await this.mainCategoryService.DeleteAsync(id);

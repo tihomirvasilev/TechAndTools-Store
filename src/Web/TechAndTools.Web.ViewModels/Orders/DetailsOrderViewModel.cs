@@ -26,12 +26,10 @@ namespace TechAndTools.Web.ViewModels.Orders
         public string Recipient { get; set; }
 
         public string RecipientPhoneNumber { get; set; }
-
-        public string AddressCountry { get; set; }
-
+        
         public string AddressCity { get; set; }
 
-        public string AddressStreet { get; set; }
+        public string AddressAddressStreet { get; set; }
 
         public string AddressPostCode { get; set; }
 

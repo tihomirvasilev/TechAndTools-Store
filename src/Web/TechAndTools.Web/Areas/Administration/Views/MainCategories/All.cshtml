@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<TechAndTools.Web.ViewModels.MainCategories.MainCategoryViewModel>
 
 @{
-    ViewData["Title"] = "Главни Категории";
+    ViewData["Title"] = "Главни категории";
 }
 
 @section Styles
@@ -44,22 +44,22 @@
                         @item.Name
                     </td>
                     <td>
-                        <a class="btn btn-outline-primary btn-sm" asp-area="Administration" asp-controller="MainCategories" asp-action="Edit" asp-route-id="@item.Id"> Промени</a>
+                        <a class="btn btn-outline-primary btn-sm" asp-area="Administration" asp-controller="MainCategories" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
                         <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#flipFlop">
-                            Изтрий
+                            Delete
                         </button>
                         <div class="modal fade" id="flipFlop" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h4 class="modal-title" id="modalLabel">Сигурни ли сте?</h4>
+                                        <h4 class="modal-title" id="modalLabel">Are you sure?</h4>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div class="modal-footer">
-                                        <a class="btn btn-danger" asp-area="Administration" asp-controller="MainCategories" asp-action="Delete" asp-route-id="@item.Id"> Потвърди</a>
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal"> Затвори</button>
+                                        <a class="btn btn-danger" asp-area="Administration" asp-controller="MainCategories" asp-action="Delete" asp-route-id="@item.Id">Confirm</a>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                     </div>
                                 </div>
                             </div>

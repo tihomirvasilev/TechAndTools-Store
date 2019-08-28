@@ -1,44 +1,36 @@
 ﻿@model TechAndTools.Web.InputModels.Addresses.AddressCreateInputModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Нов Адрес";
 }
 
-<div class="section">
-    <div class="container">
-        <div class="row">
-            <form method="post" asp-controller="Addresses" asp-action="Create">
-                <div class="col-md-6">
-                    <div class="section-title">
-                        <h3 class="title">Add Address:</h3>
-                    </div>
-                    <div class="form-group">
-                        <input asp-for="@Model.Country" class="input" type="text" name="Country" placeholder="Country" />
-                        <span asp-validation-for="@Model.Country" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <input asp-for="@Model.City" class="input" type="text" name="City" placeholder="City" />
-                        <span asp-validation-for="@Model.City" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <input asp-for="@Model.Quarter" class="input" type="text" name="Quarter" placeholder="Quarter" />
-                        <span asp-validation-for="@Model.Quarter" class="text-danger"></span>
-                    </div>
-                    <div asp-validation-summary="All" class="text-danger mt-3"></div>
-                    <div class="form-group">
-                        <input asp-for="@Model.Street" class="input" type="text" name="Street" placeholder="Street" />
-                        <span asp-validation-for="@Model.Street" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <input asp-for="@Model.PostCode" class="input" type="number" name="PostCode" placeholder="Post Code" />
-                        <span asp-validation-for="@Model.PostCode" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" class="btn primary-btn text-white">Create</button>
-                    </div>
-                </div>
-            </form>
-        </div>
+<div class="container">
+    <hr />
+    <div class="text-center text-primary" style="text-transform: uppercase">
+        <h3>@ViewData["Title"]</h3>
+    </div>
+    <hr />
+    <div class="d-flex justify-content-center">
+        <form class="rounded p-3 w-50 mx-auto mt-3" asp-controller="Addresses" asp-action="Create">
+            <div class="form-group">
+                <label asp-for="City" class="control-label h6"></label>
+                <input asp-for="@Model.City" class="form-control" />
+                <span asp-validation-for="@Model.City" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CityAddress" class="control-label h6"></label>
+                <input asp-for="@Model.CityAddress" class="form-control" />
+                <span asp-validation-for="@Model.CityAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PostCode" class="control-label h6"></label>
+                <input asp-for="@Model.PostCode" class="form-control" />
+                <span asp-validation-for="@Model.PostCode" class="text-danger"></span>
+            </div>
+            <div class="form-group text-center">
+                <button type="submit" class="btn btn-outline-primary btn-lg"> Добави</button>
+            </div>
+        </form>
     </div>
 </div>
 

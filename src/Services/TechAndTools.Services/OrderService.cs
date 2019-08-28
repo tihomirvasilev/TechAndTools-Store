@@ -56,13 +56,16 @@ namespace TechAndTools.Services
                 })
                 .ToList();
 
-            this.shoppingCartService.DeleteAllProductFromShoppingCart(username);
+            this.shoppingCartService.RemoveAllProductFromShoppingCart(username);
+
+            OrderStatus orderStatus = this.context.OrderStatuses.FirstOrDefault(x => x.Name == "Необработена");
+            PaymentStatus paymentStatus = this.context.PaymentStatuses.FirstOrDefault(x => x.Name == "Неплатена");
 
             order.DeliveryPrice = deliveryPrice;
             order.OrderDate = DateTime.UtcNow;
             order.UserId = user.Id;
-            order.OrderStatus = this.context.OrderStatuses.FirstOrDefault(x => x.Name == "Unprocessed");
-            order.PaymentStatus = this.context.PaymentStatuses.FirstOrDefault(x => x.Name == "Unpaid");
+            order.OrderStatus = orderStatus ?? throw new ArgumentNullException("OrderStatus is null.");
+            order.PaymentStatus = paymentStatus ?? throw new ArgumentNullException("PaymentStatus is null.");
             order.TotalPrice = order.OrderProducts.Sum(product => product.Price * product.Quantity);
             order.ExpectedDeliveryDate = DateTime.UtcNow.AddDays(supplier.DeliveryTimeInDays);
 
@@ -99,7 +102,7 @@ namespace TechAndTools.Services
             }
 
             Order order = this.context.Orders
-                .FirstOrDefault(x => x.Id == id && (x.OrderStatus.Name == "Unprocessed" || x.OrderStatus.Name == "Processed"));
+                .FirstOrDefault(x => x.Id == id && (x.OrderStatus.Name == "Необработена" || x.OrderStatus.Name == "Обработена"));
 
             if (order == null)
             {

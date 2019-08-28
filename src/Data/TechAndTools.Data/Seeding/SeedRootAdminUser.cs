@@ -9,6 +9,13 @@ namespace TechAndTools.Data.Seeding
 {
     public class SeedRootAdminUser : ISeeder
     {
+        private const string AdminUsername = "admin";
+        private const string AdminFirstName = "Tihomir";
+        private const string AdminLastName = "Vasilev";
+        private const string AdminEmail = "techandtoolsbg@gmail.com";
+        private const string AdminPassword = "asdasd";
+        private const string AdminPhoneNumber = "+359999999999";
+
         public async Task SeedAsync(TechAndToolsDbContext dbContext, IServiceProvider serviceProvider)
         {
             var userManager = serviceProvider.GetRequiredService<UserManager<TechAndToolsUser>>();
@@ -19,14 +26,18 @@ namespace TechAndTools.Data.Seeding
             {
                 TechAndToolsUser admin = new TechAndToolsUser
                 {
-                    UserName = "admin",
-                    FirstName = "Tihomir",
-                    LastName = "Vasilev",
-                    Email = "admin@admin.com",
+                    UserName = AdminUsername,
+                    FirstName = AdminFirstName,
+                    LastName = AdminLastName,
+                    Email = AdminEmail,
+                    CreatedOn = DateTime.UtcNow,
+                    PhoneNumber = AdminPhoneNumber,
+                    PhoneNumberConfirmed = true,
+                    EmailConfirmed = true,
                     ShoppingCart = new ShoppingCart()
                 };
 
-                var password = "123456";
+                var password = AdminPassword;
 
                 await userManager.CreateAsync(admin, password);
 

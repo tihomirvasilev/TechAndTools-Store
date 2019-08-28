@@ -122,7 +122,6 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
             return this.View(productViewModels);
         }
 
-        [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
             await this.productService.DeleteAsync(id);

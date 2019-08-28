@@ -18,8 +18,8 @@
                     @await Component.InvokeAsync("CategoriesFilter")
 
                     <div class="sidebar_section filter_by_section">
-                        <div class="sidebar_title">Filter By</div>
-                        <div class="sidebar_subtitle">Price</div>
+                        <div class="sidebar_title"> Филтрирай по</div>
+                        <div class="sidebar_subtitle"> Цена</div>
                         <div class="filter_price">
                             <div id="slider-range" class="slider_range"></div>
                             <p>Range: </p>
@@ -40,11 +40,11 @@
                             <span>Sort by:</span>
                             <ul>
                                 <li>
-                                    <span class="sorting_text">highest rated<i class="fas fa-chevron-down"></i></span>
+                                    <span class="sorting_text">Име<i class="fas fa-chevron-down"></i></span>
                                     <ul>
-                                        <li class="shop_sorting_button" data-isotope-option='{ "sortBy": "original-order" }'>highest rated</li>
-                                        <li class="shop_sorting_button" data-isotope-option='{ "sortBy": "name" }'>name</li>
-                                        <li class="shop_sorting_button" data-isotope-option='{ "sortBy": "price" }'>price</li>
+                                        @*<li class="shop_sorting_button" data-isotope-option='{ "sortBy": "original-order" }'>highest rated</li>*@
+                                        <li class="shop_sorting_button" data-isotope-option='{ "sortBy": "name" }'>Име</li>
+                                        <li class="shop_sorting_button" data-isotope-option='{ "sortBy": "price" }'>Цена</li>
                                     </ul>
                                 </li>
                             </ul>
@@ -59,14 +59,17 @@
                                 <div class="product_border"></div>
                                 <div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="@product.ImageUrl" alt=""></div>
                                 <div class="product_content">
-                                    <div class="product_price">$@product.Price</div>
+                                    <div class="product_price">@product.Price лв.</div>
                                     <div class="product_name"><div><a asp-area="" asp-controller="Products" asp-action="Details" asp-route-id="@product.Id" tabindex="0">@product.Name</a></div></div>
                                 </div>
-                                <a class="product_fav" asp-area="" asp-controller="Favorites" asp-action="AddToFavorites" asp-route-id="@product.Id"><i class="fas fa-heart"></i></a>
-                                @*<ul class="product_marks">
-                                        <li class="product_mark product_discount">-25%</li>
-                                        <li class="product_mark product_new">new</li>
-                                    </ul>*@
+                                <div class="d-flex justify-content-between  mt-1">
+                                    <div>
+                                        <a class="btn btn-outline-primary mr-1" asp-controller="ShoppingCart" asp-action="Add" asp-route-id="@product.Id"><i class="fa fa-cart-plus"></i></a>
+                                    </div>
+                                    <div>
+                                        <a class="btn btn-outline-primary" asp-area="" asp-controller="Favorites" asp-action="AddToFavorites" asp-route-id="@product.Id"><i class="fas fa-heart"></i></a>
+                                    </div>
+                                </div>
                             </div>
                         }
 

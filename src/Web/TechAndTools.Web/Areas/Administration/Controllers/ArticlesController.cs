@@ -56,7 +56,7 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
             IEnumerable<AllArticleViewModel> articles = this.articleService.GetAllArticles()
                 .To<AllArticleViewModel>()
                 .ToList();
-            ;
+            
             return this.View(articles);
         }
 
