@@ -53,7 +53,6 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
             return this.RedirectToAction("All", "Suppliers");
         }
 
-        [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
             await this.supplierService.DeleteAsync(id);

@@ -6,9 +6,9 @@ namespace TechAndTools.Web.InputModels.MainCategories
 {
     public class MainCategoryInputModel : IMapTo<MainCategoryServiceModel>
     {
-        [Required]
-        [MinLength(3)]
-        [RegularExpression("[a-zA-z0-9]+")]
+        [Display(Name = "Име")]
+        [Required(ErrorMessage = @"Полето ""{0}"" е задължително.")]
+        [StringLength(25, ErrorMessage = @"""{0}"" може да бъде между {2} и {1} символа.", MinimumLength = 3)]
         public string Name { get; set; }
     }
 }

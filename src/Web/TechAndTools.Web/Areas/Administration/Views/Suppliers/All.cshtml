@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<TechAndTools.Web.ViewModels.Suppliers.SupplierAllViewModel>
 
 @{
-    ViewData["Title"] = "All";
+    ViewData["Title"] = "Куриери";
 }
 
 @section Styles
@@ -18,26 +18,26 @@
 <hr />
 <div class="container col-8">
     <div class="text-center text-primary" style="text-transform: uppercase">
-        <h3>main categories</h3>
+        <h3>@ViewData["Title"]</h3>
     </div>
     <hr />
     <table id="myTable" class="table display">
         <thead>
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.Id)
+                    #
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Name)
+                    Име
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.PriceToOffice)
+                   Цена до офис
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.PriceToAddress)
+                    Цена до адрес
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.DeliveryTimeInDays)
+                    Време за доставка
                 </th>
                 <th></th>
             </tr>
@@ -47,37 +47,37 @@
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Id)
+                        @item.Id
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Name)
+                        @item.Name
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.PriceToOffice)
+                        @item.PriceToOffice
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.PriceToAddress)
+                        @item.PriceToAddress
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.DeliveryTimeInDays)
+                        @item.DeliveryTimeInDays
                     </td>
                     <td>
-                        <a class="btn btn-sm btn-outline-primary" asp-area="Administration" asp-controller="Suppliers" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                        <a class="btn btn-sm btn-outline-primary" asp-area="Administration" asp-controller="Suppliers" asp-action="Edit" asp-route-id="@item.Id">Промени</a>
                         <button type="button" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#flipFlop">
-                            Delete
+                            Изтрий
                         </button>
                         <div class="modal fade" id="flipFlop" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h4 class="modal-title" id="modalLabel">Are you sure?</h4>
+                                        <h4 class="modal-title" id="modalLabel">Сигурни ли сте?</h4>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div class="modal-footer">
-                                        <a class="btn btn-danger" asp-area="Administration" asp-controller="Suppliers" asp-action="Delete" asp-route-id="@item.Id">Confirm</a>
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <a class="btn btn-danger" asp-area="Administration" asp-controller="Suppliers" asp-action="Delete" asp-route-id="@item.Id">Потвъди</a>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Затвори</button>
                                     </div>
                                 </div>
                             </div>
