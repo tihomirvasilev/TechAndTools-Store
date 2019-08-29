@@ -17,16 +17,19 @@ namespace TechAndTools.Services
         private readonly IUserService userService;
         private readonly IShoppingCartService shoppingCartService;
         private readonly ISupplierService supplierService;
+        private readonly IPaymentMethodService paymentMethodService;
         private readonly TechAndToolsDbContext context;
 
         public OrderService(IUserService userService,
             IShoppingCartService shoppingCartService,
             ISupplierService supplierService,
+            IPaymentMethodService paymentMethodService,
             TechAndToolsDbContext context)
         {
             this.userService = userService;
             this.shoppingCartService = shoppingCartService;
             this.supplierService = supplierService;
+            this.paymentMethodService = paymentMethodService;
             this.context = context;
         }
 
