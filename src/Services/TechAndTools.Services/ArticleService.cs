@@ -24,7 +24,7 @@ namespace TechAndTools.Services
             return this.context.Articles.To<ArticleServiceModel>();
         }
 
-        public IQueryable<ArticleServiceModel> GetAllByUserIdAsync(string userId)
+        public IQueryable<ArticleServiceModel> GetAllByUserId(string userId)
         {
             return this.context.Articles
                 .Where(x => x.AuthorId == userId)
@@ -56,8 +56,12 @@ namespace TechAndTools.Services
         public async Task<ArticleServiceModel> EditArticleAsync(ArticleServiceModel articleServiceModel)
         {
             Article articleFromDb = this.context.Articles.Find(articleServiceModel.Id);
-            ;
-            //TODO: Validation
+
+            if (articleFromDb == null)
+            {
+                throw new ArgumentNullException(nameof(articleFromDb));
+            }
+
             articleFromDb.Content = articleServiceModel.Content;
             articleFromDb.Title = articleServiceModel.Title;
 
@@ -73,7 +77,7 @@ namespace TechAndTools.Services
 
             if (articleFromDb == null)
             {
-                throw new ArgumentNullException("articleId didnt exist");
+                throw new ArgumentNullException(nameof(articleFromDb));
             }
 
             this.context.Articles.Remove(articleFromDb);
@@ -90,7 +94,7 @@ namespace TechAndTools.Services
 
             if (articleFromDb == null)
             {
-                throw new ArgumentNullException("articleId didnt exist");
+                throw new ArgumentNullException(nameof(articleFromDb));
             }
 
             this.IncrementTimesRead(articleFromDb);

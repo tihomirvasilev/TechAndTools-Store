@@ -6,11 +6,6 @@ namespace TechAndTools.Services.Contracts
 {
     public interface IArticleService
     {
-        
-        IQueryable<ArticleServiceModel> GetAllArticles();
-
-        IQueryable<ArticleServiceModel> GetLastThreeArticles(int articleId);
-
         Task<ArticleServiceModel> CreateArticleAsync(ArticleServiceModel articleServiceModel, string authorId);
 
         Task<ArticleServiceModel> EditArticleAsync(ArticleServiceModel articleServiceModel);
@@ -18,5 +13,11 @@ namespace TechAndTools.Services.Contracts
         Task<bool> DeleteArticleByIdAsync(int articleId);
 
         Task<ArticleServiceModel> GetArticleAsync(int articleId);
+
+        IQueryable<ArticleServiceModel> GetAllArticles();
+
+        IQueryable<ArticleServiceModel> GetAllByUserId(string userId);
+
+        IQueryable<ArticleServiceModel> GetLastThreeArticles(int articleId);
     }
 }

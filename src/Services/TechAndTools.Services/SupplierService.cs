@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using TechAndTools.Data;
 using TechAndTools.Data.Models;
@@ -28,21 +29,36 @@ namespace TechAndTools.Services
             return supplierServiceModel;
         }
 
-        public async Task<bool> EditAsync(SupplierServiceModel supplierServiceModel)
+        public async Task<SupplierServiceModel> EditAsync(SupplierServiceModel supplierServiceModel)
         {
-            Supplier supplier = supplierServiceModel.To<Supplier>();
+            Supplier supplierFromDb = this.context.Suppliers.Find(supplierServiceModel.Id);
 
-            this.context.Suppliers.Update(supplier);
-            int result = await this.context.SaveChangesAsync();
+            if (supplierFromDb == null)
+            {
+                throw new ArgumentNullException(nameof(supplierFromDb));
+            }
 
-            return result > 0;
+            supplierFromDb.DeliveryTimeInDays = supplierServiceModel.DeliveryTimeInDays;
+            supplierFromDb.Name = supplierServiceModel.Name;
+            supplierFromDb.PriceToAddress = supplierServiceModel.PriceToAddress;
+            supplierFromDb.PriceToOffice = supplierServiceModel.PriceToOffice;
+
+            this.context.Suppliers.Update(supplierFromDb);
+            await this.context.SaveChangesAsync();
+
+            return supplierFromDb.To<SupplierServiceModel>();
         }
 
         public async Task<bool> DeleteAsync(int id)
         {
-            var supplier = this.context.Suppliers.Find(id);
+            Supplier supplierFromDb = this.context.Suppliers.Find(id);
 
-            this.context.Suppliers.Remove(supplier);
+            if (supplierFromDb == null)
+            {
+                throw new ArgumentNullException(nameof(supplierFromDb));
+            }
+
+            this.context.Suppliers.Remove(supplierFromDb);
             int result = await this.context.SaveChangesAsync();
 
             return result > 0;
@@ -60,14 +76,14 @@ namespace TechAndTools.Services
 
         public decimal GetDeliveryPrice(int supplierId, ShippingTo shippingTo)
         {
-            var supplier = this.context.Suppliers.FirstOrDefault(x => x.Id == supplierId);
+            Supplier supplierFromDb = this.context.Suppliers.FirstOrDefault(x => x.Id == supplierId);
 
-            if (supplier == null)
+            if (supplierFromDb == null)
             {
-                return 0m;
+                throw new ArgumentNullException(nameof(supplierFromDb));
             }
 
-            return shippingTo == ShippingTo.Office ? supplier.PriceToOffice : supplier.PriceToAddress;
+            return shippingTo == ShippingTo.Office ? supplierFromDb.PriceToOffice : supplierFromDb.PriceToAddress;
         }
     }
 }

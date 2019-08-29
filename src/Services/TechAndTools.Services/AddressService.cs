@@ -20,7 +20,7 @@ namespace TechAndTools.Services
             this.userService = userService;
         }
 
-        public async Task<AddressServiceModel> Create(AddressServiceModel addressServiceModel, string username)
+        public async Task<AddressServiceModel> CreateAsync(AddressServiceModel addressServiceModel, string username)
         {
             var address = addressServiceModel.To<Address>();
             var user = this.userService.GetUserByUsername(username);

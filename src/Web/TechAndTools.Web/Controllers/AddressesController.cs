@@ -27,7 +27,7 @@ namespace TechAndTools.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(AddressCreateInputModel addressCreateInputModel)
         {
-            await this.addressService.Create(addressCreateInputModel.To<AddressServiceModel>(), this.User.Identity.Name);
+            await this.addressService.CreateAsync(addressCreateInputModel.To<AddressServiceModel>(), this.User.Identity.Name);
 
             return this.RedirectToAction("Create", "Orders");
         }

@@ -9,7 +9,7 @@ namespace TechAndTools.Services.Contracts
     {
         Task<SupplierServiceModel> CreateAsync(SupplierServiceModel supplierServiceModel);
 
-        Task<bool> EditAsync(SupplierServiceModel supplierServiceModel);
+        Task<SupplierServiceModel> EditAsync(SupplierServiceModel supplierServiceModel);
 
         Task<bool> DeleteAsync(int id);
 

@@ -6,7 +6,7 @@ namespace TechAndTools.Services.Contracts
 {
     public interface IAddressService
     {
-        Task<AddressServiceModel> Create(AddressServiceModel addressServiceModel, string username);
+        Task<AddressServiceModel> CreateAsync(AddressServiceModel addressServiceModel, string username);
 
         Task<bool> DeleteById(int id);
 

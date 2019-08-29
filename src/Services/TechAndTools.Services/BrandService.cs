@@ -32,7 +32,7 @@ namespace TechAndTools.Services
 
         public async Task<BrandServiceModel> EditAsync(BrandServiceModel serviceModel)
         {
-            Brand brand = this.context.Brands.Find(serviceModel.Id);
+            Brand brand = this.context.Brands.FirstOrDefault(x => x.Id == serviceModel.Id);
 
             if (brand == null)
             {
@@ -47,7 +47,7 @@ namespace TechAndTools.Services
 
             await this.context.SaveChangesAsync();
 
-            return serviceModel;
+            return brand.To<BrandServiceModel>();
         }
 
         public async Task<bool> DeleteAsync(int id)
