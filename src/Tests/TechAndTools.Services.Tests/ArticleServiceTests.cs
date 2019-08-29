@@ -219,7 +219,7 @@ namespace TechAndTools.Services.Tests
 
             await this.SeedData(context);
 
-            int articleId = 3;
+            int articleId = 1;
 
             var actualResult = await articleService.GetArticleAsync(articleId);
             

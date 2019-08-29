@@ -6,6 +6,8 @@ namespace TechAndTools.Web.InputModels.Suppliers
 {
     public class SupplierEditInputModel : IMapFrom<SupplierServiceModel>, IMapTo<SupplierServiceModel>
     {
+        public int Id { get; set; }
+
         [Required(ErrorMessage = @"Полето ""{0}"" е задължително.")]
         [Display(Name = "Име")]
         [StringLength(20, ErrorMessage = @"""{0}"" може да бъде между {2} и {1} символа.", MinimumLength = 3)]

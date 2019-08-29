@@ -32,14 +32,14 @@ namespace TechAndTools.Services
         public async Task<SupplierServiceModel> EditAsync(SupplierServiceModel supplierServiceModel)
         {
             Supplier supplierFromDb = this.context.Suppliers.Find(supplierServiceModel.Id);
-
+            ;
             if (supplierFromDb == null)
             {
                 throw new ArgumentNullException(nameof(supplierFromDb));
             }
 
-            supplierFromDb.DeliveryTimeInDays = supplierServiceModel.DeliveryTimeInDays;
             supplierFromDb.Name = supplierServiceModel.Name;
+            supplierFromDb.DeliveryTimeInDays = supplierServiceModel.DeliveryTimeInDays;
             supplierFromDb.PriceToAddress = supplierServiceModel.PriceToAddress;
             supplierFromDb.PriceToOffice = supplierServiceModel.PriceToOffice;
 
@@ -66,7 +66,14 @@ namespace TechAndTools.Services
 
         public SupplierServiceModel GetSupplierById(int id)
         {
-            return this.context.Suppliers.Find(id).To<SupplierServiceModel>();
+            Supplier supplierFromDb =  this.context.Suppliers.Find(id);
+
+            if (supplierFromDb == null)
+            {
+                throw new ArgumentNullException(nameof(supplierFromDb));
+            }
+
+            return supplierFromDb.To<SupplierServiceModel>();
         }
 
         public IQueryable<SupplierServiceModel> GetAllSuppliers()
