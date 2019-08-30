@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using TechAndTools.Data;
 using TechAndTools.Data.Models;
@@ -25,6 +26,11 @@ namespace TechAndTools.Services
             var address = addressServiceModel.To<Address>();
             var user = this.userService.GetUserByUsername(username);
 
+            if (user == null)
+            {
+                throw new ArgumentNullException(nameof(user));    
+            }
+
             address.TechAndToolsUserId = user.Id;
             
             await this.context.Addresses.AddAsync(address);
@@ -33,9 +39,14 @@ namespace TechAndTools.Services
             return address.To<AddressServiceModel>();
         }
 
-        public async Task<bool> DeleteById(int id)
+        public async Task<bool> DeleteByIdAsync(int addressId)
         {
-            Address addressFromDb = this.context.Addresses.Find(id);
+            Address addressFromDb = this.context.Addresses.Find(addressId);
+
+            if (addressFromDb == null)
+            {
+                throw new ArgumentNullException(nameof(addressFromDb));
+            }
 
             this.context.Addresses.Remove(addressFromDb);
 
@@ -44,9 +55,9 @@ namespace TechAndTools.Services
             return result > 0;
         }
 
-        public IQueryable<AddressServiceModel> GetAllByUserId(string id)
+        public IQueryable<AddressServiceModel> GetAllByUserId(string userId)
         {
-            return this.context.Addresses.Where(x => x.TechAndToolsUserId == id).To<AddressServiceModel>();
+            return this.context.Addresses.Where(x => x.TechAndToolsUserId == userId).To<AddressServiceModel>();
         }
     }
 }

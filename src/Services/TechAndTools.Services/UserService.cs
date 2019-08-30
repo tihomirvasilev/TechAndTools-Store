@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using TechAndTools.Data;
 using TechAndTools.Data.Models;
 using TechAndTools.Services.Contracts;
@@ -7,24 +10,21 @@ namespace TechAndTools.Services
 {
     public class UserService : IUserService
     {
-        private readonly UserManager<TechAndToolsUser> userManager;
         private readonly TechAndToolsDbContext context;
 
-        public UserService(TechAndToolsDbContext context,
-            UserManager<TechAndToolsUser> userManager)
+        public UserService(TechAndToolsDbContext context)
         {
-            this.userManager = userManager;
             this.context = context;
         }
 
         public TechAndToolsUser GetUserByUsername(string username)
         {
-            return this.userManager.FindByNameAsync(username).GetAwaiter().GetResult();
+            return this.context.Users.FirstOrDefault(x => x.UserName == username);
         }
 
         public TechAndToolsUser GetUserById(string userId)
         {
-            return this.userManager.FindByIdAsync(userId).GetAwaiter().GetResult();
+            return this.context.Users.Find(userId);
         }
 
         public void EditFirstName(TechAndToolsUser user, string firstName)
