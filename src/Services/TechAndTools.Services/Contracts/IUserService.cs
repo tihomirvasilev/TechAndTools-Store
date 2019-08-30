@@ -9,8 +9,8 @@ namespace TechAndTools.Services.Contracts
 
         TechAndToolsUser GetUserById(string userId);
 
-        void EditFirstName(TechAndToolsUser user, string firstName);
+        Task<bool> EditFirstName(TechAndToolsUser user, string firstName);
 
-        void EditLastName(TechAndToolsUser user, string lastName);
+        Task<bool> EditLastName(TechAndToolsUser user, string lastName);
     }
 }

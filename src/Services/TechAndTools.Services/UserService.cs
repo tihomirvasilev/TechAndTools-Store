@@ -1,7 +1,7 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+using Castle.Core.Internal;
 using TechAndTools.Data;
 using TechAndTools.Data.Models;
 using TechAndTools.Services.Contracts;
@@ -27,26 +27,40 @@ namespace TechAndTools.Services
             return this.context.Users.Find(userId);
         }
 
-        public void EditFirstName(TechAndToolsUser user, string firstName)
+        public async Task<bool> EditFirstName(TechAndToolsUser user, string firstName)
         {
             if (user == null)
             {
-                return;
+                throw new ArgumentNullException(nameof(user));
+            }
+
+            if (firstName.IsNullOrEmpty())
+            {
+                throw new ArgumentNullException(nameof(firstName));
             }
 
             user.FirstName = firstName;
-            this.context.SaveChanges();
+            int result = await this.context.SaveChangesAsync();
+
+            return result > 0;
         }
 
-        public void EditLastName(TechAndToolsUser user, string lastName)
+        public async Task<bool> EditLastName(TechAndToolsUser user, string lastName)
         {
             if (user == null)
             {
-                return;
+                throw new ArgumentNullException(nameof(user));
+            }
+
+            if (lastName.IsNullOrEmpty())
+            {
+                throw new ArgumentNullException(nameof(user));
             }
 
             user.LastName = lastName;
-            this.context.SaveChanges();
+            int result = await this.context.SaveChangesAsync();
+
+            return result > 0;
         }
     }
 }
