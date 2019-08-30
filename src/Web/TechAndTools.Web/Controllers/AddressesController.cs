@@ -43,7 +43,7 @@ namespace TechAndTools.Web.Controllers
 
         public async Task<IActionResult> Delete(int id)
         {
-            await this.addressService.DeleteById(id);
+            await this.addressService.DeleteByIdAsync(id);
 
             return this.RedirectToAction("MyAddresses", "Addresses");
         }

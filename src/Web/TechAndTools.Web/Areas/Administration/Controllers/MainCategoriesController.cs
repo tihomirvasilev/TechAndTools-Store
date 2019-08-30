@@ -12,12 +12,10 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
 {
     public class MainCategoriesController : AdministrationController
     {
-        private readonly ICategoryService categoryService;
         private readonly IMainCategoryService mainCategoryService;
 
-        public MainCategoriesController(ICategoryService categoryService, IMainCategoryService mainCategoryService)
+        public MainCategoriesController(IMainCategoryService mainCategoryService)
         {
-            this.categoryService = categoryService;
             this.mainCategoryService = mainCategoryService;
         }
 
@@ -39,7 +37,7 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
             return this.Redirect("All");
         }
 
-        public async Task<IActionResult> Edit(int id)
+        public IActionResult Edit(int id)
         {
             MainCategoryEditInputModel mainCategoryEditInputModel = this.mainCategoryService
                 .GetMainCategoryById(id)

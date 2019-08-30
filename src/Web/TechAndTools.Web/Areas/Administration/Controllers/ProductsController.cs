@@ -33,7 +33,7 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
             this.imageService = imageService;
         }
 
-        public async Task<IActionResult> Create()
+        public IActionResult Create()
         {
             this.ViewData["categories"] = this.categoryService
                 .GetAllCategories()
@@ -67,7 +67,7 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
             return this.Redirect("All");
         }
 
-        public async Task<IActionResult> Edit(int id)
+        public IActionResult Edit(int id)
         {
             this.ViewData["categories"] = this.categoryService
                 .GetAllCategories()

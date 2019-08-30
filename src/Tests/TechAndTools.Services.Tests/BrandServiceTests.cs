@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using TechAndTools.Data;
 using TechAndTools.Data.Models;
+using TechAndTools.Services.Contracts;
 using TechAndTools.Services.Mapping;
 using TechAndTools.Services.Models;
 using TechAndTools.Services.Tests.Common;
@@ -46,82 +47,72 @@ namespace TechAndTools.Services.Tests
         }
 
         [Fact]
-        public async Task CreateBrandAsyncShouldCreateBrand()
+        public async Task CreateBrandAsync_ShouldCreateBrand()
         {
             var options = new DbContextOptionsBuilder<TechAndToolsDbContext>()
-                .UseInMemoryDatabase(databaseName: "CreateBrandAsyncShouldCreateBrand")
+                .UseInMemoryDatabase(databaseName: "CreateBrandAsync_ShouldCreateBrand")
                 .Options;
 
-            TechAndToolsDbContext dbContext = new TechAndToolsDbContext(options);
-
-            BrandService brandService = new BrandService(dbContext);
+            TechAndToolsDbContext context = new TechAndToolsDbContext(options);
+            IBrandService brandService = new BrandService(context);
 
             await brandService.CreateAsync(new BrandServiceModel { Name = "name1", LogoUrl = "Logo1", OfficialSite = "Site1" });
-
             await brandService.CreateAsync(new BrandServiceModel { Name = "name2", LogoUrl = "Logo2", OfficialSite = "Site2" });
 
-            int brandsCount = await dbContext.Brands.CountAsync();
+            int expectedResult = 2;
+            int actualResult = context.Brands.Count();
 
-            Assert.Equal(2, brandsCount);
+            Assert.Equal(expectedResult, actualResult);
         }
 
         [Fact]
-        public async Task GetAllBrandsShouldReturnAllBrandsAsServiceModels()
+        public async Task GetAllBrands_ShouldReturnAllBrands()
         {
             var options = new DbContextOptionsBuilder<TechAndToolsDbContext>()
-                .UseInMemoryDatabase(databaseName: "GetAllBrandsShouldReturnAllBrandsAsServiceModels")
-                .Options;
-
-            TechAndToolsDbContext dbContext = new TechAndToolsDbContext(options);
-
-            await SeedData(dbContext);
-
-            BrandService brandService = new BrandService(dbContext);
-
-            var brandServiceModels = await brandService.GetAllBrands().ToListAsync();
-
-            Assert.Equal(2, brandServiceModels.Count());
-            Assert.Equal("brand1", brandServiceModels.First().Name);
-            Assert.Equal("brand2", brandServiceModels.Last().Name);
-        }
-
-        [Fact]
-        public async Task GetBrandByIdShouldReturnBrandServiceModelByBrandId()
-        {
-            var options = new DbContextOptionsBuilder<TechAndToolsDbContext>()
-                .UseInMemoryDatabase(databaseName: "GetBrandByIdShouldReturnBrandServiceModelByBrandId")
+                .UseInMemoryDatabase(databaseName: "GetAllBrands_ShouldReturnAllBrands")
                 .Options;
 
             TechAndToolsDbContext context = new TechAndToolsDbContext(options);
-
             await SeedData(context);
+            IBrandService brandService = new BrandService(context);
 
-            BrandService brandService = new BrandService(context);
+            int expectedResult = context.Brands.Count();
+            int actualResult = brandService.GetAllBrands().Count();
 
-            Brand expectedData = context.Brands.First();
+            Assert.Equal(expectedResult, actualResult);
+        }
 
-            BrandServiceModel actualData = await brandService.GetBrandByIdAsync(expectedData.Id);
+        [Fact]
+        public async Task GetBrandById_ShouldReturnBrandByBrandId()
+        {
+            var options = new DbContextOptionsBuilder<TechAndToolsDbContext>()
+                .UseInMemoryDatabase(databaseName: "GetBrandById_ShouldReturnBrandByBrandId")
+                .Options;
 
-            Assert.Equal(expectedData.Id, actualData.Id);
-            Assert.Equal(expectedData.Name, actualData.Name);
-            Assert.Equal(expectedData.LogoUrl, actualData.LogoUrl);
-            Assert.Equal(expectedData.OfficialSite, actualData.OfficialSite);
+            TechAndToolsDbContext context = new TechAndToolsDbContext(options);
+            await SeedData(context);
+            IBrandService brandService = new BrandService(context);
+
+            int brandId = 1;
+
+            BrandServiceModel actualData = await brandService.GetBrandByIdAsync(brandId);
+
             Assert.NotNull(actualData);
-            Assert.NotNull(actualData.Products);
+            Assert.Equal(brandId, actualData.Id);
         }
 
         [Fact]
-        public async Task EditBrandAsyncShouldEditBrandById()
+        public async Task EditBrandAsync_ShouldEditBrandById()
         {
             var options = new DbContextOptionsBuilder<TechAndToolsDbContext>()
-                .UseInMemoryDatabase(databaseName: "EditBrandAsyncShouldEditBrandById")
+                .UseInMemoryDatabase(databaseName: "EditBrandAsync_ShouldEditBrandById")
                 .Options;
 
             TechAndToolsDbContext context = new TechAndToolsDbContext(options);
 
             await SeedData(context);
 
-            BrandService brandService = new BrandService(context);
+            IBrandService brandService = new BrandService(context);
 
             Brand expectedData = context.Brands.First();
 
@@ -142,18 +133,18 @@ namespace TechAndTools.Services.Tests
         }
 
         [Fact]
-        public async Task DeleteAsyncShouldDeleteBrandFromDatabaseById()
+        public async Task DeleteAsyncShould_DeleteBrandFromDatabaseById()
         {
             
             var options = new DbContextOptionsBuilder<TechAndToolsDbContext>()
-                .UseInMemoryDatabase(databaseName: "DeleteAsyncShouldDeleteBrandFromDatabaseById")
+                .UseInMemoryDatabase(databaseName: "DeleteAsyncShould_DeleteBrandFromDatabaseById")
                 .Options;
 
             TechAndToolsDbContext context = new TechAndToolsDbContext(options);
 
             await SeedData(context);
 
-            BrandService brandService = new BrandService(context);
+            IBrandService brandService = new BrandService(context);
 
             Brand brandFromDb = context.Brands.First();
 

@@ -124,12 +124,12 @@ namespace TechAndTools.Web.Areas.Identity.Pages.Account.Manage
 
             if (Input.FirstName != user.FirstName)
             {
-                userService.EditFirstName(user, Input.FirstName);
+                await this.userService.EditFirstName(user, Input.FirstName);
             }
 
             if (Input.LastName != user.LastName)
             {
-                userService.EditLastName(user, Input.LastName);
+                await this.userService.EditLastName(user, Input.LastName);
             }
 
             await signInManager.RefreshSignInAsync(user);
@@ -157,7 +157,7 @@ namespace TechAndTools.Web.Areas.Identity.Pages.Account.Manage
             var callbackUrl = Url.Page(
                 "/Account/ConfirmEmail",
                 pageHandler: null,
-                values: new { userId = userId, code = code },
+                values: new {userId, code },
                 protocol: Request.Scheme);
             await emailSender.SendEmailAsync(
                 email,

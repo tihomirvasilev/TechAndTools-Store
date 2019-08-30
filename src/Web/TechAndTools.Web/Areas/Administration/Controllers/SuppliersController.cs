@@ -31,7 +31,7 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
             return this.RedirectToAction("All", "Suppliers");
         }
 
-        public async Task<IActionResult> Edit(int id)
+        public IActionResult Edit(int id)
         {
             var supplierEditInputModel = this.supplierService
                 .GetSupplierById(id)
