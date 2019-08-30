@@ -32,7 +32,7 @@ namespace TechAndTools.Services
         public async Task<SupplierServiceModel> EditAsync(SupplierServiceModel supplierServiceModel)
         {
             Supplier supplierFromDb = this.context.Suppliers.Find(supplierServiceModel.Id);
-            ;
+
             if (supplierFromDb == null)
             {
                 throw new ArgumentNullException(nameof(supplierFromDb));

@@ -15,7 +15,6 @@ namespace TechAndTools.Services.Tests
 {
     public class ArticleServiceTests
     {
-
         private List<Article> GetArticlesData()
         {
             return new List<Article>
@@ -228,10 +227,10 @@ namespace TechAndTools.Services.Tests
         }
 
         [Fact]
-        public async void GetArticleAsync_ShouldThrowArgumenNullExceptionWithInvalidArticleId()
+        public async void GetArticleAsync_ShouldThrowArgumentNullExceptionWithInvalidArticleId()
         {
             var options = new DbContextOptionsBuilder<TechAndToolsDbContext>()
-                .UseInMemoryDatabase(databaseName: "GetArticleAsync_ShouldReturnArticleById")
+                .UseInMemoryDatabase(databaseName: "GetArticleAsync_ShouldThrowArgumentNullExceptionWithInvalidArticleId")
                 .Options;
 
             TechAndToolsDbContext context = new TechAndToolsDbContext(options);
