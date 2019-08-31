@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -124,9 +125,40 @@ namespace TechAndTools.Services.Tests
             };
         }
 
+        private TechAndToolsUser GetTestUser()
+        {
+            return new TechAndToolsUser
+            {
+                Id = "asdasd",
+                UserName = "TestUsername",
+                Email = "Test@test.com",
+                FirstName = "TestFirstName",
+                LastName = "TestLastName",
+            };
+        }
+
+        private List<FavoriteProduct> GetFavoriteProductsData()
+        {
+            return new List<FavoriteProduct>
+            {
+                new FavoriteProduct
+                {
+                    ProductId = 2,
+                    UserId = "asdasd"
+                },
+                new FavoriteProduct
+                {
+                    ProductId = 3,
+                    UserId = "asdasd"
+                }
+            };
+        }
+
         private async Task SeedData(TechAndToolsDbContext context)
         {
-            context.AddRange(GetProductsData());
+            context.AddRange(this.GetProductsData());
+            context.Users.Add(this.GetTestUser());
+            context.FavoriteProducts.AddRange(this.GetFavoriteProductsData());
             await context.SaveChangesAsync();
         }
 
@@ -174,7 +206,8 @@ namespace TechAndTools.Services.Tests
             await productService.CreateAsync(productServiceModel1);
             await productService.CreateAsync(productServiceModel2);
 
-            int expectedResult = 2;
+            const int expectedResult = 2;
+
             int actualResult = context.Products.Count();
 
             Assert.Equal(expectedResult, actualResult);
@@ -228,9 +261,9 @@ namespace TechAndTools.Services.Tests
             await SeedData(context);
             IProductService productService = new ProductService(context);
 
-            int productId = 1;
+            const int productId = 1;
 
-            var actualResult = await productService.DeleteAsync(productId);
+            bool actualResult = await productService.DeleteAsync(productId);
 
             Assert.True(actualResult);
         }
@@ -246,7 +279,7 @@ namespace TechAndTools.Services.Tests
             await SeedData(context);
             IProductService productService = new ProductService(context);
 
-            int wrongId = int.MaxValue;
+            const int wrongId = int.MaxValue;
 
             await Assert.ThrowsAsync<ArgumentNullException>(() => productService.DeleteAsync(wrongId));
         }
@@ -267,7 +300,7 @@ namespace TechAndTools.Services.Tests
 
             Assert.Equal(expectedResult, actualResult);
         }
-        
+
         [Fact]
         public async Task GetProductsByCategoryId_ShouldReturnAllProductsByCategoryId()
         {
@@ -279,30 +312,161 @@ namespace TechAndTools.Services.Tests
             await SeedData(context);
             IProductService productService = new ProductService(context);
 
-            int categoryId = 1;
+            const int categoryId = 1;
 
             int expectedResult = context.Products.Where(x => x.ProductCategoryId == categoryId).ToList().Count;
             int actualResult = productService.GetProductsByCategoryId(categoryId).Count();
 
             Assert.Equal(expectedResult, actualResult);
         }
-        
-        
+
         [Fact]
         public async Task GetProductById_ShouldReturnProductById()
         {
             var options = new DbContextOptionsBuilder<TechAndToolsDbContext>()
-                .UseInMemoryDatabase(databaseName: "GetProductsByCategoryId_ShouldReturnAllProductsByCategoryId")
+                .UseInMemoryDatabase(databaseName: "GetProductById_ShouldReturnProductById")
                 .Options;
 
             TechAndToolsDbContext context = new TechAndToolsDbContext(options);
             await SeedData(context);
             IProductService productService = new ProductService(context);
 
-            int productId = 1;
+            const int productId = 1;
 
             int expectedResult = productId;
             int actualResult = productService.GetProductById(productId).Id;
+
+            Assert.Equal(expectedResult, actualResult);
+        }
+
+        [Fact]
+        public async Task AddToFavoritesAsync_ShouldAddProductToFavorites()
+        {
+            var options = new DbContextOptionsBuilder<TechAndToolsDbContext>()
+                .UseInMemoryDatabase(databaseName: "AddToFavoritesAsync_ShouldAddProductToFavorites")
+                .Options;
+
+            TechAndToolsDbContext context = new TechAndToolsDbContext(options);
+            await SeedData(context);
+            IProductService productService = new ProductService(context);
+
+            const int productId = 1;
+            const string testUserId = "asdasd";
+            const string testUsername = "TestUsername";
+
+            var actualResult = await productService.AddToFavoritesAsync(productId, testUsername);
+
+            Assert.NotNull(actualResult);
+            Assert.Equal(productId, actualResult.ProductId);
+            Assert.Equal(testUserId, actualResult.UserId);
+        }
+
+        [Fact]
+        public async Task AddToFavoritesAsync_WithIncorrectProductShouldThrowException()
+        {
+            var options = new DbContextOptionsBuilder<TechAndToolsDbContext>()
+                .UseInMemoryDatabase(databaseName: "AddToFavoritesAsync_WithIncorrectProductShouldThrowException")
+                .Options;
+
+            TechAndToolsDbContext context = new TechAndToolsDbContext(options);
+            await SeedData(context);
+            IProductService productService = new ProductService(context);
+
+            const int productId = int.MaxValue;
+            const string testUsername = "TestUsername";
+
+            await Assert.ThrowsAsync<ArgumentNullException>(() =>
+                productService.AddToFavoritesAsync(productId, testUsername));
+        }
+
+        [Fact]
+        public async Task AddToFavoritesAsync_WithIncorrectUsernameShouldThrowException()
+        {
+            var options = new DbContextOptionsBuilder<TechAndToolsDbContext>()
+                .UseInMemoryDatabase(databaseName: "AddToFavoritesAsync_WithIncorrectUsernameShouldThrowException")
+                .Options;
+
+            TechAndToolsDbContext context = new TechAndToolsDbContext(options);
+            await SeedData(context);
+            IProductService productService = new ProductService(context);
+
+            const int productId = 1;
+            const string testUsername = null;
+
+            await Assert.ThrowsAsync<ArgumentNullException>(() =>
+                productService.AddToFavoritesAsync(productId, testUsername));
+        }
+
+        [Fact]
+        public async Task RemoveFromFavorites_ShouldRemoveFavoriteProductFromDatabaseByIdAndUsername()
+        {
+            var options = new DbContextOptionsBuilder<TechAndToolsDbContext>()
+                .UseInMemoryDatabase(databaseName: "RemoveFromFavorites_ShouldRemoveFavoriteProductFromDatabaseByIdAndUsername")
+                .Options;
+
+            TechAndToolsDbContext context = new TechAndToolsDbContext(options);
+            await SeedData(context);
+            IProductService productService = new ProductService(context);
+
+            const int testProductId = 3;
+            const string testUsername = "TestUsername";
+
+            bool actualResult = await productService.RemoveFromFavorites(testProductId, testUsername);
+
+            Assert.True(actualResult);
+        }
+
+        [Fact]
+        public async Task RemoveFromFavorites_WithIncorrectUserShouldThrowException()
+        {
+            var options = new DbContextOptionsBuilder<TechAndToolsDbContext>()
+                .UseInMemoryDatabase(databaseName: "RemoveFromFavorites_WithIncorrectUserShouldThrowException")
+                .Options;
+
+            TechAndToolsDbContext context = new TechAndToolsDbContext(options);
+            await SeedData(context);
+            IProductService productService = new ProductService(context);
+
+            const int testProductId = 3;
+            const string testUsername = null;
+
+            await Assert.ThrowsAsync<ArgumentNullException>(() =>
+                productService.RemoveFromFavorites(testProductId, testUsername));
+        }
+
+        [Fact]
+        public async Task RemoveFromFavorites_WithIncorrectProductIdShouldThrowException()
+        {
+            var options = new DbContextOptionsBuilder<TechAndToolsDbContext>()
+                .UseInMemoryDatabase(databaseName: "RemoveFromFavorites_WithIncorrectProductIdShouldThrowException")
+                .Options;
+
+            TechAndToolsDbContext context = new TechAndToolsDbContext(options);
+            await SeedData(context);
+            IProductService productService = new ProductService(context);
+
+            const int testProductId = int.MaxValue;
+            const string testUsername = "TestUsername";
+
+            await Assert.ThrowsAsync<ArgumentNullException>(() =>
+                productService.RemoveFromFavorites(testProductId, testUsername));
+        }
+
+        [Fact]
+        public async Task AllFavoriteProducts_ShouldReturnAllFavoriteProductByUser()
+        {
+            var options = new DbContextOptionsBuilder<TechAndToolsDbContext>()
+                .UseInMemoryDatabase(databaseName: "AllFavoriteProducts_ShouldReturnAllFavoriteProductByUser")
+                .Options;
+
+            TechAndToolsDbContext context = new TechAndToolsDbContext(options);
+            await SeedData(context);
+            IProductService productService = new ProductService(context);
+
+            const string testUsername = "TestUsername";
+            const int expectedResult = 2;
+
+            int actualResult = productService.AllFavoriteProducts(testUsername).Count();
 
             Assert.Equal(expectedResult, actualResult);
         }

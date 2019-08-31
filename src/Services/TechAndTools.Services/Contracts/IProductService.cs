@@ -18,7 +18,7 @@ namespace TechAndTools.Services.Contracts
 
         ProductServiceModel GetProductById(int id);
 
-        Task<bool> AddToFavoritesAsync(int id, string username);
+        Task<FavoriteProductsServiceModel> AddToFavoritesAsync(int id, string username);
 
         IQueryable<FavoriteProductsServiceModel> AllFavoriteProducts(string username);
 

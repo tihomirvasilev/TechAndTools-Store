@@ -85,20 +85,23 @@ namespace TechAndTools.Services
                 .SingleOrDefault(x => x.Id == id);
         }
 
-        public async Task<bool> AddToFavoritesAsync(int id, string username)
+        public async Task<FavoriteProductsServiceModel> AddToFavoritesAsync(int id, string username)
         {
-            var user = this.context.Users.Include(x => x.FavoriteProducts).FirstOrDefault(x => x.UserName == username);
-            ;
-            if (user == null || user.FavoriteProducts.Any(x => x.ProductId == id))
+            var user = this.context.Users
+                .Include(x => x.FavoriteProducts)
+                .FirstOrDefault(x => x.UserName == username);
+            
+            if (user == null)
             {
-                return false;
+                throw new ArgumentNullException(nameof(user));
             }
 
-            var isProductExist = this.context.Products.Any(x => x.Id == id);
+            bool isProductExist = this.context.Products
+                .Any(x => x.Id == id);
 
             if (!isProductExist)
             {
-                return false;
+                throw new ArgumentNullException(nameof(isProductExist));
             }
 
             var favoriteProduct = new FavoriteProduct
@@ -110,7 +113,7 @@ namespace TechAndTools.Services
             await this.context.FavoriteProducts.AddAsync(favoriteProduct);
             await this.context.SaveChangesAsync();
 
-            return true;
+            return favoriteProduct.To<FavoriteProductsServiceModel>();
         }
 
         public IQueryable<FavoriteProductsServiceModel> AllFavoriteProducts(string username)
@@ -121,6 +124,7 @@ namespace TechAndTools.Services
             
             return favoriteProducts;
         }
+
         public async Task<bool> RemoveFromFavorites(int id, string username)
         {
             var favoriteProduct = this.context.FavoriteProducts
@@ -128,7 +132,7 @@ namespace TechAndTools.Services
 
             if (favoriteProduct == null)
             {
-                return false;
+                throw new ArgumentNullException(nameof(favoriteProduct));
             }
 
             this.context.FavoriteProducts.Remove(favoriteProduct);
