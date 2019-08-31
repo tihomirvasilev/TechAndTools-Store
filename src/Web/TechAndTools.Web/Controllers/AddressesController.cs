@@ -7,9 +7,12 @@ using TechAndTools.Services.Mapping;
 using TechAndTools.Services.Models;
 using TechAndTools.Web.InputModels.Addresses;
 using TechAndTools.Web.ViewModels.Addresses;
+using TechAndTools.Web.Commons;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TechAndTools.Web.Controllers
 {
+    [Authorize(Roles = GlobalConstants.UserRole +", " + GlobalConstants.AdminRole)]
     public class AddressesController : BaseController
     {
         private readonly IAddressService addressService;

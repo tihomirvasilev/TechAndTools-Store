@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -11,6 +12,7 @@ using TechAndTools.Web.ViewModels.Products;
 
 namespace TechAndTools.Web.Controllers
 {
+    [AllowAnonymous]
     public class HomeController : BaseController
     {
         private readonly IProductService productService;

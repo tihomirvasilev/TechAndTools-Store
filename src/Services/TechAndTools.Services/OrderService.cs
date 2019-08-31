@@ -33,7 +33,7 @@ namespace TechAndTools.Services
             this.context = context;
         }
 
-        public OrderServiceModel Create(OrderServiceModel orderServiceModel, string username, decimal deliveryPrice)
+        public async Task<OrderServiceModel> CreateAsync(OrderServiceModel orderServiceModel, string username, decimal deliveryPrice)
         {
             var shoppingCartProducts = this.shoppingCartService
                 .GetAllShoppingCartProducts(username)
@@ -59,7 +59,7 @@ namespace TechAndTools.Services
                     Quantity = shoppingCartProduct.Quantity
                 });
 
-                this.productService.DecreaseQuantityInStock(shoppingCartProduct.ProductId,
+                await this.productService.DecreaseQuantityInStock(shoppingCartProduct.ProductId,
                     shoppingCartProduct.Quantity);
             }
 
@@ -73,16 +73,16 @@ namespace TechAndTools.Services
                 })
                 .ToList();
 
-            this.shoppingCartService.RemoveAllProductFromShoppingCart(username);
+            await this.shoppingCartService.RemoveAllProductFromShoppingCart(username);
 
-            OrderStatus orderStatus = this.context.OrderStatuses.FirstOrDefault(x => x.Name == GlobalConstants.Unprocessed);
-            PaymentStatus paymentStatus = this.context.PaymentStatuses.FirstOrDefault(x => x.Name == GlobalConstants.Unpaid);
+            OrderStatus orderStatus = this.context.OrderStatuses.FirstOrDefault(x => x.Name == GlobalConstants.Unprocessed)?? throw new ArgumentNullException(nameof(orderStatus));
+            PaymentStatus paymentStatus = this.context.PaymentStatuses.FirstOrDefault(x => x.Name == GlobalConstants.Unpaid)?? throw new ArgumentNullException(nameof(paymentStatus));
 
             order.DeliveryPrice = deliveryPrice;
             order.OrderDate = DateTime.UtcNow;
             order.UserId = user.Id;
-            order.OrderStatus = orderStatus ?? throw new ArgumentNullException(nameof(orderStatus));
-            order.PaymentStatus = paymentStatus ?? throw new ArgumentNullException(nameof(paymentStatus));
+            order.OrderStatusId = orderStatus.Id;
+            order.PaymentStatusId = paymentStatus.Id;
             order.TotalPrice = order.OrderProducts.Sum(product => product.Price * product.Quantity);
             order.ExpectedDeliveryDate = DateTime.UtcNow.AddDays(supplier.DeliveryTimeInDays);
 

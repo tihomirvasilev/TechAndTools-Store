@@ -1,11 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using System.Threading.Tasks;
 using TechAndTools.Data.Models;
 using TechAndTools.Services.Contracts;
 using TechAndTools.Services.Mapping;
 using TechAndTools.Services.Models;
+using TechAndTools.Web.Commons;
 using TechAndTools.Web.InputModels.Orders;
 using TechAndTools.Web.ViewModels.Addresses;
 using TechAndTools.Web.ViewModels.Orders;
@@ -15,7 +18,8 @@ using TechAndTools.Web.ViewModels.Suppliers;
 
 namespace TechAndTools.Web.Controllers
 {
-    public class OrdersController : Controller
+    [Authorize(Roles = GlobalConstants.UserRole +", " + GlobalConstants.AdminRole)]
+    public class OrdersController : BaseController
     {
         private readonly IShoppingCartService shoppingCartService;
         private readonly IUserService userService;
@@ -88,21 +92,17 @@ namespace TechAndTools.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(CreateOrderInputModel createOrderInputModel)
+        public async Task<IActionResult> Create(CreateOrderInputModel createOrderInputModel)
         {
-            if (!this.shoppingCartService.AnyProducts(this.User.Identity.Name))
-            {
-                return RedirectToAction("Index", "Home");
-            }
-
             if (!ModelState.IsValid)
             {
                 return RedirectToAction(nameof(Create));
             }
 
             decimal deliveryPrice = this.supplierService.GetDeliveryPrice(createOrderInputModel.SupplierId, createOrderInputModel.ShippingTo);
+            var orderServiceModel = createOrderInputModel.To<OrderServiceModel>();
 
-            var order = this.orderService.Create(createOrderInputModel.To<OrderServiceModel>(), this.User.Identity.Name, deliveryPrice);
+            var order = await this.orderService.CreateAsync(orderServiceModel, this.User.Identity.Name, deliveryPrice);
             
             return this.RedirectToAction(nameof(Complete), new {id = order.Id});
         }

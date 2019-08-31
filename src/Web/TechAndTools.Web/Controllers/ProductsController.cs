@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using TechAndTools.Services.Contracts;
 using TechAndTools.Services.Mapping;
 using TechAndTools.Web.ViewModels.Products;
@@ -14,6 +15,7 @@ namespace TechAndTools.Web.Controllers
             this.productService = productService;
         }
 
+        [AllowAnonymous]
         public IActionResult Details(int id)
         {
             var serviceModel = this.productService.GetProductById(id);

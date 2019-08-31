@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 using TechAndTools.Services.Contracts;
@@ -9,7 +10,8 @@ using TechAndTools.Web.ViewModels.ShoppingCart;
 
 namespace TechAndTools.Web.Controllers
 {
-    public class ShoppingCartController : Controller
+    [Authorize(Roles = GlobalConstants.UserRole +", " + GlobalConstants.AdminRole)]
+    public class ShoppingCartController : BaseController
     {
         private readonly IShoppingCartService shoppingCartService;
         private readonly IProductService productService;

@@ -121,7 +121,7 @@ namespace TechAndTools.Services
             }
 
             var shoppingCartProducts = this.context.ShoppingCartProducts
-                .Where(x => x.ShoppingCartId == user.ShoppingCartId);
+                .Where(x => x.ShoppingCartId == user.ShoppingCartId).ToList();
 
             this.context.ShoppingCartProducts.RemoveRange(shoppingCartProducts);
 
