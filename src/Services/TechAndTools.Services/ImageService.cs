@@ -18,7 +18,7 @@ namespace TechAndTools.Services
             this.context = context;
         }
 
-        public async Task<bool> CreateWithProductAsync(string imageUrl, int productId)
+        public async Task<ImageServiceModel> CreateWithProductAsync(string imageUrl, int productId)
         {
             Image image = new Image
             {
@@ -27,12 +27,12 @@ namespace TechAndTools.Services
             };
 
             await this.context.Images.AddAsync(image);
-            int result = await this.context.SaveChangesAsync();
+            await this.context.SaveChangesAsync();
 
-            return result > 0;
+            return image.To<ImageServiceModel>();
         }
 
-        public async Task<bool> CreateWithArticleAsync(string imageUrl, int articleId)
+        public async Task<ImageServiceModel> CreateWithArticleAsync(string imageUrl, int articleId)
         {
             Image image = new Image
             {
@@ -41,9 +41,9 @@ namespace TechAndTools.Services
             };
 
             await this.context.Images.AddAsync(image);
-            int result = await this.context.SaveChangesAsync();
-
-            return result > 0;
+            await this.context.SaveChangesAsync();
+            
+            return image.To<ImageServiceModel>();
         }
 
         public async Task<ImageServiceModel> EditWithArticleAsync(string imageUrl, int articleId)
