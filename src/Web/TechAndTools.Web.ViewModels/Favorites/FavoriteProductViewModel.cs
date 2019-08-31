@@ -13,6 +13,8 @@ namespace TechAndTools.Web.ViewModels.Favorites
 
         public decimal ProductPrice { get; set; }
 
+        public bool ProductIsOutOfStock { get; set; }
+
         public string ProductImageUrl { get; set; }
         public void CreateMappings(IProfileExpression configuration)
         {

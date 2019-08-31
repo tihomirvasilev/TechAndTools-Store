@@ -47,11 +47,9 @@ namespace TechAndTools.Web.Controllers
 
         public IActionResult Add(int id, int quantity)
         {
-            //TODO fix bug with 0 quantity from favorites
-
             if (quantity <= 0)
             {
-                quantity = 1;
+                return this.RedirectToAction("Index", "Home");
             }
 
             if (this.User.Identity.IsAuthenticated)
@@ -94,6 +92,7 @@ namespace TechAndTools.Web.Controllers
 
             List<ShoppingCartProductViewModel> shoppingCartSession =
                 SessionHelper.GetObjectFromJson<List<ShoppingCartProductViewModel>>(HttpContext.Session, GlobalConstants.SessionShoppingCartKey);
+
             if (shoppingCartSession == null)
             {
                 return this.RedirectToAction(nameof(MyCart));

@@ -39,9 +39,16 @@
                                 @product.ProductPrice лв.
                             </td>
                             <td class="col-md-5 d-flex justify-content-around">
-                                <div class="mr-2">
-                                    <a asp-controller="ShoppingCart" asp-action="Add" asp-route-id="@product.ProductId" class="btn btn-outline-primary btn-sm">Добави <i class="fas fa-shopping-cart"></i></a>
-                                </div>
+                                @if (product.ProductIsOutOfStock)
+                                {
+                                    <div class="mr-2 text-danger">Out of stock</div>
+                                }
+                                else
+                                {
+                                    <div class="mr-2">
+                                        <a asp-controller="ShoppingCart" asp-action="Add" asp-route-id="@product.ProductId" asp-route-quantity="1" class="btn btn-outline-primary btn-sm">Добави <i class="fas fa-shopping-cart"></i></a>
+                                    </div>
+                                }
                                 <div>
                                     <a asp-controller="Favorites" asp-action="RemoveFromFavorites" asp-route-id="@product.ProductId" class="btn btn-outline-danger btn-sm">Премахване <i class="fas fa-backspace"></i> </a>
                                 </div>

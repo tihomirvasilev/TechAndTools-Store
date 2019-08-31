@@ -17,6 +17,8 @@ namespace TechAndTools.Web.ViewModels.Products
 
         public string ImageUrl { get; set; }
 
+        public bool IsOutOfStock { get; set; }
+
         public void CreateMappings(IProfileExpression configuration)
         {
             configuration.CreateMap<ProductServiceModel, ProductIndexViewModel>()

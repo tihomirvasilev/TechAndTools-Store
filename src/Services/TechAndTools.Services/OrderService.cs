@@ -17,16 +17,19 @@ namespace TechAndTools.Services
         private readonly IUserService userService;
         private readonly IShoppingCartService shoppingCartService;
         private readonly ISupplierService supplierService;
+        private readonly IProductService productService;
         private readonly TechAndToolsDbContext context;
 
         public OrderService(IUserService userService,
             IShoppingCartService shoppingCartService,
             ISupplierService supplierService,
+            IProductService productService,
             TechAndToolsDbContext context)
         {
             this.userService = userService;
             this.shoppingCartService = shoppingCartService;
             this.supplierService = supplierService;
+            this.productService = productService;
             this.context = context;
         }
 
@@ -45,6 +48,20 @@ namespace TechAndTools.Services
             var supplier = this.supplierService.GetSupplierById(orderServiceModel.SupplierId);
 
             Order order = orderServiceModel.To<Order>();
+
+            foreach (var shoppingCartProduct in shoppingCartProducts)
+            {
+                order.OrderProducts.Add(new OrderProduct
+                {
+                    Order = order,
+                    ProductId = shoppingCartProduct.ProductId,
+                    Price = shoppingCartProduct.Product.Price,
+                    Quantity = shoppingCartProduct.Quantity
+                });
+
+                this.productService.DecreaseQuantityInStock(shoppingCartProduct.ProductId,
+                    shoppingCartProduct.Quantity);
+            }
 
             order.OrderProducts = shoppingCartProducts
                 .Select(scp => new OrderProduct
@@ -71,7 +88,7 @@ namespace TechAndTools.Services
 
             this.context.Orders.Add(order);
             this.context.SaveChanges();
-            
+
             return order.To<OrderServiceModel>();
         }
 
@@ -82,7 +99,7 @@ namespace TechAndTools.Services
                 .ThenInclude(x => x.Product.Images)
                 .To<OrderServiceModel>()
                 .SingleOrDefault(x => x.Id == orderId);
-            
+
             if (orderFromDb == null)
             {
                 throw new ArgumentNullException(nameof(orderFromDb));
@@ -95,14 +112,14 @@ namespace TechAndTools.Services
         {
             OrderStatus statusProcess = this.context.OrderStatuses
                 .FirstOrDefault(x => x.Name == GlobalConstants.Delivered);
-            
+
             if (statusProcess == null)
             {
                 throw new ArgumentNullException(nameof(statusProcess));
             }
 
             Order order = this.context.Orders
-                .FirstOrDefault(x => x.Id == id && (x.OrderStatus.Name == GlobalConstants.Unprocessed 
+                .FirstOrDefault(x => x.Id == id && (x.OrderStatus.Name == GlobalConstants.Unprocessed
                                                     || x.OrderStatus.Name == GlobalConstants.Processed));
 
             if (order == null)
@@ -138,7 +155,7 @@ namespace TechAndTools.Services
                 .Where(x => x.OrderStatus.Name == GlobalConstants.Unprocessed)
                 .To<OrderServiceModel>();
         }
-        
+
         public IQueryable<OrderServiceModel> GetProcessedOrders()
         {
             return this.context.Orders
@@ -156,7 +173,7 @@ namespace TechAndTools.Services
         {
             OrderStatus statusProcess = this.context.OrderStatuses
                 .FirstOrDefault(x => x.Name == GlobalConstants.Processed);
-            
+
             if (statusProcess == null)
             {
                 throw new ArgumentNullException(nameof(statusProcess));
@@ -165,7 +182,7 @@ namespace TechAndTools.Services
             Order order = this.context.Orders.
                 FirstOrDefault(x => x.Id == id && (x.OrderStatus.Name == GlobalConstants.Unprocessed
                                                    || x.OrderStatus.Name == GlobalConstants.Delivered));
-            
+
             if (order == null)
             {
                 throw new ArgumentNullException(nameof(order));

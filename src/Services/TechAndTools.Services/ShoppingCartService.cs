@@ -39,6 +39,11 @@ namespace TechAndTools.Services
                 throw new ArgumentNullException(nameof(user));
             }
 
+            if (quantity > product.QuantityInStock)
+            {
+                quantity = product.QuantityInStock;
+            }
+
             var shoppingCartProduct = this.GetShoppingCartProduct(productId, user.ShoppingCartId);
 
             if (shoppingCartProduct != null)
@@ -54,6 +59,7 @@ namespace TechAndTools.Services
                     Quantity = quantity,
                     ShoppingCartId = user.ShoppingCartId
                 };
+
                 await this.context.ShoppingCartProducts.AddAsync(shoppingCartProduct);
             }
 
@@ -92,9 +98,9 @@ namespace TechAndTools.Services
                 throw new ArgumentNullException(nameof(user));
             }
 
-            var shoppingCart = GetShoppingCartProduct(product.Id, user.ShoppingCartId);
+            var shoppingCartProduct = GetShoppingCartProduct(product.Id, user.ShoppingCartId);
 
-            this.context.ShoppingCartProducts.Remove(shoppingCart);
+            this.context.ShoppingCartProducts.Remove(shoppingCartProduct);
             int result = await this.context.SaveChangesAsync();
 
             return result > 0;

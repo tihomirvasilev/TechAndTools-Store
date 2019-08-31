@@ -22,6 +22,8 @@ namespace TechAndTools.Web.ViewModels.Products
 
         public int Quantity { get; set; }
 
+        public bool IsOutOfStock { get; set; }
+
         public ICollection<ImageServiceModel> Images { get; set; }
         public void CreateMappings(IProfileExpression configuration)
         {

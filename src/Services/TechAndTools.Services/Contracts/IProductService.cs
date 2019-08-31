@@ -23,5 +23,7 @@ namespace TechAndTools.Services.Contracts
         IQueryable<FavoriteProductsServiceModel> AllFavoriteProducts(string username);
 
         Task<bool> RemoveFromFavorites(int id, string username);
+
+        Task<bool> DecreaseQuantityInStock(int productId, int quantity);
     }
 }

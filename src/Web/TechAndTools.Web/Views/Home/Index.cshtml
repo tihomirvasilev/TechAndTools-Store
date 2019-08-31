@@ -60,16 +60,23 @@
                                 <div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="@product.ImageUrl" alt=""></div>
                                 <div class="product_content">
                                     <div class="product_price">@product.Price лв.</div>
-                                    <div class="product_name"><div><a asp-area="" asp-controller="Products" asp-action="Details" asp-route-id="@product.Id" tabindex="0">@product.Name</a></div></div>
+                                    <div class="product_name"><div><a asp-controller="Products" asp-action="Details" asp-route-id="@product.Id" tabindex="0">@product.Name</a></div></div>
                                 </div>
-                                <div class="d-flex justify-content-between  mt-1">
-                                    <div>
-                                        <a class="btn btn-outline-primary mr-1" asp-controller="ShoppingCart" asp-action="Add" asp-route-id="@product.Id"><i class="fa fa-cart-plus"></i></a>
+                                @if (product.IsOutOfStock)
+                                {
+                                    <div class="text-center text-danger">Out Of Stock</div>
+                                }
+                                else
+                                {
+                                    <div class="d-flex justify-content-between  mt-1">
+                                        <div>
+                                            <a class="btn btn-outline-primary mr-1" asp-controller="ShoppingCart" asp-action="Add" asp-route-id="@product.Id" asp-route-quantity="1"><i class="fa fa-cart-plus"></i></a>
+                                        </div>
+                                        <div>
+                                            <a class="btn btn-outline-primary" asp-controller="Favorites" asp-action="AddToFavorites" asp-route-id="@product.Id"><i class="fas fa-heart"></i></a>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <a class="btn btn-outline-primary" asp-area="" asp-controller="Favorites" asp-action="AddToFavorites" asp-route-id="@product.Id"><i class="fas fa-heart"></i></a>
-                                    </div>
-                                </div>
+                                }
                             </div>
                         }
 

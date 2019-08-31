@@ -140,5 +140,32 @@ namespace TechAndTools.Services
 
             return result > 0;
         }
+
+        public async Task<bool> DecreaseQuantityInStock(int productId, int quantity)
+        {
+            var productFromDb = this.context.Products.Find(productId);
+
+            if (productFromDb == null)
+            {
+                throw new ArgumentNullException(nameof(productFromDb));
+            }
+
+            productFromDb.QuantityInStock -= quantity;
+
+            if (productFromDb.QuantityInStock == 0)
+            {
+                this.IsOutOfStock(productFromDb);
+            }
+
+            this.context.Products.Update(productFromDb);
+            int result = await this.context.SaveChangesAsync();
+
+            return result > 0;
+        }
+
+        private void IsOutOfStock(Product product)
+        {
+            product.IsOutOfStock = true;
+        }
     }
 }
