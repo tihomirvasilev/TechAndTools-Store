@@ -11,7 +11,7 @@
         public string Phone { get; set; }
 
         public string Message { get; set; }
-
-        public bool MarkAsRead { get; set; }
+        
+        public bool IsArchived { get; set; }
     }
 }

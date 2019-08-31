@@ -121,10 +121,10 @@ namespace TechAndTools.Services.Tests
         }
 
         [Fact]
-        public async Task MarkAsRead_ShouldChangeToTrueMarkAsReadContactById()
+        public async Task Archive_ShouldChangeToTrueArchiveContactById()
         {
             var options = new DbContextOptionsBuilder<TechAndToolsDbContext>()
-                .UseInMemoryDatabase(databaseName: "MarkAsRead_ShouldMarkAsReadContactById")
+                .UseInMemoryDatabase(databaseName: "Archive_ShouldChangeToTrueArchiveContactById")
                 .Options;
 
             TechAndToolsDbContext context = new TechAndToolsDbContext(options);
@@ -133,16 +133,16 @@ namespace TechAndTools.Services.Tests
 
             const int contactId = 1;
 
-            bool result = await contactService.MarkAsRead(contactId);
+            bool result = contactService.Archive(contactId);
 
             Assert.True(result);
         }
         
         [Fact]
-        public async Task MarkAsRead_WithIncorrectContactShouldThrowException()
+        public async Task Archive_WithIncorrectContactShouldThrowException()
         {
             var options = new DbContextOptionsBuilder<TechAndToolsDbContext>()
-                .UseInMemoryDatabase(databaseName: "MarkAsRead_WithIncorrectContactShouldThrowException")
+                .UseInMemoryDatabase(databaseName: "Archive_WithIncorrectContactShouldThrowException")
                 .Options;
 
             TechAndToolsDbContext context = new TechAndToolsDbContext(options);
@@ -151,7 +151,7 @@ namespace TechAndTools.Services.Tests
 
             const int contactId = 0;
 
-            await Assert.ThrowsAsync<ArgumentNullException>(() => contactService.MarkAsRead(contactId));
+            Assert.Throws<ArgumentNullException>(() => contactService.Archive(contactId));
         }
 
         [Fact]
@@ -167,6 +167,23 @@ namespace TechAndTools.Services.Tests
             
             int expectedResult = context.Contacts.Count();
             int actualResult = contactService.GetAllContacts().Count();
+
+            Assert.Equal(expectedResult, actualResult);
+        }
+
+        [Fact]
+        public async Task GetAllArchivedContacts_ShouldReturnAllContactsFromDatabase()
+        {
+            var options = new DbContextOptionsBuilder<TechAndToolsDbContext>()
+                .UseInMemoryDatabase(databaseName: "GetAllArchivedContacts_ShouldReturnAllContactsFromDatabase")
+                .Options;
+
+            TechAndToolsDbContext context = new TechAndToolsDbContext(options);
+            await SeedData(context);
+            IContactService contactService = new ContactService(context);
+            
+            int expectedResult = context.Contacts.Count(x => x.IsArchived);
+            int actualResult = contactService.GetAllArchivedContacts().Count();
 
             Assert.Equal(expectedResult, actualResult);
         }

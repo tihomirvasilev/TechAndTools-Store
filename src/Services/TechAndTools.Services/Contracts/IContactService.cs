@@ -10,8 +10,10 @@ namespace TechAndTools.Services.Contracts
 
         Task<bool> DeleteAsync(int contactId);
 
-        Task<bool> MarkAsRead(int contactId);
+        bool Archive(int contactId);
 
         IQueryable<ContactServiceModel> GetAllContacts();
+
+        IQueryable<ContactServiceModel> GetAllArchivedContacts();
     }
 }

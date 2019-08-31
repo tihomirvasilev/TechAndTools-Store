@@ -44,27 +44,31 @@ namespace TechAndTools.Services
             return result > 0;
         }
 
-        public async Task<bool> MarkAsRead(int contactId)
+        public bool Archive(int contactId)
         {
-            Contact contact = this.context.Contacts
-                .Find(contactId);
+            Contact contact = this.context.Contacts.FirstOrDefault(x => x.Id == contactId);
 
             if (contact == null)
             {
                 throw new ArgumentNullException(nameof(contact));
             }
 
-            contact.MarkAsRead = true;
+            contact.IsArchived = true;
 
             this.context.Contacts.Update(contact);
-            int result = await this.context.SaveChangesAsync();
+            int result = this.context.SaveChanges();
 
             return result > 0;
         }
 
         public IQueryable<ContactServiceModel> GetAllContacts()
         {
-            return this.context.Contacts.To<ContactServiceModel>();
+            return this.context.Contacts.Where(x => x.IsArchived == false).To<ContactServiceModel>();
+        }
+
+        public IQueryable<ContactServiceModel> GetAllArchivedContacts()
+        {
+            return this.context.Contacts.Where(x => x.IsArchived == true).To<ContactServiceModel>();
         }
     }
 }

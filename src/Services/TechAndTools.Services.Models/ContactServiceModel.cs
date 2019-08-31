@@ -15,6 +15,6 @@ namespace TechAndTools.Services.Models
 
         public string Message { get; set; }
 
-        public bool MarkAsRead { get; set; }
+        public bool IsArchived { get; set; }
     }
 }
