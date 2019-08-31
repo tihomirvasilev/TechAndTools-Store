@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Castle.Core.Internal;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Castle.Core.Internal;
 using TechAndTools.Data;
 using TechAndTools.Data.Models;
 using TechAndTools.Services.Contracts;
@@ -19,12 +19,18 @@ namespace TechAndTools.Services
 
         public TechAndToolsUser GetUserByUsername(string username)
         {
-            return this.context.Users.FirstOrDefault(x => x.UserName == username);
+            var userFromDb =  this.context.Users
+                .FirstOrDefault(x => x.UserName == username);
+
+            return userFromDb;
         }
 
         public TechAndToolsUser GetUserById(string userId)
         {
-            return this.context.Users.Find(userId);
+            var userFromDb = this.context.Users
+                .Find(userId);
+
+            return userFromDb;
         }
 
         public async Task<bool> EditFirstName(TechAndToolsUser user, string firstName)

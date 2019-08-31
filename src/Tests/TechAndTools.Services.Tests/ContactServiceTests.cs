@@ -164,9 +164,7 @@ namespace TechAndTools.Services.Tests
             TechAndToolsDbContext context = new TechAndToolsDbContext(options);
             await SeedData(context);
             IContactService contactService = new ContactService(context);
-
-            const int contactId = 1;
-
+            
             int expectedResult = context.Contacts.Count();
             int actualResult = contactService.GetAllContacts().Count();
 

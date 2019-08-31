@@ -8,6 +8,7 @@
 
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="8.1.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
@@ -19,6 +20,8 @@
     <ProjectReference Include="..\..\Data\TechAndTools.Data.Models\TechAndTools.Data.Models.csproj" />
     <ProjectReference Include="..\..\Data\TechAndTools.Data\TechAndTools.Data.csproj" />
     <ProjectReference Include="..\..\Services\TechAndTools.Services.Mapping\TechAndTools.Services.Mapping.csproj" />
+    <ProjectReference Include="..\..\Services\TechAndTools.Services.Messaging\TechAndTools.Services.Messaging.csproj" />
+    <ProjectReference Include="..\..\Services\TechAndTools.Services.Upload\TechAndTools.Services.Upload.csproj" />
     <ProjectReference Include="..\..\Services\TechAndTools.Services\TechAndTools.Services.csproj" />
     <ProjectReference Include="..\TechAndTools.Web.InputModels\TechAndTools.Web.InputModels.csproj" />
     <ProjectReference Include="..\TechAndTools.Web.ViewModels\TechAndTools.Web.ViewModels.csproj" />

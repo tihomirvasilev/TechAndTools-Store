@@ -55,7 +55,8 @@ namespace TechAndTools.Services
 
         public async Task<ArticleServiceModel> EditArticleAsync(ArticleServiceModel articleServiceModel)
         {
-            Article articleFromDb = this.context.Articles.Find(articleServiceModel.Id);
+            Article articleFromDb = this.context.Articles
+                .Find(articleServiceModel.Id);
 
             if (articleFromDb == null)
             {
@@ -73,7 +74,8 @@ namespace TechAndTools.Services
 
         public async Task<bool> DeleteArticleByIdAsync(int articleId)
         {
-            Article articleFromDb = await this.context.Articles.SingleOrDefaultAsync(x => x.Id == articleId);
+            Article articleFromDb = await this.context.Articles
+                .SingleOrDefaultAsync(x => x.Id == articleId);
 
             if (articleFromDb == null)
             {

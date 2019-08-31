@@ -3,12 +3,13 @@ using CloudinaryDotNet.Actions;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using System.Threading.Tasks;
-using TechAndTools.Services.Contracts;
+using TechAndTools.Commons.Constants;
 
-namespace TechAndTools.Services
+namespace TechAndTools.Services.Upload
 {
     public class CloudinaryService : ICloudinaryService
-    {        private readonly Cloudinary cloudinaryUtility;
+    {
+        private readonly Cloudinary cloudinaryUtility;
 
         public CloudinaryService(Cloudinary cloudinaryUtility)
         {
@@ -19,7 +20,7 @@ namespace TechAndTools.Services
         {
             byte[] destinationData;
 
-            using(var ms = new MemoryStream())
+            using (var ms = new MemoryStream())
             {
                 await pictureFile.CopyToAsync(ms);
                 destinationData = ms.ToArray();
@@ -27,11 +28,11 @@ namespace TechAndTools.Services
 
             UploadResult uploadResult = null;
 
-            using(var ms = new MemoryStream(destinationData))
+            using (var ms = new MemoryStream(destinationData))
             {
                 ImageUploadParams uploadParams = new ImageUploadParams
                 {
-                    Folder = "product_images",
+                    Folder = GlobalConstants.StorageFolder,
                     File = new FileDescription(fileName, ms)
                 };
 

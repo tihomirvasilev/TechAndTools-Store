@@ -52,7 +52,7 @@ namespace TechAndTools.Services
 
             if (imageFromDb == null)
             {
-                throw new ArgumentNullException("Image is null!");
+                throw new ArgumentNullException(nameof(imageFromDb));
             }
 
             imageFromDb.ImageUrl = imageUrl;

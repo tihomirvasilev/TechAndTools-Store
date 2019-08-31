@@ -4,7 +4,7 @@ using SendGrid;
 using SendGrid.Helpers.Mail;
 using System.Threading.Tasks;
 
-namespace TechAndTools.Services.EmailSender
+namespace TechAndTools.Services.Messaging
 {
     public class EmailSender : IEmailSender
     {

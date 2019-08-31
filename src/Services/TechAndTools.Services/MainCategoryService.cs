@@ -44,8 +44,8 @@ namespace TechAndTools.Services
 
         public async Task<bool> DeleteAsync(int id)
         {
-            MainCategory mainCategory = await this.context.MainCategories
-                .SingleOrDefaultAsync(x => x.Id == id);
+            MainCategory mainCategory = this.context.MainCategories
+                .Find(id);
 
             if (mainCategory == null)
             {

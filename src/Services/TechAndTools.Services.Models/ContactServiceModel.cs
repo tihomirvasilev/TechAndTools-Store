@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using TechAndTools.Data.Models;
+﻿using TechAndTools.Data.Models;
 using TechAndTools.Services.Mapping;
 
 namespace TechAndTools.Services.Models

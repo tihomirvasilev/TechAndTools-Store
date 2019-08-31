@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using TechAndTools.Services.Contracts;
 using TechAndTools.Services.Mapping;
 using TechAndTools.Services.Models;
+using TechAndTools.Services.Upload;
 using TechAndTools.Web.InputModels.Articles;
 using TechAndTools.Web.ViewModels.Articles;
 
@@ -56,7 +57,7 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
             IEnumerable<AllArticleViewModel> articles = this.articleService.GetAllArticles()
                 .To<AllArticleViewModel>()
                 .ToList();
-            
+
             return this.View(articles);
         }
 
@@ -90,8 +91,7 @@ namespace TechAndTools.Web.Areas.Administration.Controllers
                 string imageUrl = await this.cloudinaryService
                     .UploadPictureAsync(inputModel.ImageFormFile, inputModel.Title);
 
-                ImageServiceModel imageFromDb =
-                    await this.imageService.EditWithArticleAsync(imageUrl, articleServiceModel.Id);
+                await this.imageService.EditWithArticleAsync(imageUrl, articleServiceModel.Id);
             }
 
             await this.articleService.EditArticleAsync(articleServiceModel);

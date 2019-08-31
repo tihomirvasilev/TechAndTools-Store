@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TechAndTools.Commons.Constants;
 using TechAndTools.Data;
 using TechAndTools.Data.Models;
 using TechAndTools.Services.Contracts;
@@ -13,23 +14,19 @@ namespace TechAndTools.Services
 {
     public class OrderService : IOrderService
     {
-
         private readonly IUserService userService;
         private readonly IShoppingCartService shoppingCartService;
         private readonly ISupplierService supplierService;
-        private readonly IPaymentMethodService paymentMethodService;
         private readonly TechAndToolsDbContext context;
 
         public OrderService(IUserService userService,
             IShoppingCartService shoppingCartService,
             ISupplierService supplierService,
-            IPaymentMethodService paymentMethodService,
             TechAndToolsDbContext context)
         {
             this.userService = userService;
             this.shoppingCartService = shoppingCartService;
             this.supplierService = supplierService;
-            this.paymentMethodService = paymentMethodService;
             this.context = context;
         }
 
@@ -41,7 +38,7 @@ namespace TechAndTools.Services
 
             if (shoppingCartProducts.Count == 0)
             {
-                throw new ArgumentNullException("The cart is empty.");
+                throw new ArgumentNullException(nameof(shoppingCartProducts));
             }
 
             var user = this.userService.GetUserByUsername(username);
@@ -61,14 +58,14 @@ namespace TechAndTools.Services
 
             this.shoppingCartService.RemoveAllProductFromShoppingCart(username);
 
-            OrderStatus orderStatus = this.context.OrderStatuses.FirstOrDefault(x => x.Name == "Необработена");
-            PaymentStatus paymentStatus = this.context.PaymentStatuses.FirstOrDefault(x => x.Name == "Неплатена");
+            OrderStatus orderStatus = this.context.OrderStatuses.FirstOrDefault(x => x.Name == GlobalConstants.Unprocessed);
+            PaymentStatus paymentStatus = this.context.PaymentStatuses.FirstOrDefault(x => x.Name == GlobalConstants.Unpaid);
 
             order.DeliveryPrice = deliveryPrice;
             order.OrderDate = DateTime.UtcNow;
             order.UserId = user.Id;
-            order.OrderStatus = orderStatus ?? throw new ArgumentNullException("OrderStatus is null.");
-            order.PaymentStatus = paymentStatus ?? throw new ArgumentNullException("PaymentStatus is null.");
+            order.OrderStatus = orderStatus ?? throw new ArgumentNullException(nameof(orderStatus));
+            order.PaymentStatus = paymentStatus ?? throw new ArgumentNullException(nameof(paymentStatus));
             order.TotalPrice = order.OrderProducts.Sum(product => product.Price * product.Quantity);
             order.ExpectedDeliveryDate = DateTime.UtcNow.AddDays(supplier.DeliveryTimeInDays);
 
@@ -80,36 +77,37 @@ namespace TechAndTools.Services
 
         public OrderServiceModel GetOrderById(int orderId)
         {
-            OrderServiceModel orderServiceModel = this.context.Orders
+            OrderServiceModel orderFromDb = this.context.Orders
                 .Include(x => x.OrderProducts)
                 .ThenInclude(x => x.Product.Images)
                 .To<OrderServiceModel>()
                 .SingleOrDefault(x => x.Id == orderId);
             
-            if (orderServiceModel == null)
+            if (orderFromDb == null)
             {
-                throw new ArgumentNullException("The Order not found!");
+                throw new ArgumentNullException(nameof(orderFromDb));
             }
 
-            return orderServiceModel;
+            return orderFromDb;
         }
 
         public async Task<bool> DeliverOrderAsync(int id)
         {
             OrderStatus statusProcess = this.context.OrderStatuses
-                .FirstOrDefault(x => x.Name == "Delivered");
+                .FirstOrDefault(x => x.Name == GlobalConstants.Delivered);
             
             if (statusProcess == null)
             {
-                throw new ArgumentNullException("OrderStatus is null!");
+                throw new ArgumentNullException(nameof(statusProcess));
             }
 
             Order order = this.context.Orders
-                .FirstOrDefault(x => x.Id == id && (x.OrderStatus.Name == "Необработена" || x.OrderStatus.Name == "Обработена"));
+                .FirstOrDefault(x => x.Id == id && (x.OrderStatus.Name == GlobalConstants.Unprocessed 
+                                                    || x.OrderStatus.Name == GlobalConstants.Processed));
 
             if (order == null)
             {
-                throw new ArgumentNullException("The Order is null!");
+                throw new ArgumentNullException(nameof(order));
             }
 
             order.OrderStatusId = statusProcess.Id;
@@ -137,39 +135,40 @@ namespace TechAndTools.Services
         public IQueryable<OrderServiceModel> GetUnprocessedOrders()
         {
             return this.context.Orders
-                .Where(x => x.OrderStatus.Name == "Unprocessed")
+                .Where(x => x.OrderStatus.Name == GlobalConstants.Unprocessed)
                 .To<OrderServiceModel>();
         }
         
         public IQueryable<OrderServiceModel> GetProcessedOrders()
         {
             return this.context.Orders
-                .Where(x => x.OrderStatus.Name == "Processed")
+                .Where(x => x.OrderStatus.Name == GlobalConstants.Processed)
                 .To<OrderServiceModel>();
         }
         public IQueryable<OrderServiceModel> GetDeliveredOrders()
         {
             return this.context.Orders
-                .Where(x => x.OrderStatus.Name == "Delivered")
+                .Where(x => x.OrderStatus.Name == GlobalConstants.Delivered)
                 .To<OrderServiceModel>();
         }
 
         public async Task<bool> ProcessOrderAsync(int id)
         {
             OrderStatus statusProcess = this.context.OrderStatuses
-                .FirstOrDefault(x => x.Name == "Processed");
+                .FirstOrDefault(x => x.Name == GlobalConstants.Processed);
             
             if (statusProcess == null)
             {
-                throw new ArgumentNullException("OrderStatus is null!");
+                throw new ArgumentNullException(nameof(statusProcess));
             }
 
             Order order = this.context.Orders.
-                FirstOrDefault(x => x.Id == id && (x.OrderStatus.Name == "Unprocessed" || x.OrderStatus.Name == "Delivered"));
+                FirstOrDefault(x => x.Id == id && (x.OrderStatus.Name == GlobalConstants.Unprocessed
+                                                   || x.OrderStatus.Name == GlobalConstants.Delivered));
             
             if (order == null)
             {
-                throw new ArgumentNullException("The Order is null!");
+                throw new ArgumentNullException(nameof(order));
             }
 
             order.OrderStatusId = statusProcess.Id;

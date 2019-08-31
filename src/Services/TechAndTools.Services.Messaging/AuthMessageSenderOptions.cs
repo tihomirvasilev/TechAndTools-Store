@@ -1,4 +1,4 @@
-﻿namespace TechAndTools.Services.EmailSender
+﻿namespace TechAndTools.Services.Messaging
 {
     public class AuthMessageSenderOptions
     {

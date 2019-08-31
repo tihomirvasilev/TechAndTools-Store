@@ -30,7 +30,8 @@ namespace TechAndTools.Services
 
         public async Task<bool> DeleteAsync(int contactId)
         {
-            Contact contact = this.context.Contacts.Find(contactId);
+            Contact contact = this.context.Contacts
+                .Find(contactId);
 
             if (contact == null)
             {
@@ -45,7 +46,8 @@ namespace TechAndTools.Services
 
         public async Task<bool> MarkAsRead(int contactId)
         {
-            Contact contact = this.context.Contacts.Find(contactId);
+            Contact contact = this.context.Contacts
+                .Find(contactId);
 
             if (contact == null)
             {

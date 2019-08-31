@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TechAndTools.Data;
@@ -8,7 +7,6 @@ using TechAndTools.Data.Models;
 using TechAndTools.Services.Contracts;
 using TechAndTools.Services.Mapping;
 using TechAndTools.Services.Models;
-using TechAndTools.Web.ViewModels.Favorites;
 
 namespace TechAndTools.Services
 {
@@ -33,7 +31,8 @@ namespace TechAndTools.Services
 
         public async Task<ProductServiceModel> EditAsync(ProductServiceModel productServiceModel)
         {
-            Product productFromDb = this.context.Products.Find(productServiceModel.Id);
+            Product productFromDb = this.context.Products
+                .Find(productServiceModel.Id);
 
             productFromDb.Name = productServiceModel.Name;
             productFromDb.ManualUrl = productServiceModel.ManualUrl;
@@ -52,11 +51,12 @@ namespace TechAndTools.Services
 
         public async Task<bool> DeleteAsync(int id)
         {
-            Product productFromDb = this.context.Products.Find(id);
+            Product productFromDb = this.context.Products
+                .Find(id);
 
             if (productFromDb == null)
             {
-                throw new ArgumentNullException("Entity not found");
+                throw new ArgumentNullException(nameof(productFromDb));
             }
 
             this.context.Products.Remove(productFromDb);

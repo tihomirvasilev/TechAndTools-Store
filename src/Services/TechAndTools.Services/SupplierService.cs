@@ -31,7 +31,8 @@ namespace TechAndTools.Services
 
         public async Task<SupplierServiceModel> EditAsync(SupplierServiceModel supplierServiceModel)
         {
-            Supplier supplierFromDb = this.context.Suppliers.Find(supplierServiceModel.Id);
+            Supplier supplierFromDb = this.context.Suppliers
+                .Find(supplierServiceModel.Id);
 
             if (supplierFromDb == null)
             {
@@ -51,7 +52,8 @@ namespace TechAndTools.Services
 
         public async Task<bool> DeleteAsync(int id)
         {
-            Supplier supplierFromDb = this.context.Suppliers.Find(id);
+            Supplier supplierFromDb = this.context.Suppliers
+                .Find(id);
 
             if (supplierFromDb == null)
             {
@@ -66,7 +68,8 @@ namespace TechAndTools.Services
 
         public SupplierServiceModel GetSupplierById(int id)
         {
-            Supplier supplierFromDb =  this.context.Suppliers.Find(id);
+            Supplier supplierFromDb =  this.context.Suppliers
+                .Find(id);
 
             if (supplierFromDb == null)
             {
@@ -83,7 +86,8 @@ namespace TechAndTools.Services
 
         public decimal GetDeliveryPrice(int supplierId, ShippingTo shippingTo)
         {
-            Supplier supplierFromDb = this.context.Suppliers.FirstOrDefault(x => x.Id == supplierId);
+            Supplier supplierFromDb = this.context.Suppliers
+                .Find(supplierId);
 
             if (supplierFromDb == null)
             {

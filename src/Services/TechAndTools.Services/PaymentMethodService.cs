@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using TechAndTools.Data;
 using TechAndTools.Data.Models;
 using TechAndTools.Services.Contracts;
@@ -26,14 +26,14 @@ namespace TechAndTools.Services
 
         public async Task<PaymentMethodServiceModel> GetPaymentMethodByName(string paymentMethodName)
         {
-            PaymentMethod method = await this.context.PaymentMethods.FirstOrDefaultAsync(x => x.Name == paymentMethodName);
+            PaymentMethod paymentMethod = await this.context.PaymentMethods.FirstOrDefaultAsync(x => x.Name == paymentMethodName);
 
-            if (method == null)
+            if (paymentMethod == null)
             {
-                throw new ArgumentNullException("PaymentMethod is null");
+                throw new ArgumentNullException(nameof(paymentMethod));
             }
 
-            return method.To<PaymentMethodServiceModel>();
+            return paymentMethod.To<PaymentMethodServiceModel>();
         }
     }
 }

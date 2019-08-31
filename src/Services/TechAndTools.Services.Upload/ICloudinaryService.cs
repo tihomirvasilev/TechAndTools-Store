@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 
-namespace TechAndTools.Services.Contracts
+namespace TechAndTools.Services.Upload
 {
     public interface ICloudinaryService
     {

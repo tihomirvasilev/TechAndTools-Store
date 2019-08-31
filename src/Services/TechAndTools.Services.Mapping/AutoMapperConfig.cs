@@ -9,8 +9,7 @@
     using AutoMapper.Configuration;
 
     public static class AutoMapperConfig
-    {
-        private static bool initialized;
+    {private static bool initialized;
 
         public static void RegisterMappings(params Assembly[] assemblies)
         {
