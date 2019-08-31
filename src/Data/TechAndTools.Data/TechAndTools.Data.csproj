@@ -25,6 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Commons\TechAndTools.Commons\TechAndTools.Commons.csproj" />
     <ProjectReference Include="..\TechAndTools.Data.Models\TechAndTools.Data.Models.csproj" />
   </ItemGroup>
 

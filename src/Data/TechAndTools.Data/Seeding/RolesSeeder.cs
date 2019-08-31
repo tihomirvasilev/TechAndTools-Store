@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using TechAndTools.Commons.Constants;
 
 namespace TechAndTools.Data.Seeding
 {
@@ -12,8 +13,8 @@ namespace TechAndTools.Data.Seeding
         {
             var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
-            await SeedRoleAsync(roleManager, "Admin");
-            await SeedRoleAsync(roleManager, "User");
+            await SeedRoleAsync(roleManager, GlobalConstants.AdminRole);
+            await SeedRoleAsync(roleManager, GlobalConstants.UserRole);
         }
 
         private static async Task SeedRoleAsync(RoleManager<IdentityRole> roleManager, string roleName)

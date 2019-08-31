@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading.Tasks;
+using TechAndTools.Commons.Constants;
 using TechAndTools.Data.Models;
 
 namespace TechAndTools.Data.Seeding
@@ -13,7 +14,7 @@ namespace TechAndTools.Data.Seeding
 
             if (!hasPaymentTypes)
             {
-                await SeedPaymentTypesAsync("Наложен платеж", dbContext);
+                await SeedPaymentTypesAsync(GlobalConstants.CashOnDeliver, dbContext);
 
                 await dbContext.SaveChangesAsync();
             }

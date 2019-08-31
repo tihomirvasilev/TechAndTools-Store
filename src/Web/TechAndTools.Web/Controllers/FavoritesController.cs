@@ -1,16 +1,15 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TechAndTools.Commons.Constants;
 using TechAndTools.Services.Contracts;
 using TechAndTools.Services.Mapping;
-using TechAndTools.Web.Commons;
 using TechAndTools.Web.ViewModels.Favorites;
 
 namespace TechAndTools.Web.Controllers
 {
-    [Authorize(Roles = GlobalConstants.UserRole +", " + GlobalConstants.AdminRole)]
+    [Authorize(Roles = TechAndTools.Commons.Constants.GlobalConstants.UserRole +", " + GlobalConstants.AdminRole)]
     public class FavoritesController : BaseController
     {
         private readonly IProductService productService;

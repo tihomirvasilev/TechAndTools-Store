@@ -1,11 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
-using TechAndTools.Services;
+using TechAndTools.Commons.Constants;
 using TechAndTools.Services.Contracts;
 using TechAndTools.Services.Mapping;
 using TechAndTools.Services.Models;
-using TechAndTools.Web.Commons;
 using TechAndTools.Web.ViewModels.ShoppingCart;
 
 namespace TechAndTools.Web.ViewComponents

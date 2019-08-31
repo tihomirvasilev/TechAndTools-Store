@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading.Tasks;
+using TechAndTools.Commons.Constants;
 using TechAndTools.Data.Models;
 
 namespace TechAndTools.Data.Seeding
@@ -13,8 +14,8 @@ namespace TechAndTools.Data.Seeding
 
             if (!hasPaymentStatuses)
             {
-                await SeedPaymentStatusAsync("Неплатена", dbContext);
-                await SeedPaymentStatusAsync("Платена", dbContext);
+                await SeedPaymentStatusAsync(GlobalConstants.Unpaid, dbContext);
+                await SeedPaymentStatusAsync(GlobalConstants.Paid, dbContext);
             }
         }
 

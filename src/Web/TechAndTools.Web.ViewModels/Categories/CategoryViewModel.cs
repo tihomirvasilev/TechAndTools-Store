@@ -8,5 +8,7 @@ namespace TechAndTools.Web.ViewModels.Categories
         public int Id { get; set; }
 
         public string Name { get; set; }
+
+        public string MainCategoryName { get; set; }
     }
 }

@@ -1,18 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text.Encodings.Web;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Text.Encodings.Web;
+using System.Threading.Tasks;
+using TechAndTools.Commons.Constants;
 using TechAndTools.Data.Models;
-using TechAndTools.Services;
 using TechAndTools.Services.Contracts;
-using TechAndTools.Web.Commons;
 using TechAndTools.Web.ViewModels.ShoppingCart;
 
 namespace TechAndTools.Web.Areas.Identity.Pages.Account
@@ -113,7 +112,7 @@ namespace TechAndTools.Web.Areas.Identity.Pages.Account
                         values: new { userId = user.Id, code = code },
                         protocol: Request.Scheme);
 
-                    await userManager.AddToRoleAsync(user, "User");
+                    await userManager.AddToRoleAsync(user, GlobalConstants.UserRole);
 
                     await emailSender.SendEmailAsync(Input.Email, "Confirm your email",
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
@@ -121,7 +120,7 @@ namespace TechAndTools.Web.Areas.Identity.Pages.Account
                     await signInManager.SignInAsync(user, isPersistent: false);
 
                     
-                    var cart = SessionHelper.GetObjectFromJson<List<ShoppingCartProductViewModel>>(HttpContext.Session, GlobalConstants.SessionShoppingCartKey);
+                    var cart = SessionHelper.GetObjectFromJson<List<ShoppingCartProductViewModel>>(HttpContext.Session, TechAndTools.Commons.Constants.GlobalConstants.SessionShoppingCartKey);
 
                     if (cart != null)
                     {

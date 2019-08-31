@@ -42,6 +42,5 @@ namespace TechAndTools.Data.Models
         public virtual TechAndToolsUser User { get; set; }
 
         public virtual ICollection<OrderProduct> OrderProducts { get; set; }
-
     }
 }

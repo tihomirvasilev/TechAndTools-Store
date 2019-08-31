@@ -5,11 +5,11 @@ using TechAndTools.Services.Mapping;
 using TechAndTools.Services.Models;
 using TechAndTools.Web.InputModels.Contacts;
 using Microsoft.AspNetCore.Authorization;
-using TechAndTools.Web.Commons;
+using TechAndTools.Commons.Constants;
 
 namespace TechAndTools.Web.Controllers
 {
-    [Authorize(Roles = GlobalConstants.UserRole)]
+    [Authorize(Roles = GlobalConstants.UserRole +", " + GlobalConstants.AdminRole)]
     public class ContactsController : BaseController
     {
         private readonly IContactService contactService;

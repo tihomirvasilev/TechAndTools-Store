@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using TechAndTools.Web.Commons;
+using TechAndTools.Commons.Constants;
 using TechAndTools.Web.Controllers;
 
 namespace TechAndTools.Web.Areas.Administration.Controllers
