@@ -1,4 +1,8 @@
-﻿@model IEnumerable<TechAndTools.Web.ViewModels.Products.ProductIndexViewModel>
+﻿@using X.PagedList;
+@using X.PagedList.Mvc.Common
+@using X.PagedList.Mvc.Core
+
+@model TechAndTools.Web.ViewModels.Home.HomeIndexViewModel
 
 @{
     ViewData["Title"] = "Home";
@@ -16,16 +20,6 @@
                 <div class="shop_sidebar">
 
                     @await Component.InvokeAsync("CategoriesFilter")
-                    
-                    <div class="sidebar_section filter_by_section">
-                        <div class="sidebar_title"> Филтрирай по</div>
-                        <div class="sidebar_subtitle"> Цена</div>
-                        <div class="filter_price">
-                            <div id="slider-range" class="slider_range"></div>
-                            <p>Range: </p>
-                            <p><input type="text" id="amount" class="amount" readonly style="border: 0; font-weight: bold;"></p>
-                        </div>
-                    </div>
 
                     @await Component.InvokeAsync("BrandsFilter")
 
@@ -53,7 +47,7 @@
 
                     <div class="product_grid">
                         <div class="product_grid_border"></div>
-                        @foreach (var product in Model)
+                        @foreach (var product in Model.ProductsViewModels)
                         {
                             <div class="product_item is_new">
                                 <div class="product_border"></div>
@@ -81,26 +75,28 @@
                         }
 
                     </div>
-                    <div class="shop_page_nav d-flex flex-row">
-                        <div class="page_prev d-flex flex-column align-items-center justify-content-center"><i class="fas fa-chevron-left"></i></div>
-                        <ul class="page_nav d-flex flex-row">
-                            <li><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">...</a></li>
-                            <li><a href="#">21</a></li>
-                        </ul>
-                        <div class="page_next d-flex flex-column align-items-center justify-content-center"><i class="fas fa-chevron-right"></i></div>
+                    <div class="mt-3 d-flex justify-content-around">
+                        @Html.PagedListPager((IPagedList)Model.ProductsViewModels, page => Url.Action("Index",
+                            new
+                                 {
+                                PageNumber = page,
+                                PageSize = Model.PageSize,
+                                     CategoryId = Model.CategoryId,
+                                 }),
+                            new PagedListRenderOptions
+                            {
+                                MaximumPageNumbersToDisplay = 5,
+                                LiElementClasses = new string[] { "page-item" },
+                                PageClasses = new string[] { "page-link" }
+                            })
                     </div>
 
                 </div>
-
             </div>
         </div>
     </div>
-</div>
 
-@section Scripts
+    @section Scripts
 {
-    <script src="~/js/shop_custom.js"></script>
-}
+        <script src="~/js/shop_custom.js"></script>
+    }

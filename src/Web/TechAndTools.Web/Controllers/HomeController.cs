@@ -3,50 +3,59 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 using TechAndTools.Services.Contracts;
 using TechAndTools.Services.Mapping;
-using TechAndTools.Web.InputModels.Contacts;
 using TechAndTools.Web.ViewModels;
+using TechAndTools.Web.ViewModels.Home;
 using TechAndTools.Web.ViewModels.Products;
+using X.PagedList;
 
 namespace TechAndTools.Web.Controllers
 {
     [AllowAnonymous]
     public class HomeController : BaseController
     {
+
+        private const int DefaultPageNumber = 1;
+        private const int DefaultPageSize = 15;
+
         private readonly IProductService productService;
-        private readonly ICategoryService categoryService;
 
         public HomeController(IProductService productService,
             ICategoryService categoryService)
         {
             this.productService = productService;
-            this.categoryService = categoryService;
         }
 
 
-        public IActionResult Index()
+        public IActionResult Index(HomeIndexViewModel model)
         {
-            IEnumerable<ProductIndexViewModel> productIndexViewModels = this.productService
-                .GetAllProducts()
-                .To<ProductIndexViewModel>()
-                .ToList();
+            IList<ProductIndexViewModel> productIndexViewModels = new List<ProductIndexViewModel>();
 
-            return View(productIndexViewModels);
-        }
+            if (model.CategoryId != null)
+            {
+                productIndexViewModels = this.productService
+                    .GetProductsByCategoryId((int)model.CategoryId)
+                    .To<ProductIndexViewModel>()
+                    .ToList();
+            }
+            else
+            {
+                productIndexViewModels = this.productService
+                    .GetAllProducts()
+                    .To<ProductIndexViewModel>()
+                    .ToList();
+            }
 
-        [Route("/Home/Index/{categoryId}")]
-        public IActionResult Index(int categoryId)
-        {
-            IList<ProductIndexViewModel> productIndexViewModels = this.productService
-                .GetProductsByCategoryId(categoryId)
-                .To<ProductIndexViewModel>()
-                .ToList();
+            int pageNumber = model.PageNumber ?? DefaultPageNumber;
+            int pageSize = model.PageSize ?? DefaultPageSize;
 
-            ViewData["category"] = this.categoryService.GetCategoryById(categoryId).Name;
+            var viewModel = new HomeIndexViewModel
+            {
+                ProductsViewModels = productIndexViewModels.ToPagedList(pageNumber, pageSize)
+            };
 
-            return View(productIndexViewModels);
+            return View(viewModel);
         }
 
         public IActionResult Privacy()

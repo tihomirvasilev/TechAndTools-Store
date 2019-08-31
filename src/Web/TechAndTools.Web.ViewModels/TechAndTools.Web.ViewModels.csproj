@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="X.PagedList" Version="7.6.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\Services\TechAndTools.Services.Mapping\TechAndTools.Services.Mapping.csproj" />
     <ProjectReference Include="..\..\Services\TechAndTools.Services.Models\TechAndTools.Services.Models.csproj" />
   </ItemGroup>
