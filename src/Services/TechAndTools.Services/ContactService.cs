@@ -34,7 +34,7 @@ namespace TechAndTools.Services
 
             if (contact == null)
             {
-                throw new ArgumentNullException("contactId is incorrect.");
+                throw new ArgumentNullException(nameof(contact));
             }
 
             this.context.Contacts.Remove(contact);
@@ -49,7 +49,7 @@ namespace TechAndTools.Services
 
             if (contact == null)
             {
-                throw new ArgumentNullException("contactId is incorrect.");
+                throw new ArgumentNullException(nameof(contact));
             }
 
             contact.MarkAsRead = true;
@@ -60,7 +60,7 @@ namespace TechAndTools.Services
             return result > 0;
         }
 
-        public IQueryable<ContactServiceModel> GetAll()
+        public IQueryable<ContactServiceModel> GetAllContacts()
         {
             return this.context.Contacts.To<ContactServiceModel>();
         }

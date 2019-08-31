@@ -12,6 +12,6 @@ namespace TechAndTools.Services.Contracts
 
         Task<bool> MarkAsRead(int contactId);
 
-        IQueryable<ContactServiceModel> GetAll();
+        IQueryable<ContactServiceModel> GetAllContacts();
     }
 }
