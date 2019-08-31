@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
 using TechAndTools.Data;
 using TechAndTools.Data.Models;
 using TechAndTools.Services.Contracts;
@@ -22,35 +24,45 @@ namespace TechAndTools.Services
             this.userService = userService;
         }
 
-        public void AddToShoppingCart(int productId, string username, int quantity)
+        public async Task<ShoppingCartProductServiceModel> AddToShoppingCartAsync(int productId, string username, int quantity)
         {
             var product = this.productService.GetProductById(productId);
             var user = this.userService.GetUserByUsername(username);
 
-            if (product == null || user == null)
+            if (product == null)
             {
-                return;
+                throw new ArgumentNullException(nameof(product));
+            }
+
+            if (user == null)
+            {
+                throw new ArgumentNullException(nameof(user));
             }
 
             var shoppingCartProduct = this.GetShoppingCartProduct(productId, user.ShoppingCartId);
-         
+
             if (shoppingCartProduct != null)
             {
-                return;
+                shoppingCartProduct.Quantity++;
+                this.context.ShoppingCartProducts.Update(shoppingCartProduct);
+            }
+            else
+            {
+                shoppingCartProduct = new ShoppingCartProduct
+                {
+                    ProductId = productId,
+                    Quantity = quantity,
+                    ShoppingCartId = user.ShoppingCartId
+                };
+                await this.context.ShoppingCartProducts.AddAsync(shoppingCartProduct);
             }
 
-            shoppingCartProduct = new ShoppingCartProduct
-            {
-                ProductId = productId,
-                Quantity = quantity,
-                ShoppingCartId = user.ShoppingCartId
-            };
 
-            this.context.ShoppingCartProducts.Add(shoppingCartProduct);
-            this.context.SaveChanges();
+            await this.context.SaveChangesAsync();
 
+            return shoppingCartProduct.To<ShoppingCartProductServiceModel>();
         }
-        
+
         private ShoppingCartProduct GetShoppingCartProduct(int productId, int shoppingCartId)
         {
             return this.context.ShoppingCartProducts.FirstOrDefault(x => x.ShoppingCartId == shoppingCartId && x.ProductId == productId);
@@ -60,23 +72,32 @@ namespace TechAndTools.Services
         {
             var user = this.userService.GetUserByUsername(username);
 
-            return this.context.ShoppingCartProducts.Where(x => x.ShoppingCartId == user.ShoppingCartId).To<ShoppingCartProductServiceModel>();
+            return this.context.ShoppingCartProducts
+                .Where(x => x.ShoppingCartId == user.ShoppingCartId)
+                .To<ShoppingCartProductServiceModel>();
         }
 
-        public void RemoveProductFromShoppingCart(int id, string username)
+        public async Task<bool> RemoveProductFromShoppingCart(int id, string username)
         {
             var product = this.productService.GetProductById(id);
             var user = this.userService.GetUserByUsername(username);
 
-            if (product == null || user == null)
+            if (product == null)
             {
-                return;
+                throw new ArgumentNullException(nameof(product));
+            }
+
+            if (user == null)
+            {
+                throw new ArgumentNullException(nameof(user));
             }
 
             var shoppingCart = GetShoppingCartProduct(product.Id, user.ShoppingCartId);
 
             this.context.ShoppingCartProducts.Remove(shoppingCart);
-            this.context.SaveChanges();
+            int result = await this.context.SaveChangesAsync();
+
+            return result > 0;
         }
 
         public bool AnyProducts(string username)
@@ -84,19 +105,21 @@ namespace TechAndTools.Services
             return this.context.ShoppingCartProducts.Any(x => x.ShoppingCart.User.UserName == username);
         }
 
-        public bool RemoveAllProductFromShoppingCart(string username)
+        public async Task<bool> RemoveAllProductFromShoppingCart(string username)
         {
             var user = this.userService.GetUserByUsername(username);
 
             if (user == null)
             {
-                return false;
+                throw new ArgumentNullException(nameof(user));
             }
 
-            var shoppingCartProducts = this.context.ShoppingCartProducts.Where(x => x.ShoppingCartId == user.ShoppingCartId);
+            var shoppingCartProducts = this.context.ShoppingCartProducts
+                .Where(x => x.ShoppingCartId == user.ShoppingCartId);
 
             this.context.ShoppingCartProducts.RemoveRange(shoppingCartProducts);
-            int result = this.context.SaveChanges();
+
+            int result = await this.context.SaveChangesAsync();
 
             return result > 0;
         }

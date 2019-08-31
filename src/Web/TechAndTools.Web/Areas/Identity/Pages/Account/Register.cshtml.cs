@@ -127,7 +127,7 @@ namespace TechAndTools.Web.Areas.Identity.Pages.Account
                     {
                         foreach (var product in cart)
                         {
-                            shoppingCartService.AddToShoppingCart(product.Id, Input.Email, product.Quantity);
+                            await shoppingCartService.AddToShoppingCartAsync(product.Id, Input.Email, product.Quantity);
                         }
 
                         HttpContext.Session.Remove(GlobalConstants.SessionShoppingCartKey);

@@ -56,7 +56,7 @@ namespace TechAndTools.Web.Controllers
 
             if (this.User.Identity.IsAuthenticated)
             {
-                this.shoppingCartService.AddToShoppingCart(id, this.User.Identity.Name, quantity);
+                this.shoppingCartService.AddToShoppingCartAsync(id, this.User.Identity.Name, quantity).GetAwaiter();
             }
             else
             {

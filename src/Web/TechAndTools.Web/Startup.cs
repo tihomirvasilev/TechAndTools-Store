@@ -46,8 +46,11 @@ namespace TechAndTools.Web
             });
 
             services.AddDbContext<TechAndToolsDbContext>(options =>
+            {
                 options.UseSqlServer(
-                    this.configuration.GetConnectionString("DefaultConnection")));
+                    this.configuration.GetConnectionString("DefaultConnection"));
+                options.UseLazyLoadingProxies();
+            });
 
             services.AddIdentity<TechAndToolsUser, IdentityRole>(options =>
             {
