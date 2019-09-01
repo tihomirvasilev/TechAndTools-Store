@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using TechAndTools.Services.Mapping;
 using TechAndTools.Services.Models;
+using TechAndTools.Web.InputModels.Commons;
 
 namespace TechAndTools.Web.InputModels.Articles
 {
@@ -12,13 +13,13 @@ namespace TechAndTools.Web.InputModels.Articles
 
         public int Id { get; set; }
         
-        [Required]
+        [Required(ErrorMessage = InputModelsConstants.RequiredMessage)]
         [DataType(DataType.Text)]
         [StringLength(TitleMaxLength, MinimumLength = TitleMinLength)]
         [Display(Name = "Заглавие")]
         public string Title { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = InputModelsConstants.RequiredMessage)]
         [DataType(DataType.MultilineText)]
         [Display(Name = "Съдържание")]
         public string Content { get; set; }
