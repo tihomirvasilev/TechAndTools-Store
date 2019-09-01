@@ -7,17 +7,21 @@ namespace TechAndTools.Web.InputModels.Addresses
 {
     public class AddressCreateInputModel : IMapTo<AddressServiceModel>
     {
-        [Display(Name = "Град")]
+        private const string DisplayCity = "Град";
+        private const string DisplayCityAddress = "Адрес";
+        private const string DisplayPostCode = "Пощенски код";
+
+        [Display(Name = DisplayCity)]
         [Required(ErrorMessage = InputModelsConstants.RequiredMessage)]
         public string City { get; set; }
 
         
-        [Display(Name = "Адрес")]
+        [Display(Name = DisplayCityAddress)]
         [Required(ErrorMessage = InputModelsConstants.RequiredMessage)]
         public string CityAddress { get; set; }
 
         
-        [Display(Name = "Пощенски код")]
+        [Display(Name = DisplayPostCode)]
         [Required(ErrorMessage = InputModelsConstants.RequiredMessage)]
         public int PostCode { get; set; }
     }

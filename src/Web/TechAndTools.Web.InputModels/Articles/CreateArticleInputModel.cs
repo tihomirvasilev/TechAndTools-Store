@@ -11,19 +11,23 @@ namespace TechAndTools.Web.InputModels.Articles
         private const int TitleMaxLength = 255;
         private const int TitleMinLength = 3;
 
+        private const string DisplayName = "Заглавие";
+        private const string DisplayContent = "Съдържание";
+        private const string DisplayImageFormFile = "Снимка";
+        
+        [Display(Name = DisplayName)]
         [Required(ErrorMessage = InputModelsConstants.RequiredMessage)]
         [DataType(DataType.Text)]
-        [Display(Name = "Заглавие")]
         [StringLength(TitleMaxLength, MinimumLength = TitleMinLength)]
         public string Title { get; set; }
-
+        
+        [Display(Name = DisplayContent)]
         [Required(ErrorMessage = InputModelsConstants.RequiredMessage)]
         [DataType(DataType.MultilineText)]
-        [Display(Name = "Съдаржание")]
         public string Content { get; set; }
-
+        
+        [Display(Name = DisplayImageFormFile)]
         [Required(ErrorMessage = InputModelsConstants.RequiredMessage)]
-        [Display(Name = "Снимка")]
         public IFormFile ImageFormFile { get; set; }
     }
 }

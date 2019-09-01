@@ -7,26 +7,40 @@ namespace TechAndTools.Web.InputModels.Contacts
 {
     public class CreateContactInputModel : IMapTo<ContactServiceModel>
     {
-        [Display(Name = "Име")]
+        private const int NameMaxLength = 25;
+        private const int NameMinLength = 3;
+        
+        private const int EmailMaxLength = 25;
+        private const int EmailMinLength = 3;
+
+        private const int MessageMaxLength = 255;
+        private const int MessageMinLength = 3;
+
+        private const string DisplayName = "Име";
+        private const string DisplayEmail = "Email";
+        private const string DisplayPhone = "Телефон";
+        private const string DisplayMessage = "Съдържание";
+
+        [Display(Name = DisplayName)]
         [Required(ErrorMessage = InputModelsConstants.RequiredMessage)]
-        [StringLength(25, ErrorMessage = @"""{0}"" може да бъде между {2} и {1} символа.", MinimumLength = 3)]
+        [StringLength(NameMaxLength, ErrorMessage = InputModelsConstants.StringLengthMessage, MinimumLength = NameMinLength)]
         public string FullName { get; set; }
         
         
-        [Display(Name = "Email")]
+        [Display(Name = DisplayEmail)]
         [Required(ErrorMessage = InputModelsConstants.RequiredMessage)]
-        [StringLength(25, ErrorMessage = @"""{0}"" може да бъде между {2} и {1} символа.", MinimumLength = 3)]
+        [StringLength(EmailMaxLength, ErrorMessage = InputModelsConstants.StringLengthMessage, MinimumLength = EmailMinLength)]
         [EmailAddress]
         public string Email { get; set; }
         
-        [Display(Name = "Телефон")]
+        [Display(Name = DisplayPhone)]
         [Required(ErrorMessage = InputModelsConstants.RequiredMessage)]
         [Phone]
         public string Phone { get; set; }
         
-        [Display(Name = "Съдържание")]
+        [Display(Name = DisplayMessage)]
         [Required(ErrorMessage = InputModelsConstants.RequiredMessage)]
-        [StringLength(255, ErrorMessage = @"""{0}"" може да бъде между {2} и {1} символа.", MinimumLength = 3)]
+        [StringLength(MessageMaxLength, ErrorMessage = InputModelsConstants.StringLengthMessage, MinimumLength = MessageMinLength)]
         public string Message { get; set; }
     }
 }

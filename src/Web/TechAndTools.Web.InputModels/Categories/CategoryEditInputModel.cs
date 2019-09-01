@@ -7,14 +7,21 @@ namespace TechAndTools.Web.InputModels.Categories
 {
     public class CategoryEditInputModel : IMapFrom<CategoryServiceModel>, IMapTo<CategoryServiceModel>
     {
+        
+        private const int NameMaxLength = 25;
+        private const int NameMinLength = 3;
+
+        private const string DisplayName = "Име";
+        private const string DisplayMainCategory = "Главна категория";
+        
         public int Id { get; set; }
 
-        [Display(Name = "Име")]
+        [Display(Name = DisplayName)]
         [Required(ErrorMessage = InputModelsConstants.RequiredMessage)]
-        [StringLength(25, ErrorMessage = @"""{0}"" може да бъде между {2} и {1} символа.", MinimumLength = 3)]
+        [StringLength(NameMaxLength, ErrorMessage = InputModelsConstants.StringLengthMessage, MinimumLength = NameMinLength)]
         public string Name { get; set; }
         
-        [Display(Name = "Главна категория")]
+        [Display(Name = DisplayMainCategory)]
         [Required(ErrorMessage = InputModelsConstants.RequiredMessage)]
         public int MainCategoryId { get; set; }
     }

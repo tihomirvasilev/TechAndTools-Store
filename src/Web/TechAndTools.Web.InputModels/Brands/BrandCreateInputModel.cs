@@ -7,17 +7,32 @@ namespace TechAndTools.Web.InputModels.Brands
 {
     public class BrandCreateInputModel : IMapTo<BrandServiceModel>
     {
-        [Display(Name = "Име")]
+        private const int NameMaxLength = 25;
+        private const int NameMinLength = 3;
+        
+        private const int LogoUrlMaxLength = 25;
+        private const int LogoUrlMinLength = 3;
+
+        private const int OfficialSiteMaxLength = 25;
+        private const int OfficialSiteMinLength = 3;
+
+        private const string DisplayName = "Име";
+        private const string DisplayLogoUrl = "Лого";
+        private const string DisplayOfficialSite = "Официален сайт";
+
+        [Display(Name = DisplayName)]
         [Required(ErrorMessage = InputModelsConstants.RequiredMessage)]
-        [StringLength(25, ErrorMessage = @"""{0}"" може да бъде между {2} и {1} символа.", MinimumLength = 3)]
+        [StringLength(NameMaxLength, ErrorMessage = InputModelsConstants.StringLengthMessage, MinimumLength = NameMinLength)]
         public string Name { get; set; }
         
-        [Display(Name = "Лого")]
+        [Display(Name = DisplayLogoUrl)]
         [Required(ErrorMessage = InputModelsConstants.RequiredMessage)]
+        [StringLength(LogoUrlMaxLength, ErrorMessage = InputModelsConstants.StringLengthMessage, MinimumLength = LogoUrlMinLength)]
         public string LogoUrl { get; set; }
         
-        [Display(Name = "Официален сайт")]
+        [Display(Name = DisplayOfficialSite)]
         [Required(ErrorMessage = InputModelsConstants.RequiredMessage)]
+        [StringLength(OfficialSiteMaxLength, ErrorMessage = InputModelsConstants.StringLengthMessage, MinimumLength = OfficialSiteMinLength)]
         public string OfficialSite { get; set; }
     }
 }

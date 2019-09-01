@@ -14,34 +14,41 @@ namespace TechAndTools.Web.InputModels.Orders
 {
     public class CreateOrderInputModel : IMapTo<OrderServiceModel>, IHaveCustomMappings
     {
-        
-        [Display(Name = "Име")]
+        private const string DisplayFirstName = "Име";
+        private const string DisplayLastName = "Фамилия";
+        private const string DisplayPhoneNumber = "Телефонен номер";
+        private const string DisplaySupplier = "Куриер";
+        private const string DisplayAddress = "Адрес за доставка";
+        private const string DisplayPaymentMethod = "Метод на плащане";
+        private const string DisplayShippingTo = "Доставка до";
+
+        [Display(Name = DisplayFirstName)]
         [Required(ErrorMessage = InputModelsConstants.RequiredMessage)]
         public string FirstName { get; set; }
-        
-        [Display(Name = "Фамилия")]
+
+        [Display(Name = DisplayLastName)]
         [Required(ErrorMessage = InputModelsConstants.RequiredMessage)]
         public string LastName { get; set; }
-        
-        [Display(Name = "Телефонен номер")]
+
+        [Display(Name = DisplayPhoneNumber)]
         [Required(ErrorMessage = InputModelsConstants.RequiredMessage)]
         public string PhoneNumber { get; set; }
 
         public string Email { get; set; }
-        
-        [Display(Name = "Куриер")]
+
+        [Display(Name = DisplaySupplier)]
         [Required(ErrorMessage = InputModelsConstants.RequiredMessage)]
         public int SupplierId { get; set; }
-        
-        [Display(Name = "Адрес за доставка")]
+
+        [Display(Name = DisplayAddress)]
         [Required(ErrorMessage = InputModelsConstants.RequiredMessage)]
         public int AddressId { get; set; }
-        
-        [Display(Name = "Метод на плащане")]
+
+        [Display(Name = DisplayPaymentMethod)]
         [Required(ErrorMessage = InputModelsConstants.RequiredMessage)]
         public int PaymentMethodId { get; set; }
-        
-        [Display(Name = "Доставка до")]
+
+        [Display(Name = DisplayShippingTo)]
         [Required(ErrorMessage = InputModelsConstants.RequiredMessage)]
         public ShippingTo ShippingTo { get; set; }
 
