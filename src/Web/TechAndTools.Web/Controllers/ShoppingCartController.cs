@@ -10,7 +10,7 @@ using TechAndTools.Web.ViewModels.ShoppingCart;
 
 namespace TechAndTools.Web.Controllers
 {
-    [Authorize(Roles = GlobalConstants.UserRole +", " + GlobalConstants.AdminRole)]
+    [AllowAnonymous]
     public class ShoppingCartController : BaseController
     {
         private readonly IShoppingCartService shoppingCartService;
@@ -51,7 +51,7 @@ namespace TechAndTools.Web.Controllers
         {
             if (quantity <= 0)
             {
-                return this.RedirectToAction("Index", "Home");
+                return this.RedirectToAction(nameof(MyCart), "ShoppingCart");
             }
 
             if (this.User.Identity.IsAuthenticated)
@@ -80,7 +80,8 @@ namespace TechAndTools.Web.Controllers
                 }
             }
 
-            return this.RedirectToAction("Index", "Home");
+            ;
+            return this.RedirectToAction(nameof(MyCart));
         }
 
         public IActionResult Delete(int id)
@@ -89,7 +90,7 @@ namespace TechAndTools.Web.Controllers
             {
                 this.shoppingCartService.RemoveProductFromShoppingCart(id, this.User.Identity.Name);
 
-                return this.RedirectToAction(nameof(MyCart));
+                return this.RedirectToAction(nameof(MyCart), "ShoppingCart");
             }
 
             List<ShoppingCartProductViewModel> shoppingCartSession =
@@ -97,7 +98,7 @@ namespace TechAndTools.Web.Controllers
 
             if (shoppingCartSession == null)
             {
-                return this.RedirectToAction(nameof(MyCart));
+                return this.RedirectToAction(nameof(MyCart), "ShoppingCart");
             }
 
             if (shoppingCartSession.Any(x => x.Id == id))
@@ -108,7 +109,7 @@ namespace TechAndTools.Web.Controllers
                 SessionHelper.SetObjectAsJson(HttpContext.Session, GlobalConstants.SessionShoppingCartKey, shoppingCartSession);
             }
 
-            return this.RedirectToAction("Index", "Home");
+            return this.RedirectToAction(nameof(MyCart), "ShoppingCart");
         }
     }
 }
