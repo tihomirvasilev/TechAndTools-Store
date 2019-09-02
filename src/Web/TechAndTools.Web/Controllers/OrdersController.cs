@@ -18,7 +18,7 @@ using TechAndTools.Web.ViewModels.Suppliers;
 
 namespace TechAndTools.Web.Controllers
 {
-    [Authorize(Roles = GlobalConstants.UserRole +", " + GlobalConstants.AdminRole)]
+    [Authorize(Roles = GlobalConstants.UserRole + ", " + GlobalConstants.AdminRole)]
     public class OrdersController : BaseController
     {
         private readonly IShoppingCartService shoppingCartService;
@@ -96,28 +96,29 @@ namespace TechAndTools.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return RedirectToAction(nameof(Create));
+                return RedirectToAction(nameof(Create), createOrderInputModel);
             }
 
             decimal deliveryPrice = this.supplierService.GetDeliveryPrice(createOrderInputModel.SupplierId, createOrderInputModel.ShippingTo);
             var orderServiceModel = createOrderInputModel.To<OrderServiceModel>();
 
             var order = await this.orderService.CreateAsync(orderServiceModel, this.User.Identity.Name, deliveryPrice);
-            
-            return this.RedirectToAction(nameof(Complete), new {id = order.Id});
+
+            return this.RedirectToAction(nameof(Complete), new { id = order.Id });
         }
 
         public IActionResult Complete(int id)
         {
-            CompleteOrderViewModel viewModel = new CompleteOrderViewModel {OrderId = id};
+            CompleteOrderViewModel viewModel = new CompleteOrderViewModel { OrderId = id };
 
             return this.View(viewModel);
         }
 
         public IActionResult Details(int id)
         {
-            DetailsOrderViewModel viewModel = this.orderService.GetOrderById(id).To<DetailsOrderViewModel>();
-            
+            DetailsOrderViewModel viewModel = this.orderService.GetOrderById(id)
+                .To<DetailsOrderViewModel>();
+
             return this.View(viewModel);
         }
 

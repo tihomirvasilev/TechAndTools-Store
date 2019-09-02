@@ -50,7 +50,6 @@ namespace TechAndTools.Services
             {
                 shoppingCartProduct.Quantity++;
                 this.context.ShoppingCartProducts.Update(shoppingCartProduct);
-                this.context.SaveChanges();
             }
             else
             {
@@ -63,6 +62,8 @@ namespace TechAndTools.Services
 
                 await this.context.ShoppingCartProducts.AddAsync(shoppingCartProduct);
             }
+
+            await this.context.SaveChangesAsync();
 
             return shoppingCartProduct.To<ShoppingCartProductServiceModel>();
         }
@@ -99,7 +100,7 @@ namespace TechAndTools.Services
             var shoppingCartProduct = GetShoppingCartProduct(product.Id, user.ShoppingCartId);
 
             this.context.ShoppingCartProducts.Remove(shoppingCartProduct);
-            int result = this.context.SaveChanges();
+            int result = await this.context.SaveChangesAsync();
 
             return result > 0;
         }
@@ -123,7 +124,7 @@ namespace TechAndTools.Services
 
             this.context.ShoppingCartProducts.RemoveRange(shoppingCartProducts);
 
-            int result = this.context.SaveChanges();
+            int result = await this.context.SaveChangesAsync();
 
             return result > 0;
         }
