@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Text;
-
-namespace TechAndTools.Web.InputModels.Commons
+﻿namespace TechAndTools.Web.InputModels.Commons
 {
     public static class InputModelsConstants
     {
