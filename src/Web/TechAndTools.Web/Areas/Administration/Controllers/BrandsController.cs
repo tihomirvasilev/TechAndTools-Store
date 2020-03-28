@@ -7,6 +7,7 @@
     using ViewModels.Brands;
 
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
     
     using System.Threading.Tasks;
 
