@@ -1,10 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Threading.Tasks;
-using TechAndTools.Data.Models;
-
-namespace TechAndTools.Data.Seeding
+﻿namespace TechAndTools.Data.Seeding
 {
+    using Models;
+
+    using Microsoft.EntityFrameworkCore;
+
+    using System;
+    using System.Threading.Tasks;
+
     public class OrderStatusesSeeder : ISeeder
     {
         public async Task SeedAsync(TechAndToolsDbContext dbContext, IServiceProvider serviceProvider)

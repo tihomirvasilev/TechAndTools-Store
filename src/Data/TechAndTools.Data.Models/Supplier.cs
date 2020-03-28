@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace TechAndTools.Data.Models
+﻿namespace TechAndTools.Data.Models
 {
+    using System.Collections.Generic;
+
     public class Supplier
     {
         public int Id { get; set; }

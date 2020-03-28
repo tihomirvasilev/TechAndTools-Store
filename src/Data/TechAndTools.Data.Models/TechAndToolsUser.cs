@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Reflection.Metadata;
-
-namespace TechAndTools.Data.Models
+﻿namespace TechAndTools.Data.Models
 {
+    using Microsoft.AspNetCore.Identity;
+
+    using System;
+    using System.Collections.Generic;
+
     public class TechAndToolsUser : IdentityUser
     {
         public string FirstName { get; set; }

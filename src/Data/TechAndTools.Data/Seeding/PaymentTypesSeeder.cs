@@ -1,11 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Threading.Tasks;
-using TechAndTools.Commons.Constants;
-using TechAndTools.Data.Models;
-
-namespace TechAndTools.Data.Seeding
+﻿namespace TechAndTools.Data.Seeding
 {
+    using Commons.Constants;
+    using Models;
+
+    using Microsoft.EntityFrameworkCore;
+
+    using System;
+    using System.Threading.Tasks;
+
     public class PaymentTypesSeeder : ISeeder
     {
         public async Task SeedAsync(TechAndToolsDbContext dbContext, IServiceProvider serviceProvider)

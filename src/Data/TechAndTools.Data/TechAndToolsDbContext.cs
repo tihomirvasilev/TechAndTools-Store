@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
-using TechAndTools.Data.Models;
-
-namespace TechAndTools.Data
+﻿namespace TechAndTools.Data
 {
+    using Models;
+
+    using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore;
+
     public class TechAndToolsDbContext : IdentityDbContext<TechAndToolsUser>
     {
         public DbSet<Article> Articles { get; set; }

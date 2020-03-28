@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace TechAndTools.Data.Models
+﻿namespace TechAndTools.Data.Models
 {
+    using System;
+
     public class Article
     {
         public int Id { get; set; }

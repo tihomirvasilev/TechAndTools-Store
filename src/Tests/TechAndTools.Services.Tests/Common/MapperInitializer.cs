@@ -1,12 +1,12 @@
-﻿using System.Reflection;
-using TechAndTools.Data.Models;
-using TechAndTools.Services.Mapping;
-using TechAndTools.Services.Models;
-using TechAndTools.Web.InputModels.Brands;
-using TechAndTools.Web.ViewModels.Brands;
-
-namespace TechAndTools.Services.Tests.Common
+﻿namespace TechAndTools.Services.Tests.Common
 {
+    using Mapping;
+    using Models;
+    using System.Reflection;
+    using TechAndTools.Data.Models;
+    using Web.InputModels.Brands;
+    using Web.ViewModels.Brands;
+
     public static class MapperInitializer
     {
         public static void InitializeMapper()

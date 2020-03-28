@@ -1,11 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using TechAndTools.Services.Mapping;
 using TechAndTools.Services.Models;
 using TechAndTools.Web.InputModels.Commons;
 
 namespace TechAndTools.Web.InputModels.Articles
 {
+    using Microsoft.AspNetCore.Http;
+
     public class CreateArticleInputModel : IMapTo<ArticleServiceModel>
     {
         private const int TitleMaxLength = 255;

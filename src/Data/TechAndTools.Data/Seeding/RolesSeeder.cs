@@ -1,12 +1,14 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
-using TechAndTools.Commons.Constants;
-
-namespace TechAndTools.Data.Seeding
+﻿namespace TechAndTools.Data.Seeding
 {
+    using Commons.Constants;
+
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.Extensions.DependencyInjection;
+
+    using System;
+    using System.Linq;
+    using System.Threading.Tasks;
+
     public class RolesSeeder : ISeeder
     {
         public async Task SeedAsync(TechAndToolsDbContext dbContext, IServiceProvider serviceProvider)

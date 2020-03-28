@@ -1,31 +1,31 @@
-﻿using CloudinaryDotNet;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Reflection;
-using Microsoft.AspNetCore.Identity.UI;
-using TechAndTools.Data;
-using TechAndTools.Data.Models;
-using TechAndTools.Data.Seeding;
-using TechAndTools.Services;
-using TechAndTools.Services.Contracts;
-using TechAndTools.Services.Mapping;
-using TechAndTools.Services.Models;
-using TechAndTools.Services.Upload;
-using TechAndTools.Web.InputModels.Brands;
-using TechAndTools.Web.ViewModels;
-using TechAndTools.Web.ViewModels.Brands;
-using TechAndTools.Services.Messaging;
-
-namespace TechAndTools.Web
+﻿namespace TechAndTools.Web
 {
+    using CloudinaryDotNet;
+    using Data;
+    using Data.Models;
+    using Data.Seeding;
+    using InputModels.Brands;
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Identity.UI;
+    using Microsoft.AspNetCore.Identity.UI.Services;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Services;
+    using Services.Contracts;
+    using Services.Mapping;
+    using Services.Messaging;
+    using Services.Models;
+    using Services.Upload;
+    using System;
+    using System.Reflection;
+    using ViewModels;
+    using ViewModels.Brands;
+
     public class Startup
     {
         private readonly IConfiguration configuration;
@@ -67,9 +67,9 @@ namespace TechAndTools.Web
                 .AddEntityFrameworkStores<TechAndToolsDbContext>();
 
             Account cloudinaryCredentials = new Account(
-                this.configuration["Cloudinary:CloudName"],
-                this.configuration["Cloudinary:ApiKey"],
-                this.configuration["Cloudinary:ApiSecret"]);
+                this.configuration.GetSection("Cloudinary:CloudName").Value,
+                this.configuration.GetSection("Cloudinary:ApiKey").Value,
+                this.configuration.GetSection("Cloudinary:ApiSecret").Value);
 
             Cloudinary cloudinaryUtility = new Cloudinary(cloudinaryCredentials);
 
