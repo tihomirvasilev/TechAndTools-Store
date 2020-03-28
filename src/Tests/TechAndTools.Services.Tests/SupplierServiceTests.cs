@@ -1,18 +1,20 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using TechAndTools.Data;
-using TechAndTools.Data.Models;
-using TechAndTools.Data.Models.Enums;
-using TechAndTools.Services.Contracts;
-using TechAndTools.Services.Models;
-using TechAndTools.Services.Tests.Common;
-using Xunit;
-
-namespace TechAndTools.Services.Tests
+﻿namespace TechAndTools.Services.Tests
 {
+    using Common;
+    using Contracts;
+    using Data;
+    using Data.Models;
+    using Data.Models.Enums;
+    using Models;
+
+    using Microsoft.EntityFrameworkCore;
+    using Xunit;
+    
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+
     public class SupplierServiceTests
     {
         private List<Supplier> GetSuppliersData()

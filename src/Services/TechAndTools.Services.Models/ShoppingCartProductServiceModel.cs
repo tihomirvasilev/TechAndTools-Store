@@ -1,8 +1,8 @@
-﻿using TechAndTools.Data.Models;
-using TechAndTools.Services.Mapping;
-
-namespace TechAndTools.Services.Models
+﻿namespace TechAndTools.Services.Models
 {
+    using Data.Models;
+    using Mapping;
+
     public class ShoppingCartProductServiceModel : IMapFrom<ShoppingCartProduct>, IMapTo<ShoppingCartProduct>
     {
         public int ShoppingCartId { get; set; }

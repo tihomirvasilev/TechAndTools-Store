@@ -1,12 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Linq;
-using System.Threading.Tasks;
-using TechAndTools.Services.Contracts;
-using TechAndTools.Services.Mapping;
-using TechAndTools.Web.ViewModels.Contacts;
-
-namespace TechAndTools.Web.Areas.Administration.Controllers
+﻿namespace TechAndTools.Web.Areas.Administration.Controllers
 {
+    using Services.Contracts;
+    using Services.Mapping;
+    using ViewModels.Contacts;
+
+    using Microsoft.AspNetCore.Mvc;
+
+    using System.Linq;
+    using System.Threading.Tasks;
+
     public class ContactsController : AdministrationController
     {
         private readonly IContactService contactService;

@@ -1,10 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
-using TechAndTools.Services.Mapping;
-using TechAndTools.Services.Models;
-using TechAndTools.Web.InputModels.Commons;
-
-namespace TechAndTools.Web.InputModels.Brands
+﻿namespace TechAndTools.Web.InputModels.Brands
 {
+    using Commons;
+    using Services.Mapping;
+    using Services.Models;
+
+    using System.ComponentModel.DataAnnotations;
+
     public class BrandCreateInputModel : IMapTo<BrandServiceModel>
     {
         private const int NameMaxLength = 25;

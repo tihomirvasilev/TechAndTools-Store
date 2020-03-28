@@ -1,8 +1,8 @@
-﻿using TechAndTools.Services.Mapping;
-using TechAndTools.Services.Models;
-
-namespace TechAndTools.Web.ViewModels.Brands
+﻿namespace TechAndTools.Web.ViewModels.Brands
 {
+    using Services.Mapping;
+    using Services.Models;
+
     public class BrandDeleteViewModel : IMapFrom<BrandServiceModel>, IMapTo<BrandServiceModel>
     {
         public int Id { get; set; }

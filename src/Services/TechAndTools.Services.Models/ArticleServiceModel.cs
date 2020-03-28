@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using TechAndTools.Data.Models;
-using TechAndTools.Services.Mapping;
-
-namespace TechAndTools.Services.Models
+﻿namespace TechAndTools.Services.Models
 {
+    using Mapping;
+    using TechAndTools.Data.Models;
+    
+    using System;
+
     public class ArticleServiceModel : IMapFrom<Article>, IMapTo<Article>
     {
         

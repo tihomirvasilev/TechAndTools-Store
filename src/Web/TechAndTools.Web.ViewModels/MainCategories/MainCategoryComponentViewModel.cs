@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
-using TechAndTools.Services.Mapping;
-using TechAndTools.Services.Models;
-using TechAndTools.Web.ViewModels.Categories;
-
-namespace TechAndTools.Web.ViewModels.MainCategories
+﻿namespace TechAndTools.Web.ViewModels.MainCategories
 {
+    using Categories;
+    using Services.Mapping;
+    using Services.Models;
+
+    using System.Collections.Generic;
+
     public class MainCategoryComponentViewModel : IMapFrom<MainCategoryServiceModel>
     {
         public string Name { get; set; }

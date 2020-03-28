@@ -1,18 +1,20 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using TechAndTools.Services.Contracts;
-using TechAndTools.Services.Mapping;
-using TechAndTools.Services.Models;
-using TechAndTools.Services.Upload;
-using TechAndTools.Web.InputModels.Products;
-using TechAndTools.Web.ViewModels.Brands;
-using TechAndTools.Web.ViewModels.Categories;
-using TechAndTools.Web.ViewModels.Products;
-
-namespace TechAndTools.Web.Areas.Administration.Controllers
+﻿namespace TechAndTools.Web.Areas.Administration.Controllers
 {
+    using InputModels.Products;
+    using Services.Contracts;
+    using Services.Mapping;
+    using Services.Models;
+    using Services.Upload;
+    using ViewModels.Brands;
+    using ViewModels.Categories;
+    using ViewModels.Products;
+
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
+    
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+    
     public class ProductsController : AdministrationController
     {
         private readonly IProductService productService;

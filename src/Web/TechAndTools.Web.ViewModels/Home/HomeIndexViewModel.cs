@@ -1,8 +1,9 @@
-﻿using TechAndTools.Web.ViewModels.Products;
-using X.PagedList;
-
-namespace TechAndTools.Web.ViewModels.Home
+﻿namespace TechAndTools.Web.ViewModels.Home
 {
+    using Products;
+
+    using X.PagedList;
+
     public class HomeIndexViewModel
     {
         public IPagedList<ProductIndexViewModel> ProductsViewModels { get; set; }

@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
-using TechAndTools.Services.Mapping;
-using TechAndTools.Services.Models;
-
-namespace TechAndTools.Web.ViewModels.Products
+﻿namespace TechAndTools.Web.ViewModels.Products
 {
+    using Services.Mapping;
+    using Services.Models;
+
+    using System.Collections.Generic;
+
     public class ProductAllViewModel : IMapFrom<ProductServiceModel>
     {
         public int Id { get; set; }

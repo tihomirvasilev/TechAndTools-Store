@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using TechAndTools.Services.Mapping;
-using TechAndTools.Services.Models;
-
-namespace TechAndTools.Web.ViewModels.Suppliers
+﻿namespace TechAndTools.Web.ViewModels.Suppliers
 {
+    using Services.Mapping;
+    using Services.Models;
+
     public class SupplierViewModel : IMapFrom<SupplierServiceModel>
     {
         public int Id { get; set; }

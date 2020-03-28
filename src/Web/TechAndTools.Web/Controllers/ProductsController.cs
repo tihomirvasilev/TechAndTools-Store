@@ -1,11 +1,12 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using TechAndTools.Services.Contracts;
-using TechAndTools.Services.Mapping;
-using TechAndTools.Web.ViewModels.Products;
-
-namespace TechAndTools.Web.Controllers
+﻿namespace TechAndTools.Web.Controllers
 {
+    using Services.Contracts;
+    using Services.Mapping;
+    using ViewModels.Products;
+
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+
     public class ProductsController : BaseController
     {
         private readonly IProductService productService;

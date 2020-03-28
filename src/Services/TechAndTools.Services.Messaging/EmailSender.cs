@@ -1,11 +1,13 @@
-﻿using Microsoft.AspNetCore.Identity.UI.Services;
-using Microsoft.Extensions.Options;
-using SendGrid;
-using SendGrid.Helpers.Mail;
-using System.Threading.Tasks;
-
-namespace TechAndTools.Services.Messaging
+﻿namespace TechAndTools.Services.Messaging
 {
+    using Microsoft.AspNetCore.Identity.UI.Services;
+    using Microsoft.Extensions.Options;
+
+    using SendGrid;
+    using SendGrid.Helpers.Mail;
+
+    using System.Threading.Tasks;
+
     public class EmailSender : IEmailSender
     {
         public EmailSender(IOptions<AuthMessageSenderOptions> optionsAccessor)

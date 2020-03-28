@@ -1,13 +1,13 @@
-﻿using Castle.Core.Internal;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
-using TechAndTools.Data;
-using TechAndTools.Data.Models;
-using TechAndTools.Services.Contracts;
-
-namespace TechAndTools.Services
+﻿namespace TechAndTools.Services
 {
+    using Contracts;
+    using Data;
+    using Data.Models;
+
+    using System;
+    using System.Linq;
+    using System.Threading.Tasks;
+
     public class UserService : IUserService
     {
         private readonly TechAndToolsDbContext context;

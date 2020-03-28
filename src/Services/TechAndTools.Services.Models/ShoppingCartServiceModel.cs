@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using TechAndTools.Data.Models;
-using TechAndTools.Services.Mapping;
-
-namespace TechAndTools.Services.Models
+﻿namespace TechAndTools.Services.Models
 {
+    using Data.Models;
+    using Mapping;
+
+    using System.Collections.Generic;
+
     public class ShoppingCartServiceModel : IMapFrom<ShoppingCart>, IMapTo<ShoppingCart>
     {
         public int Id { get; set; }

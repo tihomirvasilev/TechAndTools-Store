@@ -1,11 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Linq;
-using TechAndTools.Services.Contracts;
-using TechAndTools.Services.Mapping;
-using TechAndTools.Web.ViewModels.Brands;
-
-namespace TechAndTools.Web.ViewComponents
+﻿namespace TechAndTools.Web.ViewComponents
 {
+    using Services.Contracts;
+    using Services.Mapping;
+    using ViewModels.Brands;
+
+    using Microsoft.AspNetCore.Mvc;
+
+    using System.Linq;
+
     public class BrandsFilterViewComponent : ViewComponent
     {
         private readonly IBrandService brandService;

@@ -1,9 +1,10 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using TechAndTools.Services.Models;
-
-namespace TechAndTools.Services.Contracts
+﻿namespace TechAndTools.Services.Contracts
 {
+    using Models;
+
+    using System.Linq;
+    using System.Threading.Tasks;
+
     public interface IShoppingCartService
     {
         Task<ShoppingCartProductServiceModel> AddToShoppingCartAsync(int productId, string username, int quantity);

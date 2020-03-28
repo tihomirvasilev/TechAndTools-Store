@@ -1,11 +1,12 @@
-﻿using AutoMapper;
-using System;
-using System.Linq;
-using TechAndTools.Services.Mapping;
-using TechAndTools.Services.Models;
-
-namespace TechAndTools.Web.ViewModels.Articles
+﻿namespace TechAndTools.Web.ViewModels.Articles
 {
+    using Services.Mapping;
+    using Services.Models;
+    
+    using AutoMapper;
+    
+    using System;
+
     public class AllArticleViewModel : IMapFrom<ArticleServiceModel>, IHaveCustomMappings
     {
         public int Id { get; set; }

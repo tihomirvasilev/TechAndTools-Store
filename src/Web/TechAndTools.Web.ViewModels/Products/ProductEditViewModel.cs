@@ -1,8 +1,8 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-
-namespace TechAndTools.Web.ViewModels.Products
+﻿namespace TechAndTools.Web.ViewModels.Products
 {
+    using System;
+    using System.ComponentModel.DataAnnotations;
+
     public class ProductEditViewModel
     {
         public int Id { get; set; }

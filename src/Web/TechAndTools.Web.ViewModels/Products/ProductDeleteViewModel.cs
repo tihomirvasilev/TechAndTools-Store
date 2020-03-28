@@ -1,8 +1,8 @@
-﻿using TechAndTools.Services.Mapping;
-using TechAndTools.Services.Models;
-
-namespace TechAndTools.Web.ViewModels.Products
+﻿namespace TechAndTools.Web.ViewModels.Products
 {
+    using Services.Mapping;
+    using Services.Models;
+
     public class ProductDeleteViewModel : IMapFrom<ProductServiceModel>
     {
         public int Id { get; set; }

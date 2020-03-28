@@ -1,14 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Linq;
-using TechAndTools.Commons.Constants;
-using TechAndTools.Services.Contracts;
-using TechAndTools.Services.Mapping;
-using TechAndTools.Services.Models;
-using TechAndTools.Web.ViewModels.ShoppingCart;
-
-namespace TechAndTools.Web.ViewComponents
+﻿namespace TechAndTools.Web.ViewComponents
 {
+    using Commons.Constants;
+    using Services.Contracts;
+    using Services.Mapping;
+    using Services.Models;
+    using ViewModels.ShoppingCart;
+    
+    using Microsoft.AspNetCore.Mvc;
+    
+    using System.Collections.Generic;
+    using System.Linq;
+
     public class ShoppingCartViewComponent : ViewComponent
     {
         private readonly IShoppingCartService shoppingCartService;

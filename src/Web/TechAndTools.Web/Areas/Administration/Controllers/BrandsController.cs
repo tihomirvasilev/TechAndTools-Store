@@ -1,14 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
-using TechAndTools.Services.Contracts;
-using TechAndTools.Services.Mapping;
-using TechAndTools.Services.Models;
-using TechAndTools.Web.InputModels.Brands;
-using TechAndTools.Web.ViewModels.Brands;
-
-namespace TechAndTools.Web.Areas.Administration.Controllers
+﻿namespace TechAndTools.Web.Areas.Administration.Controllers
 {
+    using InputModels.Brands;
+    using Services.Contracts;
+    using Services.Mapping;
+    using Services.Models;
+    using ViewModels.Brands;
+
+    using Microsoft.AspNetCore.Mvc;
+    
+    using System.Threading.Tasks;
+
     public class BrandsController : AdministrationController
     {
         private readonly IBrandService brandService;

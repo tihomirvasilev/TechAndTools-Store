@@ -1,10 +1,12 @@
-﻿using System.Linq;
-using AutoMapper;
-using TechAndTools.Services.Mapping;
-using TechAndTools.Services.Models;
-
-namespace TechAndTools.Web.ViewModels.Products
+﻿namespace TechAndTools.Web.ViewModels.Products
 {
+    using Services.Mapping;
+    using Services.Models;
+    
+    using AutoMapper;
+
+    using System.Linq;
+
     public class ProductIndexViewModel : IMapFrom<ProductServiceModel>, IHaveCustomMappings
     {
         public int Id { get; set; }

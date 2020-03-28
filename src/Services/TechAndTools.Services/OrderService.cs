@@ -1,17 +1,19 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using TechAndTools.Commons.Constants;
-using TechAndTools.Data;
-using TechAndTools.Data.Models;
-using TechAndTools.Services.Contracts;
-using TechAndTools.Services.Mapping;
-using TechAndTools.Services.Models;
-
-namespace TechAndTools.Services
+﻿namespace TechAndTools.Services
 {
+    using Commons.Constants;
+    using Contracts;
+    using Data;
+    using Data.Models;
+    using Mapping;
+    using Models;
+    
+    using Microsoft.EntityFrameworkCore;
+
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+
     public class OrderService : IOrderService
     {
         private readonly IUserService userService;

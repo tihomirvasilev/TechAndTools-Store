@@ -1,9 +1,10 @@
-﻿using AutoMapper;
-using TechAndTools.Services.Mapping;
-using TechAndTools.Services.Models;
-
-namespace TechAndTools.Web.ViewModels.Categories
+﻿namespace TechAndTools.Web.ViewModels.Categories
 {
+    using Services.Mapping;
+    using Services.Models;
+    
+    using AutoMapper;
+
     public class CategoryDeleteViewModel : IMapFrom<CategoryServiceModel>, IHaveCustomMappings
     {
         public int Id { get; set; }

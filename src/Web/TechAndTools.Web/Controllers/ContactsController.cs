@@ -1,14 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
-using TechAndTools.Services.Contracts;
-using TechAndTools.Services.Mapping;
-using TechAndTools.Services.Models;
-using TechAndTools.Web.InputModels.Contacts;
-using Microsoft.AspNetCore.Authorization;
-using TechAndTools.Commons.Constants;
-
-namespace TechAndTools.Web.Controllers
+﻿namespace TechAndTools.Web.Controllers
 {
+    using Commons.Constants;
+    using InputModels.Contacts;
+    using Services.Contracts;
+    using Services.Mapping;
+    using Services.Models;
+
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+    
+    using System.Threading.Tasks;
+
     [Authorize(Roles = GlobalConstants.UserRole +", " + GlobalConstants.AdminRole)]
     public class ContactsController : BaseController
     {

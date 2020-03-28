@@ -1,23 +1,25 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using TechAndTools.Commons.Constants;
-using TechAndTools.Data.Models;
-using TechAndTools.Services.Contracts;
-using TechAndTools.Services.Mapping;
-using TechAndTools.Services.Models;
-using TechAndTools.Web.InputModels.Orders;
-using TechAndTools.Web.ViewModels.Addresses;
-using TechAndTools.Web.ViewModels.Orders;
-using TechAndTools.Web.ViewModels.PaymentMethods;
-using TechAndTools.Web.ViewModels.ShoppingCart;
-using TechAndTools.Web.ViewModels.Suppliers;
-
-namespace TechAndTools.Web.Controllers
+﻿namespace TechAndTools.Web.Controllers
 {
+    using Commons.Constants;
+    using Data.Models;
+    using InputModels.Orders;
+    using Services.Contracts;
+    using Services.Mapping;
+    using Services.Models;
+    using ViewModels.Addresses;
+    using ViewModels.Orders;
+    using ViewModels.PaymentMethods;
+    using ViewModels.ShoppingCart;
+    using ViewModels.Suppliers;
+    
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+    
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Security.Claims;
+    using System.Threading.Tasks;
+
     [Authorize(Roles = GlobalConstants.UserRole + ", " + GlobalConstants.AdminRole)]
     public class OrdersController : BaseController
     {

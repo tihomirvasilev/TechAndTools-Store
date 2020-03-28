@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TechAndTools.Services.Mapping
+﻿namespace TechAndTools.Services.Mapping
 {
+    using System;
+
     public static class ObjectMappingExtensions
     {
         public static T To<T>(this object origin)

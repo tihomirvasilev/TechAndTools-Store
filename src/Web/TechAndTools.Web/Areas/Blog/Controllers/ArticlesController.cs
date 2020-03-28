@@ -1,16 +1,18 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using TechAndTools.Commons.Constants;
-using TechAndTools.Services.Contracts;
-using TechAndTools.Services.Mapping;
-using TechAndTools.Web.Controllers;
-using TechAndTools.Web.ViewModels.Articles;
-
-namespace TechAndTools.Web.Areas.Blog.Controllers
+﻿namespace TechAndTools.Web.Areas.Blog.Controllers
 {
+    using Commons.Constants;
+    using Services.Contracts;
+    using Services.Mapping;
+    using ViewModels.Articles;
+    using Web.Controllers;
+
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+    
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+
     [Area(GlobalConstants.BlogArea)]
     [AllowAnonymous]
     public class ArticlesController : BaseController

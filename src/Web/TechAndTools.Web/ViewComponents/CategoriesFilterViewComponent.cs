@@ -1,11 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Linq;
-using TechAndTools.Services.Contracts;
-using TechAndTools.Services.Mapping;
-using TechAndTools.Web.ViewModels.Categories;
-
-namespace TechAndTools.Web.ViewComponents
+﻿namespace TechAndTools.Web.ViewComponents
 {
+    using Services.Contracts;
+    using Services.Mapping;
+    using ViewModels.Categories;
+
+    using Microsoft.AspNetCore.Mvc;
+    
+    using System.Linq;
+
     public class CategoriesFilterViewComponent : ViewComponent
     {
         private readonly ICategoryService categoryService;

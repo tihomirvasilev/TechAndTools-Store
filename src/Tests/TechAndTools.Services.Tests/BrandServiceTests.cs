@@ -1,17 +1,19 @@
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using TechAndTools.Data;
-using TechAndTools.Data.Models;
-using TechAndTools.Services.Contracts;
-using TechAndTools.Services.Mapping;
-using TechAndTools.Services.Models;
-using TechAndTools.Services.Tests.Common;
-using Xunit;
-
 namespace TechAndTools.Services.Tests
 {
+    using Common;
+    using Contracts;
+    using Data;
+    using Data.Models;
+    using Mapping;
+    using Models;
+
+    using Xunit;
+    using Microsoft.EntityFrameworkCore;
+    
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+
     public class BrandServiceTests
     {
         private List<Brand> GetBrandsData()

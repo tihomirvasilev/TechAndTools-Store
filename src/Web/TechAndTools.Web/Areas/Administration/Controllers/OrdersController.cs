@@ -1,13 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using TechAndTools.Services.Contracts;
-using TechAndTools.Services.Mapping;
-using TechAndTools.Web.ViewModels.Orders;
-
-namespace TechAndTools.Web.Areas.Administration.Controllers
+﻿namespace TechAndTools.Web.Areas.Administration.Controllers
 {
+    using Services.Contracts;
+    using Services.Mapping;
+    using ViewModels.Orders;
+    
+    using Microsoft.AspNetCore.Mvc;
+
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+
     public class OrdersController : AdministrationController
     {
         private readonly IOrderService orderService;

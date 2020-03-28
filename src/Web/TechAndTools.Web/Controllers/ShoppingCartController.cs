@@ -1,16 +1,19 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using TechAndTools.Services.Contracts;
-using TechAndTools.Services.Mapping;
-using TechAndTools.Services.Models;
-using TechAndTools.Web.ViewModels.ShoppingCart;
-using X.PagedList;
-
-namespace TechAndTools.Web.Controllers
+﻿namespace TechAndTools.Web.Controllers
 {
+    using Services.Contracts;
+    using Services.Mapping;
+    using Services.Models;
+    using ViewModels.ShoppingCart;
+
+    using X.PagedList;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
+
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+
     [AllowAnonymous]
     public class ShoppingCartController : BaseController
     {

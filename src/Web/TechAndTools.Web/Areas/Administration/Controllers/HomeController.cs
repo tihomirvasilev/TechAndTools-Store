@@ -1,12 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Linq;
-using TechAndTools.Services.Contracts;
-using TechAndTools.Services.Mapping;
-using TechAndTools.Web.ViewModels.Administration;
-using TechAndTools.Web.ViewModels.Orders;
-
-namespace TechAndTools.Web.Areas.Administration.Controllers
+﻿namespace TechAndTools.Web.Areas.Administration.Controllers
 {
+    using Services.Contracts;
+    using Services.Mapping;
+    using ViewModels.Administration;
+    using ViewModels.Orders;
+
+    using Microsoft.AspNetCore.Mvc;
+    
+    using System.Linq;
+
     public class HomeController : AdministrationController
     {
         private readonly IOrderService orderService;

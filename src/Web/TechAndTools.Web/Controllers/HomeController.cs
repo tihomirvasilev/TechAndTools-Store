@@ -1,17 +1,19 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using TechAndTools.Services.Contracts;
-using TechAndTools.Services.Mapping;
-using TechAndTools.Web.ViewModels;
-using TechAndTools.Web.ViewModels.Home;
-using TechAndTools.Web.ViewModels.Products;
-using X.PagedList;
-
-namespace TechAndTools.Web.Controllers
+﻿namespace TechAndTools.Web.Controllers
 {
+    using Services.Mapping;
+    using Services.Contracts;
+    using ViewModels;
+    using ViewModels.Home;
+    using ViewModels.Products;
+
+    using X.PagedList;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.Linq;
+
     [AllowAnonymous]
     public class HomeController : BaseController
     {

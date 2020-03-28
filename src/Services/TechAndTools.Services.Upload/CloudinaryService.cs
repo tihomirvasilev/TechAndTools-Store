@@ -1,12 +1,14 @@
 ﻿using CloudinaryDotNet;
-using CloudinaryDotNet.Actions;
-using Microsoft.AspNetCore.Http;
-using System.IO;
-using System.Threading.Tasks;
-using TechAndTools.Commons.Constants;
-
 namespace TechAndTools.Services.Upload
 {
+    using Commons.Constants;
+
+    using CloudinaryDotNet.Actions;
+    using Microsoft.AspNetCore.Http;
+
+    using System.IO;
+    using System.Threading.Tasks;
+
     public class CloudinaryService : ICloudinaryService
     {
         private readonly Cloudinary cloudinaryUtility;

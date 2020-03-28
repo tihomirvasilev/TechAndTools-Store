@@ -1,17 +1,19 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using AutoMapper;
-using TechAndTools.Data.Models.Enums;
-using TechAndTools.Services.Mapping;
-using TechAndTools.Services.Models;
-using TechAndTools.Web.InputModels.Commons;
-using TechAndTools.Web.ViewModels.Addresses;
-using TechAndTools.Web.ViewModels.PaymentMethods;
-using TechAndTools.Web.ViewModels.ShoppingCart;
-using TechAndTools.Web.ViewModels.Suppliers;
-
-namespace TechAndTools.Web.InputModels.Orders
+﻿namespace TechAndTools.Web.InputModels.Orders
 {
+    using Commons;
+    using Data.Models.Enums;
+    using Services.Mapping;
+    using Services.Models;
+    using ViewModels.Addresses;
+    using ViewModels.PaymentMethods;
+    using ViewModels.ShoppingCart;
+    using ViewModels.Suppliers;
+
+    using AutoMapper;
+    
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+
     public class CreateOrderInputModel : IMapTo<OrderServiceModel>, IHaveCustomMappings
     {
         private const string DisplayFirstName = "Име";

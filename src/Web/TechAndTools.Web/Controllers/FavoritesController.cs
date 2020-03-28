@@ -1,14 +1,16 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using System.Linq;
-using System.Threading.Tasks;
-using TechAndTools.Commons.Constants;
-using TechAndTools.Services.Contracts;
-using TechAndTools.Services.Mapping;
-using TechAndTools.Web.ViewModels.Favorites;
-
-namespace TechAndTools.Web.Controllers
+﻿namespace TechAndTools.Web.Controllers
 {
+    using Commons.Constants;
+    using Services.Contracts;
+    using Services.Mapping;
+    using ViewModels.Favorites;
+
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+
+    using System.Linq;
+    using System.Threading.Tasks;
+
     [Authorize(Roles = TechAndTools.Commons.Constants.GlobalConstants.UserRole +", " + GlobalConstants.AdminRole)]
     public class FavoritesController : BaseController
     {

@@ -1,10 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
-using TechAndTools.Services.Mapping;
-using TechAndTools.Services.Models;
-using TechAndTools.Web.InputModels.Commons;
-
-namespace TechAndTools.Web.InputModels.Suppliers
+﻿namespace TechAndTools.Web.InputModels.Suppliers
 {
+    using Commons;
+    using Services.Mapping;
+    using Services.Models;
+
+    using System.ComponentModel.DataAnnotations;
+
     public class SupplierEditInputModel : IMapFrom<SupplierServiceModel>, IMapTo<SupplierServiceModel>
     {
         private const int NameMinLength = 3;

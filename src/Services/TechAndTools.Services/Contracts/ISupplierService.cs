@@ -1,10 +1,11 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using TechAndTools.Data.Models.Enums;
-using TechAndTools.Services.Models;
-
-namespace TechAndTools.Services.Contracts
+﻿namespace TechAndTools.Services.Contracts
 {
+    using Models;
+    using TechAndTools.Data.Models.Enums;
+
+    using System.Linq;
+    using System.Threading.Tasks;
+
     public interface ISupplierService
     {
         Task<SupplierServiceModel> CreateAsync(SupplierServiceModel supplierServiceModel);

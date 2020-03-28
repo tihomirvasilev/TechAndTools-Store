@@ -1,24 +1,25 @@
 ﻿namespace TechAndTools.Services.Mapping
 {
+    using AutoMapper;
+    using AutoMapper.Configuration;
+
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
 
-    using AutoMapper;
-    using AutoMapper.Configuration;
-
     public static class AutoMapperConfig
-    {private static bool initialized;
+    {
+        private static bool _initialized;
 
         public static void RegisterMappings(params Assembly[] assemblies)
         {
-            if (initialized)
+            if (_initialized)
             {
                 return;
             }
 
-            initialized = true;
+            _initialized = true;
 
             var types = assemblies.SelectMany(a => a.GetExportedTypes()).ToList();
 

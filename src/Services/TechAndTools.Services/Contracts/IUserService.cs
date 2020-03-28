@@ -1,8 +1,9 @@
-﻿using System.Threading.Tasks;
-using TechAndTools.Data.Models;
-
-namespace TechAndTools.Services.Contracts
+﻿namespace TechAndTools.Services.Contracts
 {
+    using TechAndTools.Data.Models;
+
+    using System.Threading.Tasks;
+
     public interface IUserService
     {
         TechAndToolsUser GetUserByUsername(string username);

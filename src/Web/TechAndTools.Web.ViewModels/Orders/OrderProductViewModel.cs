@@ -1,10 +1,12 @@
-﻿using System.Linq;
-using AutoMapper;
-using TechAndTools.Services.Mapping;
-using TechAndTools.Services.Models;
-
-namespace TechAndTools.Web.ViewModels.Orders
+﻿namespace TechAndTools.Web.ViewModels.Orders
 {
+    using Services.Mapping;
+    using Services.Models;
+    
+    using AutoMapper;
+
+    using System.Linq;
+
     public class OrderProductViewModel : IMapFrom<OrderProductServiceModel>, IHaveCustomMappings
     {
         public int Id { get; set; }

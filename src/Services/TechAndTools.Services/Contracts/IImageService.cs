@@ -1,8 +1,9 @@
-﻿using System.Threading.Tasks;
-using TechAndTools.Services.Models;
-
-namespace TechAndTools.Services.Contracts
+﻿namespace TechAndTools.Services.Contracts
 {
+    using Models;
+
+    using System.Threading.Tasks;
+
     public interface IImageService
     {
         Task<ImageServiceModel> CreateWithProductAsync(string imageUrl, int productId);

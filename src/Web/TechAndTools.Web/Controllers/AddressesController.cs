@@ -1,17 +1,19 @@
-﻿using System.Security.Claims;
-using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using TechAndTools.Services.Contracts;
-using TechAndTools.Services.Mapping;
-using TechAndTools.Services.Models;
-using TechAndTools.Web.InputModels.Addresses;
-using TechAndTools.Web.ViewModels.Addresses;
-using Microsoft.AspNetCore.Authorization;
-using TechAndTools.Commons.Constants;
-
-namespace TechAndTools.Web.Controllers
+﻿namespace TechAndTools.Web.Controllers
 {
+    using Commons.Constants;
+    using InputModels.Addresses;
+    using Services.Contracts;
+    using Services.Mapping;
+    using Services.Models;
+    using ViewModels.Addresses;
+    
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
+    
+    using System.Security.Claims;
+    using System.Threading.Tasks;
+
     [Authorize(Roles = GlobalConstants.UserRole +", " + GlobalConstants.AdminRole)]
     public class AddressesController : BaseController
     {

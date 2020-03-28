@@ -1,15 +1,16 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using TechAndTools.Data;
-using TechAndTools.Data.Models;
-using TechAndTools.Data.Models.Enums;
-using TechAndTools.Services.Contracts;
-using TechAndTools.Services.Mapping;
-using TechAndTools.Services.Models;
-
-namespace TechAndTools.Services
+﻿namespace TechAndTools.Services
 {
+    using Contracts;
+    using Data;
+    using Data.Models;
+    using Data.Models.Enums;
+    using Mapping;
+    using Models;
+
+    using System;
+    using System.Linq;
+    using System.Threading.Tasks;
+
     public class SupplierService : ISupplierService
     {
         private readonly TechAndToolsDbContext context;

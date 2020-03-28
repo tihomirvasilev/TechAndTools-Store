@@ -1,16 +1,18 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using TechAndTools.Services.Contracts;
-using TechAndTools.Services.Mapping;
-using TechAndTools.Services.Models;
-using TechAndTools.Web.InputModels.Categories;
-using TechAndTools.Web.ViewModels.Categories;
-using TechAndTools.Web.ViewModels.MainCategories;
-
-namespace TechAndTools.Web.Areas.Administration.Controllers
+﻿namespace TechAndTools.Web.Areas.Administration.Controllers
 {
+    using InputModels.Categories;
+    using Services.Contracts;
+    using Services.Mapping;
+    using Services.Models;
+    using ViewModels.Categories;
+    using ViewModels.MainCategories;
+
+    using Microsoft.AspNetCore.Mvc;
+
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+
     public class CategoriesController : AdministrationController
     {
         private readonly ICategoryService categoryService;

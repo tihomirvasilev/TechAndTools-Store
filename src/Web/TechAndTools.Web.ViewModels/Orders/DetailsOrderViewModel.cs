@@ -1,10 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using TechAndTools.Services.Mapping;
-using TechAndTools.Services.Models;
-
-namespace TechAndTools.Web.ViewModels.Orders
+﻿namespace TechAndTools.Web.ViewModels.Orders
 {
+    using Services.Mapping;
+    using Services.Models;
+
+    using System;
+    using System.Collections.Generic;
+
     public class DetailsOrderViewModel : IMapFrom<OrderServiceModel>
     {
         public int Id { get; set; }

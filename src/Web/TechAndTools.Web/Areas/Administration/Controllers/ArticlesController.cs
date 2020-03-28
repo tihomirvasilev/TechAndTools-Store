@@ -1,17 +1,19 @@
-﻿using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using TechAndTools.Services.Contracts;
-using TechAndTools.Services.Mapping;
-using TechAndTools.Services.Models;
-using TechAndTools.Services.Upload;
-using TechAndTools.Web.InputModels.Articles;
-using TechAndTools.Web.ViewModels.Articles;
-
-namespace TechAndTools.Web.Areas.Administration.Controllers
+﻿namespace TechAndTools.Web.Areas.Administration.Controllers
 {
+    using InputModels.Articles;
+    using Services.Contracts;
+    using Services.Mapping;
+    using Services.Models;
+    using Services.Upload;
+    using ViewModels.Articles;
+
+    using Microsoft.AspNetCore.Mvc;
+
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Security.Claims;
+    using System.Threading.Tasks;
+
     public class ArticlesController : AdministrationController
     {
         private readonly IArticleService articleService;

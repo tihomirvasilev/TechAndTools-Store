@@ -1,14 +1,15 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using TechAndTools.Data;
-using TechAndTools.Data.Models;
-using TechAndTools.Services.Contracts;
-using TechAndTools.Services.Mapping;
-using TechAndTools.Services.Models;
-
-namespace TechAndTools.Services
+﻿namespace TechAndTools.Services
 {
+    using Contracts;
+    using Data;
+    using Mapping;
+    using Models;
+    using TechAndTools.Data.Models;
+
+    using System;
+    using System.Linq;
+    using System.Threading.Tasks;
+
     public class AddressService : IAddressService
     {
         private readonly TechAndToolsDbContext context;

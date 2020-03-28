@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
-using AutoMapper;
-using TechAndTools.Services.Mapping;
-using TechAndTools.Services.Models;
-using TechAndTools.Web.ViewModels.Images;
-
-namespace TechAndTools.Web.ViewModels.Products
+﻿namespace TechAndTools.Web.ViewModels.Products
 {
+    using Services.Mapping;
+    using Services.Models;
+
+    using AutoMapper;
+    
+    using System.Collections.Generic;
+
     public class ProductDetailsViewModel : IMapFrom<ProductServiceModel>, IHaveCustomMappings
     {
         public int Id { get; set; }

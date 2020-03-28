@@ -1,12 +1,13 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Http;
-using TechAndTools.Services.Mapping;
-using TechAndTools.Services.Models;
-using TechAndTools.Web.InputModels.Commons;
-
-namespace TechAndTools.Web.InputModels.Products
+﻿namespace TechAndTools.Web.InputModels.Products
 {
+    using Commons;
+    using Services.Mapping;
+    using Services.Models;
+
+    using Microsoft.AspNetCore.Http;
+    
+    using System.ComponentModel.DataAnnotations;
+
     public class ProductEditInputModel : IMapFrom<ProductServiceModel>, IMapTo<ProductServiceModel>
     {
         private const int NameMaxLength = 25;

@@ -1,8 +1,8 @@
-﻿using TechAndTools.Services.Mapping;
-using TechAndTools.Services.Models;
-
-namespace TechAndTools.Web.ViewModels.Categories
+﻿namespace TechAndTools.Web.ViewModels.Categories
 {
+    using Services.Mapping;
+    using Services.Models;
+
     public class CategoryListViewModel : IMapFrom<CategoryServiceModel>
     {
         public int Id { get; set; }

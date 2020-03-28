@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using AutoMapper;
-using TechAndTools.Data.Models;
-using TechAndTools.Services.Mapping;
-
-namespace TechAndTools.Services.Models
+﻿namespace TechAndTools.Services.Models
 {
+    using Data.Models;
+    using Mapping;
+
+    using System;
+    using System.Collections.Generic;
+
     public class ProductServiceModel : IMapFrom<Product>, IMapTo<Product>
     {
         public int Id { get; set; }

@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using TechAndTools.Data.Models;
-using TechAndTools.Services.Mapping;
-
-namespace TechAndTools.Services.Models
+﻿namespace TechAndTools.Services.Models
 {
+    using Data.Models;
+    using Mapping;
+
     public class OrderProductServiceModel : IMapFrom<OrderProduct>, IMapTo<OrderProduct>
     {
         public int Id { get; set; }

@@ -1,9 +1,9 @@
-﻿using TechAndTools.Data.Models;
-using TechAndTools.Services.Mapping;
-using TechAndTools.Services.Models;
-
-namespace TechAndTools.Web.ViewModels.Addresses
+﻿namespace TechAndTools.Web.ViewModels.Addresses
 {
+    using Data.Models;
+    using Services.Mapping;
+    using Services.Models;
+
     public class AddressViewModel : IMapFrom<AddressServiceModel>, IMapFrom<Address>
     {
         public int Id { get; set; }

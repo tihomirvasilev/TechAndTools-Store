@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json;
-
-namespace TechAndTools.Web
+﻿namespace TechAndTools.Web
 {
+    using Newtonsoft.Json;
+    using Microsoft.AspNetCore.Http;
+
     public static class SessionHelper
     {
         public static void SetObjectAsJson(this ISession session, string key, object value)

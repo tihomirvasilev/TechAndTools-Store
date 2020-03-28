@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
-using TechAndTools.Web.ViewModels.Orders;
-
-namespace TechAndTools.Web.ViewModels.Administration
+﻿namespace TechAndTools.Web.ViewModels.Administration
 {
+    using Orders;
+
+    using System.Collections.Generic;
+
     public class IndexViewModel
     {
         public IList<ProcessedОrderViewModel> ProcessedОrdersViewModels { get; set; } = new List<ProcessedОrderViewModel>();

@@ -1,15 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using TechAndTools.Data;
-using TechAndTools.Data.Models;
-using TechAndTools.Services.Contracts;
-using TechAndTools.Services.Tests.Common;
-using Xunit;
-
-namespace TechAndTools.Services.Tests
+﻿namespace TechAndTools.Services.Tests
 {
+    using Common;
+    using Contracts;
+    using Data;
+    using Data.Models;
+    
+    using Microsoft.EntityFrameworkCore;
+    using Xunit;
+
+    using System;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+
     public class PaymentMethodServiceTests
     {
         private List<PaymentMethod> GetPaymentMethodsData()

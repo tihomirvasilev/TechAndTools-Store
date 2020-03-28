@@ -1,11 +1,12 @@
-﻿using AutoMapper;
-using System.Linq;
-using TechAndTools.Data.Models;
-using TechAndTools.Services.Mapping;
-using TechAndTools.Services.Models;
-
-namespace TechAndTools.Web.ViewModels.ShoppingCart
+﻿namespace TechAndTools.Web.ViewModels.ShoppingCart
 {
+    using Services.Mapping;
+    using Services.Models;
+
+    using AutoMapper;
+
+    using System.Linq;
+
     public class ShoppingCartProductViewModel : IMapFrom<ShoppingCartProductServiceModel>, IMapFrom<ProductServiceModel>, IHaveCustomMappings
     {
         public int Id { get; set; }
